@@ -5,8 +5,8 @@
 // });
 
 const a = $("#toggle-btn");
-const sidebar = ("#sidebar");
+let sidebar = ("#sidebar");
 
 a.click(function(){
-    sidebar.classList.toggle("expand");
+   $("#sidebar").toggleClass("expand");
 });
