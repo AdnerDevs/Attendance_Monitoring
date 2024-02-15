@@ -1,5 +1,8 @@
 <?php
     require_once ('header.php');
+    require_once ('Model/ActivityModel.php');
+
+    $activity = new ActivityModel();
 ?>
 
             <div class="table-responsive">
@@ -17,13 +20,14 @@
                         </tr>
                     </thead>
                     <tbody>
-                    <?php
-                            for ($i = 0; $i <  5; $i++):
+                        <?php
+                            $acty = $activity->getAllActivity();
+                            foreach ($acty as $act):
                         ?>
                         <tr>
-                            <td>1</td>
-                            <td>Attendance</td>
-                            <td>11/11/11</td>
+                            <td><?= $act['activity_id']?></td>
+                            <td><?= $act['activity_type']?></td>
+                            <td><?= $act['activity_created_time']?></td>
                             <td>
                                 <button class="btn btn-primary me-2">btn1</button>
                                 <button class="btn btn-secondary">btn2</button>
@@ -31,7 +35,7 @@
                         </tr>
 
                         <?php
-                            endfor;
+                            endforeach;
                         ?>
                     </tbody>
                 </table>
