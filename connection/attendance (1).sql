@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 15, 2024 at 09:33 AM
+-- Generation Time: Feb 16, 2024 at 09:50 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -41,10 +41,12 @@ CREATE TABLE `activity` (
 --
 
 INSERT INTO `activity` (`activity_id`, `activity_type`, `activity_created_time`, `activity_edited_time`, `isDeleted`, `isArchive`) VALUES
-(1, 'Attendance', '0000-00-00 00:00:00', '2024-02-15 08:33:12', 0, 0),
-(2, 'Lunch', '0000-00-00 00:00:00', '2024-02-15 08:33:12', 0, 0),
-(3, 'meeting', '2024-02-15 01:27:14', '2024-02-15 08:33:12', 0, 0),
-(4, 'quick activity', '2024-02-15 01:28:04', '2024-02-15 08:33:12', 0, 0);
+(1, 'Attendance', '2024-02-14 16:00:00', '2024-02-15 18:52:02', 0, 0),
+(2, 'Lunch', '2024-02-14 16:00:00', '2024-02-15 18:52:02', 0, 0),
+(3, 'Meeting', '2024-02-15 01:27:14', '2024-02-15 18:52:02', 0, 0),
+(4, 'Quick Activity', '2024-02-15 01:28:04', '2024-02-15 18:52:02', 0, 0),
+(5, 'htttss', '2024-02-15 01:38:41', '2024-02-15 18:59:39', 0, 0),
+(6, 'sass', '2024-02-15 18:17:44', '2024-02-16 02:06:09', 0, 0);
 
 -- --------------------------------------------------------
 
@@ -54,12 +56,13 @@ INSERT INTO `activity` (`activity_id`, `activity_type`, `activity_created_time`,
 
 CREATE TABLE `employee_attendance` (
   `employee_attendance_id` int(11) NOT NULL,
+  `employee_id` varchar(20) NOT NULL,
   `employee_name` varchar(150) NOT NULL,
   `activity_type` int(11) NOT NULL,
   `activity_description` varchar(150) DEFAULT NULL,
   `start_time` timestamp NOT NULL DEFAULT current_timestamp(),
   `end_time` timestamp NOT NULL DEFAULT current_timestamp(),
-  `total_time` time NOT NULL,
+  `total_time` time DEFAULT NULL,
   `submitted_by` varchar(150) NOT NULL,
   `submitted_in` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -68,8 +71,27 @@ CREATE TABLE `employee_attendance` (
 -- Dumping data for table `employee_attendance`
 --
 
-INSERT INTO `employee_attendance` (`employee_attendance_id`, `employee_name`, `activity_type`, `activity_description`, `start_time`, `end_time`, `total_time`, `submitted_by`, `submitted_in`) VALUES
-(1, 'John', 1, 'attendance', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '00:00:04', 'Ce', '0000-00-00 00:00:00');
+INSERT INTO `employee_attendance` (`employee_attendance_id`, `employee_id`, `employee_name`, `activity_type`, `activity_description`, `start_time`, `end_time`, `total_time`, `submitted_by`, `submitted_in`) VALUES
+(1, '02002John', 'John', 6, 'attendance', '2024-02-14 16:00:00', '2024-02-15 16:00:00', '00:00:04', 'Ce', '0000-00-00 00:00:00');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `employee_user`
+--
+
+CREATE TABLE `employee_user` (
+  `employee_id` varchar(20) NOT NULL,
+  `employee_name` varchar(100) NOT NULL,
+  `status` tinyint(1) NOT NULL DEFAULT 0
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `employee_user`
+--
+
+INSERT INTO `employee_user` (`employee_id`, `employee_name`, `status`) VALUES
+('02-070031-CENA', 'JOHN CENA', 0);
 
 --
 -- Indexes for dumped tables
@@ -88,6 +110,12 @@ ALTER TABLE `employee_attendance`
   ADD PRIMARY KEY (`employee_attendance_id`);
 
 --
+-- Indexes for table `employee_user`
+--
+ALTER TABLE `employee_user`
+  ADD PRIMARY KEY (`employee_id`);
+
+--
 -- AUTO_INCREMENT for dumped tables
 --
 
@@ -95,7 +123,7 @@ ALTER TABLE `employee_attendance`
 -- AUTO_INCREMENT for table `activity`
 --
 ALTER TABLE `activity`
-  MODIFY `activity_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `activity_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `employee_attendance`
