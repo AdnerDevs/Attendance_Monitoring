@@ -107,7 +107,7 @@ a.sidebar-link:hover{
     left: 70px;
     background-color: #0e2238;
     padding: 0;
-    min-width: 15rem;
+    max-width: 15rem;
     display: none   ;
 }
 

@@ -19,9 +19,9 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
-    <nav class="navbar bg-body-tertiary">
+    <nav class="navbar bg-dark">
         <div class="container-fluid">
-            <a href="#" class="navbra-brand animate__animated animate__fadeInRight fs-2" style="">
+            <a href="#" class="navbra-brand animate__animated animate__fadeInRight fs-2" style="color: #00FF7F;">
                 FiveTwenty
             </a>
 
@@ -38,14 +38,14 @@
     </nav>
 
     <div class="container-fluid d-flex px-0">
-    <aside id="sidebar" class="bg-dark">
+    <aside id="sidebar" class="expand bg-dark">
         <div class="d-flex">
             <button id="toggle-btn" type="button">
                 <i class="fa fa-th-large" aria-hidden="true"></i>
              
             </button>
             <div class="sidebar-logo">
-                <a href="#">520</a>
+                <a href="#" >520</a>
             </div>
         </div>
         
@@ -66,6 +66,13 @@
                 </a>
                 <ul id="fileManager" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
                         <li class="sidebar-item">
+                            <a href="Employee.php" class="sidebar-link">
+                                <i class="fa fa-user" aria-hidden="true"></i>
+                                <span class="text-white">Employee</span>
+                            </a>
+                        </li>
+                
+                        <li class="sidebar-item">
                             <a href="EmployeeMonitoring.php" class="sidebar-link">
                                 <i class="fa fa-users" aria-hidden="true"></i>
                                 <span class="text-white">Employee Monitoring</span>
@@ -80,7 +87,13 @@
                         </li>
                     </ul>
             </li>
-
+            
+            <li class="sidebar-item">
+                <a href="Announcement.php" class="sidebar-link">
+                    <i class="fa fa-bullhorn" aria-hidden="true"></i>
+                    <span>Announcement</span>
+                </a>
+            </li>
          
 
         </ul>
