@@ -1,5 +1,5 @@
 <?php
-    require_once ('header.php');
+    require_once ('AdminHeader.php');
     require_once ('../Model/AttendanceModel.php');
 
     $attendance = new AttendanceModel();
@@ -71,5 +71,5 @@ th{
 
 
 <?php
-    require_once ('footer.php');
+    require_once ('AdminFooter.php');
 ?>

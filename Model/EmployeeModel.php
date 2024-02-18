@@ -1,5 +1,5 @@
 <?php
-session_start();
+
 
 class EmployeeModel extends Dbh{
 
@@ -65,7 +65,8 @@ class EmployeeModel extends Dbh{
                 return false;
                 exit();
             }
-
+            session_start();
+            
             $stmt2 = $this->connect()->prepare("UPDATE employee_user SET status = 1 WHERE employee_id = ?");
             $stmt2->execute([$employee_id]);
 

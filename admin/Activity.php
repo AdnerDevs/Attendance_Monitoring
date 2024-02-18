@@ -1,6 +1,6 @@
 <?php
 
-    require_once ('header.php');
+    require_once ('AdminHeader.php');
     require_once ('../Model/ActivityModel.php');
 
     $activity = new ActivityModel();
@@ -289,5 +289,5 @@
 
 </script>
 <?php
-    require_once ('footer.php');
+    require_once ('AdminFooter.php');
 ?>

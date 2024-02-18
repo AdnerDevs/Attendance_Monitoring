@@ -1,6 +1,6 @@
 <?php
 
-    require_once ('header.php');
+    require_once ('AdminHeader.php');
     require_once ('../Model/EmployeeModel.php');
 
     $users = new EmployeeModel();
@@ -117,5 +117,5 @@
 
 </script>
 <?php
-    require_once ('footer.php');
+    require_once ('AdminFooter.php');
 ?>
