@@ -1,6 +1,5 @@
 <?php
-    require_once ('connection/dbh.php');
-
+    session_start();
 ?>
 
 <!DOCTYPE html>
@@ -14,96 +13,56 @@
     rel="stylesheet"
     href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
   />
-    <link rel="stylesheet" href="asset/css/main.css">
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
     <title>Document</title>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
-    <nav class="navbar bg-dark">
-        <div class="container-fluid">
-            <a href="#" class="navbra-brand animate__animated animate__fadeInRight fs-2" style="color: #00FF7F;">
-                FiveTwenty
-            </a>
-
-            <ul class="navbar nav">
-                <li class="navbar-item">
-                    <a href="#" class="navbar-link">
-                        <i class="fa fa-bell-o" aria-hidden="true"></i>
-                        <span>Notification</span>
+    <header class="navbar navbar-expand-lg bd-navbar p-lg-3 sticky-top navbar-dark bg-dark">
+            <nav class="container bd-gutter flex-wrap flex-lg-nowrap" aria-label="Main Navigation">
+                    <a href="/attendance_monitoring" class="navbar-brand" style="color: #00FF7F;">
+                        FiveTwenty
                     </a>
-                </li>
-            </ul>
-            
-        </div>
-    </nav>
 
-    <div class="container-fluid d-flex px-0">
-    <aside id="sidebar" class="expand bg-dark">
-        <div class="d-flex">
-            <button id="toggle-btn" type="button">
-                <i class="fa fa-th-large" aria-hidden="true"></i>
-             
-            </button>
-            <div class="sidebar-logo">
-                <a href="#" >520</a>
-            </div>
-        </div>
-        
-        <ul class="sidebar-nav">
-            <li class="sidebar-item">
-                <a href="#" class="sidebar-link">
-                    <i class="fa fa-home" aria-hidden="true"></i>
-                    <span>Dashboard</span>
-                </a>
-            </li>
+                    <div class="bd-navbar-toggle">
+                        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                            <span class="navbar-toggler-icon"></span>
+                        </button>
+                    </div>
 
-            <li class="sidebar-item">
-                <a href="#" class="sidebar-link has-dropdown collapsed" data-bs-toggle="collapse" data-bs-target="#fileManager" aria-expanded="false" aria-controls="fileManager">
-                    <i class="fa fa-folder-open-o" aria-hidden="true"></i>
-                    <span>File Manager</span>
-                    
-                    
-                </a>
-                <ul id="fileManager" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
-                        <li class="sidebar-item">
-                            <a href="Employee.php" class="sidebar-link">
-                                <i class="fa fa-user" aria-hidden="true"></i>
-                                <span class="text-white">Employee</span>
-                            </a>
-                        </li>
-                
-                        <li class="sidebar-item">
-                            <a href="EmployeeMonitoring.php" class="sidebar-link">
-                                <i class="fa fa-users" aria-hidden="true"></i>
-                                <span class="text-white">Employee Monitoring</span>
-                            </a>
-                        </li>
+                    <div class="collapse navbar-collapse" tabindex="-1" id="navbarCollapse" data-bs-scroll="true">
 
-                        <li class="sidebar-item">
-                            <a href="Activity.php" class="sidebar-link">
-                                <i class="fa fa-tasks" aria-hidden="true"></i>
-                                <span class="text-white">Activity</span>
-                            </a>
-                        </li>
-                    </ul>
-            </li>
-            
-            <li class="sidebar-item">
-                <a href="Announcement.php" class="sidebar-link">
-                    <i class="fa fa-bullhorn" aria-hidden="true"></i>
-                    <span>Announcement</span>
-                </a>
-            </li>
-         
+                        <?php
+                            if(isset($_SESSION["employee_id"]) && $_SESSION["employee_id"]){
+                        ?>
+                            <ul class="navbar-nav  me-auto mb-2 mb-lg-0 ">
+                                <li class="nav-item">
+                                    <a href="#" class="nav-link active" aria-current="page">Home</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="#" class="nav-link" aria-current="page">Profile</a>
+                                </li>
+                              
+                                <li class="nav-item">
+                                    <button type="button" class="nav-link"><span class="d-mb-none me-2">Notification</span><i class="fa fa-bell" aria-hidden="true"></i></button>
+                                    </a>
+                                </li>
+                            </ul>
 
-        </ul>
+                            <ul class="navbar-nav  mb-2 mb-lg-0  align-self-end">
+                                <li class="nav-item">
+                                    <a href="Controller/logout.php" class="nav-link" aria-current="page">Logout</a>
+                                </li>
+                            </ul>
 
-        <div class="sidebar-footer">
-            <a href="" class="sidebar-link">
-                <i class="fa fa-sign-out" aria-hidden="true"></i>
-                <span>Logout</span>
-            </a>
-        </div>
-    </aside>
+                        <?php
+                            }
+                        ?>
+                          
 
-    <div class="main p-3 min-vh-100">
+
+                    </div>
+            </nav>
+        </header>
+
+        <main>

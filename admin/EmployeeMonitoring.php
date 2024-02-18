@@ -1,20 +1,25 @@
 <?php
     require_once ('header.php');
-    require_once ('Model/AttendanceModel.php');
+    require_once ('../Model/AttendanceModel.php');
 
     $attendance = new AttendanceModel();
 ?>
+<style>
+th{
+    min-width: 10rem;
+}
+</style>
 
             <div class="table-responsive">
                 <p class="h4 mb-4 mt-2">Attendance Monitoring</p>
-                <table class="table">
+                <table class="table  table-sm table-lg align-middle" >
                     <caption>
                         Description of the table.
                     </caption>
                     <thead>
                         <tr>
                             <th>No.</th>
-                            <th>Employee id</th>
+                            <th style="">Employee id</th>
                             <th>Employee</th>
                             <th>Activity</th>
                             <th>Description</th>

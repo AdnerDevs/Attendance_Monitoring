@@ -1,7 +1,7 @@
 <?php
 
     require_once ('header.php');
-    require_once ('Model/ActivityModel.php');
+    require_once ('../Model/ActivityModel.php');
 
     $activity = new ActivityModel();
 ?>
@@ -15,7 +15,7 @@
                     
          
                 
-                <table class="table">
+                <table class="table align-middle">
                     <caption>
                         Description of the table.
                     </caption>
@@ -184,7 +184,7 @@
     function addActivity(activityType){
         $.ajax({
             type: 'POST',
-            url: 'Controller/ActivityController.php',
+            url: '../Controller/ActivityController.php',
             data: {
                 act_type:activityType,
             },
@@ -205,7 +205,7 @@
     function editActivity(activityType, activityID){
         $.ajax({
             type: 'POST',
-            url: 'Controller/ActivityController.php',
+            url: '../Controller/ActivityController.php',
             data: {
                 edit_act_type:activityType,
                 edit_act_id: activityID,
@@ -227,7 +227,7 @@
     function deleteActivity(activityID){
         $.ajax({
             type: 'POST',
-            url: 'Controller/ActivityController.php',
+            url: '../Controller/ActivityController.php',
             data: {
                 delete_act_id: activityID,
             },
@@ -248,7 +248,7 @@
     function archiveActivity(activityID){
         $.ajax({
             type: 'POST',
-            url: 'Controller/ActivityController.php',
+            url: '../Controller/ActivityController.php',
             data: {
                 archive_act_id: activityID,
             },
@@ -269,7 +269,7 @@
     function unarchiveActivity(activityID){
         $.ajax({
             type: 'POST',
-            url: 'Controller/ActivityController.php',
+            url: '../Controller/ActivityController.php',
             data: {
                 unarchive_act_id: activityID,
             },

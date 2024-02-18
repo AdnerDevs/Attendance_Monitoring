@@ -1,7 +1,7 @@
 <?php
 
     require_once ('header.php');
-    require_once ('Model/EmployeeModel.php');
+    require_once ('../Model/EmployeeModel.php');
 
     $users = new EmployeeModel();
     $employee = $users->getAllEmployees();
