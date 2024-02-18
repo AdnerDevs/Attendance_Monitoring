@@ -44,7 +44,7 @@
                                 </li>
                               
                                 <li class="nav-item">
-                                    <button type="button" class="nav-link"><span class="d-md-none me-2">Notification</span><i class="fa fa-bell" aria-hidden="true"></i></button>
+                                    <button type="button" class="nav-link"><span class="d-lg-none me-2">Notification</span><i class="fa fa-bell" aria-hidden="true"></i></button>
                                     </a>
                                 </li>
                             </ul>

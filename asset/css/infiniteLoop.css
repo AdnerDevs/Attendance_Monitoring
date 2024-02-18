@@ -1,0 +1,75 @@
+.tag-list{
+    list-style: none;
+}
+.tag-list li{
+  padding: .5rem;
+}
+
+.scroller{
+    width: auto;
+}
+
+.scroller[data-animated="true"]{
+    overflow: hidden !important;
+    -webkit-mask:linear-gradient(
+        90deg,
+        transparent,
+        white 20%,
+        white 80%,
+        transparent
+    );
+
+    mask: linear-gradient(90deg, transparent, white 20%, white 80%, transparent);
+}
+
+
+
+.scroller[data-animated="true"] .scroller__inner{
+    width: max-content;
+    flex-wrap: nowrap !important;
+    animation: scroll  var(--_animation-duration, 40s)
+        var(--_animation-direction, forwards)
+        linear infinite;
+    cursor: pointer;
+}
+
+.scroller[data-animated="true"] .scroller__inner:hover {
+   animation-play-state: paused;
+
+}
+
+.scroller__inner .scroll-li:hover{
+    padding: 3px;
+}
+
+.scroller[data-direction="right"] {
+    --_animation-direction: reverse;
+}
+
+.scroller[data-direction="left"] {
+    --_animation-direction: forwards;
+}
+
+.scroller[data-speed="slow"] {
+    --_animation-duration: 40s;
+}
+
+.scroller[data-speed="fast"] {
+    --_animation-duration: 20s;
+}
+
+@keyframes scroll {
+    to {
+        transform: translate(calc(-50% - .25rem));
+    }
+
+}
+
+
+.test{
+    background: red;
+}
+
+.card-header{
+    box-shadow: -1px 2px 4px 1px rgba(0, 0, 0, 0.25) !important;
+}
