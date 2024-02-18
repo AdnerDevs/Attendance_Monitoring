@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 16, 2024 at 09:50 AM
--- Server version: 10.4.32-MariaDB
--- PHP Version: 8.2.12
+-- Generation Time: Feb 18, 2024 at 04:00 PM
+-- Server version: 10.4.28-MariaDB
+-- PHP Version: 8.2.4
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -46,7 +46,7 @@ INSERT INTO `activity` (`activity_id`, `activity_type`, `activity_created_time`,
 (3, 'Meeting', '2024-02-15 01:27:14', '2024-02-15 18:52:02', 0, 0),
 (4, 'Quick Activity', '2024-02-15 01:28:04', '2024-02-15 18:52:02', 0, 0),
 (5, 'htttss', '2024-02-15 01:38:41', '2024-02-15 18:59:39', 0, 0),
-(6, 'sass', '2024-02-15 18:17:44', '2024-02-16 02:06:09', 0, 0);
+(6, 'sasss', '2024-02-15 18:17:44', '2024-02-17 23:12:28', 0, 0);
 
 -- --------------------------------------------------------
 
@@ -72,7 +72,7 @@ CREATE TABLE `employee_attendance` (
 --
 
 INSERT INTO `employee_attendance` (`employee_attendance_id`, `employee_id`, `employee_name`, `activity_type`, `activity_description`, `start_time`, `end_time`, `total_time`, `submitted_by`, `submitted_in`) VALUES
-(1, '02002John', 'John', 6, 'attendance', '2024-02-14 16:00:00', '2024-02-15 16:00:00', '00:00:04', 'Ce', '0000-00-00 00:00:00');
+(1, '02002John', 'John', 6, 'attendance', '2024-02-14 16:00:00', '2024-02-15 16:00:00', '00:00:00', 'Ce', '0000-00-00 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -83,15 +83,19 @@ INSERT INTO `employee_attendance` (`employee_attendance_id`, `employee_id`, `emp
 CREATE TABLE `employee_user` (
   `employee_id` varchar(20) NOT NULL,
   `employee_name` varchar(100) NOT NULL,
-  `status` tinyint(1) NOT NULL DEFAULT 0
+  `status` tinyint(1) NOT NULL DEFAULT 0,
+  `isRemove` tinyint(1) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `employee_user`
 --
 
-INSERT INTO `employee_user` (`employee_id`, `employee_name`, `status`) VALUES
-('02-070031-CENA', 'JOHN CENA', 0);
+INSERT INTO `employee_user` (`employee_id`, `employee_name`, `status`, `isRemove`) VALUES
+('02-0454sen', 'adner devila', 0, 0),
+('02-070031-CENA', 'JOHN CENA', 1, 0),
+('02-5003dEV', '02-5003dEV', 0, 0),
+('20-3455les', 'lesly summer', 0, 0);
 
 --
 -- Indexes for dumped tables
