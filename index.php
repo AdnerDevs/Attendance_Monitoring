@@ -30,7 +30,7 @@
     <div class="row min-vh-100 ">
 
         <div class="col-lg-6 position-relative d-none d-lg-block" >
-           <div class="bg-holder" style="background-image: url('asset/img/logo.jpg')">
+           <div class="bg-holder" style="background-image: url('asset/img/herogram.jpg')">
                       
            </div>
         </div>
@@ -39,7 +39,7 @@
             <div class="row align-items-center justify-content-center h-100 g-0 px-4 px-sm-0">
                 <div class="col col-sm-6 col-lg-7 col-xl-6">
                     <a href="" class="d-flex justify-content-center mb-4">
-                        <img src="asset/img/logo.jpg" alt="" width="60" class="rounded-circle">
+                        <img src="asset/img/herogram.jpg" alt="" width="60" class="rounded-circle">
                         
                     </a>
 

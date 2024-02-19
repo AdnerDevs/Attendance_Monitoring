@@ -89,4 +89,21 @@ class EmployeeModel extends Dbh{
             $stmt2 = null;
         }
     }
+
+    public function logoutEmployee($employee_id){
+        try{
+            $stmt = $this->connect()->prepare('UPDATE employee_user SET status = 0 WHERE employee_id = ? ');
+
+            if(!$stmt->execute([ $employee_id ])){
+                return false;
+                exit();
+            }
+
+            return true;
+        }catch(PDOException $e){
+            print('erorr:' .$e->getMessage());
+        }finally{
+            $stmt = null;
+        }
+    }
 }

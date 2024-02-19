@@ -26,6 +26,7 @@ if($_SERVER['REQUEST_METHOD'] == "POST"){
         $act_type = htmlspecialchars($_POST["edit_act_type"], ENT_QUOTES, 'UTF-8');
         $activity_id = htmlspecialchars($_POST["edit_act_id"], ENT_QUOTES, 'UTF-8');
         $current_date = date("Y-m-d H:i:s");
+        
         $editActivityType = $activity_model->updateActivityType($act_type, $current_date, $activity_id);
 
         if($editActivityType !== false){

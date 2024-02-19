@@ -20,10 +20,24 @@
 <body>
     <header class="navbar navbar-expand-lg bd-navbar p-lg-3 sticky-top navbar-dark bg-dark">
             <nav class="container bd-gutter flex-wrap flex-lg-nowrap" aria-label="Main Navigation">
-                    <a href="/attendance_monitoring" class="navbar-brand" style="color: #00FF7F;">
-                        FiveTwenty
-                    </a>
 
+                    <?php
+                            if(isset($_SESSION["employee_id"]) && $_SESSION["employee_id"]){
+                                
+                    ?>
+                        <a href="dashboard.php" class="navbar-brand animate__animated animate__lightSpeedInRight " style="color: #00FF7F;">
+                            Herogram
+                        </a>
+
+                    <?php
+                            }else{                       
+                    ?>
+                        <a href="/attendance_monitoring" class="navbar-brand animate__animated animate__lightSpeedInRight" style="color: #00FF7F;">
+                            Herogram
+                        </a>
+                    <?php
+                        }
+                    ?>
                     <div class="bd-navbar-toggle">
                         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
                             <span class="navbar-toggler-icon"></span>
@@ -37,7 +51,7 @@
                         ?>
                             <ul class="navbar-nav  me-auto mb-2 mb-lg-0 ">
                                 <li class="nav-item">
-                                    <a href="#" class="nav-link active" aria-current="page">Home</a>
+                                    <a href="dashboard.php" class="nav-link active" aria-current="page">Home</a>
                                 </li>
                                 <li class="nav-item">
                                     <a href="#" class="nav-link" aria-current="page">Profile</a>
@@ -51,7 +65,8 @@
 
                             <ul class="navbar-nav  mb-2 mb-lg-0  align-self-end">
                                 <li class="nav-item">
-                                    <a href="Controller/logout.php" class="nav-link" aria-current="page">Logout</a>
+                                    <button type="button" class="btn btn-outline-success" id="logoutBtn" data-bs-toggle="modal" data-bs-target="#logoutModal">Logout</button>
+                                    <!-- <a href="Controller/logout.php" class="nav-link" aria-current="page"></a> -->
                                 </li>
                             </ul>
 
@@ -65,4 +80,55 @@
             </nav>
         </header>
 
+
+      <!-- Modal -->
+        <div class="modal fade" id="logoutModal" tabindex="-1" aria-labelledby="logoutModal" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="logoutModalLabel">Logout</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    Do you want to logout your account?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
+                    <button type="button" class="btn btn-primary" id="logoutModalBtn" data-bs-employee_id="<?= $_SESSION["employee_id"]?>" >Yes</button>
+                </div>
+                </div>
+            </div>
+        </div>  
         <main>
+
+        <script>
+            $(document).ready(function(){
+
+                let employee_id;
+
+                $("#logoutModalBtn").click(function(){
+                    employee_id = $(this).data('bs-employee_id');
+
+                    logout(employee_id);
+                });
+            });
+
+            function logout(employee_id){
+                $.ajax({
+                    type: 'POST',
+                    url: 'Controller/logout.php',
+                    data:{
+                        emp_id: employee_id,  
+                    },
+                    success: function(response){
+                        if(response == 'success'){
+                            alert('successfully logout');
+                            window.location.href = '../attendance_monitoring';
+                        }
+                    },
+                    error: function (error){
+                        console.log(error);
+                    }
+                });
+            }
+        </script>

@@ -1,15 +1,13 @@
 <?php
 
     require_once ('AdminHeader.php');
-    require_once ('../Model/EmployeeModel.php');
 
-    $users = new EmployeeModel();
-    $employee = $users->getAllEmployees();
+
 ?>
 
             <div class="table-responsive">
                 <div class="d-flex flex-row p-2 align-items-center">
-                    <p class="h4 mb-0 me-2">Employees</p>
+                    <p class="h4 mb-0 me-2">Department</p>
                 </div>
                     
          
@@ -21,38 +19,28 @@
                     <thead>
                         <tr>
                             <th>No</th>
-                            <th>Employee id</th>
-                            <th>Name</th>    
+                            <th>Department Name</th>
                             <th>Status</th>
                             <th>Action</th>
                         </tr>
                     </thead>
                     <tbody>
                         <?php
-                            $number=1;
-                            foreach ($employee as $employees):
-                                $status = "Offline";
-                                $statusClass = "";
-                                if( $employees['status'] == 1){
-                                    $status = 'Online';
-                                    $statusClass = 'text-primary';
-                                }
+                           
                         ?>
                         <tr>
-                            <td><?= $number ?></td>
-                            <td><?=$employees['employee_id'] ?></td>
-                            <td><?=$employees['employee_name']?></td>
-                            <td class="<?= $statusClass ?>"><?= $status ?></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
                             <td>
                                 <button type="button" class="btn btn-primary me-2 EditActivityBtn" id="" data-bs-type="" data-bs-id="" data-bs-toggle="modal" data-bs-target="#EditActivityModal">Edit</button>
                                 <button type="button" class="btn btn-danger me-2 DeleteActivityBtn" data-bs-id="">delete</button>
-                                <button type="button" class="btn btn-secondary"data-bs-id=""></button>
+                                <button type="button" class="btn btn-secondary" data-bs-id=""></button>
                                 
                             </td>
                         </tr>
                         <?php
-                            $number++;
-                            endforeach;
+                          
                         ?>
                    
                     </tbody>

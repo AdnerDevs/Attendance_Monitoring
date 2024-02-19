@@ -22,7 +22,7 @@
     <nav class="navbar bg-dark">
         <div class="container-fluid">
             <a href="#" class="navbra-brand animate__animated animate__fadeInRight fs-2" style="color: #00FF7F;">
-                FiveTwenty
+                <img src="../asset/img/Herogram.jpg" alt="" width="60" class="rounded-circle">
             </a>
 
             <ul class="navbar nav">
@@ -45,7 +45,7 @@
              
             </button>
             <div class="sidebar-logo">
-                <a href="#" >520</a>
+                <a href="#" >Herogram</a>
             </div>
         </div>
         
@@ -65,6 +65,15 @@
                     
                 </a>
                 <ul id="fileManager" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
+                        
+                        <li class="sidebar-item">
+                            <a href="AdminAccount.php" class="sidebar-link">
+                            <i class="fa fa-address-book" aria-hidden="true"></i>
+
+                                <span class="text-white">Admin</span>
+                            </a>
+                        </li>
+
                         <li class="sidebar-item">
                             <a href="Employee.php" class="sidebar-link">
                                 <i class="fa fa-user" aria-hidden="true"></i>
@@ -83,6 +92,21 @@
                             <a href="Activity.php" class="sidebar-link">
                                 <i class="fa fa-tasks" aria-hidden="true"></i>
                                 <span class="text-white">Activity</span>
+                            </a>
+                        </li>
+
+                        
+                        <li class="sidebar-item">
+                            <a href="Activity.php" class="sidebar-link">
+                                <i class="fa fa-bullseye" aria-hidden="true"></i>
+                                <span class="text-white">Department</span>
+                            </a>
+                        </li>
+
+                        <li class="sidebar-item">
+                            <a href="Userlevel.php" class="sidebar-link">
+                                <i class="fa fa-user-plus" aria-hidden="true"></i>
+                                <span class="text-white">Userlevel</span>
                             </a>
                         </li>
                     </ul>
