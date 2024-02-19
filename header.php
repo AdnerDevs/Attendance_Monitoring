@@ -13,9 +13,20 @@
     rel="stylesheet"
     href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
   />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Protest+Riot&family=Roboto+Slab:wght@100..900&display=swap" rel="stylesheet">
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
     <title>Document</title>
+    <style>
+        .navbar-brand{
+            font-family: "Roboto Slab", serif;
+            font-optical-sizing: auto;
+            font-weight: 400;
+            font-style: normal;
+        }
+    </style>
 </head>
 <body>
     <header class="navbar navbar-expand-lg bd-navbar p-lg-3 sticky-top navbar-dark bg-dark">
@@ -28,6 +39,11 @@
                         <a href="dashboard.php" class="navbar-brand animate__animated animate__lightSpeedInRight " style="color: #00FF7F;">
                             Herogram
                         </a>
+                        <div class="bd-navbar-toggle">
+                        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                            <span class="navbar-toggler-icon"></span>
+                        </button>
+                    </div>
 
                     <?php
                             }else{                       
@@ -38,12 +54,7 @@
                     <?php
                         }
                     ?>
-                    <div class="bd-navbar-toggle">
-                        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
-                            <span class="navbar-toggler-icon"></span>
-                        </button>
-                    </div>
-
+                  
                     <div class="collapse navbar-collapse" tabindex="-1" id="navbarCollapse" data-bs-scroll="true">
 
                         <?php

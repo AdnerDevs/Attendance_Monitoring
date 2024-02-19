@@ -15,16 +15,10 @@
         color: #999;
     }
 
-    @media (max-width: 576px) {
-        .d{
-            width: 100% !important;
-            height: inherit !important;
-            border-radius: 0 !important;
-        }
-    }
+
 </style>
-<div class="container-fluid min-vh-100 p-0 d-flex align-items-sm-center justify-content-sm-center">
-            <div class="d row align-items-center justify-content-center bg-dark g-0 px-4 px-sm-0 p-4  shadow rounded  w-sm-100" style="width: 500px;">
+<div class="container-fluid min-vh-100 p-0 d-flex justify-content-sm-center">
+            <div class="d row align-items-center justify-content-center bg-dark g-0 px-4 px-sm-0 p-4  shadow  w-sm-100" style="min-height: 600px;">
             <!-- <div class="alert alert-primary" role="alert">
               
             </div> -->
@@ -38,22 +32,35 @@
                         <p class="h3 fw-bold text-primary">Register</p>
                         <p class="text-secondary">Create your account</p>
                     </div>
-
-                    <div>
+                <div class="row mb-4">
+                    <div class="col-md-6">
                         <div class="input-group mb-3">
                             <span class="input-group-text">
                                 <i class="fa fa-id-badge" aria-hidden="true"></i>
                             </span>
                             <input type="text" name="" id="emp_id" class="regInputField form-control form-control-lg fs-6 " placeholder="Employee ID">
                         </div>
+                    </div>
 
+                    <div class="col-md-6">
+                        <div class="input-group mb-3">
+                            <span class="input-group-text">
+                                <i class="fa fa-id-badge" aria-hidden="true"></i>
+                            </span>
+                            <input type="text" name="" id="emp_nName" class="regInputField form-control form-control-lg fs-6 " placeholder="Nickname">
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
                         <div class="input-group mb-3">
                             <span class="input-group-text">
                                 <i class="fa fa-user" aria-hidden="true"></i>
                             </span>
                             <input type="text" name="" id="emp_name" class="regInputField form-control form-control-lg fs-6 " placeholder="Employee Name">
                         </div>
+                    </div>
 
+                    <div class="col-md-6">
                         <div class="input-group mb-3">
                             <span class="input-group-text">
                                 <i class="fa fa-user" aria-hidden="true"></i>
@@ -61,6 +68,31 @@
                             <input type="text" name="" id="emp_surname" class="regInputField form-control form-control-lg fs-6 " placeholder="Employee Surname">
                         </div>
                     </div>
+
+                    <div class="col-md-12">
+                        <p class=" text-white text-center mt-2 mb-4">Your Login Credentials:</p>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="input-group mb-3">
+                            <span class="input-group-text">
+                                <i class="fa fa-id-badge" aria-hidden="true"></i>
+                            </span>
+                            <input type="text" name="" id="emp_nName" class="regInputField form-control form-control-lg fs-6 " placeholder="Login Credentials" disabled>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="input-group mb-3">
+                            <span class="input-group-text">
+                                <i class="fa fa-id-badge" aria-hidden="true"></i>
+                            </span>
+                            <input type="text" name="" id="emp_nName" class="regInputField form-control form-control-lg fs-6 " placeholder="Login Credentials" disabled>
+                        </div>
+                    </div>
+                </div>
+
+
 
                     <button type="button" class="btn btn-outline-primary btn-lg w-100" id="registerBtn">
                         Register
