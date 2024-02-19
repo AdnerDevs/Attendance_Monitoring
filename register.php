@@ -103,7 +103,7 @@
                         <div class="divider-content-center">or</div>
                     </div>
                     <button type="button" class="btn btn-outline-secondary btn-lg w-100" >
-                        <a href="index.php"  style="text-decoration: none !important; color: inherit;">Login</a>
+                        <a href="/Attendance_Monitoring/"  style="text-decoration: none !important; color: inherit;">Login</a>
                     </button>
                 </div>
             </div>
