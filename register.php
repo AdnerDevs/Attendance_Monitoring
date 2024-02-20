@@ -30,7 +30,7 @@
               
             </div> -->
                 <div class="col col-sm-6 col-lg-7 col-xl-6">
-                    <a href="" class="d-flex justify-content-center mb-4">
+                    <a href="/attendance_monitoring" class="d-flex justify-content-center mb-4">
                         <img src="asset/img/herogram.jpg" alt="" width="60" class="rounded-circle">
                         
                     </a>
@@ -91,7 +91,7 @@
                     </div>
 
                     <div class="col-md-12">
-                        <p class=" text-white text-center mt-2 mb-4">Your Login Credentials:</p>
+                        <p class=" text-secondary text-center mt-2 mb-4">Your Login Credentials:</p>
                     </div>
 
                     <div class="credential col-md-6">
@@ -109,7 +109,7 @@
                         <label for="emp_generate_name" class="form-label text-white">Employee username credential:</label>
                         <div class="input-group mb-3">
                             <span class="input-group-text">
-                                <i class="fa fa-lock" aria-hidden="true"></i>
+                                    <i class="fa fa-shield" aria-hidden="true"></i>
                             </span>
                             <input type="text" name="" id="emp_generate_name" class="regInputField form-control form-control-lg fs-6 " placeholder="Login Credentials" disabled>
                         </div>
@@ -139,9 +139,26 @@
     $(document).ready(function(){
        
         let employee_id;
+        let nickname;
         let employee_name ;
         let employee_surname;
         let employee_complete_name ;
+        let id_credential;
+    
+
+        $("#emp_id, #emp_nName").on("keyup", function(){
+            employee_id = $("#emp_id").val();
+            nickname = $("#emp_nName").val();
+            id_credential = employee_id + nickname;
+            $("#emp_generate_id").val(id_credential);
+        });
+
+      
+        $("#emp_surname").on("keyup", function(){
+            var empSname = $(this).val();
+        
+            $("#emp_generate_name").val(empSname);
+        });
 
         $(".regInputField").on("input", function(){
             $(this).val($(this).val().toUpperCase());
