@@ -26,18 +26,64 @@
             font-weight: 400;
             font-style: normal;
         }
+        /* === removing default button style ===*/
+        .button {
+        margin: 0;
+        height: auto;
+        background: transparent;
+        padding: 0;
+        border: none;
+        cursor: pointer;
+        }
+
+        /* button styling */
+        .button {
+        --border-right: 6px;
+        --text-stroke-color: rgba(255,255,255,0.6);
+        --animation-color: #2545f5;
+        --fs-size: 2em;
+        letter-spacing: 3px;
+        text-decoration: none;
+        font-size: var(--fs-size);
+        font-family: "Roboto Slab", serif;
+        position: relative;
+        text-transform: uppercase;
+        color: transparent;
+        -webkit-text-stroke: 1px var(--text-stroke-color);
+        }
+        /* this is the text, when you hover on button */
+        .hover-text {
+        position: absolute;
+        box-sizing: border-box;
+        content: attr(data-text);
+        color: var(--animation-color);
+        width: 0%;
+        inset: 0;
+        border-right: var(--border-right) solid var(--animation-color);
+        overflow: hidden;
+        transition: 0.5s;
+        -webkit-text-stroke: 1px var(--animation-color);
+        }
+        /* hover */
+        .button:hover .hover-text {
+        width: 100%;
+        filter: drop-shadow(0 0 23px var(--animation-color))
+        }
     </style>
 </head>
 <body>
     <header class="navbar navbar-expand-lg bd-navbar p-lg-3 sticky-top navbar-dark bg-dark">
-            <nav class="container bd-gutter flex-wrap flex-lg-nowrap" aria-label="Main Navigation">
+            <nav class="container-fluid bd-gutter flex-wrap flex-lg-nowrap" aria-label="Main Navigation">
 
                     <?php
                             if(isset($_SESSION["employee_id"]) && $_SESSION["employee_id"]){
                                 
                     ?>
-                        <a href="dashboard.php" class="navbar-brand animate__animated animate__lightSpeedInRight " style="color: #00FF7F;">
-                            Herogram
+                        <a href="dashboard.php" class="navbar-brand animate__animated animate__lightSpeedInRight p-3 fs-5"><!--  style="color: #00FF7F;" -->
+                            <button class="button" data-text="Awesome">
+                                <span class="actual-text">&nbsp;Herogram&nbsp;</span>
+                                <span aria-hidden="true" class="hover-text">&nbsp;Herogram&nbsp;</span>
+                            </button>
                         </a>
                         <div class="bd-navbar-toggle">
                         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
@@ -48,9 +94,14 @@
                     <?php
                             }else{                       
                     ?>
-                        <a href="/attendance_monitoring" class="navbar-brand animate__animated animate__lightSpeedInRight" style="color: #00FF7F;">
-                            Herogram
+                        <a href="/attendance_monitoring" class="navbar-brand animate__animated animate__lightSpeedInRight p-3 fs-5">
+                            <button class="button" data-text="Awesome">
+                                <span class="actual-text">&nbsp;Herogram&nbsp;</span>
+                                <span aria-hidden="true" class="hover-text">&nbsp;Herogram&nbsp;</span>
+                            </button>
                         </a>
+
+                       
                     <?php
                         }
                     ?>

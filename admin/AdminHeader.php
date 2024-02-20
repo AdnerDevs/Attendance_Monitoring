@@ -22,7 +22,7 @@
     <nav class="navbar bg-dark">
         <div class="container-fluid">
             <a href="#" class="navbra-brand animate__animated animate__fadeInRight fs-2" style="color: #00FF7F;">
-                <img src="../asset/img/Herogram.jpg" alt="" width="60" class="rounded-circle">
+                <img src="../asset/img/Herogram.jpg" alt="" width="60" class="" style="border-radius: 50% 20% / 10% 40%;">
             </a>
 
             <ul class="navbar nav">
@@ -97,7 +97,7 @@
 
                         
                         <li class="sidebar-item">
-                            <a href="Activity.php" class="sidebar-link">
+                            <a href="Department.php" class="sidebar-link">
                                 <i class="fa fa-bullseye" aria-hidden="true"></i>
                                 <span class="text-white">Department</span>
                             </a>

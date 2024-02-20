@@ -10,7 +10,7 @@ th{
 }
 </style>
 
-            <div class="table-responsive">
+            <div class="table-responsive scroll">
                 <p class="h4 mb-4 mt-2">Attendance Monitoring</p>
                 <table class="table table-sm table-md table-lg align-middle" >
                     <caption>
@@ -19,7 +19,8 @@ th{
                     <thead>
                         <tr>
                             <th>No.</th>
-                            <th style="">Employee id</th>
+                            <th>Employee id</th>
+                            <th>Department</th>
                             <th>Employee</th>
                             <th>Activity</th>
                             <th>Description</th>
@@ -48,6 +49,7 @@ th{
                         <tr>
                             <td><?= $attendanceData['employee_attendance_id']?></td>
                             <td><?= $attendanceData['employee_id']?></td>
+                            <td><?= $attendanceData['department_name']?></td>
                             <td><?= $attendanceData['employee_name']?></td>
                             <td><?= $attendanceData['activity_type']?></td>
                             <td><?= $attendanceData['activity_description']?></td>

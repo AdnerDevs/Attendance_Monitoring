@@ -4,7 +4,6 @@
 
 
 ?>
-
             <div class="table-responsive">
                 <div class="d-flex flex-row p-2 align-items-center">
                     <p class="h4 mb-0 me-2">Userlevel Permission</p>
@@ -61,7 +60,7 @@
             <div class="container-fluid">
                 <div class="mb-3">
                     <label for="formGroupExampleInput" class="form-label">Permission Name</label>
-                    <input type="text" class="form-control" id="ActivityTypeInput" placeholder="Permission Name (e.g. Secretary)">
+                    <input type="text" class="form-control" id="ActivityTypeInput" placeholder="(e.g. Secretary)">
                 </div>
                 <div class="table-responsive">
                     <table class="table table-md table-hover table-striped ">

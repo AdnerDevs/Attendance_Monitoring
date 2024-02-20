@@ -15,10 +15,17 @@
         color: #999;
     }
 
+    @media (max-width: 928px) {
+        .credential{
+            flex: 0 0 auto !important;
+            width: 100% !important;
+        }
+    }
+
 
 </style>
 <div class="container-fluid min-vh-100 p-0 d-flex justify-content-sm-center">
-            <div class="d row align-items-center justify-content-center bg-dark g-0 px-4 px-sm-0 p-4  shadow  w-sm-100" style="min-height: 600px;">
+            <div class="d row align-items-center justify-content-center bg-dark g-0 px-4 px-sm-0 p-4  shadow  w-sm-100" style="min-height: 600px; width: 100%;">
             <!-- <div class="alert alert-primary" role="alert">
               
             </div> -->
@@ -56,16 +63,30 @@
                             <span class="input-group-text">
                                 <i class="fa fa-user" aria-hidden="true"></i>
                             </span>
-                            <input type="text" name="" id="emp_name" class="regInputField form-control form-control-lg fs-6 " placeholder="Employee Name">
+                            <input type="text" name="" id="emp_name" class="regInputField form-control form-control-lg fs-6 " placeholder=" Name">
                         </div>
                     </div>
 
-                    <div class="col-md-6">
+                    <div class="col-md-6 ">
                         <div class="input-group mb-3">
                             <span class="input-group-text">
                                 <i class="fa fa-user" aria-hidden="true"></i>
                             </span>
-                            <input type="text" name="" id="emp_surname" class="regInputField form-control form-control-lg fs-6 " placeholder="Employee Surname">
+                            <input type="text" name="" id="emp_surname" class="regInputField form-control form-control-lg fs-6 " placeholder="Surname">
+                        </div>
+                    </div>
+
+                    <div class="col-md-12 ">
+                        <div class="input-group mb-3">
+                            <span class="input-group-text">
+                                <i class="fa fa-bullseye" aria-hidden="true"></i>
+                            </span>
+                            <select class="form-select" aria-label="Default select department">
+                                <option selected disabled>Designated Department</option>
+                                <option value="1">One</option>
+                                <option value="2">Two</option>
+                                <option value="3">Three</option>
+                            </select>
                         </div>
                     </div>
 
@@ -73,21 +94,24 @@
                         <p class=" text-white text-center mt-2 mb-4">Your Login Credentials:</p>
                     </div>
 
-                    <div class="col-md-6">
+                    <div class="credential col-md-6">
+                        <label for="emp_generate_id" class="form-label text-white">Employee ID credential:</label>
                         <div class="input-group mb-3">
+                            
                             <span class="input-group-text">
-                                <i class="fa fa-id-badge" aria-hidden="true"></i>
+                                <i class="fa fa-shield" aria-hidden="true"></i>
                             </span>
-                            <input type="text" name="" id="emp_nName" class="regInputField form-control form-control-lg fs-6 " placeholder="Login Credentials" disabled>
+                            <input type="text" name="" id="emp_generate_id" class="regInputField form-control form-control-lg fs-6 " placeholder="Login Credentials" disabled>
                         </div>
                     </div>
 
-                    <div class="col-md-6">
+                    <div class="credential col-md-6">
+                        <label for="emp_generate_name" class="form-label text-white">Employee username credential:</label>
                         <div class="input-group mb-3">
                             <span class="input-group-text">
-                                <i class="fa fa-id-badge" aria-hidden="true"></i>
+                                <i class="fa fa-lock" aria-hidden="true"></i>
                             </span>
-                            <input type="text" name="" id="emp_nName" class="regInputField form-control form-control-lg fs-6 " placeholder="Login Credentials" disabled>
+                            <input type="text" name="" id="emp_generate_name" class="regInputField form-control form-control-lg fs-6 " placeholder="Login Credentials" disabled>
                         </div>
                     </div>
                 </div>
