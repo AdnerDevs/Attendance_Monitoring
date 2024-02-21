@@ -19,13 +19,25 @@ class SignupController extends EmployeeModel{
         }
 
         if($this->employeeIDCheck() == false){
-            $error['already_exist'] = 'Please input a different ID';
+            $error['already_exist'] = 'This ID is already registered, please input a different ID';
+        }
+
+        if($this->formatID() == false){
+            $error['format_id'] = 'Employee ID should be 10 characters long';
         }
         return $error;
     }
 
     public function emptyInput(){
         if(empty($this->employee_name) && empty($this->employee_id)){
+            return false;
+        }
+
+        return true;
+    }
+
+    public function formatID(){
+        if(strlen($this->employee_id) > 10 || strlen($this->employee_id) < 10){
             return false;
         }
 

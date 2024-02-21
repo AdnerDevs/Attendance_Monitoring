@@ -29,10 +29,10 @@
                     
          
                 
-                <table class="table">
-                    <caption>
+                <table class="table display" id="myTable">
+                    <!-- <caption>
                         Description of the table.
-                    </caption>
+                    </caption> -->
                     <thead>
                         <tr>
                             <th>No</th>
@@ -200,7 +200,32 @@
 
 
 <script>
+$(document).ready(function(){
+    var data = [
+    [
+        "1",
+        "12134",
+        "Edinburgh",
+        "Superadmin",
+        "Active",
+        "9"
+        
+    ],
+    [
+        "2",
+        "12134",
+        "Esge",
+        "Admin",
+        "Active",
+        "9"
+    ]
+]
+$('#myTable').DataTable( {
+    data: data,
+  
+} );
 
+});
 </script>
 <?php
     require_once ('AdminFooter.php');

@@ -105,11 +105,12 @@ function loginUser(emp_id,  emp_sname){
         success: function(response){
            
             if(response == 'success'){
+                alert("Login successfully");
                 window.location.href='dashboard.php';
             }else{
                 alert("failed to login");
             }
-            
+            // console.log(response);
         },
         error: function(error){ 
             console.log(error);

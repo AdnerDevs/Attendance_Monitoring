@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 20, 2024 at 05:26 PM
--- Server version: 10.4.28-MariaDB
--- PHP Version: 8.2.4
+-- Generation Time: Feb 21, 2024 at 09:29 AM
+-- Server version: 10.4.32-MariaDB
+-- PHP Version: 8.2.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -120,7 +120,9 @@ INSERT INTO `employee_attendance` (`employee_attendance_id`, `employee_id`, `emp
 CREATE TABLE `employee_user` (
   `employee_id` varchar(20) NOT NULL,
   `employee_name` varchar(100) NOT NULL,
+  `nickname` varchar(10) NOT NULL,
   `department_id` int(20) NOT NULL,
+  `created_time` datetime NOT NULL DEFAULT current_timestamp(),
   `status` tinyint(1) NOT NULL DEFAULT 0,
   `isRemove` tinyint(1) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -129,11 +131,15 @@ CREATE TABLE `employee_user` (
 -- Dumping data for table `employee_user`
 --
 
-INSERT INTO `employee_user` (`employee_id`, `employee_name`, `department_id`, `status`, `isRemove`) VALUES
-('02-0454sen', 'adner devila', 0, 0, 0),
-('02-070031-CENA', 'JOHN CENA', 0, 0, 0),
-('02-5003dEV', '02-5003dEV', 0, 0, 0),
-('20-3455les', 'lesly summer', 0, 0, 0);
+INSERT INTO `employee_user` (`employee_id`, `employee_name`, `nickname`, `department_id`, `created_time`, `status`, `isRemove`) VALUES
+('02-0454sen', 'adner devila', '', 2, '2024-02-21 15:07:10', 0, 0),
+('02-070031-CENA', 'JOHN CENA', '', 2, '2024-02-21 15:07:10', 0, 0),
+('02-5003dEV', '02-5003dEV', '', 2, '2024-02-21 15:07:10', 0, 0),
+('123', 'ASD DSA', 'ASD', 1, '2024-02-21 15:07:10', 0, 0),
+('1234', 'ADNER DEVS', 'DEV', 1, '2024-02-21 15:07:10', 0, 0),
+('1234567891', 'AD NER', 'DEV', 1, '2024-02-21 15:07:10', 0, 0),
+('20-3455les', 'lesly summer', '', 1, '2024-02-21 15:07:10', 0, 0),
+('9876543211', 'HANNA KUL', 'JUS', 2, '2024-02-21 15:07:10', 1, 0);
 
 -- --------------------------------------------------------
 
@@ -145,8 +151,19 @@ CREATE TABLE `login_credentials` (
   `login_id` int(11) NOT NULL,
   `employee_id` varchar(100) NOT NULL,
   `credential_id` varchar(100) NOT NULL,
-  `credential_surname` varchar(100) NOT NULL
+  `credential_surname` varchar(100) NOT NULL,
+  `user_type` varchar(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `login_credentials`
+--
+
+INSERT INTO `login_credentials` (`login_id`, `employee_id`, `credential_id`, `credential_surname`, `user_type`) VALUES
+(1, '1234', '1234DEV', 'DEVS', 'employee'),
+(2, '123', '123ASD', 'DSA', 'employee'),
+(3, '1234567891', '1234567891DEV', 'NER', 'employee'),
+(4, '9876543211', '9876543211JUS', 'KUL', 'employee');
 
 --
 -- Indexes for dumped tables
@@ -220,7 +237,7 @@ ALTER TABLE `employee_attendance`
 -- AUTO_INCREMENT for table `login_credentials`
 --
 ALTER TABLE `login_credentials`
-  MODIFY `login_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `login_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

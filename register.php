@@ -1,5 +1,8 @@
 <?php
     require_once('header.php');
+    require_once('Model/DepartmentModel.php');
+
+    $department_model = new DepartmentModel();
 ?>
 <style>
     .divider-content-center{
@@ -63,7 +66,7 @@
                             <span class="input-group-text">
                                 <i class="fa fa-user" aria-hidden="true"></i>
                             </span>
-                            <input type="text" name="" id="emp_name" class="regInputField form-control form-control-lg fs-6 " placeholder=" Name">
+                            <input type="text" name="" id="emp_name" class="regInputField form-control form-control-lg fs-6 " placeholder="Name">
                         </div>
                     </div>
 
@@ -82,10 +85,16 @@
                                 <i class="fa fa-bullseye" aria-hidden="true"></i>
                             </span>
                             <select class="form-select" aria-label="Default select department">
-                                <option selected disabled>Designated Department</option>
-                                <option value="1">One</option>
-                                <option value="2">Two</option>
-                                <option value="3">Three</option>
+                                <option value="0" selected disabled>Designated Department</option>
+                                <?php
+                                    $department = $department_model->getAllDepartment();
+
+                                    foreach ($department as $dept):
+                                ?>
+                                <option value="<?=$dept['department_id']?>"><?=$dept['department_name']?></option>
+                                <?php
+                                    endforeach;
+                                ?>
                             </select>
                         </div>
                     </div>
@@ -144,8 +153,8 @@
         let employee_surname;
         let employee_complete_name ;
         let id_credential;
-    
-
+        let surname_credential
+        let department_id = 0;
         $("#emp_id, #emp_nName").on("keyup", function(){
             employee_id = $("#emp_id").val();
             nickname = $("#emp_nName").val();
@@ -155,37 +164,61 @@
 
       
         $("#emp_surname").on("keyup", function(){
-            var empSname = $(this).val();
+            surname_credential = $(this).val();
         
-            $("#emp_generate_name").val(empSname);
+            $("#emp_generate_name").val(surname_credential);
         });
 
         $(".regInputField").on("input", function(){
             $(this).val($(this).val().toUpperCase());
         });
-       
+           
+
+        $(".form-select").change(function(){
+            department_id = $(this).val();
+         });
 
         $("#registerBtn").click(function(){
             employee_id = $("#emp_id").val();
+            nickname = $("#emp_nName").val();
             employee_name = $("#emp_name").val();
             employee_surname = $("#emp_surname").val();
             employee_complete_name = employee_name + " " +employee_surname;
 
-            if (!employee_id || !employee_complete_name.trim()) {
-                alert("Employee ID or name is empty");
+            if (!employee_id || !employee_complete_name.trim() || !nickname ) {
+                alert("Please fill in all required fields");
                 return;
             }
-            registerEmployee(employee_id, employee_complete_name);
+            if(department_id == 0 || department_id == undefined){
+                alert("Please select a department");
+                return;
+            }
+            // console.log({
+            //     employee_id,
+            //     nickname,
+            //     employee_name,
+            //     employee_surname,
+            //     employee_complete_name,
+            //     department_id,
+            //     id_credential,
+            //     surname_credential
+            // });
+            registerEmployee(employee_id, employee_complete_name, nickname, department_id, id_credential, surname_credential)
+
         });
     });
 
-    function registerEmployee(employee_id, employee_complete_name){
+    function registerEmployee(employee_id, employee_complete_name, nickname, department_id, id_credential, surname_credential){
         $.ajax({
             type: 'POST',
             url: 'Controller/EmployeeController.php',
             data: {
                 emp_id: employee_id,
                 emp_name: employee_complete_name,
+                n_name: nickname,
+                dept_id: department_id,
+                id_cred:id_credential,
+                s_name_cred: surname_credential
             },
             success: function(response){
         
@@ -193,9 +226,15 @@
                     if(response.errors.already_exist){
                         alert(response.errors.already_exist);
                     }
+                    if(response.errors.format_id){
+                        alert(response.errors.format_id);
+                    }
                    
-                } else {
+                } else if (response.status === 'success'){
                     alert("Employee registered successfully");
+                    window.location.href='/Attendance_monitoring';
+                }else{
+                    alert("Failed to register");
                 }
 
             },

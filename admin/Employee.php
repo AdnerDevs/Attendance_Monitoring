@@ -14,7 +14,7 @@
                     
          
                 
-                <table class="table">
+                <table class="table" id="myTable" class="">
                     <caption>
                         Description of the table.
                     </caption>
@@ -22,7 +22,9 @@
                         <tr>
                             <th>No</th>
                             <th>Employee id</th>
-                            <th>Name</th>    
+                            <th>Department</th>
+                            <th>Name</th>
+                            <th>Account Created</th>       
                             <th>Status</th>
                             <th>Action</th>
                         </tr>
@@ -41,7 +43,9 @@
                         <tr>
                             <td><?= $number ?></td>
                             <td><?=$employees['employee_id'] ?></td>
+                            <td><?=$employees['department_name'] ?></td>
                             <td><?=$employees['employee_name']?></td>
+                            <td><?=$employees['created_time']?></td>
                             <td class="<?= $statusClass ?>"><?= $status ?></td>
                             <td>
                                 <button type="button" class="btn btn-primary me-2 EditActivityBtn" id="" data-bs-type="" data-bs-id="" data-bs-toggle="modal" data-bs-target="#EditActivityModal">Edit</button>
