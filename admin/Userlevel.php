@@ -76,45 +76,54 @@
                         </thead>
                         <tbody >
                             <tr>
-                                <td>Employee</td>
-                                <td scope="row"> <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
-                                <td> <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
-                                <td> <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
-                                <td> <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
-                                <td> <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
+                                <td>Dashboard</td>
+                                <td scope="row"> <input class="form-check-input" type="checkbox" value="" id="dashboard_view"></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
                             </tr>
                             <tr>
-                                <td>Attendance Monitoring</td>
-                                <td scope="row"> <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
-                                <td> <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
-                                <td> <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
-                                <td> <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
-                                <td> <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
+                                <td>Admin Management</td>
+                                <td scope="row"> <input class="form-check-input" type="checkbox" value="" id="admin_management_view"></td>
+                                <td> <input class="form-check-input" type="checkbox" value="" id="admin_management_create" disabled></td>
+                                <td> <input class="form-check-input" type="checkbox" value="" id="admin_management_update" disabled></td>
+                                <td> <input class="form-check-input" type="checkbox" value="" id="admin_management_delete" disabled></td>
+                                <td> <input class="form-check-input" type="checkbox" value="" id="admin_management_archive" disabled></td>
                             </tr>
                             <tr>
-                                <td>Activity Module</td>
-                                <td scope="row"> <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
-                                <td> <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
-                                <td> <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
-                                <td> <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
-                                <td> <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
+                                <td>Employee Management</td>
+                                <td scope="row"> <input class="form-check-input" type="checkbox" value="" id="employee_management_view"></td>
+                                <td> <input class="form-check-input" type="checkbox" value="" id="employee_management_create" disabled></td>
+                                <td> <input class="form-check-input" type="checkbox" value="" id="employee_management_update" disabled></td>
+                                <td> <input class="form-check-input" type="checkbox" value="" id="employee_management_delete" disabled></td>
+                                <td> <input class="form-check-input" type="checkbox" value="" id="employee_management_archive" disabled></td>
                             </tr>
                             <tr>
-                                <td>Activity Module</td>
-                                <td scope="row"> <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
-                                <td> <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
-                                <td> <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
-                                <td> <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
-                                <td> <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
+                                <td>Employee Monitoring</td>
+                                <td scope="row"> <input class="form-check-input" type="checkbox" value="" id="employee_monitoring_view"></td>
+                                <td> <input class="form-check-input" type="checkbox" value="" id="employee_monitoring_create" disabled></td>
+                                <td> <input class="form-check-input" type="checkbox" value="" id="employee_monitoring_update" disabled></td>
+                                <td> <input class="form-check-input" type="checkbox" value="" id="employee_monitoring_delete" disabled></td>
+                                <td> <input class="form-check-input" type="checkbox" value="" id="employee_monitoring_archive"disabled></td>
                             </tr>
                             <tr>
-                                <td>Activity Module</td>
-                                <td scope="row"> <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
-                                <td> <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
-                                <td> <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
-                                <td> <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
-                                <td> <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
+                                <td>Announcement</td>
+                                <td scope="row"> <input class="form-check-input" type="checkbox" value="" id="announcement_view"  ></td>
+                                <td> <input class="form-check-input" type="checkbox" value="" id="announcement_create" disabled></td>
+                                <td> <input class="form-check-input" type="checkbox" value="" id="announcement_update" disabled></td>
+                                <td> <input class="form-check-input" type="checkbox" value="" id="announcement_delete" disabled></td>
+                                <td> <input class="form-check-input" type="checkbox" value="" id="announcement_archive" disabled></td>
                             </tr>
+                            <tr>
+                                <td>CMS</td>
+                                <td scope="row"> <input class="form-check-input" type="checkbox" value="" id="cms_view" ></td>
+                                <td> <input class="form-check-input" type="checkbox" value="" id="cms_create" disabled></td>
+                                <td> <input class="form-check-input" type="checkbox" value="" id="cms_update" disabled></td>
+                                <td> <input class="form-check-input" type="checkbox" value="" id="cms_delete" disabled></td>
+                                <td> <input class="form-check-input" type="checkbox" value="" id="cms_archive" disabled></td>
+                            </tr>
+                           
                         </tbody>
                     </table>
                 </div>
@@ -160,7 +169,103 @@
 
 
 <script>
+function togglePermissions(section, viewId, createId, editId, deleteId, archiveId, banId) {
+    const viewCheckbox = document.getElementById(viewId);
+    const createCheckbox = document.getElementById(createId);
+    const editCheckbox = document.getElementById(editId);
+    const deleteCheckbox = document.getElementById(deleteId);
+    const archiveCheckbox = document.getElementById(archiveId);
+    const banCheckbox = document.getElementById(banId);
 
+    viewCheckbox.addEventListener("change", function () {
+        createCheckbox.disabled = !this.checked;
+        if (!this.checked) {
+            createCheckbox.checked = false;
+            editCheckbox.checked = false;
+            deleteCheckbox.checked = false;
+            archiveCheckbox.checked = false;
+
+            createCheckbox.disabled = true;
+            editCheckbox.disabled = true;
+            deleteCheckbox.disabled = true;
+            archiveCheckbox.disabled = true;
+        }
+        createCheckbox.addEventListener("change", function () {
+            editCheckbox.disabled = !this.checked;
+            if (!this.checked) {
+                editCheckbox.checked = false;
+                deleteCheckbox.disabled = true;
+            }
+        });
+
+        editCheckbox.addEventListener("change", function () {
+            deleteCheckbox.disabled = !this.checked;
+            if (!this.checked) {
+                deleteCheckbox.checked = false;
+            }
+        });
+
+        deleteCheckbox.addEventListener("change", function () {
+            archiveCheckbox.disabled = !this.checked;
+            if (!this.checked) {
+                archiveCheckbox.checked = false;
+            }
+        });
+    });
+
+ 
+    // 
+}
+
+
+// Dashboard Permissions
+togglePermissions("dashboard", "dashboard_view");
+
+// Content Management Permissions
+togglePermissions(
+    "admin_management",
+    "admin_management_view",
+    "admin_management_create",
+    "admin_management_update",
+    "admin_management_delete",
+    "admin_management_archive"
+);
+
+// File Management Permissions
+togglePermissions(
+    "employee_management",
+    "employee_management_view",
+    "employee_management_create",
+    "employee_management_update",
+    "employee_management_delete",
+    "employee_management_archive"
+);
+togglePermissions(
+    "employee_monitoring",
+    "employee_monitoring_view",
+    "employee_monitoring_create",
+    "employee_monitoring_update",
+    "employee_monitoring_delete",
+    "employee_monitoring_archive"
+);
+
+togglePermissions(
+    "announcement",
+    "announcement_view",
+    "announcement_create",
+    "announcement_update",
+    "announcement_delete",
+    "announcement_archive"
+);
+
+togglePermissions(
+    "cms",
+    "cms_view",
+    "cms_create",
+    "cms_update",
+    "cms_delete",
+    "cms_archive"
+);
 </script>
 <?php
     require_once ('AdminFooter.php');

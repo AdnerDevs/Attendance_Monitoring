@@ -1,5 +1,6 @@
 <?php
     require_once ('header.php');
+
 ?>
 <style>
     .bg-holder{
@@ -103,17 +104,19 @@ function loginUser(emp_id,  emp_sname){
             emp_name_credential: emp_sname,
         },
         success: function(response){
-           
-            if(response == 'success'){
-                alert("Login successfully");
-                window.location.href='dashboard.php';
+       
+            if(response == 'employee') {
+                console.log("login employee");
+                window.location.href = 'dashboard.php';
+            } else if(response == 'admin'){
+                console.log("login to admin");
             }else{
-                alert("failed to login");
+                console.log("Account does not exist");
             }
-            // console.log(response);
+            
         },
-        error: function(error){ 
-            console.log(error);
+        error: function(xhr, status, error){ 
+            console.error("An error occurred: " + error);
         }
     });
 }

@@ -1,5 +1,10 @@
 <?php
     require_once ('header.php');
+    date_default_timezone_set('Asia/Manila');
+$current_time = new DateTime('now', new DateTimeZone('UTC'));
+$current_time->setTimezone(new DateTimeZone('Asia/Manila'));
+
+$input_value = $current_time->format('Y-m-d\TH:i');
 ?>
 <link rel="stylesheet" href="asset/css/infiniteLoop.css">
 <div class="container-fluid ">
@@ -43,10 +48,35 @@
             </ul>
         </div>
     <div class="row min-vh-100 bg-light">
-        <div class="col-md-6 bg-primary"></div>
-        <div class="col-md-6 bg-warning">
+        <div class="col-12 p-4">
+            <p class="text-center fs-1">Set Activity Here</p>
+            
+            <div class="input-group mb-3">
+                <input type="datetime-local" class="form-control" value="<?=  $input_value ?>" placeholder="Recipient's username" aria-label="Recipient's username" aria-describedby="button-addon2">
+                <button type="button" class="input-group-text bg-dark text-white" id="basic-addon2">Start time</button>
+            </div>
+                        <div class="input-group mb-3">
+                           
+                            <select class="form-select" aria-label="Default select department">
+                                <option value="0" selected disabled>Acivity</option>
+                                <?php
 
+                                    for ($i=0; $i<5; $i++):
+                                ?>
+                                <option value="">sample act</option>
+                                <?php
+                                    endfor;
+                                ?>
+                            </select>
+                            <span class="input-group-text">
+                                <i class="fa fa-plus-square-o" aria-hidden="true"></i>
+                            </span>
+                        </div>                    
+            
         </div>
+        <!-- <div class="col-md-6 bg-warning">
+
+        </div> -->
     </div>
 </div>
 

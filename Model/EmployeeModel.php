@@ -23,7 +23,7 @@ class EmployeeModel extends Dbh{
         }
     }
 
-    public function registerEmployee( $employee_id, $employee_name, $nickname, $department_id, $id_credentials, $surname_credentials ){
+    public function registerEmployee( $employee_id, $employee_name, $nickname, $department_id, $id_credentials, $surname_credentials,$usertpye ){
         try{
             $stmt = $this->connect()->prepare("INSERT INTO employee_user (employee_id, employee_name, nickname, department_id) VALUES(?,?,?,?)");
 
@@ -32,7 +32,7 @@ class EmployeeModel extends Dbh{
                 die();
             }
 
-            $this->createLoginCredentials($employee_id, $id_credentials, $surname_credentials);
+            $this->createLoginCredentials($employee_id, $id_credentials, $surname_credentials, $usertpye);
             
             return true;
 
@@ -43,12 +43,12 @@ class EmployeeModel extends Dbh{
         }
     }
 
-    public function createLoginCredentials($employee_id, $id_credentials, $surname_credentials ){
+    public function createLoginCredentials($employee_id, $id_credentials, $surname_credentials, $usertpye ){
         try{
 
-            $stm = $this->connect()->prepare('INSERT INTO login_credentials (employee_id, credential_id, credential_surname) VALUES (?,?,?)');
+            $stm = $this->connect()->prepare('INSERT INTO login_credentials (employee_id, credential_id, credential_surname, user_type) VALUES (?,?,?,?)');
 
-            if(!$stm->execute([$employee_id, $id_credentials, $surname_credentials])){
+            if(!$stm->execute([$employee_id, $id_credentials, $surname_credentials, $usertpye])){
                 return false;
             }
 
@@ -106,6 +106,7 @@ class EmployeeModel extends Dbh{
             $stmt3 = $this->connect()->prepare("UPDATE employee_user SET status = 1 WHERE employee_id = ?");
             $stmt3->execute([$id]);
 
+    
             $userData2 = $stmt2->fetch(PDO::FETCH_ASSOC);
             $id2 = $userData2["employee_id"];
             if($userData2["employee_id"] != $id2){
@@ -116,7 +117,7 @@ class EmployeeModel extends Dbh{
             $_SESSION['employee_id'] = $userData2['employee_id'];
             $_SESSION['employee_name'] = $userData2['employee_name'];
 
-            return true;
+            return $userData['user_type'];
 
         }catch(PDOException $e){
             print('Error: ' .$e->getMessage());

@@ -24,7 +24,7 @@
 <body>
     <nav class="navbar bg-dark">
         <div class="container-fluid">
-            <a href="#" class="navbra-brand animate__animated animate__fadeInRight fs-2" style="color: #00FF7F;">
+            <a href="/attendance_monitoring/admin" class="navbra-brand animate__animated animate__fadeInRight fs-2" style="color: #00FF7F;">
                 <img src="../asset/img/Herogram.jpg" alt="" width="60" class="" style="border-radius: 50% 20% / 10% 40%;">
             </a>
 
@@ -48,13 +48,13 @@
              
             </button>
             <div class="sidebar-logo">
-                <a href="#" >Herogram</a>
+                <a href="/attendance_monitoring/admin" >Herogram</a>
             </div>
         </div>
         
         <ul class="sidebar-nav">
             <li class="sidebar-item">
-                <a href="#" class="sidebar-link">
+                <a href="/attendance_monitoring/admin" class="sidebar-link">
                     <i class="fa fa-home" aria-hidden="true"></i>
                     <span>Dashboard</span>
                 </a>

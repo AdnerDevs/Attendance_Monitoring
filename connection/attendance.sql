@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 21, 2024 at 09:29 AM
+-- Generation Time: Feb 22, 2024 at 09:48 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -132,14 +132,16 @@ CREATE TABLE `employee_user` (
 --
 
 INSERT INTO `employee_user` (`employee_id`, `employee_name`, `nickname`, `department_id`, `created_time`, `status`, `isRemove`) VALUES
+('01-2457321', 'EROR LOGIN', 'ERO', 2, '2024-02-22 13:05:51', 0, 0),
 ('02-0454sen', 'adner devila', '', 2, '2024-02-21 15:07:10', 0, 0),
 ('02-070031-CENA', 'JOHN CENA', '', 2, '2024-02-21 15:07:10', 0, 0),
 ('02-5003dEV', '02-5003dEV', '', 2, '2024-02-21 15:07:10', 0, 0),
+('09-1236781', 'ALCOR LOER', 'LOR', 2, '2024-02-22 13:03:06', 0, 0),
 ('123', 'ASD DSA', 'ASD', 1, '2024-02-21 15:07:10', 0, 0),
 ('1234', 'ADNER DEVS', 'DEV', 1, '2024-02-21 15:07:10', 0, 0),
-('1234567891', 'AD NER', 'DEV', 1, '2024-02-21 15:07:10', 0, 0),
+('1234567891', 'AD NER', 'DEV', 1, '2024-02-21 15:07:10', 1, 0),
 ('20-3455les', 'lesly summer', '', 1, '2024-02-21 15:07:10', 0, 0),
-('9876543211', 'HANNA KUL', 'JUS', 2, '2024-02-21 15:07:10', 1, 0);
+('9876543211', 'HANNA KUL', 'JUS', 2, '2024-02-21 15:07:10', 0, 0);
 
 -- --------------------------------------------------------
 
@@ -163,7 +165,35 @@ INSERT INTO `login_credentials` (`login_id`, `employee_id`, `credential_id`, `cr
 (1, '1234', '1234DEV', 'DEVS', 'employee'),
 (2, '123', '123ASD', 'DSA', 'employee'),
 (3, '1234567891', '1234567891DEV', 'NER', 'employee'),
-(4, '9876543211', '9876543211JUS', 'KUL', 'employee');
+(4, '9876543211', '9876543211JUS', 'KUL', 'admin'),
+(6, '01-2457321', '01-2457321ERO', 'LOGIN', 'employee');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `userlevel`
+--
+
+CREATE TABLE `userlevel` (
+  `userlevel_id` int(11) NOT NULL,
+  `userlevel_name` varchar(30) NOT NULL,
+  `dashboard_permission_view` tinyint(1) DEFAULT 0,
+  `admin_management_view` tinyint(1) DEFAULT 0,
+  `admin_management_create` tinyint(1) DEFAULT 0,
+  `admin_management_update` tinyint(1) DEFAULT 0,
+  `admin_management_delete` tinyint(1) DEFAULT 0,
+  `employee_management_view` tinyint(1) DEFAULT 0,
+  `employee_management_create` tinyint(1) DEFAULT 0,
+  `employee_managaement_update` tinyint(1) DEFAULT 0,
+  `employee_management_delete` tinyint(1) DEFAULT 0,
+  `employee_monitoring_management_view` tinyint(1) DEFAULT 0,
+  `employee_monitoring_management_create` tinyint(1) DEFAULT 0,
+  `employee_monitoring_management_update` tinyint(1) DEFAULT 0,
+  `employee_monitoring_management_delete` tinyint(1) DEFAULT 0,
+  `cms_permission_view` tinyint(1) DEFAULT 0,
+  `cms_permission_create` tinyint(1) DEFAULT 0,
+  `cms_permission_update` tinyint(1) DEFAULT 0
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Indexes for dumped tables
@@ -206,6 +236,12 @@ ALTER TABLE `login_credentials`
   ADD PRIMARY KEY (`login_id`);
 
 --
+-- Indexes for table `userlevel`
+--
+ALTER TABLE `userlevel`
+  ADD PRIMARY KEY (`userlevel_id`);
+
+--
 -- AUTO_INCREMENT for dumped tables
 --
 
@@ -237,7 +273,13 @@ ALTER TABLE `employee_attendance`
 -- AUTO_INCREMENT for table `login_credentials`
 --
 ALTER TABLE `login_credentials`
-  MODIFY `login_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `login_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
+-- AUTO_INCREMENT for table `userlevel`
+--
+ALTER TABLE `userlevel`
+  MODIFY `userlevel_id` int(11) NOT NULL AUTO_INCREMENT;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
