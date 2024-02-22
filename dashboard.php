@@ -1,11 +1,21 @@
 <?php
+    ob_start(); // Start output buffering
     require_once ('header.php');
     date_default_timezone_set('Asia/Manila');
 $current_time = new DateTime('now', new DateTimeZone('UTC'));
 $current_time->setTimezone(new DateTimeZone('Asia/Manila'));
 
 $input_value = $current_time->format('Y-m-d\TH:i');
+if(isset($_SESSION["employee_id"]) && $_SESSION["employee_id"]){
 ?>
+    <?php
+               
+     
+
+                        
+       
+                                    
+    ?>
 <link rel="stylesheet" href="asset/css/infiniteLoop.css">
 <div class="container-fluid ">
         <p class="h4 mt-4 text-center">Announcement</p>
@@ -47,9 +57,9 @@ $input_value = $current_time->format('Y-m-d\TH:i');
               
             </ul>
         </div>
-    <div class="row min-vh-100 bg-light">
-        <div class="col-12 p-4">
-            <p class="text-center fs-1">Set Activity Here</p>
+    <div class="row bg-light">
+        <div class="col-md-6 p-4">
+            <p class="text-center fs-1">Attendance</p>
             
             <div class="input-group mb-3">
                 <input type="datetime-local" class="form-control" value="<?=  $input_value ?>" placeholder="Recipient's username" aria-label="Recipient's username" aria-describedby="button-addon2">
@@ -74,9 +84,9 @@ $input_value = $current_time->format('Y-m-d\TH:i');
                         </div>                    
             
         </div>
-        <!-- <div class="col-md-6 bg-warning">
-
-        </div> -->
+        <div class="col-md-6 bg-warning p-4">
+            <p class="text-center fs-1">Activity</p>
+        </div>
     </div>
 </div>
 
@@ -106,5 +116,14 @@ function addAnimation() {
 
 </script>
 <?php
+} else {
+    header("location: error.php");
+    exit();
+ }
+?>
+
+<?php
     require_once ('footer.php');
+    ob_end_flush(); // Flush output buffer
+
 ?>

@@ -73,46 +73,38 @@
     </style>
 </head>
 <body>
-    <header class="navbar navbar-expand-lg bd-navbar p-lg-3 sticky-top navbar-dark bg-dark">
+    <header class="navbar navbar-expand-lg bd-navbar p-lg-3 sticky-top navbar-dark bg-dark shadow">
             <nav class="container-fluid bd-gutter flex-wrap flex-lg-nowrap" aria-label="Main Navigation">
 
                     <?php
+                    $link = '/attendance_monitoring';
+                    $status_display =  'd-none';
                             if(isset($_SESSION["employee_id"]) && $_SESSION["employee_id"]){
+
+                                $link = 'dashboard.php';
+                                $status_display = '';
+                             }
                                 
                     ?>
-                        <a href="dashboard.php" class="navbar-brand animate__animated animate__lightSpeedInRight p-3 fs-5"><!--  style="color: #00FF7F;" -->
-                            <button class="button" data-text="Awesome">
-                                <span class="actual-text">&nbsp;Herogram&nbsp;</span>
-                                <span aria-hidden="true" class="hover-text">&nbsp;Herogram&nbsp;</span>
-                            </button>
-                        </a>
-                        <div class="bd-navbar-toggle">
-                        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
-                            <span class="navbar-toggler-icon"></span>
-                        </button>
-                    </div>
-
-                    <?php
-                            }else{                       
-                    ?>
-                        <a href="/attendance_monitoring" class="navbar-brand animate__animated animate__lightSpeedInRight p-3 fs-5">
+                        <a href="<?=$link?>" class="navbar-brand animate__animated animate__lightSpeedInRight p-3 fs-5"><!--  style="color: #00FF7F;" -->
                             <button class="button" data-text="Awesome">
                                 <span class="actual-text">&nbsp;Herogram&nbsp;</span>
                                 <span aria-hidden="true" class="hover-text">&nbsp;Herogram&nbsp;</span>
                             </button>
                         </a>
 
-                       
-                    <?php
-                        }
-                    ?>
+                        <div class="bd-navbar-toggle <?=$status_display?>">
+                            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                                <span class="navbar-toggler-icon"></span>
+                            </button>
+                        </div>
                   
-                    <div class="collapse navbar-collapse" tabindex="-1" id="navbarCollapse" data-bs-scroll="true">
+                    <div class="collapse navbar-collapse  <?=$status_display?>" tabindex="-1" id="navbarCollapse" data-bs-scroll="true">
 
                         <?php
-                            if(isset($_SESSION["employee_id"]) && $_SESSION["employee_id"]){
+                            #if(isset($_SESSION["employee_id"]) && $_SESSION["employee_id"]){
                         ?>
-                            <ul class="navbar-nav  me-auto mb-2 mb-lg-0 ">
+                            <ul class="navbar-nav  me-auto mb-2 mb-lg-0 <?=$status_display?>">
                                 <li class="nav-item">
                                     <a href="dashboard.php" class="nav-link active" aria-current="page">Home</a>
                                 </li>
@@ -126,7 +118,7 @@
                                 </li>
                             </ul>
 
-                            <ul class="navbar-nav  mb-2 mb-lg-0  align-self-end">
+                            <ul class="navbar-nav  mb-2 mb-lg-0  align-self-end <?=$status_display?>">
                                 <li class="nav-item">
                                     <button type="button" class="btn btn-outline-success" id="logoutBtn" data-bs-toggle="modal" data-bs-target="#logoutModal">Logout</button>
                                     <!-- <a href="Controller/logout.php" class="nav-link" aria-current="page"></a> -->
@@ -134,7 +126,7 @@
                             </ul>
 
                         <?php
-                            }
+                           # }
                         ?>
                           
 
