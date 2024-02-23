@@ -73,7 +73,11 @@
     </style>
 </head>
 <body>
+ 
     <header class="navbar navbar-expand-lg bd-navbar p-lg-3 sticky-top navbar-dark bg-dark shadow">
+        <div class="position-absolute bg-warning" style="top: 0; left: 0; width: 100%; z-index: 2;">
+            <p class="text-center">COMING SOON!</p>
+        </div>
             <nav class="container-fluid bd-gutter flex-wrap flex-lg-nowrap" aria-label="Main Navigation">
 
                     <?php

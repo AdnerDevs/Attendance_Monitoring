@@ -22,8 +22,8 @@
     
 </head>
 <body>
-    <nav class="navbar bg-dark">
-        <div class="container-fluid">
+    <nav class="navbar bg-dark shadow" style="z-index: 3;">
+        <div class="container-fluid shadow">
             <a href="/attendance_monitoring/admin" class="navbra-brand animate__animated animate__fadeInRight fs-2" style="color: #00FF7F;">
                 <img src="../asset/img/Herogram.jpg" alt="" width="60" class="" style="border-radius: 50% 20% / 10% 40%;">
             </a>

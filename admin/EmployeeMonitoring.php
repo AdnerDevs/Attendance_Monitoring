@@ -36,6 +36,7 @@ th{
                         <?php
 
                             $att = $attendance->getAllAttendanceData();
+                            $number = 1;
                             foreach ($att as $attendanceData):
                                 $aStartTime = new DateTime($attendanceData['start_time']);
                                 $aEndTime = new DateTime($attendanceData['end_time']);
@@ -47,7 +48,7 @@ th{
                                 $totalTime = $interval->format('%d day %h hrs %i mns %s secs');
                         ?>
                         <tr>
-                            <td><?= $attendanceData['employee_attendance_id']?></td>
+                            <td><?= $number ?></td>
                             <td><?= $attendanceData['employee_id']?></td>
                             <td><?= $attendanceData['department_name']?></td>
                             <td><?= $attendanceData['employee_name']?></td>
@@ -57,7 +58,7 @@ th{
                             <td><?= $formattedTimeEnd?></td>
                             <td><?= $totalTime?></td>
                             <td><?= $attendanceData['submitted_by']?></td>
-                            <td><?= $attendanceData['submitted_in']?></td>
+                            <td><?= $formattedTimeEnd?></td>
                             <td>
                                 <button class="btn btn-primary me-2">btn1</button>
                                 <button class="btn btn-secondary">btn2</button>
@@ -65,6 +66,7 @@ th{
                         </tr>
 
                         <?php
+                            $number++;
                            endforeach;
                         ?>
                     </tbody>

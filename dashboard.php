@@ -8,16 +8,8 @@ $current_time->setTimezone(new DateTimeZone('Asia/Manila'));
 $input_value = $current_time->format('Y-m-d\TH:i');
 if(isset($_SESSION["employee_id"]) && $_SESSION["employee_id"]){
 ?>
-    <?php
-               
-     
-
-                        
-       
-                                    
-    ?>
 <link rel="stylesheet" href="asset/css/infiniteLoop.css">
-<div class="container-fluid ">
+<div class="container-fluid min-vh-100 mt-0" style="background-image: url('asset/img/bg_msa.jpg');">
         <p class="h4 mt-4 text-center">Announcement</p>
         <div class="scroller" data-speed="slow" data-direction="left">
             <ul class="tag-list scroller__inner p-0 d-flex gap-2 py-2 flex-wrap ">
@@ -57,7 +49,7 @@ if(isset($_SESSION["employee_id"]) && $_SESSION["employee_id"]){
               
             </ul>
         </div>
-    <div class="row bg-light">
+    <div class="row ">
         <div class="col-md-6 p-4">
             <p class="text-center fs-1">Attendance</p>
             
@@ -84,7 +76,7 @@ if(isset($_SESSION["employee_id"]) && $_SESSION["employee_id"]){
                         </div>                    
             
         </div>
-        <div class="col-md-6 bg-warning p-4">
+        <div class="col-md-6 p-4">
             <p class="text-center fs-1">Activity</p>
         </div>
     </div>

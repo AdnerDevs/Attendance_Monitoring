@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 22, 2024 at 09:48 AM
+-- Generation Time: Feb 23, 2024 at 09:32 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -99,17 +99,18 @@ CREATE TABLE `employee_attendance` (
   `activity_description` varchar(150) DEFAULT NULL,
   `start_time` timestamp NOT NULL DEFAULT current_timestamp(),
   `end_time` timestamp NOT NULL DEFAULT current_timestamp(),
-  `total_time` time DEFAULT NULL,
+  `total_time` varchar(30) DEFAULT NULL,
   `submitted_by` varchar(150) NOT NULL,
-  `submitted_in` timestamp NOT NULL DEFAULT current_timestamp()
+  `submitted_on` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `employee_attendance`
 --
 
-INSERT INTO `employee_attendance` (`employee_attendance_id`, `employee_id`, `employee_name`, `department_id`, `activity_type`, `activity_description`, `start_time`, `end_time`, `total_time`, `submitted_by`, `submitted_in`) VALUES
-(1, '02002John', 'John', 1, 6, 'attendance', '2024-02-14 16:00:00', '2024-02-15 16:00:00', '00:00:00', 'Ce', '0000-00-00 00:00:00');
+INSERT INTO `employee_attendance` (`employee_attendance_id`, `employee_id`, `employee_name`, `department_id`, `activity_type`, `activity_description`, `start_time`, `end_time`, `total_time`, `submitted_by`, `submitted_on`) VALUES
+(1, '02002John', 'John', 1, 6, 'attendance', '2024-02-22 16:00:00', '2024-02-23 16:00:00', '0.00', 'Ce', '0000-00-00 00:00:00'),
+(7, '1234567891DEV', 'John Luck', 2, 4, 'sample act', '2024-02-23 07:59:39', '2024-02-25 09:00:00', '2 day, 1 hrs, 0 mns', '1234567891DEV', '2024-02-25 09:00:00');
 
 -- --------------------------------------------------------
 
@@ -139,7 +140,7 @@ INSERT INTO `employee_user` (`employee_id`, `employee_name`, `nickname`, `depart
 ('09-1236781', 'ALCOR LOER', 'LOR', 2, '2024-02-22 13:03:06', 0, 0),
 ('123', 'ASD DSA', 'ASD', 1, '2024-02-21 15:07:10', 0, 0),
 ('1234', 'ADNER DEVS', 'DEV', 1, '2024-02-21 15:07:10', 0, 0),
-('1234567891', 'AD NER', 'DEV', 1, '2024-02-21 15:07:10', 1, 0),
+('1234567891', 'AD NER', 'DEV', 1, '2024-02-21 15:07:10', 0, 0),
 ('20-3455les', 'lesly summer', '', 1, '2024-02-21 15:07:10', 0, 0),
 ('9876543211', 'HANNA KUL', 'JUS', 2, '2024-02-21 15:07:10', 0, 0);
 
@@ -267,7 +268,7 @@ ALTER TABLE `department`
 -- AUTO_INCREMENT for table `employee_attendance`
 --
 ALTER TABLE `employee_attendance`
-  MODIFY `employee_attendance_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `employee_attendance_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `login_credentials`
