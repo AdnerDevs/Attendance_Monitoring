@@ -201,29 +201,26 @@
 
 <script>
 $(document).ready(function(){
-    var data = [
-    [
-        "1",
-        "12134",
-        "Edinburgh",
-        "Superadmin",
-        "Active",
-        "9"
+//     var data = [
+//     [
+//         "1",
+//         "12134",
+//         "Edinburgh",
+//         "Superadmin",
+//         "Active",
+//         "9"
         
-    ],
-    [
-        "2",
-        "12134",
-        "Esge",
-        "Admin",
-        "Active",
-        "9"
-    ]
-]
-$('#myTable').DataTable( {
-    data: data,
-  
-} );
+//     ],
+//     [
+//         "2",
+//         "12134",
+//         "Esge",
+//         "Admin",
+//         "Active",
+//         "9"
+//     ]
+// ]
+
 
 });
 </script>

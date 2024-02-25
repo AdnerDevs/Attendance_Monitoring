@@ -12,7 +12,7 @@ th{
 
             <div class="table-responsive scroll">
                 <p class="h4 mb-4 mt-2">Attendance Monitoring</p>
-                <table class="table table-sm table-md table-lg align-middle" >
+                <table id="myTable" class="table table-sm table-md table-lg align-middle" >
                     <caption>
                         Description of the table.
                     </caption>

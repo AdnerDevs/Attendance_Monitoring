@@ -158,7 +158,7 @@
         $("#emp_id, #emp_nName").on("keyup", function(){
             employee_id = $("#emp_id").val();
             nickname = $("#emp_nName").val();
-            id_credential = employee_id + nickname;
+            id_credential = `${employee_id}${nickname}`;
             $("#emp_generate_id").val(id_credential);
         });
 
@@ -183,7 +183,7 @@
             nickname = $("#emp_nName").val();
             employee_name = $("#emp_name").val();
             employee_surname = $("#emp_surname").val();
-            employee_complete_name = employee_name + " " +employee_surname;
+            employee_complete_name = `${employee_name} ${employee_surname}`;
 
             if (!employee_id || !employee_complete_name.trim() || !nickname ) {
                 alert("Please fill in all required fields");
@@ -193,16 +193,16 @@
                 alert("Please select a department");
                 return;
             }
-            // console.log({
-            //     employee_id,
-            //     nickname,
-            //     employee_name,
-            //     employee_surname,
-            //     employee_complete_name,
-            //     department_id,
-            //     id_credential,
-            //     surname_credential
-            // });
+            console.log({
+                employee_id,
+                nickname,
+                employee_name,
+                employee_surname,
+                employee_complete_name,
+                department_id,
+                id_credential,
+                surname_credential
+            });
             registerEmployee(employee_id, employee_complete_name, nickname, department_id, id_credential, surname_credential)
 
         });
