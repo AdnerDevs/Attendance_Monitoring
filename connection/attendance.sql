@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 23, 2024 at 09:32 AM
--- Server version: 10.4.32-MariaDB
--- PHP Version: 8.2.12
+-- Generation Time: Feb 25, 2024 at 11:07 PM
+-- Server version: 10.4.28-MariaDB
+-- PHP Version: 8.2.4
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -61,6 +61,28 @@ CREATE TABLE `admin_user` (
   `userlevel_id` int(11) NOT NULL,
   `isRemove` tinyint(1) DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `announcement`
+--
+
+CREATE TABLE `announcement` (
+  `announcment_id` int(11) NOT NULL,
+  `announcement_text` text NOT NULL,
+  `announcement_image` text DEFAULT NULL,
+  `date_created` datetime NOT NULL DEFAULT current_timestamp(),
+  `isDeleted` tinyint(1) DEFAULT 0,
+  `isArchive` tinyint(1) DEFAULT 0
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `announcement`
+--
+
+INSERT INTO `announcement` (`announcment_id`, `announcement_text`, `announcement_image`, `date_created`, `isDeleted`, `isArchive`) VALUES
+(1, 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Optio beatae aliquam veniam maiores et. Optio, in commodi. Perferendis similique, nam tempore accusamus voluptatibus doloribus tempora ipsum facere temporibus iusto ut?', 'marcus.jpg', '2024-02-24 20:39:50', 0, 0);
 
 -- --------------------------------------------------------
 
@@ -136,6 +158,7 @@ INSERT INTO `employee_user` (`employee_id`, `employee_name`, `nickname`, `depart
 ('01-2457321', 'EROR LOGIN', 'ERO', 2, '2024-02-22 13:05:51', 0, 0),
 ('02-0454sen', 'adner devila', '', 2, '2024-02-21 15:07:10', 0, 0),
 ('02-070031-CENA', 'JOHN CENA', '', 2, '2024-02-21 15:07:10', 0, 0),
+('02-2295931', 'LEGENDS LION', 'LEAGUE', 1, '2024-02-24 19:48:36', 1, 0),
 ('02-5003dEV', '02-5003dEV', '', 2, '2024-02-21 15:07:10', 0, 0),
 ('09-1236781', 'ALCOR LOER', 'LOR', 2, '2024-02-22 13:03:06', 0, 0),
 ('123', 'ASD DSA', 'ASD', 1, '2024-02-21 15:07:10', 0, 0),
@@ -167,7 +190,8 @@ INSERT INTO `login_credentials` (`login_id`, `employee_id`, `credential_id`, `cr
 (2, '123', '123ASD', 'DSA', 'employee'),
 (3, '1234567891', '1234567891DEV', 'NER', 'employee'),
 (4, '9876543211', '9876543211JUS', 'KUL', 'admin'),
-(6, '01-2457321', '01-2457321ERO', 'LOGIN', 'employee');
+(6, '01-2457321', '01-2457321ERO', 'LOGIN', 'employee'),
+(7, '02-2295931', '02-2295931LEAGUE', 'LION', 'employee');
 
 -- --------------------------------------------------------
 
@@ -183,18 +207,33 @@ CREATE TABLE `userlevel` (
   `admin_management_create` tinyint(1) DEFAULT 0,
   `admin_management_update` tinyint(1) DEFAULT 0,
   `admin_management_delete` tinyint(1) DEFAULT 0,
+  `admin_management_archive` tinyint(1) NOT NULL DEFAULT 0,
   `employee_management_view` tinyint(1) DEFAULT 0,
   `employee_management_create` tinyint(1) DEFAULT 0,
-  `employee_managaement_update` tinyint(1) DEFAULT 0,
+  `employee_management_update` tinyint(1) DEFAULT 0,
   `employee_management_delete` tinyint(1) DEFAULT 0,
   `employee_monitoring_management_view` tinyint(1) DEFAULT 0,
   `employee_monitoring_management_create` tinyint(1) DEFAULT 0,
   `employee_monitoring_management_update` tinyint(1) DEFAULT 0,
   `employee_monitoring_management_delete` tinyint(1) DEFAULT 0,
+  `announcement_view` tinyint(1) NOT NULL DEFAULT 0,
+  `announcement_create` tinyint(1) NOT NULL DEFAULT 0,
+  `announcement_update` tinyint(1) NOT NULL DEFAULT 0,
+  `announcement_delete` tinyint(1) NOT NULL DEFAULT 0,
+  `announcement_archive` tinyint(1) NOT NULL DEFAULT 0,
   `cms_permission_view` tinyint(1) DEFAULT 0,
-  `cms_permission_create` tinyint(1) DEFAULT 0,
-  `cms_permission_update` tinyint(1) DEFAULT 0
+  `cms_permission_update` tinyint(1) DEFAULT 0,
+  `isDeleted` tinyint(1) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `userlevel`
+--
+
+INSERT INTO `userlevel` (`userlevel_id`, `userlevel_name`, `dashboard_permission_view`, `admin_management_view`, `admin_management_create`, `admin_management_update`, `admin_management_delete`, `admin_management_archive`, `employee_management_view`, `employee_management_create`, `employee_management_update`, `employee_management_delete`, `employee_monitoring_management_view`, `employee_monitoring_management_create`, `employee_monitoring_management_update`, `employee_monitoring_management_delete`, `announcement_view`, `announcement_create`, `announcement_update`, `announcement_delete`, `announcement_archive`, `cms_permission_view`, `cms_permission_update`, `isDeleted`) VALUES
+(1, 'Superadmin', 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0),
+(5, 'Sec', 1, 1, 0, 0, 0, 0, 1, 1, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
+(6, 'Sub', 1, 1, 1, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0);
 
 --
 -- Indexes for dumped tables
@@ -211,6 +250,12 @@ ALTER TABLE `activity`
 --
 ALTER TABLE `admin_user`
   ADD PRIMARY KEY (`admin_id`);
+
+--
+-- Indexes for table `announcement`
+--
+ALTER TABLE `announcement`
+  ADD PRIMARY KEY (`announcment_id`);
 
 --
 -- Indexes for table `department`
@@ -259,6 +304,12 @@ ALTER TABLE `admin_user`
   MODIFY `admin_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT for table `announcement`
+--
+ALTER TABLE `announcement`
+  MODIFY `announcment_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
 -- AUTO_INCREMENT for table `department`
 --
 ALTER TABLE `department`
@@ -274,13 +325,13 @@ ALTER TABLE `employee_attendance`
 -- AUTO_INCREMENT for table `login_credentials`
 --
 ALTER TABLE `login_credentials`
-  MODIFY `login_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `login_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `userlevel`
 --
 ALTER TABLE `userlevel`
-  MODIFY `userlevel_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `userlevel_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
