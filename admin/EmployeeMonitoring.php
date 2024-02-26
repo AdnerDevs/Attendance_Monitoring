@@ -46,6 +46,11 @@ th{
                                 $interval = $aEndTime->diff($aStartTime);
                                 // Format the total time
                                 $totalTime = $interval->format('%d day %h hrs %i mns %s secs');
+                                $day = $attendanceData['day'];
+                                $hour = $attendanceData['hour'];
+                                $minute = $attendanceData['minute'];
+                                $seconds = $attendanceData['second'];
+                                $formattedTime = sprintf("%d day(s), %d hrs, %d mins, %d secs", $day, $hour, $minute, $seconds);
                         ?>
                         <tr>
                             <td><?= $number ?></td>
@@ -56,7 +61,7 @@ th{
                             <td><?= $attendanceData['activity_description']?></td>
                             <td><?= $formattedTimeStart?></td>
                             <td><?= $formattedTimeEnd?></td>
-                            <td><?= $totalTime?></td>
+                            <td><?= $formattedTime?></td>
                             <td><?= $attendanceData['submitted_by']?></td>
                             <td><?= $formattedTimeEnd?></td>
                             <td>

@@ -27,7 +27,7 @@
                         <tbody id="userLevelsTable">
                             <tr>
                                 <td>Dashboard</td>
-                                <td scope="row"> <input class="form-check-input" type="checkbox" name="permission[dashboard][view]" id="edit_dashboard_view" ></td>
+                                <td scope="row"> <input class="form-check-input edit_dashboard_view" type="checkbox" name="permission[dashboard][view]" id="edit_dashboard_view" ></td>
                                 <td></td>
                                 <td></td>
                                 <td></td>
@@ -94,8 +94,8 @@
 
 <script>
     $(document).ready(function(){
-        
-        let dashboardPermission
+        let id;
+        let dashboardPermission;
         // admin Management
         let adminView;
         let adminCreate;
@@ -124,8 +124,8 @@
         let cmsUpdate;
 
         $(".EditActivityBtn").click(function(){
-            let id = $(this).val();
-  
+            id = $(this).val();
+            $("#EditActivityModal").find("#EditUserlevel").val(id);
             $.ajax({
                 type: 'GET',
                 url: '../Controller/UserlevelController.php',
@@ -169,7 +169,7 @@
                         // cms
                         cmsView = userlevel.cms_permission_view === 1;
                         cmsUpdate = userlevel.cms_permission_update === 1;
-console.log(cmsUpdate);
+// console.log(cmsUpdate);
                         $("#edit_dashboard_view").prop('checked', dashboardPermission);
                         // admin
                         $("#edit_admin_management_view").prop('checked', adminView);
@@ -197,170 +197,24 @@ console.log(cmsUpdate);
                         $("#edit_cms_view").prop('checked', cmsView);
                         $("#edit_cms_update").prop('checked', cmsUpdate);
 
-                        $("#EditUserlevel").click(function(){
-                            updateUserlevel(
-                            id,
-                            dashboardPermission,
-                            adminView,
-                            adminCreate,
-                            adminUpdate,
-                            adminDelete,
-                            adminArchive,
-                            empManageView,
-                            empManageCreate,
-                            empManageUpdate,
-                            empManageDelete,
-                            empMonitorView,
-                            empMonitorCreate,
-                            empMonitorUpdate,
-                            empMonitorDelete,
-                            announcementView,
-                            announcementCreate,
-                            announcementUpdate,
-                            announcementDelete,
-                            cmsView,
-                            cmsUpdate,
-                        );
-                        });
-                        
-
-                        // tbody.append(`
-                        //             <tr>
-                        //                 <td>Dashboard</td>
-                        //                 <td scope="row"> 
-                        //                     <input class="form-check-input" type="checkbox" name="permission[dashboard][view]" 
-                        //                       id="edit_edit_dashboard_view${userlevel.dashboard_permission_view === 1 ? '" checked>' : '">'}
-                        //                 </td>
-                        //                 <td></td>
-                        //                 <td></td>
-                        //                 <td></td>
-                        //                 <td></td>
-                        //             </tr>
-                        //             <tr>
-                        //                 <td>Admin Management</td>
-                        //                 <td scope="row"> 
-                        //                     <input class="form-check-input" type="checkbox" name="permission[admin_management][view]" 
-                        //                       id="edit_admin_management_view${userlevel.admin_management_view === 1 ? '" checked>' : '">'}
-                        //                 </td>
-                        //                 <td> 
-                        //                     <input class="form-check-input" type="checkbox" name="permission[admin_management][create]" 
-                        //                       id="edit_admin_management_create" disabled>
-                        //                 </td>
-                        //                 <td> 
-                        //                     <input class="form-check-input" type="checkbox" name="permission[admin_management][update]" 
-                        //                       id="edit_admin_management_update" disabled>
-                        //                 </td>
-                        //                 <td> 
-                        //                     <input class="form-check-input" type="checkbox" name="permission[admin_management][delete]" 
-                        //                       id="edit_admin_management_delete" disabled>
-                        //                 </td>
-                        //                 <td> 
-                        //                     <input class="form-check-input" type="checkbox" name="permission[admin_management][archive]" 
-                        //                       id="edit_admin_management_archive" disabled>
-                        //                 </td>
-                        //             </tr>
-                        //             <tr>
-                        //                 <td>Employee Management</td>
-                        //                 <td scope="row"> 
-                        //                     <input class="form-check-input" type="checkbox" name="permission[employee_management][view]" 
-                        //                       id="edit_employee_management_view${userlevel.employee_management_view === 1 ? '" checked>' : '">'}
-                        //                 </td>
-                        //                 <td> 
-                        //                     <input class="form-check-input" type="checkbox" name="permission[employee_management][create]" 
-                        //                       id="edit_employee_management_create" disabled>
-                        //                 </td>
-                        //                 <td> 
-                        //                     <input class="form-check-input" type="checkbox" name="permission[employee_management][update]" 
-                        //                       id="edit_employee_management_update" disabled>
-                        //                 </td>
-                        //                 <td> 
-                        //                     <input class="form-check-input" type="checkbox" name="permission[employee_management][delete]" 
-                        //                       id="edit_employee_management_delete" disabled>
-                        //                 </td>
-                        //                 <td> 
-                        //                     <input class="form-check-input" type="checkbox" name="permission[employee_management][archive]" 
-                        //                       id="edit_employee_management_archive" disabled>
-                        //                 </td>
-                        //             </tr>
-                        //             <tr>
-                        //                 <td>Employee Monitoring</td>
-                        //                 <td scope="row"> 
-                        //                     <input class="form-check-input" type="checkbox" name="permission[employee_monitoring][view]" 
-                        //                       id="edit_employee_monitoring_view${userlevel.employee_monitoring_view === 1 ? '" checked>' : '">'}
-                        //                 </td>
-                        //                 <td> 
-                        //                     <input class="form-check-input" type="checkbox" name="permission[employee_monitoring][create]" 
-                        //                       id="edit_employee_monitoring_create" disabled>
-                        //                 </td>
-                        //                 <td> 
-                        //                     <input class="form-check-input" type="checkbox" name="permission[employee_monitoring][update]" 
-                        //                       id="edit_employee_monitoring_update" disabled>
-                        //                 </td>
-                        //                 <td> 
-                        //                     <input class="form-check-input" type="checkbox" name="permission[employee_monitoring][delete]" 
-                        //                       id="edit_employee_monitoring_delete" disabled>
-                        //                 </td>
-                        //                 <td> 
-                        //                     <input class="form-check-input" type="checkbox" name="permission[employee_monitoring][archive]" 
-                        //                       id="edit_employee_monitoring_archive"disabled>
-                        //                 </td>
-                        //             </tr>
-                        //             <tr>
-                        //                 <td>Announcement</td>
-                        //                 <td scope="row"> 
-                        //                     <input class="form-check-input" type="checkbox" name="permission[announcement][view]" 
-                        //                       id="edit_announcement_view${userlevel.announcement_view === 1 ? '" checked>' : '">'}
-                        //                 </td>
-                        //                 <td> 
-                        //                     <input class="form-check-input" type="checkbox" name="permission[announcement][create]" 
-                        //                       id="edit_announcement_create" disabled>
-                        //                 </td>
-                        //                 <td> 
-                        //                     <input class="form-check-input" type="checkbox" name="permission[announcement][update]" 
-                        //                       id="edit_announcement_update" disabled>
-                        //                 </td>
-                        //                 <td> 
-                        //                     <input class="form-check-input" type="checkbox" name="permission[announcement][delete]" 
-                        //                       id="edit_announcement_delete" disabled>
-                        //                 </td>
-                        //                 <td> 
-                        //                     <input class="form-check-input" type="checkbox" name="permission[announcement][archive]" 
-                        //                       id="edit_announcement_archive" disabled>
-                        //                 </td>
-                        //             </tr>
-                        //             <tr>
-                        //                 <td>CMS</td>
-                        //                 <td scope="row"> 
-                        //                     <input class="form-check-input" type="checkbox" name="permission[cms][view]" 
-                        //                       id="edit_cms_view${userlevel.cms_permission_view === 1 ? '" checked>' : '">'}
-                        //                 </td>
-                        //                 <td> 
-                        //                     <input class="form-check-input" type="checkbox" name="permission[cms][view]" 
-                        //                       id="edit_cms_create" disabled>
-                        //                 </td>
-                        //                 <td> 
-                        //                     <input class="form-check-input" type="checkbox" name="permission[cms][update]" 
-                        //                       id="edit_cms_update" disabled>
-                        //                 </td>
-                        //                 <td> 
-                        //                     <input class="form-check-input" type="checkbox" name="permission[cms][delete]" 
-                        //                       id="edit_cms_delete" disabled>
-                        //                 </td>
-                        //                 <td> 
-                        //                     <input class="form-check-input" type="checkbox" name="permission[cms][archive]" 
-                        //                       id="edit_cms_archive" disabled>
-                        //                 </td>
-                        //             </tr>
-                        //         `);
-
                     });
-               
+
+                
                 },
                 error: function(error){
                     console.log(error);
                 }
             });
         });
+    });
+    let dashboardPermission;
+
+$(".edit_dashboard_view").change(function(){
+    dashboardPermission = $(this).prop("checked");
+});
+    $("#EditUserlevel").click(function(){
+        console.log("Dashboard View Checked: " + dashboardPermission);
+        console.log("sdf: " + $(this).val());
     });
 
     function updateUserlevel(
@@ -391,5 +245,6 @@ console.log(cmsUpdate);
             return;
         }
         alert('editable');
+        console.log(dashboardPermission);
     }
 </script>

@@ -4,7 +4,8 @@ class AttendanceModel extends Dbh{
 
     public function getAllAttendanceData(){
         try{
-            $stmt = $this->connect()->prepare("SELECT ea.employee_attendance_id, ea.employee_id, ea.employee_name, ac.activity_type, ea.activity_description, ea.start_time, ea.end_time, ea.total_time, ea.submitted_by, ea.submitted_on, dp.department_name  FROM employee_attendance ea 
+            $stmt = $this->connect()->prepare("SELECT ea.employee_attendance_id, ea.employee_id, ea.employee_name, ac.activity_type, ea.activity_description, ea.start_time, ea.end_time, ea.total_time, ea.submitted_by, ea.submitted_on, dp.department_name, ea.day,  ea.hour, ea.minute, ea.second 
+            FROM employee_attendance ea 
             INNER JOIN activity ac ON ea.activity_type = ac.activity_id 
             INNER JOIN department dp ON ea.department_id = dp.department_id 
             ORDER BY employee_attendance_id ASC");

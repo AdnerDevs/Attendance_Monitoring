@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 25, 2024 at 11:07 PM
+-- Generation Time: Feb 26, 2024 at 11:15 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -55,12 +55,24 @@ INSERT INTO `activity` (`activity_id`, `activity_type`, `activity_created_time`,
 --
 
 CREATE TABLE `admin_user` (
-  `admin_id` int(11) NOT NULL,
+  `admin_id` varchar(8) NOT NULL,
   `admin_name` varchar(20) NOT NULL,
-  `admin_password` varchar(20) NOT NULL,
   `userlevel_id` int(11) NOT NULL,
+  `status` tinyint(1) NOT NULL DEFAULT 0,
+  `isArchive` tinyint(1) NOT NULL DEFAULT 0,
   `isRemove` tinyint(1) DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `admin_user`
+--
+
+INSERT INTO `admin_user` (`admin_id`, `admin_name`, `userlevel_id`, `status`, `isArchive`, `isRemove`) VALUES
+('1234Devs', 'Adner Devila', 5, 0, 0, 0),
+('123ADMIN', 'Name Surname', 1, 0, 0, 0),
+('123Devs', 'Adner Devila', 5, 0, 0, 0),
+('123SAMPL', 'samp sampler', 5, 0, 0, 0),
+('321ADNER', 'Gon Kurapika', 6, 0, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -122,6 +134,10 @@ CREATE TABLE `employee_attendance` (
   `start_time` timestamp NOT NULL DEFAULT current_timestamp(),
   `end_time` timestamp NOT NULL DEFAULT current_timestamp(),
   `total_time` varchar(30) DEFAULT NULL,
+  `day` int(11) NOT NULL,
+  `hour` int(11) NOT NULL,
+  `minute` int(11) NOT NULL,
+  `second` int(11) NOT NULL,
   `submitted_by` varchar(150) NOT NULL,
   `submitted_on` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -130,9 +146,9 @@ CREATE TABLE `employee_attendance` (
 -- Dumping data for table `employee_attendance`
 --
 
-INSERT INTO `employee_attendance` (`employee_attendance_id`, `employee_id`, `employee_name`, `department_id`, `activity_type`, `activity_description`, `start_time`, `end_time`, `total_time`, `submitted_by`, `submitted_on`) VALUES
-(1, '02002John', 'John', 1, 6, 'attendance', '2024-02-22 16:00:00', '2024-02-23 16:00:00', '0.00', 'Ce', '0000-00-00 00:00:00'),
-(7, '1234567891DEV', 'John Luck', 2, 4, 'sample act', '2024-02-23 07:59:39', '2024-02-25 09:00:00', '2 day, 1 hrs, 0 mns', '1234567891DEV', '2024-02-25 09:00:00');
+INSERT INTO `employee_attendance` (`employee_attendance_id`, `employee_id`, `employee_name`, `department_id`, `activity_type`, `activity_description`, `start_time`, `end_time`, `total_time`, `day`, `hour`, `minute`, `second`, `submitted_by`, `submitted_on`) VALUES
+(1, '02002John', 'John', 1, 6, 'attendance', '2024-02-22 16:00:00', '2024-02-23 16:00:00', '0.00', 0, 5, 2, 42, 'Ce', '0000-00-00 00:00:00'),
+(7, '1234567891DEV', 'John Luck', 2, 4, 'sample act', '2024-02-23 07:59:39', '2024-02-25 09:00:00', '2 day, 1 hrs, 0 mns', 0, 0, 0, 0, '1234567891DEV', '2024-02-25 09:00:00');
 
 -- --------------------------------------------------------
 
@@ -191,7 +207,12 @@ INSERT INTO `login_credentials` (`login_id`, `employee_id`, `credential_id`, `cr
 (3, '1234567891', '1234567891DEV', 'NER', 'employee'),
 (4, '9876543211', '9876543211JUS', 'KUL', 'admin'),
 (6, '01-2457321', '01-2457321ERO', 'LOGIN', 'employee'),
-(7, '02-2295931', '02-2295931LEAGUE', 'LION', 'employee');
+(7, '02-2295931', '02-2295931LEAGUE', 'LION', 'employee'),
+(8, '123ADMIN', '123ADMIN', 'admin', 'admin'),
+(9, '123Devs', '123Devs', 'Devs', 'admin'),
+(10, '1234Devs', '1234Devs', 'Devss', 'admin'),
+(11, '321ADNER', '321ADNER', 'neru', 'admin'),
+(12, '123SAMPL', '123SAMPL', 'samp', 'admin');
 
 -- --------------------------------------------------------
 
@@ -298,12 +319,6 @@ ALTER TABLE `activity`
   MODIFY `activity_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
--- AUTO_INCREMENT for table `admin_user`
---
-ALTER TABLE `admin_user`
-  MODIFY `admin_id` int(11) NOT NULL AUTO_INCREMENT;
-
---
 -- AUTO_INCREMENT for table `announcement`
 --
 ALTER TABLE `announcement`
@@ -325,7 +340,7 @@ ALTER TABLE `employee_attendance`
 -- AUTO_INCREMENT for table `login_credentials`
 --
 ALTER TABLE `login_credentials`
-  MODIFY `login_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `login_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `userlevel`

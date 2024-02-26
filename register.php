@@ -193,16 +193,7 @@
                 alert("Please select a department");
                 return;
             }
-            console.log({
-                employee_id,
-                nickname,
-                employee_name,
-                employee_surname,
-                employee_complete_name,
-                department_id,
-                id_credential,
-                surname_credential
-            });
+
             registerEmployee(employee_id, employee_complete_name, nickname, department_id, id_credential, surname_credential)
 
         });
