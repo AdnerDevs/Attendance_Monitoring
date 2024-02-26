@@ -1,8 +1,8 @@
 <?php
 
     require_once ('AdminHeader.php');
-
-
+    require_once ('../Model/UserlevelModel.php');
+  
 ?>
 <style>
       .divider-content-center{
@@ -102,6 +102,14 @@
                         </div>
                     </div>
 
+                    <div class="col-12">
+                        <div class="input-group mb-3">
+                            <span class="input-group-text">
+                                <i class="fa fa-user" aria-hidden="true"></i>
+                            </span>
+                            <input type="text" name="" id="emp_surname" class="regInputField form-control form-control-lg fs-6 " placeholder="Username">
+                        </div>
+                    </div>
                
 
                     <div class="col-12">
@@ -122,14 +130,14 @@
                         </div>
                     </div>
 
-                    <div class="col-12">
+                    <!-- <div class="col-12">
                         <div class="input-group mb-3">
                             <span class="input-group-text">
                                 <i class="fa fa-lock" aria-hidden="true"></i>
                             </span>
                             <input type="password" name="" id="emp_nName" class="regInputField form-control form-control-lg fs-6 " placeholder="Password">
                         </div>
-                    </div>
+                    </div> -->
 
                     <div class="col-12 ">
                         <div class="input-group mb-3">
@@ -138,9 +146,16 @@
                             </span>
                             <select class="form-select" aria-label="Default select department">
                                 <option selected disabled>Userlevel</option>
-                                <option value="1">One</option>
-                                <option value="2">Two</option>
-                                <option value="3">Three</option>
+                                <?php 
+                                    $userlevel_model = new UserlevelModel();
+                                    $ul_model = $userlevel_model->getAllUserlevel();
+
+                                    foreach( $ul_model as $ul ):
+                                ?>
+                                <option value="<?=$ul['userlevel_id']?>"><?=$ul['userlevel_name']?></option>
+                                <?php
+                                    endforeach;
+                                ?>
                             </select>
                         </div>
                     </div>
