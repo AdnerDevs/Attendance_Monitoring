@@ -1,6 +1,5 @@
 <?php
     require_once ('../connection/dbh.php');
-
 ?>
 
 <!DOCTYPE html>
@@ -16,16 +15,10 @@
   />
     <link rel="stylesheet" href="../asset/css/main.css">
     <title>Document</title>
-    <!-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> -->
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/dataTables.bootstrap5.min.css" />
-    <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
-    <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
-    <script src="https://cdn.datatables.net/1.13.4/js/dataTables.bootstrap5.min.js"></script>
-    <script>
-    $(document).ready( function () {
-        $('#myTable').DataTable();
-    });
-    </script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.datatables.net/2.0.0/css/dataTables.dataTables.css" />
+    <script src="https://cdn.datatables.net/2.0.0/js/dataTables.js"></script>
+    
 </head>
 <body>
     <nav class="navbar bg-dark shadow" style="z-index: 3;">
