@@ -5,8 +5,21 @@
 
     $users = new EmployeeModel();
     $employee = $users->getAllEmployees();
+    if(isset($_SESSION['employee_management_view']) && $_SESSION['employee_management_view'] == 1){
 ?>
-
+<?php
+                                    isset($_SESSION['employee_management_create']) && $_SESSION["employee_management_create"] == 1 ? $addState = " ": $addState = "d-none";
+                                    isset($_SESSION['employee_management_update']) && $_SESSION["employee_management_update"] == 1 ? $editState = " ": $editState = "d-none";
+                                    isset($_SESSION['employee_management_delete']) && $_SESSION["employee_management_delete"] == 1 ? $state = " ": $state = "d-none";
+                                  
+                                   
+                                    $isAllowed = (
+                                        isset($_SESSION['employee_management_create']) && $_SESSION['employee_management_create'] == 1 &&
+                                        isset($_SESSION['employee_management_update']) && $_SESSION['employee_management_update'] == 1 &&
+                                        isset($_SESSION['employee_management_delete']) && $_SESSION['employee_management_delete'] == 1
+                                    ) ? $hide_action = ' ' : $hide_action = 'd-none';
+                                                                                                     
+?>
             <div class="table-responsive">
                 <div class="d-flex flex-row p-2 align-items-center">
                     <p class="h4 mb-0 me-2">Employees</p>
@@ -26,7 +39,7 @@
                             <th>Name</th>
                             <th>Account Created</th>       
                             <th>Status</th>
-                            <th>Action</th>
+                            <th class="<?=$hide_action?>">Action</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -47,10 +60,10 @@
                             <td><?=$employees['employee_name']?></td>
                             <td><?=$employees['created_time']?></td>
                             <td class="<?= $statusClass ?>"><?= $status ?></td>
-                            <td>
-                                <button type="button" class="btn btn-primary me-2 EditActivityBtn" id="" data-bs-type="" data-bs-id="" data-bs-toggle="modal" data-bs-target="#EditActivityModal">Edit</button>
-                                <button type="button" class="btn btn-danger me-2 DeleteActivityBtn" data-bs-id="">delete</button>
-                                <button type="button" class="btn btn-secondary"data-bs-id=""></button>
+                            <td class="<?=$hide_action?>">
+                                <button type="button" class="btn btn-primary me-2 EditActivityBtn <?=$editState?>" id="" data-bs-type="" data-bs-id="" data-bs-toggle="modal" data-bs-target="#EditActivityModal">Edit</button>
+                                <button type="button" class="btn btn-danger me-2 DeleteActivityBtn <?=$state?>" data-bs-id="">delete</button>
+                                <!-- <button type="button" class="btn btn-secondary"data-bs-id=""></button> -->
                                 
                             </td>
                         </tr>
@@ -123,4 +136,5 @@
 </script>
 <?php
     require_once ('AdminFooter.php');
+  }  
 ?>

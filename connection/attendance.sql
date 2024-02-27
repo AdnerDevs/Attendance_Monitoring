@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 26, 2024 at 11:15 PM
--- Server version: 10.4.28-MariaDB
--- PHP Version: 8.2.4
+-- Generation Time: Feb 27, 2024 at 09:48 AM
+-- Server version: 10.4.32-MariaDB
+-- PHP Version: 8.2.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -68,11 +68,11 @@ CREATE TABLE `admin_user` (
 --
 
 INSERT INTO `admin_user` (`admin_id`, `admin_name`, `userlevel_id`, `status`, `isArchive`, `isRemove`) VALUES
-('1234Devs', 'Adner Devila', 5, 0, 0, 0),
-('123ADMIN', 'Name Surname', 1, 0, 0, 0),
-('123Devs', 'Adner Devila', 5, 0, 0, 0),
+('1234Devs', 'Adner Devila', 5, 1, 0, 0),
+('123ADMIN', 'Name Surname', 1, 1, 0, 0),
+('123Devs', 'Adner Devila', 5, 1, 0, 0),
 ('123SAMPL', 'samp sampler', 5, 0, 0, 0),
-('321ADNER', 'Gon Kurapika', 6, 0, 0, 0);
+('321ADNER', 'Gon Kurapika', 6, 1, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -174,7 +174,7 @@ INSERT INTO `employee_user` (`employee_id`, `employee_name`, `nickname`, `depart
 ('01-2457321', 'EROR LOGIN', 'ERO', 2, '2024-02-22 13:05:51', 0, 0),
 ('02-0454sen', 'adner devila', '', 2, '2024-02-21 15:07:10', 0, 0),
 ('02-070031-CENA', 'JOHN CENA', '', 2, '2024-02-21 15:07:10', 0, 0),
-('02-2295931', 'LEGENDS LION', 'LEAGUE', 1, '2024-02-24 19:48:36', 1, 0),
+('02-2295931', 'LEGENDS LION', 'LEAGUE', 1, '2024-02-24 19:48:36', 0, 0),
 ('02-5003dEV', '02-5003dEV', '', 2, '2024-02-21 15:07:10', 0, 0),
 ('09-1236781', 'ALCOR LOER', 'LOR', 2, '2024-02-22 13:03:06', 0, 0),
 ('123', 'ASD DSA', 'ASD', 1, '2024-02-21 15:07:10', 0, 0),
@@ -208,7 +208,7 @@ INSERT INTO `login_credentials` (`login_id`, `employee_id`, `credential_id`, `cr
 (4, '9876543211', '9876543211JUS', 'KUL', 'admin'),
 (6, '01-2457321', '01-2457321ERO', 'LOGIN', 'employee'),
 (7, '02-2295931', '02-2295931LEAGUE', 'LION', 'employee'),
-(8, '123ADMIN', '123ADMIN', 'admin', 'admin'),
+(8, '123ADMIN', '123ADMIN', 's', 'admin'),
 (9, '123Devs', '123Devs', 'Devs', 'admin'),
 (10, '1234Devs', '1234Devs', 'Devss', 'admin'),
 (11, '321ADNER', '321ADNER', 'neru', 'admin'),
@@ -254,7 +254,7 @@ CREATE TABLE `userlevel` (
 INSERT INTO `userlevel` (`userlevel_id`, `userlevel_name`, `dashboard_permission_view`, `admin_management_view`, `admin_management_create`, `admin_management_update`, `admin_management_delete`, `admin_management_archive`, `employee_management_view`, `employee_management_create`, `employee_management_update`, `employee_management_delete`, `employee_monitoring_management_view`, `employee_monitoring_management_create`, `employee_monitoring_management_update`, `employee_monitoring_management_delete`, `announcement_view`, `announcement_create`, `announcement_update`, `announcement_delete`, `announcement_archive`, `cms_permission_view`, `cms_permission_update`, `isDeleted`) VALUES
 (1, 'Superadmin', 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0),
 (5, 'Sec', 1, 1, 0, 0, 0, 0, 1, 1, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
-(6, 'Sub', 1, 1, 1, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0);
+(6, 'Sub', 1, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0);
 
 --
 -- Indexes for dumped tables

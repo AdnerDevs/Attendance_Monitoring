@@ -22,6 +22,12 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
             exit();
         }
     }
+    if(isset($_POST['admin'])){
+        echo 'success';
+        session_start();
+            session_unset();
+            session_destroy();
+    }
 }
 
 

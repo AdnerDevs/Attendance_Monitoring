@@ -11,6 +11,7 @@ if(isset($_SESSION["employee_id"]) && $_SESSION["employee_id"]){
 ?>
 <link rel="stylesheet" href="asset/css/infiniteLoop.css">
 <div class="container-fluid min-vh-100 mt-0" style="background-image: url('asset/img/bg_msa.jpg');">
+
     <div class="row">
         <p class="h4 mt-2 text-center ">Announcement</p>
         <div class="scroller" data-speed="slow" data-direction="left">
@@ -64,7 +65,7 @@ if(isset($_SESSION["employee_id"]) && $_SESSION["employee_id"]){
             </ul>
         </div>
     </div>
-       
+
     <div class="row ">
         <div class="col-md-6 p-4">
             <p class="text-center fs-1">Attendance</p>

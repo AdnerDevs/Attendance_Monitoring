@@ -4,6 +4,8 @@
     require_once ('../Model/UserlevelModel.php');
     require_once ('../Model/AdminAccountModel.php');
     $admin_model = new AdminAccountModel();
+    if(isset($_SESSION['admin_management_view']) && $_SESSION['admin_management_view'] == 1){
+
 
 ?>
 <style>
@@ -21,12 +23,25 @@
     }
 
 </style>
-
+<?php
+                                    isset($_SESSION['admin_management_create']) && $_SESSION["admin_management_create"] == 1 ? $addState = " ": $addState = "d-none";
+                                    isset($_SESSION['admin_management_update']) && $_SESSION["admin_management_update"] == 1 ? $editState = " ": $editState = "d-none";
+                                    isset($_SESSION['admin_management_delete']) && $_SESSION["admin_management_delete"] == 1 ? $state = " ": $state = "d-none";
+                                    isset($_SESSION['admin_management_archive']) && $_SESSION["admin_management_archive"] == 1 ? $state = " ": $state = "d-none";
+                                   
+                                    $isAllowed = (
+                                        isset($_SESSION['admin_management_create']) && $_SESSION['admin_management_create'] == 1 &&
+                                        isset($_SESSION['admin_management_update']) && $_SESSION['admin_management_update'] == 1 &&
+                                        isset($_SESSION['admin_management_delete']) && $_SESSION['admin_management_delete'] == 1 &&
+                                        isset($_SESSION['admin_management_archive']) && $_SESSION['admin_management_archive'] == 1
+                                    ) ? $hide_action = ' ' : $hide_action = 'd-none';
+                                                                                                     
+?>
             <div class="table-responsive">
                 <div class="d-flex flex-row p-2 align-items-center">
                     <p class="h4 mb-0 me-2">Admin</p>
 
-                    <button class="btn btn-primary" type="button" data-bs-toggle="modal" data-bs-target="#ActivityModal">Add New</button>
+                    <button class="btn btn-primary <?=$addState?>" type="button" data-bs-toggle="modal" data-bs-target="#ActivityModal">Add New</button>
                 </div>
                     
          
@@ -42,21 +57,33 @@
                             <th>Admin Name</th>
                             <th>Userlevel</th>     
                             <th>Status</th>
-                            <th>Action</th>
+                            <th>Condition</th>
+                            <?php
+                            // if(isset($_SESSION["admin_management_update"]) && $_SESSION["admin_management_update"]== 1 && isset($_SESSION["admin_management_delete"]) && $_SESSION["admin_management_delete"] == 1 && isset($_SESSION["admin_management_update"]) && $_SESSION["admin_management_update"] == 1 ){
+                                        
+                            ?>
+                            <th class="<?=$hide_action?>">Action</th>
+                            <?php
+                            // }
+                            ?>
                         </tr>
                     </thead>
                     <tbody>
                         <?php
                            $admin = $admin_model->getAllAdmin();
-                           $number = 1;
-                           $status = 'Active';
-                           $btnText = 'Archive';
-        
+                           $number = 1;  
                         foreach($admin as $ad):
-
+                            $condition = 'Active';
+                            $btnText = 'Archive';
+                            $status = 'offline';
+                            $statusClass = '';
                             if($ad['isArchive'] == 1){
-                                $status = 'Archive';
+                                $condition = 'Archive';
                                 $btnText = 'Unarchive';
+                            }
+                            if($ad['status'] == 1){
+                                $status = 'Online';
+                                $statusClass = 'text-primary';
                             }
                         ?>
                         <tr>
@@ -64,13 +91,16 @@
                             <td><?=$ad['admin_id']?></td>
                             <td><?=$ad['admin_name']?></td>
                             <td><?=$ad['userlevel_name']?></td>
-                            <td><?=$status?></td>
-                            <td>
-                                <button type="button" class="btn btn-primary me-2 EditActivityBtn" id="" data-bs-type="" data-bs-id="" data-bs-toggle="modal" data-bs-target="#EditActivityModal">Edit</button>
-                                <button type="button" class="btn btn-danger me-2 DeleteActivityBtn" data-bs-id="">delete</button>
-                                <button type="button" class="btn btn-secondary" data-bs-id=""><?=$btnText?></button>
+                            <td class="<?=$statusClass?>"><?=$status?></td>
+                            <td><?=$condition?></td>
+                            <td class="<?=$hide_action?>">
+                          
+                                <button type="button" class="btn btn-primary me-2 EditActivityBtn <?=$editState?>" id="" data-bs-type="" data-bs-id="" data-bs-toggle="modal" data-bs-target="#EditActivityModal">Edit</button>
+                                <button type="button" class="btn btn-danger me-2 DeleteActivityBtn <?=$addState?>" data-bs-id="">delete</button>
+                                <button type="button" class="btn btn-secondary <?=$addState?>" data-bs-id=""><?=$btnText?></button>
                                 
                             </td>
+                          
                         </tr>
                         <?php
                           $number++;
@@ -286,5 +316,7 @@ function registerEmployee(admin_id, admin_username, admin_completename, userleve
     }
 </script>
 <?php
+}
     require_once ('AdminFooter.php');
+
 ?>

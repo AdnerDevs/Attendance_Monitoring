@@ -1,7 +1,20 @@
 <?php
+//  ob_start(); 
+    session_start();
     require_once ('../connection/dbh.php');
-?>
+    if(isset($_SESSION['admin_id']) && $_SESSION["admin_id"]){
 
+   
+?>
+<?php
+                                    isset($_SESSION['admin_management_view']) && $_SESSION["admin_management_view"] == 1 ? $adminState = " ": $adminState = "d-none";
+                                    isset($_SESSION['employee_management_view']) && $_SESSION["employee_management_view"] == 1 ? $empManageState = " ": $empManageState = "d-none";
+                                    isset($_SESSION['employee_monitoring_management_view']) && $_SESSION["employee_monitoring_management_view"] == 1 ? $empMonitorState = " ": $empMonitorState = "d-none";
+                                    isset($_SESSION['announcement_view']) && $_SESSION["announcement_view"] == 1 ? $announcementState = " ": $announcementState = "d-none";
+                                    isset($_SESSION['cms_permission_view']) && $_SESSION["cms_permission_view"] == 1 ? $cmsState = " ": $cmsState = "d-none";
+
+                                                                                                     
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -68,7 +81,7 @@
                 </a>
                 <ul id="fileManager" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
                         
-                        <li class="sidebar-item">
+                        <li class="sidebar-item <?=$adminState?>">
                             <a href="AdminAccount.php" class="sidebar-link">
                             <i class="fa fa-address-book" aria-hidden="true"></i>
 
@@ -76,14 +89,14 @@
                             </a>
                         </li>
 
-                        <li class="sidebar-item">
+                        <li class="sidebar-item <?=$empManageState?>">
                             <a href="Employee.php" class="sidebar-link">
                                 <i class="fa fa-user" aria-hidden="true"></i>
                                 <span class="text-white">Employee</span>
                             </a>
                         </li>
                 
-                        <li class="sidebar-item">
+                        <li class="sidebar-item <?=$empMonitorState?>">
                             <a href="EmployeeMonitoring.php" class="sidebar-link">
                                 <i class="fa fa-users" aria-hidden="true"></i>
                                 <span class="text-white">Employee Monitoring</span>
@@ -114,7 +127,7 @@
                     </ul>
             </li>
             
-            <li class="sidebar-item">
+            <li class="sidebar-item <?=$announcementState?>">
                 <a href="Announcement.php" class="sidebar-link">
                     <i class="fa fa-bullhorn" aria-hidden="true"></i>
                     <span>Announcement</span>
@@ -125,11 +138,44 @@
         </ul>
 
         <div class="sidebar-footer">
-            <a href="../" class="sidebar-link">
-                <i class="fa fa-sign-out" aria-hidden="true"></i>
-                <span>Logout</span>
-            </a>
+            <button type="button" class="btn" id="adminlogout">
+                <a href="../" class="sidebar-link">
+                    <i class="fa fa-sign-out" aria-hidden="true"></i>
+                    <span>Logout</span>
+                </a>
+            </button>
+            
         </div>
     </aside>
 
     <div class="main p-3 min-vh-100">
+        <script>
+            $(document).ready(function(){
+                $("#adminlogout").click(function(){
+                    $.ajax({
+                        type: 'POST',
+                        url: '../Controller/logout.php',
+                        data:{
+                            admin: 'admin'
+                        },
+                        success: function(response){
+                            // if(response == 'success'){
+                            //     alert('successfully logout');
+                            //     window.location.href = '../';
+                            // }
+                            // console.log(response);
+                        },
+                        error: function (error){
+                            console.log(error);
+                        }
+
+                    });
+                });
+            });
+        </script>
+<?php
+    }else{
+        header("location: ../error.php");
+        exit();
+    }        
+?>

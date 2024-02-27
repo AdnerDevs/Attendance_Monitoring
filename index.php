@@ -97,22 +97,29 @@ $(document).ready(function(){
 
 function loginUser(emp_id,  emp_sname){
     $.ajax({
+        dataType: 'json',
         type: 'POST',
-        url: 'Controller/EmployeeController.php',
+        url: 'Controller/LoginController.php',
         data: {
             emp_id_credential: emp_id,
             emp_name_credential: emp_sname,
         },
         success: function(response){
        
-            if(response == 'employee') {
-                console.log("login employee");
-                window.location.href = 'dashboard.php';
-            } else if(response == 'admin'){
-                console.log("login to admin");
-            }else{
-                console.log("Account does not exist");
-            }
+            console.log("Response:", response);
+    switch(response.userType) {
+        case 'employee':
+            console.log("login employee");
+            window.location.href = 'dashboard.php';
+            break;
+        case 'admin':
+            console.log("login to admin");
+            window.location.href = 'admin';
+            break;
+        default:
+            console.log("Unknown user type or login failed");
+            break;
+    }
             
         },
         error: function(xhr, status, error){ 
