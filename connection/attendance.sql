@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 27, 2024 at 09:48 AM
+-- Generation Time: Feb 28, 2024 at 07:41 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -42,7 +42,7 @@ CREATE TABLE `activity` (
 
 INSERT INTO `activity` (`activity_id`, `activity_type`, `activity_created_time`, `activity_edited_time`, `isDeleted`, `isArchive`) VALUES
 (1, 'Attendances', '2024-02-14 16:00:00', '2024-02-19 05:04:22', 0, 0),
-(2, 'Lunch', '2024-02-14 16:00:00', '2024-02-15 18:52:02', 0, 0),
+(2, 'Lunch', '2024-02-14 16:00:00', '2024-02-28 04:00:11', 0, 0),
 (3, 'Meeting', '2024-02-15 01:27:14', '2024-02-15 18:52:02', 0, 0),
 (4, 'Quick Activity', '2024-02-15 01:28:04', '2024-02-15 18:52:02', 0, 0),
 (5, 'htttss', '2024-02-15 01:38:41', '2024-02-15 18:59:39', 0, 0),
@@ -68,11 +68,12 @@ CREATE TABLE `admin_user` (
 --
 
 INSERT INTO `admin_user` (`admin_id`, `admin_name`, `userlevel_id`, `status`, `isArchive`, `isRemove`) VALUES
-('1234Devs', 'Adner Devila', 5, 1, 0, 0),
-('123ADMIN', 'Name Surname', 1, 1, 0, 0),
-('123Devs', 'Adner Devila', 5, 1, 0, 0),
+('1234Devs', 'Adner Devila', 5, 0, 0, 0),
+('123ADMIN', 'Name Surname', 1, 0, 0, 0),
+('123Devs', 'Adner Devila', 5, 0, 0, 0),
 ('123SAMPL', 'samp sampler', 5, 0, 0, 0),
-('321ADNER', 'Gon Kurapika', 6, 1, 0, 0);
+('321ADNER', 'Gon Kurapika', 6, 0, 0, 0),
+('520ADMIN', 'Lucas Graham', 5, 0, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -212,7 +213,8 @@ INSERT INTO `login_credentials` (`login_id`, `employee_id`, `credential_id`, `cr
 (9, '123Devs', '123Devs', 'Devs', 'admin'),
 (10, '1234Devs', '1234Devs', 'Devss', 'admin'),
 (11, '321ADNER', '321ADNER', 'neru', 'admin'),
-(12, '123SAMPL', '123SAMPL', 'samp', 'admin');
+(12, '123SAMPL', '123SAMPL', 'samp', 'admin'),
+(13, '520ADMIN', '520ADMIN', 'LC', 'admin');
 
 -- --------------------------------------------------------
 
@@ -340,7 +342,7 @@ ALTER TABLE `employee_attendance`
 -- AUTO_INCREMENT for table `login_credentials`
 --
 ALTER TABLE `login_credentials`
-  MODIFY `login_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `login_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT for table `userlevel`
