@@ -15,10 +15,7 @@
                     
          
                 
-                <table class="table align-middle">
-                    <caption>
-                        Description of the table.
-                    </caption>
+                <table class="table align-middle" id="myTable">
                     <thead>
                         <tr>
                             <th>id</th>

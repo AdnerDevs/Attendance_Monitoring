@@ -15,7 +15,7 @@
                     
          
                 
-                <table class="table">
+                <table class="table" id="myTable">
                     <caption>
                         Description of the table.
                     </caption>

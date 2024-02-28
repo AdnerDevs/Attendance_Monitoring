@@ -71,7 +71,8 @@
                     <tbody>
                         <?php
                            $admin = $admin_model->getAllAdmin();
-                           $number = 1;  
+                           $number = 1;
+                           $isFirstRow = true;   
                         foreach($admin as $ad):
                             $condition = 'Active';
                             $btnText = 'Archive';
@@ -95,14 +96,15 @@
                             <td><?=$condition?></td>
                             <td class="<?=$hide_action?>">
                           
-                                <button type="button" class="btn btn-primary me-2 EditActivityBtn <?=$editState?>" id="" data-bs-type="" data-bs-id="" data-bs-toggle="modal" data-bs-target="#EditActivityModal">Edit</button>
-                                <button type="button" class="btn btn-danger me-2 DeleteActivityBtn <?=$addState?>" data-bs-id="">delete</button>
-                                <button type="button" class="btn btn-secondary <?=$addState?>" data-bs-id=""><?=$btnText?></button>
+                                <button type="button" class="btn btn-primary me-2 EditAccountBtn <?=$editState?>" id="" data-bs-type="" data-bs-id="<?=$ad['admin_id']?>" data-bs-toggle="modal" data-bs-target="#EditAccountModal" <?= ($isFirstRow) ? 'disabled' : ''; ?>>Edit</button>
+                                <button type="button" class="btn btn-danger me-2 DeleteActivityBtn <?=$addState?>" data-bs-id="" <?= ($isFirstRow) ? 'disabled' : ''; ?>>delete</button>
+                                <button type="button" class="btn btn-secondary <?=$addState?>" data-bs-id="" <?= ($isFirstRow) ? 'disabled' : ''; ?>><?=$btnText?></button>
                                 
                             </td>
                           
                         </tr>
                         <?php
+                          $isFirstRow = false; 
                           $number++;
                           endforeach;
                         ?>
@@ -207,27 +209,93 @@
 </div>
 
 
-<div class="modal fade" id="EditActivityModal" tabindex="-1" aria-labelledby="EditActivityModal" aria-hidden="true">
-  <div class="modal-dialog">
+<div class="modal fade" id="EditAccountModal" tabindex="-1" aria-labelledby="EditAccountModal" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <div class="modal-header">
-        <h1 class="modal-title fs-5" id="EditActivityModal">Edit Activity Type</h1>
+        <h1 class="modal-title fs-5" id="EditAccountModalTitle">Edit Activity Type</h1>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
-      <div class="modal-body">
-        
+      <div class="modal-body container-fluid" id="bodyEdit"> 
+                <!-- <div class="d row align-items-center justify-content-center g-0 px-4 px-sm-0 p-4   w-sm-100" style=" width: 100%;">
+           
+                    <div class="col col-sm-6 col-lg-7 col-xl-6">
             
-            <div class="mb-3">
-                <label for="formGroupExampleInput" class="form-label editActvity"></label>
-                <input type="text" class="form-control" id="EditActivityTypeInput" placeholder="Activity type">
-                <input type="hidden" id="EditActivityID">
-            </div>
+                        <div class="text-center mb-5">
+                            <p class="h3 fw-bold text-primary">Register</p>
+                            <p class="text-secondary">Create Admin Account</p>
+                        </div>
+                    <div class="row mb-4">
+                        <div class="col-12">
+                            <div class="input-group mb-3">
+                                <span class="input-group-text">
+                                    <i class="fa fa-id-badge" aria-hidden="true"></i>
+                                </span>
+                                <input type="text" name="" id="admin_id" class="regInputField form-control form-control-lg fs-6 " placeholder="Admin ID">
+                            </div>
+                        </div>
+
+                        <div class="col-12">
+                            <div class="input-group mb-3">
+                                <span class="input-group-text">
+                                    <i class="fa fa-user" aria-hidden="true"></i>
+                                </span>
+                                <input type="text" name="" id="admin_username" class="regInputField form-control form-control-lg fs-6 " placeholder="Username">
+                            </div>
+                        </div>
+                
+
+                        <div class="col-12">
+                            <div class="input-group mb-3">
+                                <span class="input-group-text">
+                                    <i class="fa fa-user" aria-hidden="true"></i>
+                                </span>
+                                <input type="text" name="" id="admin_name" class="regInputField form-control form-control-lg fs-6 " placeholder=" Name">
+                            </div>
+                        </div>
+
+                        <div class="col-12">
+                            <div class="input-group mb-3">
+                                <span class="input-group-text">
+                                    <i class="fa fa-user" aria-hidden="true"></i>
+                                </span>
+                                <input type="text" name="" id="admin_surname" class="regInputField form-control form-control-lg fs-6 " placeholder="Surname">
+                            </div>
+                        </div>
+                        <div class="col-12 ">
+                            <div class="input-group mb-3">
+                                <span class="input-group-text">
+                                    <i class="fa fa-user-plus" aria-hidden="true"></i>
+                                </span>
+                                <select class="form-select admin_select_userlevel" aria-label="Default select department">
+                                    <option selected disabled value=0 >Userlevel</option>
+                                    <?php 
+                                        // $userlevel_model = new UserlevelModel();
+                                        // $ul_model = $userlevel_model->getAllUserlevel();
+
+                                        // foreach( $ul_model as $ul ):
+                                    ?>
+                                    <option value="<?=$ul['userlevel_id']?>"><?=$ul['userlevel_name']?></option>
+                                    <?php
+                                        // endforeach;
+                                    ?>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                        <button type="button" class="btn btn-outline-primary btn-lg w-100" id="registerBtn" data-bs-dismiss="modal">
+                            Register
+                        </button>
+                    </div>
+                </div> -->
+      
 
        </div>
       
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary" id="editActivity" data-bs-dismiss="modal">Save changes</button>
+        <button type="button" class="btn btn-primary" id="editAccountSaveBtn" data-bs-dismiss="modal">Save changes</button>
       </div>
     </div>
   </div>
@@ -236,12 +304,7 @@
 
 <script>
 $(document).ready(function(){
-    let admin_id;
-    let admin_username;
-    let admin_name ;
-    let admin_surname;
-    let admin_completename ;
-    let userlevel = 0;
+    let admin_id, admin_username, admin_name , admin_surname, admin_completename , userlevel = 0;
 
     $(".admin_select_userlevel").change(function(){
        userlevel = $(this).val()
@@ -278,7 +341,10 @@ $(document).ready(function(){
 
         });
 
-});
+        // edit button
+
+
+
 
 function registerEmployee(admin_id, admin_username, admin_completename, userlevel ){
         $.ajax({
@@ -309,11 +375,136 @@ function registerEmployee(admin_id, admin_username, admin_completename, userleve
 
             },
             error: function(error){
-                console.log(error);
+                console.error(jqXHR, textStatus, errorThrown);
             }
 
         });
     }
+
+
+    let userlevel_ed;
+        
+        $(".EditAccountBtn").click(function(){
+            admin_id = $(this).data('bs-id');
+            getAdminById(admin_id);
+      
+        });
+   
+        $(".edit_admin_select_userlevel").change(function(){
+            userlevel_ed = $(this).val()
+        });
+        $("#editAccountSaveBtn").click(function(){
+            admin_id = $("#edit_admin_id").val();
+            admin_username = $("#edit_admin_username").val();
+            admin_name = $("#edit_admin_name").val();
+            admin_surname = $("#edit_admin_surname").val();
+            admin_completename = `${admin_name} ${admin_surname}`;
+
+     
+            console.log({
+                admin_id,
+                admin_username,
+                admin_name,
+                admin_surname,
+                admin_completename,
+                userlevel_ed
+            });
+
+        });
+    
+
+    function getAdminById(admin_id){
+        $.ajax({
+            type: 'GET',
+            url: '../Controller/AdminAccountController.php',
+            data:"admin_id=" + admin_id,
+            dataType: 'json',
+            success: function (result){
+                console.log(result);
+                let Body = $('#bodyEdit');
+                let firstResult = result.admin[0];
+                
+                let nameArray = firstResult.admin_name.split(' ');
+                let name = nameArray[0];
+                let surname = nameArray.slice(1).join(' ');
+                let userLevelOptions = '';
+
+                // Use a loop to add each option to the userLevelOptions string
+                for (let i = 0; i < result.userlevel.length; i++) {
+                    if (result.userlevel[i].userlevel_id === firstResult.userlevel_id) {
+                        continue;
+                    }
+                    userLevelOptions += `<option value="${result.userlevel[i].userlevel_id}">${result.userlevel[i].userlevel_name}</option>`;
+                }
+            Body.empty();
+   
+            Body.html(`<div class="d row align-items-center justify-content-center g-0 px-4 px-sm-0 p-4   w-sm-100" style=" width: 100%;">
+                    <div class="col col-sm-6 col-lg-7 col-xl-6">
+                        <div class="text-center mb-5">
+                            <p class="h3 fw-bold text-primary">Register</p>
+                            <p class="text-secondary">Create Admin Account</p>
+                        </div>
+                        <div class="row mb-4">
+                            <div class="col-12">
+                                <div class="input-group mb-3">
+                                    <span class="input-group-text">
+                                        <i class="fa fa-id-badge" aria-hidden="true"></i>
+                                    </span>
+                                    <input type="text" name="" id="edit_admin_id" class="regInputField form-control form-control-lg fs-6 " placeholder="Admin ID" value="${firstResult .admin_id}">
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="input-group mb-3">
+                                    <span class="input-group-text">
+                                        <i class="fa fa-user" aria-hidden="true"></i>
+                                    </span>
+                                    <input type="text" name="" id="edit_admin_username" class="regInputField form-control form-control-lg fs-6 " value="${firstResult.credential_surname}" placeholder="Username">
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="input-group mb-3">
+                                    <span class="input-group-text">
+                                        <i class="fa fa-user" aria-hidden="true"></i>
+                                    </span>
+                                    <input type="text" name="" id="edit_admin_name" class="regInputField form-control form-control-lg fs-6 " value="${name}" placeholder=" Name">
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="input-group mb-3">
+                                    <span class="input-group-text">
+                                        <i class="fa fa-user" aria-hidden="true"></i>
+                                    </span>
+                                    <input type="text" name="" id="edit_admin_surname" class="regInputField form-control form-control-lg fs-6 " value="${surname}"  placeholder="Surname" >
+                                </div>
+                            </div>
+                            <div class="col-12 ">
+                                <div class="input-group mb-3">
+                                    <span class="input-group-text">
+                                        <i class="fa fa-user-plus" aria-hidden="true"></i>
+                                    </span>
+                                    <select class="form-select edit_admin_select_userlevel" aria-label="Default select department">
+                                        <option selected disabled value="${firstResult.userlevel_id}">${firstResult.userlevel_name}</option>
+                                        ${userLevelOptions}
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>`);
+
+            Body.find('.edit_admin_select_userlevel').on('change', function() {
+                userlevel_ed = $(this).val();
+            });
+            
+      
+            },
+            error: function (error){
+                console.log("error:" . error);
+            }
+        });
+       
+    }
+});
 </script>
 <?php
 }

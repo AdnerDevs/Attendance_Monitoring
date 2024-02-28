@@ -24,6 +24,28 @@ class AdminAccountModel extends Dbh{
         }
     }
 
+    public function getAdminById($admin_id){
+        try{
+            $stmt = $this->connect()->prepare("SELECT au.admin_id, au.admin_name, ul.userlevel_name, au.isRemove, au.isArchive, lc.credential_surname, au.status, au.userlevel_id  
+            FROM admin_user au
+            INNER JOIN userlevel ul ON au.userlevel_id = ul.userlevel_id
+            INNER JOIN login_credentials lc ON au.admin_id = lc.employee_id
+            WHERE au.admin_id = ? AND au.isRemove != 1");
+
+            if(!$stmt->execute([$admin_id])){
+                return false;
+            }
+
+            $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            return $result;
+
+        }catch(PDOException $e){
+            print_r($e->errorInfo);
+        }finally{
+            $stmt = null;
+        }
+    }
+
     public function registerAdmin($admin_id, $admin_username, $admin_completename, $userlevel, $usertpye){
         try{    
             $stmt = $this->connect()->prepare("INSERT INTO admin_user (admin_id,  admin_name, userlevel_id) VALUES (?,?,?)");

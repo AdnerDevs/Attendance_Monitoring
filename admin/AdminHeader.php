@@ -31,7 +31,16 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <link rel="stylesheet" href="https://cdn.datatables.net/2.0.0/css/dataTables.dataTables.css" />
     <script src="https://cdn.datatables.net/2.0.0/js/dataTables.js"></script>
-    
+    <script>
+        $(document).ready( function () {
+            $('#myTable').DataTable();
+
+            // new DataTable("#myTable",{
+            //     scrollX:true;
+            // });
+            
+        } );
+    </script>
 </head>
 <body>
     <nav class="navbar bg-dark shadow" style="z-index: 3;">

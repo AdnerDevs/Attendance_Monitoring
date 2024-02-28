@@ -1,9 +1,10 @@
 <?php 
 require_once("../connection/dbh.php");
 require_once("../Model/AdminAccountModel.php");
+require_once("../Model/UserlevelModel.php");
 require_once("../Controller/SignupControllerAdmin.php");
 $admin_model = new AdminAccountModel();
-
+$userlevel = new UserlevelModel();
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST'){
     if(isset($_POST['admin_id']) && isset( $_POST['admin_username']) && isset( $_POST['admin_completename']) && isset( $_POST['userlevel'])){
@@ -36,4 +37,29 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
     
     }
 }
+
+if ($_SERVER['REQUEST_METHOD'] == 'GET') {
+    if (isset($_GET['admin_id'])) {
+        $admin_id = htmlspecialchars($_GET['admin_id'], ENT_QUOTES, 'UTF-8');
+    
+        try {
+            $get_admin = $admin_model->getAdminById($admin_id);
+            $getuserlevel = $userlevel->getAllUserlevel();
+    
+            $data = []; // Define an array to hold both $get_admin and $getuserlevel
+
+            if ($get_admin != false) {
+                $data['admin'] = $get_admin;
+                $data['userlevel'] = $getuserlevel;
+    
+                echo json_encode($data); // Encode the associative array to JSON
+            }
+        } catch (Exception $e) {
+            echo 'Error: ' . $e->getMessage();
+        }
+    }
+    
+}
+
+
 

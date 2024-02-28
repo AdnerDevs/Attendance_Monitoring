@@ -28,9 +28,6 @@
          
                 
                 <table class="table" id="myTable" class="">
-                    <caption>
-                        Description of the table.
-                    </caption>
                     <thead>
                         <tr>
                             <th>No</th>
