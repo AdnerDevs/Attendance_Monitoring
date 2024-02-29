@@ -8,7 +8,7 @@ class AdminAccountModel extends Dbh{
             FROM admin_user au
             INNER JOIN userlevel ul ON au.userlevel_id = ul.userlevel_id
             INNER JOIN login_credentials lc ON au.admin_id = lc.employee_id
-            WHERE isRemove != 1");
+            WHERE au.isRemove != 1");
 
             if(!$stmt->execute()){
                 return false;
@@ -100,6 +100,70 @@ class AdminAccountModel extends Dbh{
             return false;
         }finally{
             $stmt = null;
+        }
+    }
+
+    public function updateAdmin( $admin_completename, $admin_username, $userlevel, $admin_id){
+        try{    
+            $stmt = $this->connect()->prepare("UPDATE admin_user SET admin_name = ?, userlevel_id = ? WHERE admin_id = ?");
+
+            if(!$stmt->execute([ $admin_completename, $userlevel, $admin_id])){
+                return false;
+            }
+
+            $perform = $this->updateLoginCredentials($admin_id, $admin_username) ;
+
+            if( $perform  != false){
+                return true;
+            }else{
+                return false;
+            }
+
+        }catch(PDOException $e){
+            print_r($e->errorInfo);
+        }finally{
+            $stmt = null;
+        }
+    }
+
+    public function updateLoginCredentials($admin_id, $admin_username){
+        try{
+
+            $stmt = $this->connect()->prepare('UPDATE login_credentials SET credential_surname = ? WHERE employee_id = ?');
+
+            if(!$stmt->execute([$admin_username, $admin_id])){
+                return false;
+            }
+
+            return true;
+
+        }catch(PDOException $e){
+            print('' .$e->getMessage());
+        }finally{
+            $stmt = null;
+        }
+    }
+
+
+    public function removeAdmin($admin_id){
+        try{
+
+            $stmt = $this->connect()->prepare('UPDATE admin_user SET isRemove = 1 WHERE admin_id = ?');
+            $stmt2 = $this->connect()->prepare('UPDATE login_credentials SET isRemove = 1 WHERE employee_id = ?');
+            if(!$stmt->execute([$admin_id])){
+                return false;
+            }
+            if(!$stmt2->execute([$admin_id])){
+                return false;
+            }
+
+            return true;
+
+        }catch(PDOException $e){
+            print('' .$e->getMessage());
+        }finally{
+            $stmt = null;
+            $stmt2 = null;
         }
     }
 }

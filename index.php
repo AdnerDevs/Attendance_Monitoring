@@ -1,9 +1,9 @@
 <?php
-    require_once ('header.php');
+require_once('header.php');
 
 ?>
 <style>
-    .bg-holder{
+    .bg-holder {
         position: absolute;
         width: 100%;
         min-height: 100%;
@@ -14,7 +14,7 @@
         background-repeat: no-repeat;
     }
 
-    .divider-content-center{
+    .divider-content-center {
         position: absolute;
         top: 50%;
         left: 50%;
@@ -30,10 +30,10 @@
 <div class="container-fluid bg-dark">
     <div class="row min-vh-100 ">
 
-        <div class="col-lg-6 position-relative d-none d-lg-block" >
-           <div class="bg-holder" style="background-image: url('asset/img/herogram.jpg')">
-                      
-           </div>
+        <div class="col-lg-6 position-relative d-none d-lg-block">
+            <div class="bg-holder" style="background-image: url('asset/img/herogram.jpg')">
+
+            </div>
         </div>
 
         <div class="col-lg-6 ">
@@ -41,7 +41,7 @@
                 <div class="col col-sm-6 col-lg-7 col-xl-6">
                     <a href="/attendance_monitoring" class="d-flex justify-content-center mb-4">
                         <img src="asset/img/herogram.jpg" alt="" width="60" class="rounded-circle">
-                        
+
                     </a>
 
                     <div class="text-center mb-5">
@@ -54,18 +54,20 @@
                             <span class="input-group-text">
                                 <i class="fa fa-id-badge" aria-hidden="true"></i>
                             </span>
-                            <input type="text" name="" id="emp_id_credentials" class="form-control form-control-lg fs-6" placeholder="Employee ID">
+                            <input type="text" name="" id="emp_id_credentials" class="form-control form-control-lg fs-6"
+                                placeholder="Employee ID">
                         </div>
 
                         <div class="input-group mb-3">
                             <span class="input-group-text">
                                 <i class="fa fa-user" aria-hidden="true"></i>
                             </span>
-                            <input type="text" name="" id="emp_name_credentials" class="form-control form-control-lg fs-6" placeholder="Employee Name">
+                            <input type="text" name="" id="emp_name_credentials"
+                                class="form-control form-control-lg fs-6" placeholder="Employee Name">
                         </div>
                     </div>
 
-                    <button type="button" id="login_btn" class="btn btn-outline-primary btn-lg w-100" >
+                    <button type="button" id="login_btn" class="btn btn-outline-primary btn-lg w-100">
                         Login
                     </button>
 
@@ -73,8 +75,8 @@
                         <hr class="text-secondary divider">
                         <div class="divider-content-center">or</div>
                     </div>
-                    <button type="button" class="btn btn-outline-secondary btn-lg w-100" >
-                        <a href="register.php"  style="text-decoration: none !important; color: inherit;">Register</a>
+                    <button type="button" class="btn btn-outline-secondary btn-lg w-100">
+                        <a href="register.php" style="text-decoration: none !important; color: inherit;">Register</a>
                     </button>
                 </div>
             </div>
@@ -83,51 +85,51 @@
 </div>
 
 <script>
-$(document).ready(function(){
-    let emp_id;
-    let emp_sname;
+    $(document).ready(function () {
+        let emp_id;
+        let emp_sname;
 
-    $("#login_btn").click(function(){
-        emp_id = $("#emp_id_credentials").val();
-        emp_sname  = $("#emp_name_credentials").val();
+        $("#login_btn").click(function () {
+            emp_id = $("#emp_id_credentials").val();
+            emp_sname = $("#emp_name_credentials").val();
 
-        loginUser(emp_id,  emp_sname);
+            loginUser(emp_id, emp_sname);
+        });
     });
-});
 
-function loginUser(emp_id,  emp_sname){
-    $.ajax({
-        dataType: 'json',
-        type: 'POST',
-        url: 'Controller/LoginController.php',
-        data: {
-            emp_id_credential: emp_id,
-            emp_name_credential: emp_sname,
-        },
-        success: function(response){
-       
-            console.log("Response:", response);
-    switch(response.userType) {
-        case 'employee':
-            console.log("login employee");
-            window.location.href = 'dashboard.php';
-            break;
-        case 'admin':
-            console.log("login to admin");
-            window.location.href = 'admin';
-            break;
-        default:
-            console.log("Unknown user type or login failed");
-            break;
+    function loginUser(emp_id, emp_sname) {
+        $.ajax({
+            dataType: 'json',
+            type: 'POST',
+            url: 'Controller/LoginController.php',
+            data: {
+                emp_id_credential: emp_id,
+                emp_name_credential: emp_sname,
+            },
+            success: function (response) {
+
+                console.log("Response:", response);
+                switch (response.userType) {
+                    case 'employee':
+                        alert("Login successfully");
+                        window.location.href = 'dashboard.php';
+                        break;
+                    case 'admin':
+                        alert("login to admin");
+                        window.location.href = 'admin';
+                        break;
+                    default:
+                        alert("Unknown user type or account has been remove");
+                        break;
+                }
+
+            },
+            error: function (xhr, status, error) {
+                console.error("An error occurred: " + error);
+            }
+        });
     }
-            
-        },
-        error: function(xhr, status, error){ 
-            console.error("An error occurred: " + error);
-        }
-    });
-}
 </script>
 <?php
-    require_once ('footer.php');
+require_once('footer.php');
 ?>

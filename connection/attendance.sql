@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 28, 2024 at 07:41 AM
+-- Generation Time: Feb 29, 2024 at 09:55 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -68,12 +68,12 @@ CREATE TABLE `admin_user` (
 --
 
 INSERT INTO `admin_user` (`admin_id`, `admin_name`, `userlevel_id`, `status`, `isArchive`, `isRemove`) VALUES
-('1234Devs', 'Adner Devila', 5, 0, 0, 0),
-('123ADMIN', 'Name Surname', 1, 0, 0, 0),
+('1234Devs', 'Adners Devilaa', 5, 0, 0, 0),
+('123ADMIN', 'Name Surname', 1, 1, 0, 0),
 ('123Devs', 'Adner Devila', 5, 0, 0, 0),
-('123SAMPL', 'samp sampler', 5, 0, 0, 0),
-('321ADNER', 'Gon Kurapika', 6, 0, 0, 0),
-('520ADMIN', 'Lucas Graham', 5, 0, 0, 0);
+('123SAMPL', 'samp sampler', 6, 0, 0, 1),
+('250minad', 'Marya Careys', 1, 1, 0, 0),
+('321ADNER', 'Gon Kurapika', 1, 0, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -195,26 +195,27 @@ CREATE TABLE `login_credentials` (
   `employee_id` varchar(100) NOT NULL,
   `credential_id` varchar(100) NOT NULL,
   `credential_surname` varchar(100) NOT NULL,
-  `user_type` varchar(10) NOT NULL
+  `user_type` varchar(10) NOT NULL,
+  `isRemove` tinyint(1) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `login_credentials`
 --
 
-INSERT INTO `login_credentials` (`login_id`, `employee_id`, `credential_id`, `credential_surname`, `user_type`) VALUES
-(1, '1234', '1234DEV', 'DEVS', 'employee'),
-(2, '123', '123ASD', 'DSA', 'employee'),
-(3, '1234567891', '1234567891DEV', 'NER', 'employee'),
-(4, '9876543211', '9876543211JUS', 'KUL', 'admin'),
-(6, '01-2457321', '01-2457321ERO', 'LOGIN', 'employee'),
-(7, '02-2295931', '02-2295931LEAGUE', 'LION', 'employee'),
-(8, '123ADMIN', '123ADMIN', 's', 'admin'),
-(9, '123Devs', '123Devs', 'Devs', 'admin'),
-(10, '1234Devs', '1234Devs', 'Devss', 'admin'),
-(11, '321ADNER', '321ADNER', 'neru', 'admin'),
-(12, '123SAMPL', '123SAMPL', 'samp', 'admin'),
-(13, '520ADMIN', '520ADMIN', 'LC', 'admin');
+INSERT INTO `login_credentials` (`login_id`, `employee_id`, `credential_id`, `credential_surname`, `user_type`, `isRemove`) VALUES
+(1, '1234', '1234DEV', 'DEVS', 'employee', 0),
+(2, '123', '123ASD', 'DSA', 'employee', 0),
+(3, '1234567891', '1234567891DEV', 'NER', 'employee', 0),
+(4, '9876543211', '9876543211JUS', 'KUL', 'admin', 0),
+(6, '01-2457321', '01-2457321ERO', 'LOGIN', 'employee', 0),
+(7, '02-2295931', '02-2295931LEAGUE', 'LION', 'employee', 0),
+(8, '123ADMIN', '123ADMIN', 's', 'admin', 0),
+(9, '123Devs', '123Devs', 'Devs', 'admin', 0),
+(10, '1234Devs', '1234Devs', 'Devss', 'admin', 0),
+(11, '321ADNER', '321ADNER', 'neru', 'admin', 0),
+(12, '123SAMPL', '123SAMPL', 'samp', 'admin', 1),
+(13, '250minad', '250minad', 'MCss', 'admin', 0);
 
 -- --------------------------------------------------------
 

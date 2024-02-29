@@ -14,14 +14,11 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
           
         if($login_user !== false) {
             echo json_encode(['success' => true, 'userType' => $login_user]);
-        //     var_dump ($login_user);
-        // echo $login_user;
+
         } else {
             echo json_encode(['success' => false, 'message' => 'Login failed']);
-            // var_dump ($login_user);
-            //      echo $login_user;
+  
         }
-        // var_dump ($login_user);
-        // echo $login_user;
+
     }
 }

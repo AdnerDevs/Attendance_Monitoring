@@ -4,7 +4,7 @@ class LoginModel extends Dbh{
     
     public function loginUser($employee_id, $employee_name ){
         try{
-            $stmt = $this->connect()->prepare("SELECT * FROM login_credentials WHERE credential_id = ? AND credential_surname = ?");
+            $stmt = $this->connect()->prepare("SELECT * FROM login_credentials WHERE credential_id = ? AND credential_surname = ? AND isRemove != 1");
 
             if(!$stmt->execute(array($employee_id, $employee_name))){
                 return false;
@@ -18,16 +18,6 @@ class LoginModel extends Dbh{
                 return false;
             }
             $usertype = $userData['user_type'];
-            // if($usertype == 'employee'){
-            //     $id = $userData["employee_id"];
-
-            //     $browse = $this->employeeData($id);
-            //     if($browse != false){
-            //         return true;
-            //     }else{
-            //         return "admin";
-            //     }
-            // }
             $id = $userData["employee_id"];
 
             switch(strtolower($usertype)){
@@ -38,33 +28,7 @@ class LoginModel extends Dbh{
                     $this->AdminData($id);
                     break;
             }
-            // $id = $userData["employee_id"];
 
-            // if($userData["credential_id"] != $employee_id){
-            //     return false;
-            //     exit();
-            // }
-
-            // $stmt2 = $this->connect()->prepare('SELECT * FROM employee_user WHERE employee_id = ? AND isRemove != 1');
-
-            // if(!$stmt2->execute([$id])){
-            //     return false;
-            //     exit();
-            // }
-      
-            // $stmt3 = $this->connect()->prepare("UPDATE employee_user SET status = 1 WHERE employee_id = ?");
-            // $stmt3->execute([$id]);
-
-    
-            // $userData2 = $stmt2->fetch(PDO::FETCH_ASSOC);
-            // $id2 = $userData2["employee_id"];
-            // if($userData2["employee_id"] != $id2){
-            //     return false;
-            //     exit();
-            // }
-
-            // $_SESSION['employee_id'] = $userData2['employee_id'];
-            // $_SESSION['employee_name'] = $userData2['employee_name'];
 
             return $usertype;
 
