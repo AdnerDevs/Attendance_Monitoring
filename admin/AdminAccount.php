@@ -62,49 +62,49 @@ $isAllowed = isset($_SESSION['admin_management_create']) && $_SESSION['admin_man
                 ?>
             </tr>
         </thead>
-        <tbody>
+        <tbody  id="table_body_container">
             <?php
-                           $admin = $admin_model->getAllAdmin();
-                           $number = 1;
-                           $isFirstRow = true;   
-                        foreach($admin as $ad):
-                            $condition = 'Active';
-                            $btnText = 'Archive';
-                            $status = 'offline';
-                            $statusClass = '';
-                            if($ad['isArchive'] == 1){
-                                $condition = 'Archive';
-                                $btnText = 'Unarchive';
-                            }
-                            if($ad['status'] == 1){
-                                $status = 'Online';
-                                $statusClass = 'text-primary';
-                            }
+                        //    $admin = $admin_model->getAllAdmin();
+                        //    $number = 1;
+                        //    $isFirstRow = true;   
+                        // foreach($admin as $ad):
+                        //     $condition = 'Active';
+                        //     $btnText = 'Archive';
+                        //     $status = 'offline';
+                        //     $statusClass = '';
+                        //     if($ad['isArchive'] == 1){
+                        //         $condition = 'Archive';
+                        //         $btnText = 'Unarchive';
+                        //     }
+                        //     if($ad['status'] == 1){
+                        //         $status = 'Online';
+                        //         $statusClass = 'text-primary';
+                        //     }
                         ?>
-            <tr>
-                <td><?= $number ?></td>
-                <td><?= $ad['admin_id'] ?></td>
-                <td><?= $ad['admin_name'] ?></td>
-                <td><?= $ad['userlevel_name'] ?></td>
-                <td class="<?= $statusClass ?>"><?= $status ?></td>
-                <td><?= $condition ?></td>
-                <td class="<?= $hide_action ?>">
+            <tr >
+                <td class="no"></td>
+                <td class="admin_id"></td>
+                <td class="admin_name"></td>
+                <td class="userlevel_name"></td>
+                <td class="stats"></td>
+                <td class="condition"></td>
+                <td class="btn_container">
 
                     <button type="button" class="btn btn-primary me-2 EditAccountBtn <?= $editState ?>" id=""
-                        data-bs-type="" data-bs-id="<?= $ad['admin_id'] ?>" data-bs-toggle="modal"
-                        data-bs-target="#EditAccountModal" <?= $isFirstRow ? 'disabled' : '' ?>>Edit</button>
-                    <button type="button" class="btn btn-danger me-2 RemoveAccountBtn <?= $addState ?>" data-bs-id="<?= $ad['admin_id'] ?>"
-                        <?= $isFirstRow ? 'disabled' : '' ?>>Remove</button>
-                    <button type="button" class="btn btn-secondary <?= $addState ?>" data-bs-id="<?= $ad['admin_id'] ?>"
-                        <?= $isFirstRow ? 'disabled' : '' ?>><?= $btnText ?></button>
+                        data-bs-type="" data-bs-id="" data-bs-toggle="modal"
+                        data-bs-target="#EditAccountModal">Edit</button>
+                    <button type="button" class="btn btn-danger me-2 RemoveAccountBtn <?= $addState ?>" data-bs-id=""
+                        >Remove</button>
+                    <button type="button" class="btn btn-secondary <?= $addState ?>" data-bs-id=""
+                       ></button>
 
                 </td>
 
             </tr>
             <?php
-                          $isFirstRow = false; 
-                          $number++;
-                          endforeach;
+                        //   $isFirstRow = false; 
+                        //   $number++;
+                        //   endforeach;
                         ?>
 
         </tbody>
@@ -222,7 +222,56 @@ $isAllowed = isset($_SESSION['admin_management_create']) && $_SESSION['admin_man
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body container-fluid" id="bodyEdit">
-
+            <div class="d row align-items-center justify-content-center g-0 px-4 px-sm-0 p-4   w-sm-100" style=" width: 100%;">
+                    <div class="col col-sm-6 col-lg-7 col-xl-6">
+                        <div class="text-center mb-5">
+                            <p class="h3 fw-bold text-primary">Register</p>
+                            <p class="text-secondary">Create Admin Account</p>
+                        </div>
+                        <div class="row mb-4">
+                            <div class="col-12">
+                                <div class="input-group mb-3">
+                                    <input type="hidden" name="" id="edit_admin_id" class="regInputField form-control form-control-lg fs-6 " placeholder="Admin ID" value="">
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="input-group mb-3">
+                                    <span class="input-group-text">
+                                        <i class="fa fa-user" aria-hidden="true"></i>
+                                    </span>
+                                    <input type="text" name="" id="edit_admin_username" class="regInputField form-control form-control-lg fs-6 " value="" placeholder="Username">
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="input-group mb-3">
+                                    <span class="input-group-text">
+                                        <i class="fa fa-user" aria-hidden="true"></i>
+                                    </span>
+                                    <input type="text" name="" id="edit_admin_name" class="regInputField form-control form-control-lg fs-6 " value="" placeholder=" Name">
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="input-group mb-3">
+                                    <span class="input-group-text">
+                                        <i class="fa fa-user" aria-hidden="true"></i>
+                                    </span>
+                                    <input type="text" name="" id="edit_admin_surname" class="regInputField form-control form-control-lg fs-6 " value=""  placeholder="Surname" >
+                                </div>
+                            </div>
+                            <div class="col-12 ">
+                                <div class="input-group mb-3">
+                                    <span class="input-group-text">
+                                        <i class="fa fa-user-plus" aria-hidden="true"></i>
+                                    </span>
+                                    <select class="form-select edit_admin_select_userlevel" aria-label="Default select department">
+                                        <option selected disabled value=""></option>
+                                     
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
 
             <div class="modal-footer">
@@ -261,22 +310,12 @@ $isAllowed = isset($_SESSION['admin_management_create']) && $_SESSION['admin_man
                 alert("Please asign a userlevel");
                 return;
             }
-            console.log({
-                admin_id,
-                admin_username,
-                admin_name,
-                admin_surname,
-                admin_completename,
-                userlevel
-            });
-
+  
             registerEmployee(admin_id, admin_username, admin_completename, userlevel)
 
         });
 
         // edit button
-
-
 
 
         function registerEmployee(admin_id, admin_username, admin_completename, userlevel) {
@@ -329,13 +368,15 @@ $isAllowed = isset($_SESSION['admin_management_create']) && $_SESSION['admin_man
                 dataType: 'json',
                 success: function(result) {
                     console.log(result);
-                    let Body = $('#bodyEdit');
                     let firstResult = result.admin[0];
 
                     let nameArray = firstResult.admin_name.split(' ');
                     let name = nameArray[0];
                     let surname = nameArray.slice(1).join(' ');
                     let userLevelOptions = '';
+
+                    let selectEl = $('#selectr');
+                    selectEl.val(userlevel);
 
                     // Use a loop to add each option to the userLevelOptions string
                     for (let i = 0; i < result.userlevel.length; i++) {
@@ -345,61 +386,12 @@ $isAllowed = isset($_SESSION['admin_management_create']) && $_SESSION['admin_man
                         userLevelOptions +=
                             `<option value="${result.userlevel[i].userlevel_id}">${result.userlevel[i].userlevel_name}</option>`;
                     }
-                    Body.empty();
-
-                    Body.html(`<div class="d row align-items-center justify-content-center g-0 px-4 px-sm-0 p-4   w-sm-100" style=" width: 100%;">
-                    <div class="col col-sm-6 col-lg-7 col-xl-6">
-                        <div class="text-center mb-5">
-                            <p class="h3 fw-bold text-primary">Register</p>
-                            <p class="text-secondary">Create Admin Account</p>
-                        </div>
-                        <div class="row mb-4">
-                            <div class="col-12">
-                                <div class="input-group mb-3">
-                                    <input type="hidden" name="" id="edit_admin_id" class="regInputField form-control form-control-lg fs-6 " placeholder="Admin ID" value="${firstResult .admin_id}">
-                                </div>
-                            </div>
-                            <div class="col-12">
-                                <div class="input-group mb-3">
-                                    <span class="input-group-text">
-                                        <i class="fa fa-user" aria-hidden="true"></i>
-                                    </span>
-                                    <input type="text" name="" id="edit_admin_username" class="regInputField form-control form-control-lg fs-6 " value="${firstResult.credential_surname}" placeholder="Username">
-                                </div>
-                            </div>
-                            <div class="col-12">
-                                <div class="input-group mb-3">
-                                    <span class="input-group-text">
-                                        <i class="fa fa-user" aria-hidden="true"></i>
-                                    </span>
-                                    <input type="text" name="" id="edit_admin_name" class="regInputField form-control form-control-lg fs-6 " value="${name}" placeholder=" Name">
-                                </div>
-                            </div>
-                            <div class="col-12">
-                                <div class="input-group mb-3">
-                                    <span class="input-group-text">
-                                        <i class="fa fa-user" aria-hidden="true"></i>
-                                    </span>
-                                    <input type="text" name="" id="edit_admin_surname" class="regInputField form-control form-control-lg fs-6 " value="${surname}"  placeholder="Surname" >
-                                </div>
-                            </div>
-                            <div class="col-12 ">
-                                <div class="input-group mb-3">
-                                    <span class="input-group-text">
-                                        <i class="fa fa-user-plus" aria-hidden="true"></i>
-                                    </span>
-                                    <select class="form-select edit_admin_select_userlevel" aria-label="Default select department">
-                                        <option selected disabled value="${firstResult.userlevel_id}">${firstResult.userlevel_name}</option>
-                                        ${userLevelOptions}
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>`);
-
-                    // Moved userlevel_ed declaration to the top of the function
-                    let userlevel_ed = firstResult.userlevel_id; // Set initial value here
+                    
+                    $("#EditAccountModal").find("#edit_admin_id").val(firstResult.admin_id);
+                
+                    $("#EditAccountModal").find("#edit_admin_username").val($firstResult.name);
+             
+                    let userlevel_ed = firstResult.userlevel_id
                     Body.find('.edit_admin_select_userlevel').on('change', function() {
                         userlevel_ed = $(this).val();
                     });
@@ -487,7 +479,57 @@ $isAllowed = isset($_SESSION['admin_management_create']) && $_SESSION['admin_man
                 }
             });
         }
+        getAll ();
+      
+        function getAll (){
+            $.ajax({
+                type: 'GET',
+                url: '../Controller/AdminAccountController.php',
+                data:{
+                    get_all: 'load_admin_accounts'
+                },
+                success: function(result){
+                    console.log(result);
+                    let container = $("#table_body_container");
+                    container.empty();
+                    let number =1;
+                    for (let i= 0; i<result.length; i++){
 
+                        let status = 'Offline';
+                        if(result[i].status === 1){
+                            status = 'Online';
+                        }
+                        let row = $("<tr>");
+
+                        let adminIdElement = $("<td>").addClass("no").text(number);
+                        let adminIdElement2 = $("<td>").addClass("admin_id").text(result[i].admin_id);
+                        let adminIdElement3 = $("<td>").addClass("admin_name").text(result[i].admin_name);
+                        let adminIdElement4 = $("<td>").addClass("admin_userlevel").text(result[i].userlevel_name);
+                        let adminIdElement5 = $("<td>").addClass("admin_status").text(status);
+                        let adminIdElement6 = $("<td>").addClass("admin_condition").text(result[i].admin_id);
+                        let adminIdElement7 =  $("<td>").addClass("admin_condition");
+                        let editBtn = $("<button>").addClass("btn  btn-primary me-2 EditAccountBtn").attr('type','button').text("Edit");
+                        let removeBtn = $("<button>").addClass("btn  btn-danger me-2 RemoveAccountBtn").attr('type','button').text("Remove");
+                        let archiveBtn = $("<button>").addClass("btn  btn-secondary").attr('type','button') .text("Archive");
+                        adminIdElement7.append(editBtn, removeBtn, archiveBtn);
+
+                        row.append(adminIdElement);
+                        row.append(adminIdElement2);
+                        row.append(adminIdElement3);
+                        row.append(adminIdElement4);
+                        row.append(adminIdElement5);
+                        row.append(adminIdElement6);
+                        row.append(adminIdElement7);
+
+                        container.append(row);
+                        number++;
+                    }
+                },
+                error: function(error){
+                    console.log(error);
+                }
+            });
+        }
     });
 </script>
 <?php
