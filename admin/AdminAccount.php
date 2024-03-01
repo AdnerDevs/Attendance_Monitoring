@@ -263,9 +263,8 @@ $isAllowed = isset($_SESSION['admin_management_create']) && $_SESSION['admin_man
                                     <span class="input-group-text">
                                         <i class="fa fa-user-plus" aria-hidden="true"></i>
                                     </span>
-                                    <select class="form-select edit_admin_select_userlevel" aria-label="Default select department">
-                                        <option selected disabled value=""></option>
-                                     
+                                    <select class="form-select edit_admin_select_userlevel" id="edit_admin_select_userlevel" aria-label="Default select department">
+                                        <!-- <option selected disabled value=""></option> -->
                                     </select>
                                 </div>
                             </div>
@@ -286,11 +285,13 @@ $isAllowed = isset($_SESSION['admin_management_create']) && $_SESSION['admin_man
 
 <script>
     $(document).ready(function() {
+        getAll ();
         let admin_id, admin_username, admin_name, admin_surname, admin_completename, userlevel = 0;
 
         $(".admin_select_userlevel").change(function() {
             userlevel = $(this).val()
         });
+
         $("#admin_id").on("input", function() {
             $(this).val($(this).val().toUpperCase());
         });
@@ -340,7 +341,7 @@ $isAllowed = isset($_SESSION['admin_management_create']) && $_SESSION['admin_man
 
                     } else if (response.status === 'success') {
                         alert("Employee registered successfully");
-                        location.reload();
+                        getAll();
                     } else {
                         alert("Failed to register");
                     }
@@ -354,68 +355,8 @@ $isAllowed = isset($_SESSION['admin_management_create']) && $_SESSION['admin_man
         }
 
 
-        $(".EditAccountBtn").click(function() {
-            admin_id = $(this).data('bs-id');
-            getAdminById(admin_id);
-
-        });
-
-        function getAdminById(admin_id) {
-            $.ajax({
-                type: 'GET',
-                url: '../Controller/AdminAccountController.php',
-                data: "admin_id=" + admin_id,
-                dataType: 'json',
-                success: function(result) {
-                    console.log(result);
-                    let firstResult = result.admin[0];
-
-                    let nameArray = firstResult.admin_name.split(' ');
-                    let name = nameArray[0];
-                    let surname = nameArray.slice(1).join(' ');
-                    let userLevelOptions = '';
-
-                    let selectEl = $('#selectr');
-                    selectEl.val(userlevel);
-
-                    // Use a loop to add each option to the userLevelOptions string
-                    for (let i = 0; i < result.userlevel.length; i++) {
-                        if (result.userlevel[i].userlevel_id === firstResult.userlevel_id) {
-                            continue;
-                        }
-                        userLevelOptions +=
-                            `<option value="${result.userlevel[i].userlevel_id}">${result.userlevel[i].userlevel_name}</option>`;
-                    }
-                    
-                    $("#EditAccountModal").find("#edit_admin_id").val(firstResult.admin_id);
-                
-                    $("#EditAccountModal").find("#edit_admin_username").val($firstResult.name);
-             
-                    let userlevel_ed = firstResult.userlevel_id
-                    Body.find('.edit_admin_select_userlevel').on('change', function() {
-                        userlevel_ed = $(this).val();
-                    });
-
-                    $("#editAccountSaveBtn").click(function() {
-                        admin_id = $("#edit_admin_id").val();
-                        admin_username = $("#edit_admin_username").val();
-                        admin_name = $("#edit_admin_name").val();
-                        admin_surname = $("#edit_admin_surname").val();
-                        admin_completename = `${admin_name} ${admin_surname}`;
-                        editAdmin(
-                            admin_id,
-                            admin_username,  
-                            admin_completename,
-                            userlevel_ed);
-                    });
 
 
-                },
-                error: function(error) {
-                    console.log("error:" + error);
-                }
-            });
-        }
 
         function editAdmin(
                             admin_id,
@@ -479,7 +420,7 @@ $isAllowed = isset($_SESSION['admin_management_create']) && $_SESSION['admin_man
                 }
             });
         }
-        getAll ();
+ 
       
         function getAll (){
             $.ajax({
@@ -508,7 +449,12 @@ $isAllowed = isset($_SESSION['admin_management_create']) && $_SESSION['admin_man
                         let adminIdElement5 = $("<td>").addClass("admin_status").text(status);
                         let adminIdElement6 = $("<td>").addClass("admin_condition").text(result[i].admin_id);
                         let adminIdElement7 =  $("<td>").addClass("admin_condition");
-                        let editBtn = $("<button>").addClass("btn  btn-primary me-2 EditAccountBtn").attr('type','button').text("Edit");
+                        let editBtn = $("<button>")
+                                        .addClass("btn  btn-primary me-2 EditAccountBtn")
+                                        .attr('type','button')
+                                        .attr('data-bs-toggle', 'modal')
+                                        .attr('data-bs-target','#EditAccountModal')
+                                        .val(result[i].admin_id).text("Edit");
                         let removeBtn = $("<button>").addClass("btn  btn-danger me-2 RemoveAccountBtn").attr('type','button').text("Remove");
                         let archiveBtn = $("<button>").addClass("btn  btn-secondary").attr('type','button') .text("Archive");
                         adminIdElement7.append(editBtn, removeBtn, archiveBtn);
@@ -524,11 +470,111 @@ $isAllowed = isset($_SESSION['admin_management_create']) && $_SESSION['admin_man
                         container.append(row);
                         number++;
                     }
+
+                                
+                    $(".EditAccountBtn").click(function() {
+                        admin_id = $(this).val();
+                        getAdminById(admin_id, result)
+                    });
                 },
                 error: function(error){
                     console.log(error);
                 }
             });
+        }
+
+        
+
+        function getAdminById(admin_id, result) {
+            const admin = result.find(item => item.admin_id === admin_id);
+ 
+                if (admin) {
+                    console.log('Admin found:', admin);
+                } else {
+                    console.log('Admin not found.');
+                }
+                    let nameArray = admin.admin_name.split(' ');
+                    let name = nameArray[0];
+                    let surname = nameArray.slice(1).join(' ');
+                $('#EditAccountModal').find("#edit_admin_username").val(admin.credential_surname);
+                $('#EditAccountModal').find("#edit_admin_name").val(name);
+                $('#EditAccountModal').find("#edit_admin_surname").val(surname);
+                $('#EditAccountModal').find("#edit_admin_surname").val(surname);
+             // Suppose `result` is the array containing user levels
+                let userLevelSelect = $("#edit_admin_select_userlevel");
+                // Clear any existing options
+                // userLevelSelect.empty();
+
+                // Add a default option
+                userLevelSelect.append($("<option>", { value: admin.userlevel_id, text: admin.userlevel_name }));
+
+                // Add each user level as an option
+                // result.forEach(function(item) {
+                    // userLevelSelect.append($("<option>", { value: item.userlevel_id, text: item.userlevel_name }));
+                // });
+                                
+                // for (let i = 0; i < result.length; i++) {
+                //         if (result.userlevel[i].userlevel_id === firstResult.userlevel_id) {
+                //             continue;
+                //         }
+                //         userLevelOptions +=
+                //             `<option value="${result.userlevel[i].userlevel_id}">${result.userlevel[i].userlevel_name}</option>`;
+                //     }
+          
+            // $.ajax({
+            //     type: 'GET',
+            //     url: '../Controller/AdminAccountController.php',
+            //     data: "admin_id=" + admin_id,
+            //     dataType: 'json',
+            //     success: function(result) {
+            //         console.log(result);
+                    // let firstResult = result.admin[0];
+
+                    // let nameArray = firstResult.admin_name.split(' ');
+                    // let name = nameArray[0];
+                    // let surname = nameArray.slice(1).join(' ');
+                    // let userLevelOptions = '';
+
+                    // let selectEl = $('#selectr');
+                    // selectEl.val(userlevel);
+
+                    // // Use a loop to add each option to the userLevelOptions string
+                    // for (let i = 0; i < result.userlevel.length; i++) {
+                    //     if (result.userlevel[i].userlevel_id === firstResult.userlevel_id) {
+                    //         continue;
+                    //     }
+                    //     userLevelOptions +=
+                    //         `<option value="${result.userlevel[i].userlevel_id}">${result.userlevel[i].userlevel_name}</option>`;
+                    // }
+                    
+                    // $("#EditAccountModal").find("#edit_admin_id").val(firstResult.admin_id);
+                
+                    // $("#EditAccountModal").find("#edit_admin_username").val($firstResult.name);
+             
+                    // let userlevel_ed = firstResult.userlevel_id
+                    // Body.find('.edit_admin_select_userlevel').on('change', function() {
+                    //     userlevel_ed = $(this).val();
+                    // });
+
+                    // $("#editAccountSaveBtn").click(function() {
+                    //     admin_id = $("#edit_admin_id").val();
+                    //     admin_username = $("#edit_admin_username").val();
+                    //     admin_name = $("#edit_admin_name").val();
+                    //     admin_surname = $("#edit_admin_surname").val();
+                    //     admin_completename = `${admin_name} ${admin_surname}`;
+                    //     editAdmin(
+                    //         admin_id,
+                    //         admin_username,  
+                    //         admin_completename,
+                    //         userlevel_ed);
+                    // });
+
+
+            //     },
+            //     error: function(error) {
+            //         console.log("error:" + error);
+            //     }
+            // });
         }
     });
 </script>
