@@ -44,7 +44,7 @@ class LoginModel extends Dbh{
 
     public function employeeData($employee_id){
         try{
-            $stmt = $this->connect()->prepare('SELECT * FROM employee_user WHERE employee_id = ? AND isRemove != 1');
+            $stmt = $this->connect()->prepare('SELECT emp.employee_id, emp.employee_name, dp.department_id, lc.credential_id FROM employee_user emp INNER JOIN department dp ON emp.department_id = dp.department_id INNER JOIN login_credentials lc ON emp.employee_id = lc.employee_id  WHERE emp.employee_id = ? AND emp.isRemove != 1');
 
             if(!$stmt->execute([$employee_id])){
                 return false;
@@ -63,7 +63,9 @@ class LoginModel extends Dbh{
           
 
             $_SESSION['employee_id'] = $userData['employee_id'];
+            $_SESSION['credential_id'] = $userData['credential_id'];
             $_SESSION['employee_name'] = $userData['employee_name'];
+            $_SESSION['department_id'] = $userData['department_id'];
             return true;
 
         }catch(PDOException $e){

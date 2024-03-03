@@ -1,79 +1,60 @@
 <?php
-// date_default_timezone_set('Asia/Manila');
-// $currentDateTime = new DateTime('now');
-// $current_date = $currentDateTime->format('Y-m-d H:i:s');
+date_default_timezone_set('Asia/Manila');
+$currentDateTime = new DateTime('now');
+$current_date = $currentDateTime->format('Y-m-d H:i:s');
+header('Content-Type: application/json');
+require_once ('../connection/dbh.php');
+require_once ('../Model/AttendanceModel.php');
 
-// require_once ('../connection/dbh.php');
-// require_once ('../Model/AttendanceModel.php');
+$attendance_model = new AttendanceModel();
 
-// $attendance_model = new AttendanceModel();
-
-
-// $employee_id = '1234567891DEV';
-// $employee_name = 'John Luck';
-// $dept_id = 2;
-// $act_type  = 4;
-// $activity_description = 'sample act';
-// $start_time  = $currentDateTime;
-// $end  =  new DateTime('2024-02-25 17:00:00');
-// $end_time = $end->format('Y-m-d H:i:s');
-
-// $st = $current_date;
-
-// // Calculate the difference between $end and $start_time
-// $interval = $end->diff($start_time);
-// // Convert the difference to hours and minutes
-// $diff_in_hours = $interval->format('%d day, %h hrs, %i mns');
-
-// $timer = 
-
-// $day = 
-// $hour = 
-// $minutes = 
-// $seconds = 
-
-// $submitted_by = '1234567891DEV';
-// $submitted_on = $end_time;
+if($_SERVER['REQUEST_METHOD'] == 'POST'){
+    if(isset($_POST['employee_id']) && isset($_POST['employee_name']) && isset($_POST['credential_id']) && isset($_POST['department_id'])){
+        $employee_id = htmlspecialchars($_POST['employee_id'], ENT_QUOTES, 'UTF-8');
+        $submitted_by = htmlspecialchars($_POST['credential_id'], ENT_QUOTES, 'UTF-8');
+        $employee_name = htmlspecialchars($_POST['employee_name'], ENT_QUOTES, 'UTF-8');
+        $department_id = htmlspecialchars($_POST['department_id'], ENT_QUOTES, 'UTF-8');
+        $activity_type = 1;
+        $activity_description = 'Attendance';
+        $start_time  = $current_date;
 
 
+        $insert_attendance = $attendance_model->insertAttendance($employee_id, $employee_name, $department_id, $activity_type, $activity_description, $start_time, $submitted_by, $start_time);
 
-// echo $diff_in_hours;
+        if($insert_attendance != false){
+                echo json_encode(['status' => 'success']);
+        }else{
+                echo json_encode(['status' => 'failed']);
+        }
 
-// $insert_attendance = $attendance_model->insertAttendance($employee_id, $employee_name, $dept_id, $act_type, $activity_description, $st, $end_time, $diff_in_hours, $submitted_by, $submitted_on);
-// if($insert_attendance != false){
-//     echo 'succes';
-// }else{
-//     echo 'failed to insert';
-// }
-// $totalSeconds = 10000; // For example, 10,000 seconds
-// $days = floor($totalSeconds / (60 * 60 * 24));
-// $totalSeconds -= $days * (60 * 60 * 24);
-// $hours = floor($totalSeconds / (60 * 60));
-// $totalSeconds -= $hours * (60 * 60);
-// $minutes = floor($totalSeconds / 60);
-// $totalSeconds -= $minutes * 60;
-// $seconds = $totalSeconds;
 
-// echo "$days days, $hours hours, $minutes minutes, $seconds seconds";
-// Example input
-$intervalString = "1 day, 2 hrs, 30 mns";
-
-// Convert interval string to array
-$intervalArray = explode(", ", $intervalString);
-
-// Extract components
-$days = 0;
-$hours = 0;
-$minutes = 0;
-foreach ($intervalArray as $intervalPart) {
-    if (strpos($intervalPart, 'day') !== false) {
-        $days = (int) filter_var($intervalPart, FILTER_SANITIZE_NUMBER_INT);
-    } elseif (strpos($intervalPart, 'hrs') !== false) {
-        $hours = (int) filter_var($intervalPart, FILTER_SANITIZE_NUMBER_INT);
-    } elseif (strpos($intervalPart, 'mns') !== false) {
-        $minutes = (int) filter_var($intervalPart, FILTER_SANITIZE_NUMBER_INT);
     }
-}
 
-// Output components
-echo "Days: $days, Hours: $hours, Minutes: $minutes";
+    if(isset($_POST['employee_id']) && isset($_POST['total_seconds'])){
+        $employee_id = htmlspecialchars($_POST['employee_id'], ENT_QUOTES, 'UTF-8');
+        $total_seconds = intval($_POST['total_seconds']);
+
+        $activity_type = 1;
+
+
+
+        $day = floor($total_seconds / (60 * 60 * 24));
+        $totalSeconds -= $day * (60 * 60 * 24);
+        $hour= floor($total_seconds / (60 * 60));
+        $totalSeconds -= $hour * (60 * 60);
+        $minute = floor($total_seconds / 60);
+        $totalSeconds -= $minute * 60;
+        $second = $total_seconds;
+        $end_time = $current_date;
+
+        $update_end_attendance = $attendance_model->updateEndtimeAttendance($total_seconds, $end_time, $day, $hour, $minute, $second, $employee_id, $activity_type);
+
+
+        if($update_end_attendance != false){
+            echo json_encode(['status' => 'success']);
+        }else{
+            echo json_encode(['status' => 'failed']);
+        }
+    }
+
+}

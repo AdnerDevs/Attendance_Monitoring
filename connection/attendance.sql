@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 29, 2024 at 09:55 AM
--- Server version: 10.4.32-MariaDB
--- PHP Version: 8.2.12
+-- Generation Time: Mar 03, 2024 at 10:26 PM
+-- Server version: 10.4.28-MariaDB
+-- PHP Version: 8.2.4
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -73,7 +73,7 @@ INSERT INTO `admin_user` (`admin_id`, `admin_name`, `userlevel_id`, `status`, `i
 ('123Devs', 'Adner Devila', 5, 0, 0, 0),
 ('123SAMPL', 'samp sampler', 6, 0, 0, 1),
 ('250minad', 'Marya Careys', 1, 1, 0, 0),
-('321ADNER', 'Gon Kurapika', 1, 0, 0, 0);
+('321ADNER', 'Gon Kurapika', 1, 1, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -129,18 +129,18 @@ CREATE TABLE `employee_attendance` (
   `employee_attendance_id` int(11) NOT NULL,
   `employee_id` varchar(20) NOT NULL,
   `employee_name` varchar(150) NOT NULL,
-  `department_id` int(11) DEFAULT NULL,
+  `department_id` int(11) NOT NULL,
   `activity_type` int(11) NOT NULL,
   `activity_description` varchar(150) DEFAULT NULL,
-  `start_time` timestamp NOT NULL DEFAULT current_timestamp(),
-  `end_time` timestamp NOT NULL DEFAULT current_timestamp(),
+  `start_time` datetime NOT NULL DEFAULT current_timestamp(),
+  `end_time` datetime DEFAULT NULL,
   `total_time` varchar(30) DEFAULT NULL,
-  `day` int(11) NOT NULL,
-  `hour` int(11) NOT NULL,
-  `minute` int(11) NOT NULL,
-  `second` int(11) NOT NULL,
+  `day` int(11) DEFAULT NULL,
+  `hour` int(11) DEFAULT NULL,
+  `minute` int(11) DEFAULT NULL,
+  `second` int(11) DEFAULT NULL,
   `submitted_by` varchar(150) NOT NULL,
-  `submitted_on` timestamp NOT NULL DEFAULT current_timestamp()
+  `submitted_on` datetime NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -148,8 +148,8 @@ CREATE TABLE `employee_attendance` (
 --
 
 INSERT INTO `employee_attendance` (`employee_attendance_id`, `employee_id`, `employee_name`, `department_id`, `activity_type`, `activity_description`, `start_time`, `end_time`, `total_time`, `day`, `hour`, `minute`, `second`, `submitted_by`, `submitted_on`) VALUES
-(1, '02002John', 'John', 1, 6, 'attendance', '2024-02-22 16:00:00', '2024-02-23 16:00:00', '0.00', 0, 5, 2, 42, 'Ce', '0000-00-00 00:00:00'),
-(7, '1234567891DEV', 'John Luck', 2, 4, 'sample act', '2024-02-23 07:59:39', '2024-02-25 09:00:00', '2 day, 1 hrs, 0 mns', 0, 0, 0, 0, '1234567891DEV', '2024-02-25 09:00:00');
+(10, '01-2457321', 'EROR LOGIN', 2, 1, 'Attendance', '2024-03-03 21:57:56', '2024-03-03 22:50:47', '28', 0, 0, 0, 28, '01-2457321ERO', '2024-03-03 21:57:56'),
+(11, '01-2457321', 'EROR LOGIN', 2, 1, 'Attendance', '2024-03-03 22:50:17', '2024-03-03 22:50:47', '28', 0, 0, 0, 28, '01-2457321ERO', '2024-03-03 22:50:17');
 
 -- --------------------------------------------------------
 
@@ -337,7 +337,7 @@ ALTER TABLE `department`
 -- AUTO_INCREMENT for table `employee_attendance`
 --
 ALTER TABLE `employee_attendance`
-  MODIFY `employee_attendance_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `employee_attendance_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `login_credentials`

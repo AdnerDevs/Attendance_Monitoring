@@ -18,6 +18,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Protest+Riot&family=Roboto+Slab:wght@100..900&display=swap" rel="stylesheet">
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+ 
 
     <title>Document</title>
     <style>
@@ -84,13 +85,27 @@
                     <?php
                     $link = '/attendance_monitoring';
                     $status_display =  'd-none';
+                    $employee_id;
+                    $employee_name;
+                    $department_id;
+                    $credential_id;
+                    
                             if(isset($_SESSION["employee_id"]) && $_SESSION["employee_id"]){
 
                                 $link = 'dashboard.php';
                                 $status_display = '';
+                                $employee_id = $_SESSION['employee_id'];
+                                $employee_name = $_SESSION['employee_name'];
+                                $department_id = $_SESSION['department_id'];
+                                $credential_id =  $_SESSION['credential_id'];
+            
                              }
                                 
                     ?>
+                    <input type="hidden" name="" id="session_employee_id" value="<?=$employee_id?>">
+                    <input type="hidden" name="" id="session_employee_name" value="<?=$employee_name?>">
+                    <input type="hidden" name="" id="session_department_id" value="<?=$department_id?>">
+                    <input type="hidden" name="" id="session_credential_id" value="<?=$credential_id?>">
                         <a href="<?=$link?>" class="navbar-brand animate__animated animate__lightSpeedInRight p-3 fs-5"><!--  style="color: #00FF7F;" -->
                             <button class="button" data-text="Awesome">
                                 <span class="actual-text">&nbsp;Herogram&nbsp;</span>
@@ -161,34 +176,3 @@
         </div>  
         <main>
 
-        <script>
-            $(document).ready(function(){
-
-                let employee_id;
-
-                $("#logoutModalBtn").click(function(){
-                    employee_id = $(this).data('bs-employee_id');
-
-                    logout(employee_id);
-                });
-            });
-
-            function logout(employee_id){
-                $.ajax({
-                    type: 'POST',
-                    url: 'Controller/logout.php',
-                    data:{
-                        emp_id: employee_id,  
-                    },
-                    success: function(response){
-                        if(response == 'success'){
-                            alert('successfully logout');
-                            window.location.href = '../attendance_monitoring';
-                        }
-                    },
-                    error: function (error){
-                        console.log(error);
-                    }
-                });
-            }
-        </script>
