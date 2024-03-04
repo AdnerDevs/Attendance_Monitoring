@@ -5,10 +5,12 @@ date_default_timezone_set('Asia/Manila');
 $current_time = new DateTime('now', new DateTimeZone('UTC'));
 $current_time->setTimezone(new DateTimeZone('Asia/Manila'));
 require_once('Model/AnnouncementModel.php');
+require_once('Model/ActivityModel.php');
 $announcement_model = new AnnouncementModel();
+$activity_model = new ActivityModel();
 $input_value = $current_time->format('Y-m-d\TH:i');
 if (isset($_SESSION["employee_id"]) && $_SESSION["employee_id"]) {
-?>
+    ?>
     <style>
         .header {
             position: relative;
@@ -95,8 +97,8 @@ if (isset($_SESSION["employee_id"]) && $_SESSION["employee_id"]) {
             transform-style: preserve-3d;
 
             /* box-shadow: 0px 0px 5px #fb5fba,
-    0px 0px 30px #fb5fba,
-    0px 0px 90px #fb5fba; */
+        0px 0px 30px #fb5fba,
+        0px 0px 90px #fb5fba; */
         }
 
         .flip-box-back::before {
@@ -280,54 +282,96 @@ if (isset($_SESSION["employee_id"]) && $_SESSION["employee_id"]) {
             }
         }
     </style>
- <!-- btn start -->
- <style>
-    .shadow__btn {
-  padding: 10px 20px;
-  border: none;
-  font-size: 17px;
-  color: #fff;
-  border-radius: 7px;
-  letter-spacing: 4px;
-  font-weight: 700;
-  text-transform: uppercase;
-  transition: 0.5s;
-  transition-property: box-shadow;
-}
+    <!-- btn start -->
+    <style>
+        .shadow__btn {
+            padding: 10px 20px;
+            border: none;
+            font-size: 17px;
+            color: #fff;
+            border-radius: 7px;
+            letter-spacing: 4px;
+            font-weight: 700;
+            text-transform: uppercase;
+            transition: 0.5s;
+            transition-property: box-shadow;
+        }
 
-.shadow__btn {
-  background: rgb(0,140,255);
-  box-shadow: 0 0 25px rgb(0,140,255);
-}
+        .shadow__btn {
+            background: rgb(0, 140, 255);
+            box-shadow: 0 0 25px rgb(0, 140, 255);
+        }
 
-.shadow__btn:hover {
-  box-shadow: 0 0 5px rgb(0,140,255),
-              0 0 25px rgb(0,140,255),
-              0 0 50px rgb(0,140,255),
-              0 0 100px rgb(0,140,255);
-}
- </style>
+        .shadow__btn:hover {
+            box-shadow: 0 0 5px rgb(0, 140, 255),
+                0 0 25px rgb(0, 140, 255),
+                0 0 50px rgb(0, 140, 255),
+                0 0 100px rgb(0, 140, 255);
+        }
+    </style>
+    <!-- css animated text -->
+    <style>
+        .tracking-in-expand {
+            -webkit-animation: tracking-in-expand 0.7s cubic-bezier(0.215, 0.610, 0.355, 1.000) both;
+            animation: tracking-in-expand 0.7s cubic-bezier(0.215, 0.610, 0.355, 1.000) both;
+            text-shadow: 4px 2px 0px rgba(162,146,146,0.57); background: rgba(177, 178, 241, 0.31);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(1.5px);
+            -webkit-backdrop-filter: blur(1.5px);
+            border: 1px solid rgba(177, 178, 241, 0.46);
+        }
 
+        @-webkit-keyframes tracking-in-expand {
+            0% {
+                letter-spacing: -0.5em;
+                opacity: 0;
+            }
+
+            40% {
+                opacity: 0.6;
+            }
+
+            100% {
+                opacity: 1;
+            }
+        }
+
+        @keyframes tracking-in-expand {
+            0% {
+                letter-spacing: -0.5em;
+                opacity: 0;
+            }
+
+            40% {
+                opacity: 0.6;
+            }
+
+            100% {
+                opacity: 1;
+            }
+        }
+    </style>
     <link rel="stylesheet" href="asset/css/infiniteLoop.css">
     <div class="container-fluid min-vh-100 mt-0" style="background-image: url('asset/img/bg_msa.jpg');  background-size: cover;
     background-position: center; background-repeat: no-repeat; ">
 
-        <div class="row ">
-            <p class="h4 mt-2 text-center ">Announcement</p>
+        <div class="row " style="">
+            <p class="h4 text-center fs-1 tracking-in-expand text-white p-2 shadow "><i class="fa fa-bullhorn" aria-hidden="true" style="transform: rotateY(180deg);"></i> Announcement <i class="fa fa-bullhorn" aria-hidden="true"></i></p>
             <div class="scroller" data-speed="slow" data-direction="left">
                 <ul class="tag-list scroller__inner p-0 d-flex gap-2 py-2 flex-wrap ">
                     <?php
                     $announcement = $announcement_model->getAllAnnouncement();
 
-                    for ($i = 0; $i < count($announcement); $i++) :
+                    for ($i = 0; $i < count($announcement); $i++):
                         $announce = $announcement[$i];
-                    ?>
+                        ?>
                         <li class="scroll-li" style="max-width: 20%;">
                             <div class="card" style="">
                                 <div class="card-header">
                                     <div class="row ">
                                         <div class="col-md-1 text-center">
-                                            <img src="asset/img/<?= $announce['announcement_image'] ?>" class="img-fluid" alt="" height="100">
+                                            <img src="asset/img/<?= $announce['announcement_image'] ?>" class="img-fluid" alt=""
+                                                height="100">
                                         </div>
                                         <div class="col-md-11 lh-base">
                                             <?= $announce['announcement_text'] ?>
@@ -337,31 +381,9 @@ if (isset($_SESSION["employee_id"]) && $_SESSION["employee_id"]) {
                                 </div>
                             </div>
                         </li>
-                    <?php
+                        <?php
                     endfor;
                     ?>
-                    <!-- <li class="scroll-li">
-                        <div class="card">
-                            <div class="card-header">
-                                <img src="asset/img/marcus.jpg" alt="" height="100">
-                            </div>
-                        </div>
-                </li>
-                <li class="scroll-li">
-                        <div class="card">
-                            <div class="card-header">
-                                <img src="asset/img/a.jpg" alt="" height="100">
-                            </div>
-                        </div>
-                </li>
-                <li class="scroll-li">
-                        <div class="card">
-                            <div class="card-header">
-                               Lorem ipsum dolor sit amet consectetur adipisicing elit. Unde, non ab ad voluptatibus hic laborum illum doloribus, quam tempora, itaque architecto! Aperiam maiores ducimus in rem labore quasi, obcaecati eligendi.
-                            </div>
-                        </div>
-                </li>
-               -->
                 </ul>
             </div>
         </div>
@@ -369,15 +391,16 @@ if (isset($_SESSION["employee_id"]) && $_SESSION["employee_id"]) {
             <div class="row">
                 <div class="box-item1 col-md-6 mb-4" id="attendna">
                     <div class="flip-box">
-                        <div class="flip-box-front p-2 text-center" style="background-image: url('asset/img/a.jpg'); border-image: fill 0 linear-gradient(#0001, #000);">
-                        <p class="h3 flip-box-header text-white  border-bottom p-4">Attendance</p>
+                        <div class="flip-box-front p-2 text-center"
+                            style="background-image: url('asset/img/a.jpg'); border-image: fill 0 linear-gradient(#0001, #000);">
+                            <p class="h3 flip-box-header text-white  border-bottom p-4">Attendance</p>
                             <div class="inner text-white">
                                 <!-- <button type="button" id="switch" class="btn btn-primary">Start time</button> -->
-                      
+
                                 <button class="shadow__btn" id="switch">
                                     Start time
                                 </button>
-                                
+
                             </div>
                         </div>
                         <div class="flip-box-back text-center" style="background-image: url('asset/img/marcus.jpg'); ">
@@ -390,6 +413,7 @@ if (isset($_SESSION["employee_id"]) && $_SESSION["employee_id"]) {
                                             <div id="timer" class="timers">00:00:00</div>
                                             <button id="endAttendance" class="btn btn-danger">End time</button>
                                         </div>
+
                                     </div>
 
                                 </div>
@@ -433,19 +457,34 @@ if (isset($_SESSION["employee_id"]) && $_SESSION["employee_id"]) {
                 <div class="box-item col-md-6 mb-4">
                     <div class="flip-box2">
 
-                        <div class="flip-box-front text-center p-2" style="background-image: url('asset/img/a.jpg'); border-image: fill 0 linear-gradient(#0001, #000);">
-                            <p class="h3 flip-box-header text-white  border-bottom p-4">Activity</p>
+                        <div class="flip-box-front text-center p-2"
+                            style="background-image: url('asset/img/a.jpg'); border-image: fill 0 linear-gradient(#0001, #000);">
+                            <p class="h3 flip-box-header text-white  border-bottom p-4">Activity </p>
                             <div class="inner text-white p-4">
 
-                                <div class="input-group">
-                                    <select class="form-select" aria-label=" select example">
-                                        <option selected>Open this select menu</option>
-                                        <option value="1">One</option>
-                                        <option value="2">Two</option>
-                                        <option value="3">Three</option>
+                                <div class="input-group mb-2">
+                                    <select class="form-select" aria-label=" select example" id="activity_type">
+                                        <?php
+                                                $get_act = $activity_model->getAllActivity();
+
+                                                for ($i = 0; $i < count($get_act); $i++):
+                                                    if($get_act[$i]['activity_id'] === 1){ 
+                                                        continue;
+                                                    }
+                                            ?>
+                                           
+                                        <option value="<?=$get_act[$i]['activity_id']?>"><?=$get_act[$i]['activity_type']?></option>
+                                            <?php
+                                                endfor;
+                                            ?>
                                     </select>
                                     <button type="button" id="switch2" class="btn btn-primary">Start time</button>
                                 </div>
+                                
+                                <label for="basic-url" class="form-label">Description</label>
+                             
+                                <textarea class="form-control" aria-label="With textarea" id="activity_description"></textarea>
+                              
 
                             </div>
                         </div>
@@ -488,10 +527,12 @@ if (isset($_SESSION["employee_id"]) && $_SESSION["employee_id"]) {
                                         <tbody>
                                             <tr>
                                                 <th scope="row">1</th>
-                                                <td>Mark</td>
+                                                <td>sa</td>
                                                 <td>Otto</td>
                                                 <td>@mdo</td>
                                             </tr>
+
+                                          
                                         </tbody>
                                     </table>
                                 </div>
@@ -508,7 +549,8 @@ if (isset($_SESSION["employee_id"]) && $_SESSION["employee_id"]) {
             <p class="text-center fs-1">Attendance</p>
 
             <div class="input-group mb-3">
-                <input type="datetime-local" class="form-control" value="<?= $input_value ?>" placeholder="Recipient's username" aria-label="Recipient's username" aria-describedby="button-addon2">
+                <input type="datetime-local" class="form-control" value="<?= $input_value ?>"
+                    placeholder="Recipient's username" aria-label="Recipient's username" aria-describedby="button-addon2">
                 <button type="button" class="input-group-text bg-dark text-white" id="basic-addon2">Start time</button>
             </div>
             <div class="input-group mb-3">
@@ -517,10 +559,10 @@ if (isset($_SESSION["employee_id"]) && $_SESSION["employee_id"]) {
                     <option value="0" selected disabled>Acivity</option>
                     <?php
 
-                    for ($i = 0; $i < 5; $i++) :
-                    ?>
+                    for ($i = 0; $i < 5; $i++):
+                        ?>
                         <option value="">sample act</option>
-                    <?php
+                        <?php
                     endfor;
                     ?>
                 </select>
@@ -537,35 +579,36 @@ if (isset($_SESSION["employee_id"]) && $_SESSION["employee_id"]) {
     </div>
 
     <script>
-        $(document).ready(function() {
-        const scrollers = document.querySelectorAll(".scroller");
+        $(document).ready(function () {
+            const scrollers = document.querySelectorAll(".scroller");
 
-        if (!window.matchMedia("(prefers-redueced-motion: reduce)").matches) {
-            addAnimation();
-        }
+            if (!window.matchMedia("(prefers-redueced-motion: reduce)").matches) {
+                addAnimation();
+            }
 
-        function addAnimation() {
-            scrollers.forEach((scroller) => {
-                scroller.setAttribute('data-animated', true);
+            function addAnimation() {
+                scrollers.forEach((scroller) => {
+                    scroller.setAttribute('data-animated', true);
 
-                const scrollerInner = scroller.querySelector('.scroller__inner');
+                    const scrollerInner = scroller.querySelector('.scroller__inner');
 
-                const scrollerContent = Array.from(scrollerInner.children);
+                    const scrollerContent = Array.from(scrollerInner.children);
 
-                scrollerContent.forEach(item => {
-                    const duplicatedItem = item.cloneNode(true);
-                    duplicatedItem.setAttribute('aria-hidden', true);
-                    scrollerInner.appendChild(duplicatedItem);
+                    scrollerContent.forEach(item => {
+                        const duplicatedItem = item.cloneNode(true);
+                        duplicatedItem.setAttribute('aria-hidden', true);
+                        scrollerInner.appendChild(duplicatedItem);
 
-                })
-            });
-        }
-   
+                    })
+                });
+            }
+
             let session_employee_id = $('#session_employee_id').val();
             let session_employee_name = $('#session_employee_name').val();
             let session_department_id = $('#session_department_id').val();
             let session_credential_id = $('#session_credential_id').val();
-
+            // let activity__type;
+            let activityy__description;
             let timer;
             let seconds = 0;
 
@@ -581,19 +624,58 @@ if (isset($_SESSION["employee_id"]) && $_SESSION["employee_id"]) {
                         credential_id: session_credential_id
                     },
                     dataType: 'json',
-                    success: function(result) {
-                
-                        if(result.status === 'success'){
+                    success: function (result) {
+
+                        if (result.status === 'success') {
                             alert('Starting Attendance');
-                        }else{
+                        } else {
                             alert('Failed to start Attendance');
                         }
                     },
-                    error: function(error) {
+                    error: function (error) {
                         console.log(error);
                     }
                 });
- 
+
+
+            }
+
+            function startTimerActivity() {
+                timer = setInterval(displayTimeActivity, 1000);
+                activity__type = $('#activity_type').val();
+                activityy__description = $('#activity_description').val();
+                console.log({
+                    activity_type,activity_description
+                });
+                $.ajax({
+                    type: 'POST',
+                    url: 'Controller/AttendanceController.php',
+                    data: {
+                        employee_id: session_employee_id,
+                        employee_name: session_employee_name,
+                        department_id: session_department_id,
+                        credential_id: session_credential_id,
+                        activity_type: activity__type,
+                        activity_description: activityy__description
+                        
+                    },
+                    dataType: 'json',
+                    success: function (result) {
+                        
+                        // if (result.status === 'success') {
+                        //     alert('Starting Attendance');
+                        // } else {
+                        //     alert('Failed to start Attendance');
+                        // }
+                        console.log(result);
+                        // if (result.status === 'success') {
+                        //     alert('Starting Attendance');
+                        // }
+                    },
+                    error: function (error) {
+                        console.log(error);
+                    }
+                });
 
             }
 
@@ -607,21 +689,21 @@ if (isset($_SESSION["employee_id"]) && $_SESSION["employee_id"]) {
                         total_seconds: seconds
                     },
                     dataType: 'json',
-                    success: function(result) {
-                        if(result.status === 'success'){
+                    success: function (result) {
+                        if (result.status === 'success') {
                             alert('Ended Attendance');
-                        }else{
+                        } else {
                             alert('Failed to end Attendance');
                         }
                     },
-                    error: function(error) {
+                    error: function (error) {
                         console.log(error);
                     }
                 });
                 seconds = 0;
                 clearInterval(timer);
 
-                
+
             }
 
             function displayTime() {
@@ -636,6 +718,20 @@ if (isset($_SESSION["employee_id"]) && $_SESSION["employee_id"]) {
                     (hours < 10 ? "0" : "") + hours + ":" +
                     (minutes < 10 ? "0" : "") + minutes + ":" +
                     (secs < 10 ? "0" : "") + secs;
+            }
+
+            function displayTimeActivity() {
+
+            seconds++;
+
+            let hours = Math.floor(seconds / 3600);
+            let minutes = Math.floor(seconds % 3600 / 60);
+            let secs = seconds % 60;
+
+                document.getElementById("timer2").innerHTML =
+                (hours < 10 ? "0" : "") + hours + ":" +
+                (minutes < 10 ? "0" : "") + minutes + ":" +
+                (secs < 10 ? "0" : "") + secs;
             }
 
             function getTime(time) {
@@ -659,18 +755,18 @@ if (isset($_SESSION["employee_id"]) && $_SESSION["employee_id"]) {
 
             }
 
-            $("#switch").click(function() {
+            $("#switch").click(function () {
                 isActionRunning = true;
                 startTimer();
                 $('.flip-box').toggleClass('hover');
                 $('.header').toggleClass('hover');
                 localStorage.setItem('isCardFlipped', $('.flip-box').hasClass('hover'));
 
-               
+
             });
 
 
-            $("#endAttendance").click(function() {
+            $("#endAttendance").click(function () {
                 isActionRunning = false;
                 getSeconds();
                 $('.flip-box').removeClass('hover');
@@ -680,7 +776,7 @@ if (isset($_SESSION["employee_id"]) && $_SESSION["employee_id"]) {
             });
 
 
-            $("#switch2").click(function() {
+            $("#switch2").click(function () {
                 isActionRunning = true;
 
                 $('.flip-box2').addClass('hover');
@@ -688,17 +784,24 @@ if (isset($_SESSION["employee_id"]) && $_SESSION["employee_id"]) {
                 $('.box-item1').addClass('hover');
                 $('.box-item').addClass('click');
                 localStorage.setItem('isCardFlipped2', $('.flip-box2').hasClass('hover'), $('box-item1').hasClass('hover'));
+
+           
+
+                startTimerActivity();
+
             });
-            $("#back2").click(function() {
+            $("#back2").click(function () {
+                isActionRunning = false;
                 $('.flip-box2').removeClass('hover');
                 $('.header').removeClass('hover');
                 $('.box-item1').removeClass('hover');
                 $('.box-item').removeClass('click');
                 localStorage.setItem('isCardFlipped2', $('.flip-box2').hasClass('hover'));
+             
             });
 
 
-            $(window).on('beforeunload', function() {
+            $(window).on('beforeunload', function () {
                 if (isActionRunning) {
                     return 'You have an action currently running on this page. Are you sure you want to leave?';
                 }
@@ -708,7 +811,7 @@ if (isset($_SESSION["employee_id"]) && $_SESSION["employee_id"]) {
 
         });
     </script>
-<?php
+    <?php
 } else {
     header("location: error.php");
     exit();
