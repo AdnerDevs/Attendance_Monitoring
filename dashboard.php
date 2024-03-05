@@ -193,7 +193,11 @@ if (isset($_SESSION["employee_id"]) && $_SESSION["employee_id"]) {
 
             transition: width 2s ease-in-out;
             transition: width 2s ease-in-out, opacity 3s ease-in-out;
+            width: 100%;
 
+        }
+        .box-item1.active{
+            width: 50%;
         }
 
         .box-item1.hover {
@@ -208,8 +212,20 @@ if (isset($_SESSION["employee_id"]) && $_SESSION["employee_id"]) {
             display: none;
         }
 
+        
+
         .box-item {
+            width: 0;
+            opacity: 0;
+            padding: 0;
             transition: all 2s ease-in-out;
+           
+        }
+
+        .box-item.active{
+            width:50%;
+            opacity: 1;
+            padding: 0.5 rem;
         }
 
         .box-item.click {
@@ -355,7 +371,7 @@ if (isset($_SESSION["employee_id"]) && $_SESSION["employee_id"]) {
     <div class="container-fluid min-vh-100 mt-0" style="background-image: url('asset/img/bg_msa.jpg');  background-size: cover;
     background-position: center; background-repeat: no-repeat; ">
 
-        <div class="row " style="">
+        <div class="row " >
             <p class="h4 text-center fs-1 tracking-in-expand text-white p-2 shadow "><i class="fa fa-bullhorn" aria-hidden="true" style="transform: rotateY(180deg);"></i> Announcement <i class="fa fa-bullhorn" aria-hidden="true"></i></p>
             <div class="scroller" data-speed="slow" data-direction="left">
                 <ul class="tag-list scroller__inner p-0 d-flex gap-2 py-2 flex-wrap ">
@@ -366,7 +382,7 @@ if (isset($_SESSION["employee_id"]) && $_SESSION["employee_id"]) {
                         $announce = $announcement[$i];
                         ?>
                         <li class="scroll-li" style="max-width: 20%;">
-                            <div class="card" style="">
+                            <div class="card">
                                 <div class="card-header">
                                     <div class="row ">
                                         <div class="col-md-1 text-center">
@@ -617,30 +633,30 @@ if (isset($_SESSION["employee_id"]) && $_SESSION["employee_id"]) {
                 timer = setInterval(displayTime, 1000);
                 activity__type = "1";
                 activityy__description = "Attendance";
-                $.ajax({
-                    type: 'POST',
-                    url: 'Controller/AttendanceController.php',
-                    data: {
-                        employee_id: session_employee_id,
-                        employee_name: session_employee_name,
-                        department_id: session_department_id,
-                        credential_id: session_credential_id,
-                        activity_type: activity__type,
-                        activity_description: activityy__description
-                    },
-                    dataType: 'json',
-                    success: function (result) {
+                // $.ajax({
+                //     type: 'POST',
+                //     url: 'Controller/AttendanceController.php',
+                //     data: {
+                //         employee_id: session_employee_id,
+                //         employee_name: session_employee_name,
+                //         department_id: session_department_id,
+                //         credential_id: session_credential_id,
+                //         activity_type: activity__type,
+                //         activity_description: activityy__description
+                //     },
+                //     dataType: 'json',
+                //     success: function (result) {
 
-                        if (result.status === 'success') {
-                            alert('Starting Attendance');
-                        } else {
-                            alert('Failed to start Attendance');
-                        }
-                    },
-                    error: function (error) {
-                        console.log(error);
-                    }
-                });
+                //         if (result.status === 'success') {
+                //             alert('Starting Attendance');
+                //         } else {
+                //             alert('Failed to start Attendance');
+                //         }
+                //     },
+                //     error: function (error) {
+                //         console.log(error);
+                //     }
+                // });
 
 
             }
@@ -649,38 +665,38 @@ if (isset($_SESSION["employee_id"]) && $_SESSION["employee_id"]) {
                 timer = setInterval(displayTimeActivity, 1000);
                 activity__type = $('#activity_type').val();
                 activityy__description = $('#activity_description').val();
-                console.log({
-                    activity_type,activity_description
-                });
-                $.ajax({
-                    type: 'POST',
-                    url: 'Controller/AttendanceController.php',
-                    data: {
-                        employee_id: session_employee_id,
-                        employee_name: session_employee_name,
-                        department_id: session_department_id,
-                        credential_id: session_credential_id,
-                        activity_type: activity__type,
-                        activity_description: activityy__description
+                // console.log({
+                //     activity_type,activity_description
+                // });
+                // $.ajax({
+                //     type: 'POST',
+                //     url: 'Controller/AttendanceController.php',
+                //     data: {
+                //         employee_id: session_employee_id,
+                //         employee_name: session_employee_name,
+                //         department_id: session_department_id,
+                //         credential_id: session_credential_id,
+                //         activity_type: activity__type,
+                //         activity_description: activityy__description
                         
-                    },
-                    dataType: 'json',
-                    success: function (result) {
+                //     },
+                //     dataType: 'json',
+                //     success: function (result) {
                         
-                        if (result.status === 'success') {
-                            alert("Starting Activity");
-                            let m = result.data.submitted_by;
-                            $('#back2').val(m);
+                //         if (result.status === 'success') {
+                //             alert("Starting Activity");
+                //             let m = result.data.submitted_by;
+                //             $('#back2').val(m);
                       
-                        } else {
-                            alert('Failed to start Attendance');
-                        }
+                //         } else {
+                //             alert('Failed to start Attendance');
+                //         }
                 
-                    },
-                    error: function (error) {
-                        console.log(error);
-                    }
-                });
+                //     },
+                //     error: function (error) {
+                //         console.log(error);
+                //     }
+                // });
 
             }
 
@@ -772,6 +788,8 @@ if (isset($_SESSION["employee_id"]) && $_SESSION["employee_id"]) {
                 startTimer();
                 $('.flip-box').toggleClass('hover');
                 $('.header').toggleClass('hover');
+                $('.box-item').addClass('active');
+                $('.box-item1').addClass('active');
                 localStorage.setItem('isCardFlipped', $('.flip-box').hasClass('hover'));
 
 
@@ -783,7 +801,8 @@ if (isset($_SESSION["employee_id"]) && $_SESSION["employee_id"]) {
                 getSeconds();
                 $('.flip-box').removeClass('hover');
                 $('.header').removeClass('hover');
-
+                $('.box-item1').removeClass('active');
+                $('.box-item').removeClass('active');
                 localStorage.setItem('isCardFlipped', $('.flip-box').hasClass('hover'));
             });
 
@@ -822,7 +841,7 @@ if (isset($_SESSION["employee_id"]) && $_SESSION["employee_id"]) {
                 }
             });
 
-
+            console.log('s');
 
         });
     </script>
