@@ -43,11 +43,14 @@ $attendance = new AttendanceModel();
             $number = 1;
             foreach ($att as $attendanceData):
                 $aStartTime = new DateTime($attendanceData['start_time']);
+                $aEndTime = new DateTime($attendanceData['end_time']);
+                $SubmiitedOnTime = new DateTime($attendanceData['end_time']);
                 $formattedTimeEnd = 'ongoing';
-                
+                $formattedTimeStart = $aStartTime->format('Y-m-d h:i:s A');
+                $formattedSubbmitedONs = $SubmiitedOnTime->format('Y-m-d h:i:s A');
                 if($attendanceData['end_time'] != null ){
-                    $aEndTime = new DateTime($attendanceData['end_time']);
-                    $formattedTimeStart = $aStartTime->format('Y-m-d h:i:s A');
+                   
+                 
                     $formattedTimeEnd = $aEndTime->format('Y-m-d h:i:s A');
                 }
             
@@ -98,7 +101,7 @@ $attendance = new AttendanceModel();
                         <?= $attendanceData['submitted_by'] ?>
                     </td>
                     <td>
-                        <?= $formattedTimeStart ?>
+                        <?= $formattedSubbmitedONs ?>
                     </td>
                     <td>
                         <button class="btn btn-primary me-2">btn1</button>

@@ -9,7 +9,7 @@ require_once ('../Model/AttendanceModel.php');
 $attendance_model = new AttendanceModel();
 
 if($_SERVER['REQUEST_METHOD'] == 'POST'){
-    // if(isset($_POST['employee_id']) && isset($_POST['employee_name']) && isset($_POST['credential_id']) && isset($_POST['department_id'])){
+    // if(isset($_POST['employee_id']) && isset($_POST['employee_name']) && isset($_POST['credential_id']) && isset($_POST['department_id']) && isset($_POST['activity_description']) && isset($_POST['activity_type'])){
     //     $employee_id = htmlspecialchars($_POST['employee_id'], ENT_QUOTES, 'UTF-8');
     //     $submitted_by = htmlspecialchars($_POST['credential_id'], ENT_QUOTES, 'UTF-8');
     //     $employee_name = htmlspecialchars($_POST['employee_name'], ENT_QUOTES, 'UTF-8');
@@ -30,7 +30,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
 
     // }
 
-    if(isset($_POST['employee_id']) && isset($_POST['total_seconds'])){
+    if(isset($_POST['employee_id']) && isset($_POST['total_seconds']) && isset($_POST['activity_type'])){
         $employee_id = htmlspecialchars($_POST['employee_id'], ENT_QUOTES, 'UTF-8');
         $total_seconds = intval($_POST['total_seconds']);
 
@@ -67,25 +67,15 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
         $start_time  = $current_date;
 
 
-        // $insert_activity = $attendance_model->insertAttendance($employee_id, $employee_name, $department_id, $activity_type, $activity_description, $start_time, $submitted_by, $start_time);
+        $insert_activity = $attendance_model->insertAttendance($employee_id, $employee_name, $department_id, $activity_type, $activity_description, $start_time, $submitted_by, $start_time);
 
-        // if($insert_attendance != false){
-        //         echo json_encode(['status' => 'success']);
-        // }else{
-        //         echo json_encode(['status' => 'failed']);
-        // }
+        if($insert_activity != false){
+                echo json_encode(['status' => 'success', 'data' => $insert_activity]);
+        }else{
+                echo json_encode(['status' => 'failed']);
+        }
 
-        $array  = [
-        $employee_id,
-        $submitted_by,
-        $employee_name,
-        $department_id, 
-        $start_time,
-        $activity_description,
-        $activity_type
 
-        ];
-        echo json_encode($array);
     }
 
 }

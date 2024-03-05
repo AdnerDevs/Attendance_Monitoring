@@ -33,8 +33,13 @@ class AttendanceModel extends Dbh{
             if (!$stmt->execute([$employee_id, $employee_name, $department_id, $activity_type, $activity_description, $start_time, $submitted_by, $submitted_on])) {
                 return false;
             }
-    
-            return true;
+
+            $stmt2 = $this->connect()->prepare('SELECT * FROM employee_attendance WHERE employee_id = ? AND activity_type = ? AND DATE(start_time) = CURDATE()');
+            if(!$stmt2->execute([$employee_id, $activity_type])){
+                return false;
+            }
+            $result = $stmt2->fetch(PDO::FETCH_ASSOC);
+            return $result;
     
         } catch (PDOException $e) {
             echo 'Error inserting attendance: ' . $e->getMessage();

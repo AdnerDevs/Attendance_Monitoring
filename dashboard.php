@@ -497,7 +497,7 @@ if (isset($_SESSION["employee_id"]) && $_SESSION["employee_id"]) {
                                         <div class="timer-container border-top p-2">
                                             <div id="timer2" class="timer">00:00:00</div>
                                             <button id="back2" class="btn btn-danger">End time</button>
-
+                                            <input type="hidden" name="" id="hidden_activity_type">
                                         </div>
                                     </div>
                                 </div>
@@ -611,9 +611,12 @@ if (isset($_SESSION["employee_id"]) && $_SESSION["employee_id"]) {
             let activityy__description;
             let timer;
             let seconds = 0;
+            let secondsAct = 0;
 
             function startTimer() {
                 timer = setInterval(displayTime, 1000);
+                activity__type = "1";
+                activityy__description = "Attendance";
                 $.ajax({
                     type: 'POST',
                     url: 'Controller/AttendanceController.php',
@@ -621,7 +624,9 @@ if (isset($_SESSION["employee_id"]) && $_SESSION["employee_id"]) {
                         employee_id: session_employee_id,
                         employee_name: session_employee_name,
                         department_id: session_department_id,
-                        credential_id: session_credential_id
+                        credential_id: session_credential_id,
+                        activity_type: activity__type,
+                        activity_description: activityy__description
                     },
                     dataType: 'json',
                     success: function (result) {
@@ -662,15 +667,15 @@ if (isset($_SESSION["employee_id"]) && $_SESSION["employee_id"]) {
                     dataType: 'json',
                     success: function (result) {
                         
-                        // if (result.status === 'success') {
-                        //     alert('Starting Attendance');
-                        // } else {
-                        //     alert('Failed to start Attendance');
-                        // }
-                        console.log(result);
-                        // if (result.status === 'success') {
-                        //     alert('Starting Attendance');
-                        // }
+                        if (result.status === 'success') {
+                            alert("Starting Activity");
+                            let m = result.data.submitted_by;
+                            $('#back2').val(m);
+                      
+                        } else {
+                            alert('Failed to start Attendance');
+                        }
+                
                     },
                     error: function (error) {
                         console.log(error);
@@ -706,6 +711,13 @@ if (isset($_SESSION["employee_id"]) && $_SESSION["employee_id"]) {
 
             }
 
+            function getSecondsAct(){
+                alert('Seconds: ' + secondsAct);
+                secondsAct = 0;
+                clearInterval(timer);
+          
+            }
+
             function displayTime() {
 
                 seconds++;
@@ -722,11 +734,11 @@ if (isset($_SESSION["employee_id"]) && $_SESSION["employee_id"]) {
 
             function displayTimeActivity() {
 
-            seconds++;
+            secondsAct++;
 
-            let hours = Math.floor(seconds / 3600);
-            let minutes = Math.floor(seconds % 3600 / 60);
-            let secs = seconds % 60;
+            let hours = Math.floor(secondsAct / 3600);
+            let minutes = Math.floor(secondsAct % 3600 / 60);
+            let secs = secondsAct % 60;
 
                 document.getElementById("timer2").innerHTML =
                 (hours < 10 ? "0" : "") + hours + ":" +
@@ -797,6 +809,9 @@ if (isset($_SESSION["employee_id"]) && $_SESSION["employee_id"]) {
                 $('.box-item1').removeClass('hover');
                 $('.box-item').removeClass('click');
                 localStorage.setItem('isCardFlipped2', $('.flip-box2').hasClass('hover'));
+                let s = $("#back2").val();
+                console.log("result" + s);
+                getSecondsAct();
              
             });
 

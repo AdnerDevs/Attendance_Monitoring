@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 03, 2024 at 10:26 PM
--- Server version: 10.4.28-MariaDB
--- PHP Version: 8.2.4
+-- Generation Time: Mar 05, 2024 at 07:59 AM
+-- Server version: 10.4.32-MariaDB
+-- PHP Version: 8.2.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -148,8 +148,13 @@ CREATE TABLE `employee_attendance` (
 --
 
 INSERT INTO `employee_attendance` (`employee_attendance_id`, `employee_id`, `employee_name`, `department_id`, `activity_type`, `activity_description`, `start_time`, `end_time`, `total_time`, `day`, `hour`, `minute`, `second`, `submitted_by`, `submitted_on`) VALUES
-(10, '01-2457321', 'EROR LOGIN', 2, 1, 'Attendance', '2024-03-03 21:57:56', '2024-03-03 22:50:47', '28', 0, 0, 0, 28, '01-2457321ERO', '2024-03-03 21:57:56'),
-(11, '01-2457321', 'EROR LOGIN', 2, 1, 'Attendance', '2024-03-03 22:50:17', '2024-03-03 22:50:47', '28', 0, 0, 0, 28, '01-2457321ERO', '2024-03-03 22:50:17');
+(56, '01-2457321', 'EROR LOGIN', 2, 2, 'asdada', '2024-03-05 09:38:10', NULL, NULL, NULL, NULL, NULL, NULL, '01-2457321ERO', '2024-03-05 09:38:10'),
+(57, '01-2457321', 'EROR LOGIN', 2, 2, 'asdada', '2024-03-05 09:40:50', NULL, NULL, NULL, NULL, NULL, NULL, '01-2457321ERO', '2024-03-05 09:40:50'),
+(58, '01-2457321', 'EROR LOGIN', 2, 2, 'asdada', '2024-03-05 09:46:06', NULL, NULL, NULL, NULL, NULL, NULL, '01-2457321ERO', '2024-03-05 09:46:06'),
+(59, '01-2457321', 'EROR LOGIN', 2, 2, 'a', '2024-03-05 11:45:59', NULL, NULL, NULL, NULL, NULL, NULL, '01-2457321ERO', '2024-03-05 11:45:59'),
+(60, '01-2457321', 'EROR LOGIN', 2, 4, 'asda', '2024-03-05 11:46:54', NULL, NULL, NULL, NULL, NULL, NULL, '01-2457321ERO', '2024-03-05 11:46:54'),
+(61, '01-2457321', 'EROR LOGIN', 2, 2, '', '2024-03-05 14:46:39', NULL, NULL, NULL, NULL, NULL, NULL, '01-2457321ERO', '2024-03-05 14:46:39'),
+(62, '01-2457321', 'EROR LOGIN', 2, 2, '', '2024-03-05 14:47:27', NULL, NULL, NULL, NULL, NULL, NULL, '01-2457321ERO', '2024-03-05 14:47:27');
 
 -- --------------------------------------------------------
 
@@ -172,7 +177,7 @@ CREATE TABLE `employee_user` (
 --
 
 INSERT INTO `employee_user` (`employee_id`, `employee_name`, `nickname`, `department_id`, `created_time`, `status`, `isRemove`) VALUES
-('01-2457321', 'EROR LOGIN', 'ERO', 2, '2024-02-22 13:05:51', 0, 0),
+('01-2457321', 'EROR LOGIN', 'ERO', 2, '2024-02-22 13:05:51', 1, 0),
 ('02-0454sen', 'adner devila', '', 2, '2024-02-21 15:07:10', 0, 0),
 ('02-070031-CENA', 'JOHN CENA', '', 2, '2024-02-21 15:07:10', 0, 0),
 ('02-2295931', 'LEGENDS LION', 'LEAGUE', 1, '2024-02-24 19:48:36', 0, 0),
@@ -337,7 +342,7 @@ ALTER TABLE `department`
 -- AUTO_INCREMENT for table `employee_attendance`
 --
 ALTER TABLE `employee_attendance`
-  MODIFY `employee_attendance_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `employee_attendance_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=63;
 
 --
 -- AUTO_INCREMENT for table `login_credentials`
