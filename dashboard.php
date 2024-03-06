@@ -685,9 +685,10 @@ if (isset($_SESSION["employee_id"]) && $_SESSION["employee_id"]) {
                         
                         if (result.status === 'success') {
                             alert("Starting Activity");
-                            let m = result.data.start_time;
-                            let date = new Date(m);
-                            let formattedTime = date.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit', hour12: true});
+                            let dateTimeString1 = result.data.start_time;
+                            let dateTimeString2 = "2024-03-06 09:37:22";
+                            let date1 = new Date(dateTimeString1);
+                            let date2 = new Date(dateTimeString2);
                             $('#back2').val(m);
                       
                         } else {
