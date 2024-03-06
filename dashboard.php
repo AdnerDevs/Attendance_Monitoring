@@ -633,30 +633,30 @@ if (isset($_SESSION["employee_id"]) && $_SESSION["employee_id"]) {
                 timer = setInterval(displayTime, 1000);
                 activity__type = "1";
                 activityy__description = "Attendance";
-                // $.ajax({
-                //     type: 'POST',
-                //     url: 'Controller/AttendanceController.php',
-                //     data: {
-                //         employee_id: session_employee_id,
-                //         employee_name: session_employee_name,
-                //         department_id: session_department_id,
-                //         credential_id: session_credential_id,
-                //         activity_type: activity__type,
-                //         activity_description: activityy__description
-                //     },
-                //     dataType: 'json',
-                //     success: function (result) {
+                $.ajax({
+                    type: 'POST',
+                    url: 'Controller/AttendanceController.php',
+                    data: {
+                        employee_id: session_employee_id,
+                        employee_name: session_employee_name,
+                        department_id: session_department_id,
+                        credential_id: session_credential_id,
+                        activity_type: activity__type,
+                        activity_description: activityy__description
+                    },
+                    dataType: 'json',
+                    success: function (result) {
 
-                //         if (result.status === 'success') {
-                //             alert('Starting Attendance');
-                //         } else {
-                //             alert('Failed to start Attendance');
-                //         }
-                //     },
-                //     error: function (error) {
-                //         console.log(error);
-                //     }
-                // });
+                        if (result.status === 'success') {
+                            alert('Starting Attendance');
+                        } else {
+                            alert('Failed to start Attendance');
+                        }
+                    },
+                    error: function (error) {
+                        console.log(error);
+                    }
+                });
 
 
             }
@@ -668,35 +668,37 @@ if (isset($_SESSION["employee_id"]) && $_SESSION["employee_id"]) {
                 // console.log({
                 //     activity_type,activity_description
                 // });
-                // $.ajax({
-                //     type: 'POST',
-                //     url: 'Controller/AttendanceController.php',
-                //     data: {
-                //         employee_id: session_employee_id,
-                //         employee_name: session_employee_name,
-                //         department_id: session_department_id,
-                //         credential_id: session_credential_id,
-                //         activity_type: activity__type,
-                //         activity_description: activityy__description
+                $.ajax({
+                    type: 'POST',
+                    url: 'Controller/AttendanceController.php',
+                    data: {
+                        employee_id: session_employee_id,
+                        employee_name: session_employee_name,
+                        department_id: session_department_id,
+                        credential_id: session_credential_id,
+                        activity_type: activity__type,
+                        activity_description: activityy__description
                         
-                //     },
-                //     dataType: 'json',
-                //     success: function (result) {
+                    },
+                    dataType: 'json',
+                    success: function (result) {
                         
-                //         if (result.status === 'success') {
-                //             alert("Starting Activity");
-                //             let m = result.data.submitted_by;
-                //             $('#back2').val(m);
+                        if (result.status === 'success') {
+                            alert("Starting Activity");
+                            let m = result.data.start_time;
+                            let date = new Date(m);
+                            let formattedTime = date.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit', hour12: true});
+                            $('#back2').val(m);
                       
-                //         } else {
-                //             alert('Failed to start Attendance');
-                //         }
+                        } else {
+                            alert('Failed to start Attendance');
+                        }
                 
-                //     },
-                //     error: function (error) {
-                //         console.log(error);
-                //     }
-                // });
+                    },
+                    error: function (error) {
+                        console.log(error);
+                    }
+                });
 
             }
 
@@ -772,6 +774,8 @@ if (isset($_SESSION["employee_id"]) && $_SESSION["employee_id"]) {
             if (localStorage.getItem('isCardFlipped') === 'true') {
 
                 $('.flip-box').addClass('hover');
+                $('.box-item').addClass('active');
+                $('.box-item1').addClass('active');
 
             }
 
@@ -791,7 +795,7 @@ if (isset($_SESSION["employee_id"]) && $_SESSION["employee_id"]) {
                 $('.box-item').addClass('active');
                 $('.box-item1').addClass('active');
                 localStorage.setItem('isCardFlipped', $('.flip-box').hasClass('hover'));
-
+       
 
             });
 
@@ -841,7 +845,6 @@ if (isset($_SESSION["employee_id"]) && $_SESSION["employee_id"]) {
                 }
             });
 
-            console.log('s');
 
         });
     </script>
