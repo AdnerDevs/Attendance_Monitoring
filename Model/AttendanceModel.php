@@ -33,13 +33,17 @@ class AttendanceModel extends Dbh{
             if (!$stmt->execute([$employee_id, $employee_name, $department_id, $activity_type, $activity_description, $start_time, $submitted_by, $submitted_on])) {
                 return false;
             }
-
-            $stmt2 = $this->connect()->prepare('SELECT * FROM employee_attendance WHERE employee_id = ? AND activity_type = ? AND DATE(start_time) = CURDATE()');
-            if(!$stmt2->execute([$employee_id, $activity_type])){
+    
+            // Retrieve the last inserted ID
+            $lastInsertedId = $this->connect()->lastInsertId();
+    
+            // Alternatively, you can fetch the inserted record
+            $stmt2 = $this->connect()->prepare('SELECT * FROM employee_attendance WHERE employee_attendance_id = ?');
+            if(!$stmt2->execute([$lastInsertedId])){
                 return false;
             }
             $result = $stmt2->fetch(PDO::FETCH_ASSOC);
-            return $result;
+            return $result ;
     
         } catch (PDOException $e) {
             echo 'Error inserting attendance: ' . $e->getMessage();
@@ -48,13 +52,14 @@ class AttendanceModel extends Dbh{
             $stmt = null;
         }
     }
+    
 
-    public function updateEndtimeAttendance($total_seconds, $end_time, $day, $hour, $minute, $second, $employee_id, $activity_type){
+    public function updateEndtimeAttendance($end_time, $day, $hour, $minute, $second, $employee_id, $activity_type,  $employee_attendance_id){
         try{
 
-            $stmt = $this->connect()->prepare('UPDATE employee_attendance SET total_time = ?, end_time = ?, `day` = ?, `hour` = ?, `minute` = ?, `second` = ? WHERE employee_id = ? AND activity_type = ? AND DATE(start_time) = CURDATE()');
+            $stmt = $this->connect()->prepare('UPDATE employee_attendance SET end_time = ?, `day` = ?, `hour` = ?, `minute` = ?, `second` = ?, `submitted_on`=? WHERE employee_id = ? AND activity_type = ? AND employee_attendance_id = ?');
 
-            if(!$stmt->execute([$total_seconds, $end_time, $day, $hour, $minute, $second , $employee_id, $activity_type])){
+            if(!$stmt->execute([ $end_time, $day, $hour, $minute, $second , $end_time, $employee_id, $activity_type,  $employee_attendance_id])){
                 return false;
             }
 
