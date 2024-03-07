@@ -97,8 +97,8 @@ if (isset($_SESSION["employee_id"]) && $_SESSION["employee_id"]) {
             transform-style: preserve-3d;
 
             /* box-shadow: 0px 0px 5px #fb5fba,
-        0px 0px 30px #fb5fba,
-        0px 0px 90px #fb5fba; */
+                0px 0px 30px #fb5fba,
+                0px 0px 90px #fb5fba; */
         }
 
         .flip-box-back::before {
@@ -196,7 +196,8 @@ if (isset($_SESSION["employee_id"]) && $_SESSION["employee_id"]) {
             width: 100%;
 
         }
-        .box-item1.active{
+
+        .box-item1.active {
             width: 50%;
         }
 
@@ -212,33 +213,35 @@ if (isset($_SESSION["employee_id"]) && $_SESSION["employee_id"]) {
             display: none;
         }
 
-        
+
 
         .box-item {
             width: 0;
             opacity: 0;
             padding: 0;
             transition: all 2s ease-in-out;
-           
+
         }
+
         .box-item button,
-        .box-item  .input-group select,
-        .box-item  textarea{
+        .box-item .input-group select,
+        .box-item textarea {
             display: none;
         }
 
-        .box-item.active{
-            width:50%;
+        .box-item.active {
+            width: 50%;
             opacity: 1;
             padding: 0.5 rem;
-            
+
         }
+
         .box-item.active button,
-        .box-item.active  .input-group select,
-        .box-item.active  textarea{
+        .box-item.active .input-group select,
+        .box-item.active textarea {
             display: flex;
         }
-     
+
         .box-item.click {
             width: 97%;
         }
@@ -341,7 +344,8 @@ if (isset($_SESSION["employee_id"]) && $_SESSION["employee_id"]) {
         .tracking-in-expand {
             -webkit-animation: tracking-in-expand 0.7s cubic-bezier(0.215, 0.610, 0.355, 1.000) both;
             animation: tracking-in-expand 0.7s cubic-bezier(0.215, 0.610, 0.355, 1.000) both;
-            text-shadow: 4px 2px 0px rgba(162,146,146,0.57); background: rgba(177, 178, 241, 0.31);
+            text-shadow: 4px 2px 0px rgba(162, 146, 146, 0.57);
+            background: rgba(177, 178, 241, 0.31);
             box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
             backdrop-filter: blur(1.5px);
             -webkit-backdrop-filter: blur(1.5px);
@@ -378,12 +382,24 @@ if (isset($_SESSION["employee_id"]) && $_SESSION["employee_id"]) {
             }
         }
     </style>
+    <style>
+        .fa-arrow-up {
+            /* transform: rotate(180deg); */
+            transition: transform 0.5s ease;
+        }
+
+        .rotate90 {
+            transform: rotate(180deg);
+        }
+    </style>
     <link rel="stylesheet" href="asset/css/infiniteLoop.css">
     <div class="container-fluid min-vh-100 mt-0" style="background-image: url('asset/img/bg_msa.jpg');  background-size: cover;
     background-position: center; background-repeat: no-repeat; ">
 
-        <div class="row " >
-            <p class="h4 text-center fs-1 tracking-in-expand text-white p-2 shadow "><i class="fa fa-bullhorn" aria-hidden="true" style="transform: rotateY(180deg);"></i> Announcement <i class="fa fa-bullhorn" aria-hidden="true"></i></p>
+        <div class="row ">
+            <p class="h4 text-center fs-1 tracking-in-expand text-white p-2 shadow "><i class="fa fa-bullhorn"
+                    aria-hidden="true" style="transform: rotateY(180deg);"></i> Announcement <i class="fa fa-bullhorn"
+                    aria-hidden="true"></i></p>
             <div class="scroller" data-speed="slow" data-direction="left">
                 <ul class="tag-list scroller__inner p-0 d-flex gap-2 py-2 flex-wrap ">
                     <?php
@@ -492,30 +508,34 @@ if (isset($_SESSION["employee_id"]) && $_SESSION["employee_id"]) {
                                 <div class="input-group mb-2">
                                     <select class="form-select" aria-label=" select example" id="activity_type">
                                         <?php
-                                                $get_act = $activity_model->getAllActivity();
+                                        $get_act = $activity_model->getAllActivity();
 
-                                                for ($i = 0; $i < count($get_act); $i++):
-                                                    if($get_act[$i]['activity_id'] === 1){ 
-                                                        continue;
-                                                    }
+                                        for ($i = 0; $i < count($get_act); $i++):
+                                            if ($get_act[$i]['activity_id'] === 1) {
+                                                continue;
+                                            }
                                             ?>
-                                           
-                                        <option value="<?=$get_act[$i]['activity_id']?>"><?=$get_act[$i]['activity_type']?></option>
+
+                                            <option value="<?= $get_act[$i]['activity_id'] ?>">
+                                                <?= $get_act[$i]['activity_type'] ?>
+                                            </option>
                                             <?php
-                                                endfor;
-                                            ?>
+                                        endfor;
+                                        ?>
                                     </select>
                                     <button type="button" id="switch2" class="btn btn-primary">Start time</button>
                                 </div>
-                                
+
                                 <label for="basic-url" class="form-label">Description</label>
-                             
-                                <textarea class="form-control" aria-label="With textarea" id="activity_description"></textarea>
-                              
+
+                                <textarea class="form-control" aria-label="With textarea"
+                                    id="activity_description"></textarea>
+
 
                             </div>
                         </div>
-                        <div class="flip-box-back text-center" style="background-image: url('asset/img/marcus.jpg'); object-fit: fill;">
+                        <div class="flip-box-back text-center"
+                            style="background-image: url('asset/img/marcus.jpg'); object-fit: fill;">
                             <div class="inner text-white">
 
                                 <div class="row">
@@ -560,7 +580,7 @@ if (isset($_SESSION["employee_id"]) && $_SESSION["employee_id"]) {
                                                 <td>@mdo</td>
                                             </tr>
 
-                                          
+
                                         </tbody>
                                     </table>
                                 </div>
@@ -570,40 +590,40 @@ if (isset($_SESSION["employee_id"]) && $_SESSION["employee_id"]) {
                 </div>
             </div>
         </div>
-    </div>
+        <button type="button" class=" btn btn-primary" id="showHistory" data-bs-toggle="collapse"
+            data-bs-target="#history_table"><i class="fa fa-arrow-up" aria-hidden="true"></i></button>
 
-    <div class="row d-none">
-        <div class="col-md-6 p-4">
-            <p class="text-center fs-1">Attendance</p>
+        <div class=" container-fluid history_table collapse p-0 mb-4" id="history_table">
+            <p class="display-3">HISTORY</p>
 
-            <div class="input-group mb-3">
-                <input type="datetime-local" class="form-control" value="<?= $input_value ?>"
-                    placeholder="Recipient's username" aria-label="Recipient's username" aria-describedby="button-addon2">
-                <button type="button" class="input-group-text bg-dark text-white" id="basic-addon2">Start time</button>
-            </div>
-            <div class="input-group mb-3">
-
-                <select class="form-select" aria-label="Default select department">
-                    <option value="0" selected disabled>Acivity</option>
-                    <?php
-
-                    for ($i = 0; $i < 5; $i++):
-                        ?>
-                        <option value="">sample act</option>
-                        <?php
-                    endfor;
-                    ?>
-                </select>
-                <span class="input-group-text">
-                    <i class="fa fa-plus-square-o" aria-hidden="true"></i>
-                </span>
+            <div class="col-12 table-responsive p-0" style="max-height: 300px;">
+                <table class="table mb-0" style="background: rgba(177, 178, 241, 0.31) !important;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1) !important;
+            backdrop-filter: blur(1.5px) !important;
+            -webkit-backdrop-filter: blur(1.5px) !important;
+            border: 1px solid rgba(177, 178, 241, 0.46) !important; ">
+                    <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">First</th>
+                            <th scope="col">Last</th>
+                            <th scope="col">Handle</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th scope="row">1</th>
+                            <td>Mark</td>
+                            <td>Otto</td>
+                            <td>@mdo</td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
 
         </div>
-        <div class="col-md-6 p-4">
-            <p class="text-center fs-1">Activity</p>
-        </div>
     </div>
+
     </div>
 
     <script>
@@ -630,6 +650,11 @@ if (isset($_SESSION["employee_id"]) && $_SESSION["employee_id"]) {
                     })
                 });
             }
+
+            $("#showHistory").click(function () {
+
+                $('.fa-arrow-up').toggleClass('rotate90');
+            });
 
             let session_employee_id = $('#session_employee_id').val();
             let session_employee_name = $('#session_employee_name').val();
@@ -678,7 +703,7 @@ if (isset($_SESSION["employee_id"]) && $_SESSION["employee_id"]) {
                 timer = setInterval(displayTimeActivity, 1000);
                 activity__type = $('#activity_type').val();
                 activityy__description = $('#activity_description').val();
-           
+
                 // console.log({
                 //     activity_type,activity_description
                 // });
@@ -692,30 +717,30 @@ if (isset($_SESSION["employee_id"]) && $_SESSION["employee_id"]) {
                         credential_id: session_credential_id,
                         activity_type: activity__type,
                         activity_description: activityy__description
-                        
+
                     },
                     dataType: 'json',
                     success: function (result) {
-                        
+
                         if (result.status === 'success') {
                             alert("Starting Activity");
                             let dateTimeString1 = result.data.start_time;
                             // let dateTimeString2 = "2024-03-06 09:37:22";
                             let date1 = new Date(dateTimeString1);
-                            let options = {timeZone: 'Asia/Manila'};
+                            let options = { timeZone: 'Asia/Manila' };
                             let asiaManilaTimeString = date1.toLocaleString('en-US', options);
                             // let date2 = new Date(dateTimeString2);
                             // let timeDifferenceMilliseconds = date2 - date1;
                             $("#hidden_activity_type").val(result.data.activity_type);
                             $('#hidden_employee_attendance_id').val(result.data.employee_attendance_id);
-                  
+
                             $('#back2').val(asiaManilaTimeString);
-                      
+
                         } else {
                             alert('Failed to start Attendance');
                         }
                         console.log(result);
-                
+
                     },
                     error: function (error) {
                         console.log(error);
@@ -725,7 +750,7 @@ if (isset($_SESSION["employee_id"]) && $_SESSION["employee_id"]) {
             }
 
             function getSeconds() {
-            
+
                 alert('Seconds: ' + seconds);
                 $.ajax({
                     type: 'POST',
@@ -752,11 +777,11 @@ if (isset($_SESSION["employee_id"]) && $_SESSION["employee_id"]) {
 
             }
 
-            function getSecondsAct(){
+            function getSecondsAct() {
                 start_time = $("#back2").val();
                 activity__type = $("#hidden_activity_type").val();
                 hidden_employee_attendance_id = $("#hidden_employee_attendance_id").val();
-           
+
                 $.ajax({
                     type: 'POST',
                     url: 'Controller/AttendanceController.php',
@@ -783,7 +808,7 @@ if (isset($_SESSION["employee_id"]) && $_SESSION["employee_id"]) {
                 });
                 secondsAct = 0;
                 clearInterval(timer);
-          
+
             }
 
             function displayTime() {
@@ -802,16 +827,16 @@ if (isset($_SESSION["employee_id"]) && $_SESSION["employee_id"]) {
 
             function displayTimeActivity() {
 
-            secondsAct++;
+                secondsAct++;
 
-            let hours = Math.floor(secondsAct / 3600);
-            let minutes = Math.floor(secondsAct % 3600 / 60);
-            let secs = secondsAct % 60;
+                let hours = Math.floor(secondsAct / 3600);
+                let minutes = Math.floor(secondsAct % 3600 / 60);
+                let secs = secondsAct % 60;
 
                 document.getElementById("timer2").innerHTML =
-                (hours < 10 ? "0" : "") + hours + ":" +
-                (minutes < 10 ? "0" : "") + minutes + ":" +
-                (secs < 10 ? "0" : "") + secs;
+                    (hours < 10 ? "0" : "") + hours + ":" +
+                    (minutes < 10 ? "0" : "") + minutes + ":" +
+                    (secs < 10 ? "0" : "") + secs;
             }
 
             function getTime(time) {
@@ -845,7 +870,7 @@ if (isset($_SESSION["employee_id"]) && $_SESSION["employee_id"]) {
                 $('.box-item').addClass('active');
                 $('.box-item1').addClass('active');
                 localStorage.setItem('isCardFlipped', $('.flip-box').hasClass('hover'));
-       
+
 
             });
 
@@ -870,7 +895,7 @@ if (isset($_SESSION["employee_id"]) && $_SESSION["employee_id"]) {
                 $('.box-item').addClass('click');
                 localStorage.setItem('isCardFlipped2', $('.flip-box2').hasClass('hover'), $('box-item1').hasClass('hover'));
 
-           
+
 
                 startTimerActivity();
 
@@ -882,10 +907,10 @@ if (isset($_SESSION["employee_id"]) && $_SESSION["employee_id"]) {
                 $('.box-item1').removeClass('hover');
                 $('.box-item').removeClass('click');
                 localStorage.setItem('isCardFlipped2', $('.flip-box2').hasClass('hover'));
-     
-             
+
+
                 getSecondsAct();
-             
+
             });
 
 
