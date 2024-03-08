@@ -17,14 +17,15 @@ class SignupController extends EmployeeModel{
             $error['empty_input'] = 'Please fill in all fields';
 
         }
-
-        if($this->employeeIDCheck() == false){
-            $error['already_exist'] = 'This ID is already registered, please input a different ID';
-        }
-
-        if($this->formatID() == false){
+          if($this->formatID() == false){
             $error['format_id'] = 'Employee ID should be 10 characters long';
         }
+
+        // if($this->employeeIDCheck() == false){
+        //     $error['already_exist'] = 'This ID is already registered, please input a different ID';
+        // }
+
+      
         return $error;
     }
 
@@ -44,8 +45,8 @@ class SignupController extends EmployeeModel{
         return true;
     }
 
-    public function employeeIDCheck(){
-        return  $this->checkID($this->employee_id);
-    }
+    // public function employeeIDCheck(){
+    //     return  $this->checkID($this->employee_id);
+    // }
 
 }

@@ -453,10 +453,10 @@ if (isset($_SESSION["employee_id"]) && $_SESSION["employee_id"]) {
                                     <div class="co-12 mb-4 ">
                                         <p class="h3 flip-box-header">Attendance</p>
                                         <div class="timer-container border-top p-2">
-                                            <div id="timer" class="timers">00:00:00</div>
+                        
                                             <button id="endAttendance" class="btn btn-danger">End time</button>
                                         </div>
-
+                                        <input type="hidden" name="" id="hidden_employee_attendance_id_attendance">
                                     </div>
 
                                 </div>
@@ -472,7 +472,7 @@ if (isset($_SESSION["employee_id"]) && $_SESSION["employee_id"]) {
 
                                 </div>
 
-                                <div class="col-12 table-responsive" style="max-height: 300px;">
+                                <!-- <div class="col-12 table-responsive" style="max-height: 300px;">
                                     <table class="table mb-0">
                                         <thead>
                                             <tr>
@@ -491,7 +491,7 @@ if (isset($_SESSION["employee_id"]) && $_SESSION["employee_id"]) {
                                             </tr>
                                         </tbody>
                                     </table>
-                                </div>
+                                </div> -->
                             </div>
                         </div>
                     </div>
@@ -542,7 +542,7 @@ if (isset($_SESSION["employee_id"]) && $_SESSION["employee_id"]) {
                                     <div class="co-12 mb-4 ">
                                         <p class="h3 flip-box-header">Activity</p>
                                         <div class="timer-container border-top p-2">
-                                            <div id="timer2" class="timer">00:00:00</div>
+                                        
                                             <button id="back2" class="btn btn-danger">End time</button>
                                             <input type="hidden" name="" id="hidden_activity_type">
                                             <input type="hidden" name="" id="hidden_employee_attendance_id">
@@ -667,6 +667,7 @@ if (isset($_SESSION["employee_id"]) && $_SESSION["employee_id"]) {
             let secondsAct = 0;
             let start_time;
             let hidden_employee_attendance_id;
+
             function startTimer() {
                 timer = setInterval(displayTime, 1000);
                 activity__type = "1";
@@ -687,6 +688,13 @@ if (isset($_SESSION["employee_id"]) && $_SESSION["employee_id"]) {
 
                         if (result.status === 'success') {
                             alert('Starting Attendance');
+                            let dateTimeString1 = result.data.start_time;
+                
+                            let date1 = new Date(dateTimeString1);
+                            let options = { timeZone: 'Asia/Manila' };
+                            let asiaManilaTimeString = date1.toLocaleString('en-US', options);
+                            $('#hidden_employee_attendance_id_attendance').val(result.data.employee_attendance_id);
+                            $('#endAttendance').val(asiaManilaTimeString);
                         } else {
                             alert('Failed to start Attendance');
                         }
@@ -704,9 +712,7 @@ if (isset($_SESSION["employee_id"]) && $_SESSION["employee_id"]) {
                 activity__type = $('#activity_type').val();
                 activityy__description = $('#activity_description').val();
 
-                // console.log({
-                //     activity_type,activity_description
-                // });
+
                 $.ajax({
                     type: 'POST',
                     url: 'Controller/AttendanceController.php',
@@ -725,12 +731,11 @@ if (isset($_SESSION["employee_id"]) && $_SESSION["employee_id"]) {
                         if (result.status === 'success') {
                             alert("Starting Activity");
                             let dateTimeString1 = result.data.start_time;
-                            // let dateTimeString2 = "2024-03-06 09:37:22";
+                
                             let date1 = new Date(dateTimeString1);
                             let options = { timeZone: 'Asia/Manila' };
                             let asiaManilaTimeString = date1.toLocaleString('en-US', options);
-                            // let date2 = new Date(dateTimeString2);
-                            // let timeDifferenceMilliseconds = date2 - date1;
+          
                             $("#hidden_activity_type").val(result.data.activity_type);
                             $('#hidden_employee_attendance_id').val(result.data.employee_attendance_id);
 
@@ -750,14 +755,22 @@ if (isset($_SESSION["employee_id"]) && $_SESSION["employee_id"]) {
             }
 
             function getSeconds() {
-
+                start_time = $("#endAttendance").val();
+                activity__type = "1";
+                hidden_employee_attendance_id = $("#hidden_employee_attendance_id_attendance").val();
+                console.log({
+                    start_time,
+                    hidden_employee_attendance_id
+                });
                 alert('Seconds: ' + seconds);
                 $.ajax({
                     type: 'POST',
                     url: 'Controller/AttendanceController.php',
                     data: {
                         employee_id: session_employee_id,
-                        total_seconds: seconds
+                        total_seconds: start_time,
+                        activity_type: activity__type,
+                        employee_attendance_id: hidden_employee_attendance_id
                     },
                     dataType: 'json',
                     success: function (result) {

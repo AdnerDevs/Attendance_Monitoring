@@ -10,7 +10,7 @@ class EmployeeModel extends Dbh{
 
             if(!$stmt->execute()){
                 return false;
-                die();
+        
             }
 
             $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -29,7 +29,7 @@ class EmployeeModel extends Dbh{
 
             if(!$stmt->execute([ $employee_id, $employee_name, $nickname, $department_id  ])){
                 return false;
-                die();
+        
             }
 
             $this->createLoginCredentials($employee_id, $id_credentials, $surname_credentials, $usertpye);
@@ -46,9 +46,9 @@ class EmployeeModel extends Dbh{
     public function createLoginCredentials($employee_id, $id_credentials, $surname_credentials, $usertpye ){
         try{
 
-            $stm = $this->connect()->prepare('INSERT INTO login_credentials (employee_id, credential_id, credential_surname, user_type) VALUES (?,?,?,?)');
+            $stmt = $this->connect()->prepare('INSERT INTO login_credentials (employee_id, credential_id, credential_surname, user_type) VALUES (?,?,?,?)');
 
-            if(!$stm->execute([$employee_id, $id_credentials, $surname_credentials, $usertpye])){
+            if(!$stmt->execute([$employee_id, $id_credentials, $surname_credentials, $usertpye])){
                 return false;
             }
 
@@ -63,7 +63,7 @@ class EmployeeModel extends Dbh{
 
     public function checkID($emp_id){
         try{
-            $stmt = $this->connect()->prepare('SELECT employee_id FROM employee_user WHERE employee_id = ? AND isRemove != 1');
+            $stmt = $this->connect()->prepare('SELECT * FROM employee_user WHERE employee_id = ? AND isRemove != 1');
             $stmt->execute([$emp_id]);
             
             $result = ($stmt->rowCount()>0) ? false : true;

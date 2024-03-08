@@ -22,15 +22,19 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
         $signup = new SignupController($employee_name, $employee_id);
 
         $error = $signup->ValidateEmployee();
-
         if (empty($error)) {
-            $register_employee = $employee_model->registerEmployee( $employee_id, $employee_name, $nickname, $department_id, $id_credentials, $surname_credentials, $usertpye);
-            if ($register_employee != false) {
-                echo json_encode(['status' => 'success']);
+            $validate_id = $employee_model->checkID($employee_id);
+            if($validate_id == false){
+                echo json_encode(['status' => 'validate']);
             }else{
-                echo json_encode(['status' => 'failed']);
+               $register_employees = $employee_model->registerEmployee( $employee_id, $employee_name, $nickname, $department_id, $id_credentials, $surname_credentials, $usertpye);
+                if ($register_employees != false) {
+                    echo json_encode(['status' => 'success']);
+                }else{
+                    echo json_encode(['status' => 'failed']);
+                }
             }
-           
+
         } else {
             echo json_encode(['status' => 'error', 'errors' => $error]);
         }

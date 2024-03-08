@@ -200,6 +200,7 @@
     });
 
     function registerEmployee(employee_id, employee_complete_name, nickname, department_id, id_credential, surname_credential){
+       
         $.ajax({
             type: 'POST',
             url: 'Controller/EmployeeController.php',
@@ -214,19 +215,22 @@
             success: function(response){
         
                 if (response.status === 'error') {
-                    if(response.errors.already_exist){
-                        alert(response.errors.already_exist);
-                    }
                     if(response.errors.format_id){
                         alert(response.errors.format_id);
                     }
+                
                    
                 } else if (response.status === 'success'){
                     alert("Employee registered successfully");
                     window.location.href='/Attendance_monitoring';
+                }else if (response.status === 'validate'){
+                    alert("ID Already exist");
+           
                 }else{
                     alert("Failed to register");
                 }
+
+                console.log(response);
 
             },
             error: function(error){
