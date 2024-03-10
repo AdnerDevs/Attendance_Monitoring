@@ -27,7 +27,8 @@
                     <tbody>
                         <?php
                            $userlevel = $userlevel_model->getAllUserlevel();
-                           $number = 1;
+                           $number = 1; $firstRow = true;
+                           
                            for ($i = 0; $i < count($userlevel); $i++):
                             $user_lvl = $userlevel[$i];
                         ?>
@@ -37,14 +38,14 @@
                             <td><?=$user_lvl['userlevel_name']?></td>
                             <td>Active</td>
                             <td>
-                                <button type="button" class="btn btn-primary me-2 EditActivityBtn" id="" data-bs-type="" data-bs-id="" data-bs-toggle="modal" data-bs-target="#EditActivityModal" value="<?=$user_lvl['userlevel_id']?>">Edit</button>
-                                <button type="button" class="btn btn-danger me-2 DeleteActivityBtn" data-bs-id="">delete</button>
-                                <button type="button" class="btn btn-secondary" data-bs-id="">Archive</button>
+                                <button type="button" class="btn btn-primary me-2 EditActivityBtn" id="" data-bs-type="" data-bs-id="" data-bs-toggle="modal" data-bs-target="#EditActivityModal" value="<?=$user_lvl['userlevel_id']?>" <?= $firstRow ? 'disabled' : '' ?>>Edit</button>
+                                <button type="button" class="btn btn-danger me-2 DeleteActivityBtn" data-bs-id="" <?= $firstRow ? 'disabled' : '' ?>>delete</button>
+                                <button type="button" class="btn btn-secondary" data-bs-id="" <?= $firstRow ? 'disabled' : '' ?>>Archive</button>
                                 
                             </td>
                         </tr>
                         <?php
-                          $number++;
+                          $number++; $firstRow = false;
                           endfor;
                         ?>
                    

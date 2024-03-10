@@ -2,6 +2,7 @@
 
 class AttendanceModel extends Dbh{
 
+    // GET
     public function getAllAttendanceData(){
         try{
             $stmt = $this->connect()->prepare("SELECT ea.employee_attendance_id, ea.employee_id, ea.employee_name, ac.activity_type, ea.activity_description, ea.start_time, ea.end_time, ea.total_time, ea.submitted_by, ea.submitted_on, dp.department_name, ea.day,  ea.hour, ea.minute, ea.second, lc.credential_id 
@@ -13,7 +14,7 @@ class AttendanceModel extends Dbh{
 
             if(!$stmt->execute()){
                 return false;
-                die();
+           
             }
 
             $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -25,6 +26,50 @@ class AttendanceModel extends Dbh{
             $stmt = null;
         }
     }
+
+    public function getData($employee_id, $activity_type){
+        try{
+
+            $stmt = $this->connect()->prepare('SELECT * FROM employee_attendance WHERE employee_id = ? AND activity_type = ? AND DATE(start_time) = CURDATE()');
+
+            if(!$stmt->execute([$employee_id, $activity_type])){
+                return false;
+            }
+
+            $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+            return $result;
+
+        } catch (PDOException $e) {
+            echo 'Error inserting attendance: ' . $e->getMessage();
+            return false;
+        } finally {
+            $stmt = null;
+        }
+    }
+    
+    public function getEmployeeData($employee_id){
+        try{
+
+            $stmt = $this->connect()->prepare('SELECT ea.employee_name, ea.start_time, ea.end_time, ac.activity_type FROM employee_attendance ea
+            INNER JOIN activity ac ON ea.activity_type = ac.activity_id
+            WHERE employee_id = ? ORDER BY start_time DESC');
+            if(!$stmt->execute([$employee_id])){
+                return false;
+            }
+
+            $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            return $result;
+
+        } catch (PDOException $e) {
+            echo 'Error inserting attendance: ' . $e->getMessage();
+            return false;
+        } finally {
+            $stmt = null;
+        }
+    }
+
+    // INSERT
 
     public function insertAttendance($employee_id, $employee_name, $department_id, $activity_type, $activity_description, $start_time, $submitted_by, $submitted_on){
         try {
@@ -54,6 +99,8 @@ class AttendanceModel extends Dbh{
     }
     
 
+
+    // UPDATE
     public function updateEndtimeAttendance($end_time, $day, $hour, $minute, $second, $employee_id, $activity_type,  $employee_attendance_id){
         try{
 
@@ -74,25 +121,8 @@ class AttendanceModel extends Dbh{
     }
 
 
-    public function getData($employee_id, $activity_type){
-        try{
+ 
 
-            $stmt = $this->connect()->prepare('SELECT * FROM employee_attendance WHERE employee_id = ? AND activity_type = ? AND DATE(start_time) = CURDATE()');
 
-            if(!$stmt->execute([$employee_id, $activity_type])){
-                return false;
-            }
-
-            $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-            return $result;
-
-        } catch (PDOException $e) {
-            echo 'Error inserting attendance: ' . $e->getMessage();
-            return false;
-        } finally {
-            $stmt = null;
-        }
-    }
     
 }

@@ -91,3 +91,17 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
     }
 
 }
+
+if($_SERVER['REQUEST_METHOD'] == 'GET'){
+    if(isset($_GET['employee_id'])){
+
+        $employee_id = htmlspecialchars($_GET['employee_id'], ENT_QUOTES, 'UTF-8');
+
+        $get_data = $attendance_model->getEmployeeData($employee_id);
+        if($get_data != false){
+            echo json_encode(['status' => 'success', 'data' => $get_data]);
+        }else{
+            echo json_encode(['status' => 'failed']);
+        }
+    }
+}

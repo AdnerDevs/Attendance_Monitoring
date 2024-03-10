@@ -19,6 +19,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Protest+Riot&family=Roboto+Slab:wght@100..900&display=swap" rel="stylesheet">
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
 
     <title>Document</title>
     <style>
@@ -125,17 +126,17 @@
                             #if(isset($_SESSION["employee_id"]) && $_SESSION["employee_id"]){
                         ?>
                             <ul class="navbar-nav  me-auto mb-2 mb-lg-0 <?=$status_display?>">
-                                <li class="nav-item">
+                                <!-- <li class="nav-item">
                                     <a href="dashboard.php" class="nav-link active" aria-current="page">Home</a>
                                 </li>
                                 <li class="nav-item">
                                     <a href="#" class="nav-link" aria-current="page">Profile</a>
-                                </li>
+                                </li> -->
                               
-                                <li class="nav-item">
+                                <!-- <li class="nav-item">
                                     <button type="button" class="nav-link"><span class="d-lg-none me-2">Notification</span><i class="fa fa-bell" aria-hidden="true"></i></button>
                                     </a>
-                                </li>
+                                </li> -->
                             </ul>
 
                             <ul class="navbar-nav  mb-2 mb-lg-0  align-self-end <?=$status_display?>">
@@ -165,7 +166,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    Do you want to logout your account?
+                    Are you sure you want to logout your account?
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>

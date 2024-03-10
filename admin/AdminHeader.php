@@ -51,10 +51,10 @@
 
             <ul class="navbar nav">
                 <li class="navbar-item">
-                    <a href="#" class="navbar-link">
+                    <!-- <a href="#" class="navbar-link">
                         <i class="fa fa-bell-o" aria-hidden="true"></i>
                         <span>Notification</span>
-                    </a>
+                    </a> -->
                 </li>
             </ul>
             

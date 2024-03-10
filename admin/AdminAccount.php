@@ -41,7 +41,7 @@ $isAllowed = isset($_SESSION['admin_management_create']) && $_SESSION['admin_man
 
 
 
-    <table class="table display" id="myTable">
+    <table class="table display" >
         <!-- <caption>
                         Description of the table.
                     </caption> -->
@@ -437,18 +437,21 @@ $isAllowed = isset($_SESSION['admin_management_create']) && $_SESSION['admin_man
                     for (let i= 0; i<result.length; i++){
 
                         let status = 'Offline';
+                        let condition = 'active';
                         if(result[i].status === 1){
                             status = 'Online';
                         }
                         let row = $("<tr>");
-
+                        if(result[i].archive === 1){
+                            condition = 'archived';
+                        }
                         let adminIdElement = $("<td>").addClass("no").text(number);
                         let adminIdElement2 = $("<td>").addClass("admin_id").text(result[i].admin_id);
                         let adminIdElement3 = $("<td>").addClass("admin_name").text(result[i].admin_name);
                         let adminIdElement4 = $("<td>").addClass("admin_userlevel").text(result[i].userlevel_name);
                         let adminIdElement5 = $("<td>").addClass("admin_status").text(status);
-                        let adminIdElement6 = $("<td>").addClass("admin_condition").text(result[i].admin_id);
-                        let adminIdElement7 =  $("<td>").addClass("admin_condition");
+                        let adminIdElement6 = $("<td>").addClass("admin_condition").text(condition);
+                        let adminIdElement7 =  $("<td>").addClass("admin_action");
                         let editBtn = $("<button>")
                                         .addClass("btn  btn-primary me-2 EditAccountBtn")
                                         .attr('type','button')
