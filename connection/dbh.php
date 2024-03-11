@@ -15,7 +15,7 @@ class Dbh {
         }
     }
 
-    protected function connect() {
+    public function connect() {
         return $this->db;
     }
 }

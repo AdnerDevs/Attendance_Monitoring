@@ -19,7 +19,7 @@ $attendance = new AttendanceModel();
     </div>
 <div id="tables">
 
-    <table id="myTable" class="table table-sm table-md table-lg align-middle">
+    <table id="table_employee_monitoring" class="table table-sm table-md table-lg ">
         <thead>
             <tr>
                 <th>No.</th>
@@ -30,117 +30,32 @@ $attendance = new AttendanceModel();
                 <th>Description</th>
                 <th>Start time</th>
                 <th>End time</th>
-                <th>Total time</th>
-                <th>Submitted by</th>
-                <th>Submitted in</th>
-                <th>Action</th>
+                
             </tr>
         </thead>
-        <tbody>
-            <?php
-
-            $att = $attendance->getAllAttendanceData();
-            $number = 1;
-            foreach ($att as $attendanceData):
-                $aStartTime = new DateTime($attendanceData['start_time']);
-                $aEndTime = new DateTime($attendanceData['end_time']);
-                $SubmiitedOnTime = new DateTime($attendanceData['end_time']);
-                $formattedTimeEnd = 'ongoing';
-                $formattedTimeStart = $aStartTime->format('Y-m-d h:i:s A');
-                $formattedSubbmitedONs = $SubmiitedOnTime->format('Y-m-d h:i:s A');
-                if($attendanceData['end_time'] != null ){
-                   
-                 
-                    $formattedTimeEnd = $aEndTime->format('Y-m-d h:i:s A');
-                }
-            
-
-                $interval = $aEndTime->diff($aStartTime);
-                // Format the total time
-                $totalTime = $interval->format('%d day %h hrs %i mns %s secs');
-          
-         
-            
-                    $day = $attendanceData['day'];
-                    $hour = $attendanceData['hour'];
-                    $minute = $attendanceData['minute'];
-                    $seconds = $attendanceData['second'];
-                    $formattedTime = sprintf("%d day(s), %d hrs, %d mins, %d secs", $day, $hour, $minute, $seconds);
-                
-                
-                ?>
-                <tr>
-                    <td>
-                        <?= $number ?>
-                    </td>
-                    <td>
-                        <?= $attendanceData['credential_id'] ?>
-                    </td>
-                    <td>
-                        <?= $attendanceData['department_name'] ?>
-                    </td>
-                    <td>
-                        <?= $attendanceData['employee_name'] ?>
-                    </td>
-                    <td>
-                        <?= $attendanceData['activity_type'] ?>
-                    </td>
-                    <td>
-                        <?= $attendanceData['activity_description'] ?>
-                    </td>
-                    <td>
-                        <?= $formattedTimeStart ?>
-                    </td>
-                    <td>
-                        <?= $formattedTimeEnd ?>
-                    </td>
-                    <td>
-                        <?= $formattedTime ?>
-                    </td>
-                    <td>
-                        <?= $attendanceData['submitted_by'] ?>
-                    </td>
-                    <td>
-                        <?= $formattedSubbmitedONs ?>
-                    </td>
-                    <td>
-                        <button class="btn btn-primary me-2">btn1</button>
-                        <button class="btn btn-secondary">btn2</button>
-                    </td>
-                </tr>
-
-                <?php
-                $number++;
-            endforeach;
-            ?>
-        </tbody>
+       
     </table>
 </div>
 </div>
 
-<script>
+<script type="text/javascript">
     $(document).ready(function () {
-        // $("#create_excel").click(function(){
-        //     var excel_data = $("#myTables").html();
-        //     // var page = "../Controller/excel.php?data=" + excel_data;
-        //     window.location.href = "../Controller/excel.php?data=" + excel_data;
-      
-        //     // $.ajax({
-        //     //     url: "../Controller/excel.php",
-        //     //     type: "POST",
-        //     //     data: { data: excel_data },
-        //     //     success: function(response) {
-        //     //         // Handle the response from excel.php
-        //     //         console.log(response);
-        //     //         // If you want to trigger a download, you can redirect the browser
-        //     //         window.location.href = response;
-        //     //     },
-        //     //     error: function(xhr, status, error) {
-        //     //         // Handle errors
-        //     //         console.error(xhr.responseText);
-        //     //     }
-        //     // });
-        // });
+        $("#table_employee_monitoring").DataTable({
+            "bProcessing": true,
+            "serverSide": true,
+            "select": true,
+            "ajax":{
+                type: "POST",
+                url: "../Controller/response.php",
+                error: function(){
+                    console.log("error");
+                },
+            },
+            "dom": 'lBfrtip',
+            buttons:[
+                'copy', 'excel', 'pdf', 'csv'
+            ]
+        });
 
         $("#create_excel").click(function(e){
             window.open('data:application/vnd.ms-excel,' +  encodeURIComponent($('#tables').html()));
