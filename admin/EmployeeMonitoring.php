@@ -22,7 +22,6 @@ $attendance = new AttendanceModel();
     <table id="table_employee_monitoring" class="table table-sm table-md table-lg ">
         <thead>
             <tr>
-                <th>No.</th>
                 <th>Employee id</th>
                 <th>Department</th>
                 <th>Employee</th>
@@ -30,7 +29,9 @@ $attendance = new AttendanceModel();
                 <th>Description</th>
                 <th>Start time</th>
                 <th>End time</th>
-                
+                <th>Total time</th>
+                <th>Submitted by</th>
+                <th>Submitted in</th>
             </tr>
         </thead>
        
@@ -53,7 +54,7 @@ $attendance = new AttendanceModel();
             },
             "dom": 'lBfrtip',
             buttons:[
-                'copy', 'excel', 'pdf', 'csv'
+                'copy', 'excel', 'csv'
             ]
         });
 

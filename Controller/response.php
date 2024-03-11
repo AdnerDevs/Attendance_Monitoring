@@ -10,14 +10,16 @@ $params = $_REQUEST;
 // Define index of column
 
 $columns = array(
-    0=> "count",
-    1=> "employee_id",
-    2=> "employee_name",
-    3=> "department_name",
-    4=> "activity_type",
-    5=> "start_time",
-    6=> "end_time",
-    7=> "end_time"
+
+    0=> "employee_id",
+    1=> "employee_name",
+    2=> "department_name",
+    3=> "activity_type",
+    4=> "start_time",
+    5=> "end_time",
+    6=> "total_time",
+    7=> "submitted_by",
+    8=> "submitted_on"
 );
 
 $where = $sqlTot = $sqlRec = "";
@@ -26,18 +28,17 @@ $where = $sqlTot = $sqlRec = "";
 
 if(!empty($params['search']['value'])){
     $where .= " WHERE ";
-    $where .= "( employee_name LIKE '".$params['search']['value']."%' ";
-    $where .= "OR activity_type LIKE '".$params['search']['value']."%' ";
-    $where .= "OR department_id LIKE '".$params['search']['value']."%' )";
+    $where .= "( ea.employee_name LIKE '".$params['search']['value']."%' ";
+    $where .= "OR ac.activity_type LIKE '".$params['search']['value']."%' ";
+    $where .= "OR d.department_name LIKE '".$params['search']['value']."%' )";
 }
 
 // getting total number records without any search
-$sql = "SELECT (@counter := @counter + 1) AS count, ea.employee_id, d.department_name, ea.employee_name , ac.activity_type, ea.activity_description, ea.start_time, ea.end_time
+$sql = "SELECT ea.employee_id, d.department_name, ea.employee_name , ac.activity_type, ea.activity_description, ea.start_time, ea.end_time, ea.total_time, ea.submitted_by, ea.submitted_on
         FROM `employee_attendance` ea
         INNER JOIN activity ac ON ea.activity_type = ac.activity_id
         INNER JOIN department d ON ea.department_id = d.department_id
-        CROSS JOIN (SELECT @counter := 0) AS counter_init
-        ORDER BY ea.start_time DESC"; 
+        ORDER BY ea.employee_attendance_id DESC"; 
         // Initialize the counter
 
 $sqlTot .= $sql;
@@ -61,6 +62,10 @@ $queryRecords = mysqli_query($conn, $sqlRec) or die("error to fetch employees da
 
 //iterate on results row and create new index array of data
 while( $row = mysqli_fetch_row($queryRecords) ) { 
+    
+    // $row['start_time'] = date('Y-m-d h:i:s A', strtotime($row['start_time']));
+    //   // Format end_time
+    // $row['end_time'] = date('Y-m-d h:i:s A', strtotime($row['end_time']));
     $data[] = $row;
 }   
 
