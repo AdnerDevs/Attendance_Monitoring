@@ -3,6 +3,57 @@
 class AttendanceModel extends Dbh{
 
     // GET
+
+    public function fetch(){
+        try{
+            $data = [];
+            $stmt = $this->connect()->prepare("SELECT ea.employee_attendance_id, ea.employee_id, ea.employee_name, ac.activity_type, ea.activity_description, ea.start_time, ea.end_time, ea.total_time, ea.submitted_by, ea.submitted_on, dp.department_name, ea.day,  ea.hour, ea.minute, ea.second, lc.credential_id 
+            FROM employee_attendance ea 
+            INNER JOIN activity ac ON ea.activity_type = ac.activity_id 
+            INNER JOIN department dp ON ea.department_id = dp.department_id
+            INNER JOIN login_credentials lc ON ea.employee_id = lc.employee_id 
+            ORDER BY employee_attendance_id ASC");
+
+            if(!$stmt->execute()){
+                return false;
+           
+            }
+
+            $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            return $data;
+
+        }catch(PDOException $e){
+            print('Error: ' .$e->getMessage());
+        }finally{
+            $stmt = null;
+        }
+    }
+    public function date_range($start_date, $end_date) {
+        try {
+            $data = [];
+            if(isset($start_date) && isset($end_date)) {
+                $stmt = $this->connect()->prepare("SELECT ea.employee_attendance_id, ea.employee_id, ea.employee_name, ac.activity_type, ea.activity_description, ea.start_time, ea.end_time, ea.total_time, ea.submitted_by, ea.submitted_on, dp.department_name, ea.day,  ea.hour, ea.minute, ea.second, lc.credential_id 
+                    FROM employee_attendance ea 
+                    INNER JOIN activity ac ON ea.activity_type = ac.activity_id 
+                    INNER JOIN department dp ON ea.department_id = dp.department_id
+                    INNER JOIN login_credentials lc ON ea.employee_id = lc.employee_id
+                    WHERE DATE(ea.start_time) >= ? AND DATE(ea.start_time) <= ?
+                    ORDER BY ea.employee_attendance_id ASC");
+    
+                if(!$stmt->execute([$start_date, $end_date])) {
+                    return false;
+                }
+    
+                $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            }
+            return $data;
+        } catch(PDOException $e) {
+            // Print error message or log it
+            print('Error: ' . $e->getMessage());
+            return false;
+        }
+    }
+    
     public function getAllAttendanceData(){
         try{
             $stmt = $this->connect()->prepare("SELECT ea.employee_attendance_id, ea.employee_id, ea.employee_name, ac.activity_type, ea.activity_description, ea.start_time, ea.end_time, ea.total_time, ea.submitted_by, ea.submitted_on, dp.department_name, ea.day,  ea.hour, ea.minute, ea.second, lc.credential_id 
