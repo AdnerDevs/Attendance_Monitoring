@@ -58,6 +58,7 @@ $attendance = new AttendanceModel();
                             <th>Total time</th>
                             <th>Submitted by</th>
                             <th>Submitted on</th>
+                            <th>Action</th>
                         </tr>
                     </thead>
     
@@ -70,29 +71,7 @@ $attendance = new AttendanceModel();
 
 <script type="text/javascript">
     $(document).ready(function () {
-        // $("#table_employee_monitoring").DataTable({
-        //     "bProcessing": true,
-        //     "serverSide": true,
-        //     "select": true,
-        //     "ajax": {
-        //         type: "POST",
-        //         url: "../Controller/response.php",
-        //         error: function () {
-        //             console.log("error");
-        //         },
-        //     },
-        //     "dom": 'lBfrtip',
-        //     buttons: [
-        //         'copy', 'excel', 'csv'
-        //     ]
-        // });
-
-        $("#create_excel").click(function (e) {
-            window.open('data:application/vnd.ms-excel,' + encodeURIComponent($('#tables').html()));
-            e.preventDefault();
-
-        });
-
+     
         $(function () {
             $("#start_date").datepicker({"dateFormat" : "yy-mm-dd"});
             $("#end_date").datepicker({"dateFormat" : "yy-mm-dd"});
@@ -111,8 +90,7 @@ $attendance = new AttendanceModel();
             },
             dataType: 'json',
             success: function(data) {
-                console.log(data);
-                var i = "1";
+                var i = 1;
                 $("#table_employee_monitoring").DataTable({
                     "data": data,
                     "dom": 'Bfrtip',
@@ -135,7 +113,7 @@ $attendance = new AttendanceModel();
                     "responsive": true,
                     "columns": [
                         { 
-                            "data": 'employee_id'
+                            "data": 'employee_id',
                             // "render": function (data, type, row, meta) {
                             //     return '<a href="' + data + '">Download</a>';
                             // }
@@ -161,13 +139,34 @@ $attendance = new AttendanceModel();
                                 }
                             }
                         },
-                        { "data": 'total_time' },
+                        { 
+                            "data": "total_time",
+                            "render": function (data, type, row, meta) {
+                                // Convert total_time to days, hours, minutes, and seconds
+                                var days = Math.floor(data / (24 * 3600));
+                                var hours = Math.floor((data % (24 * 3600)) / 3600);
+                                var minutes = Math.floor((data % 3600) / 60);
+                                var seconds = Math.floor(data % 60);
+
+                                // Construct formatted duration string
+                                var formattedDuration = days + " days, " + hours + " hours, " + minutes + " minutes, " + seconds + " seconds";
+
+                                return formattedDuration;
+                            }
+                        },
                         { "data": 'submitted_by' },
                         { 
                             "data": 'submitted_on',
                             "render": function (data, type, row, meta) {
                                 return moment(row.submitted_on).format('yy-MM-DD h:mm:ss A');
                             } 
+                        },
+                        { 
+                            "data": 'employee_id',
+                            "render": function (data, type, row, meta) {
+                                return '<button type="button" class="btn btn-outline-warning prompt"  data-bs-id="'+ data +'">Prompt</button>';
+                            }
+                        
                         }
 
                     ],
@@ -205,6 +204,17 @@ $("#reset").click(function(e){
     $("#table_employee_monitoring").DataTable().destroy();
     fetch();
 });
+
+$(document).on('click', '.prompt', function() {
+    // Retrieve the employee ID from the data-bs-id attribute
+    var employeeId = $(this).data('bs-id');
+    
+    // Perform actions with the employee ID
+    console.log("Employee ID: " + employeeId);
+    // Add your logic here
+    alert('click');
+});
+
 </script>
 <?php
 require_once('AdminFooter.php');

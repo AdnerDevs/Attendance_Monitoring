@@ -7,12 +7,12 @@ class AttendanceModel extends Dbh{
     public function fetch(){
         try{
             $data = [];
-            $stmt = $this->connect()->prepare("SELECT ea.employee_attendance_id, ea.employee_id, ea.employee_name, ac.activity_type, ea.activity_description, ea.start_time, ea.end_time, ea.total_time, ea.submitted_by, ea.submitted_on, dp.department_name, ea.day,  ea.hour, ea.minute, ea.second, lc.credential_id 
+            $stmt = $this->connect()->prepare("SELECT ea.employee_attendance_id, ea.employee_id, ea.employee_name, ac.activity_type, ea.activity_description, ea.start_time, ea.end_time, ea.total_time, ea.submitted_by, ea.submitted_on, dp.department_name, ea.day,  ea.hour, ea.minute, ea.second, lc.credential_id, ea.day, ea.hour, ea.minute, ea.second 
             FROM employee_attendance ea 
             INNER JOIN activity ac ON ea.activity_type = ac.activity_id 
             INNER JOIN department dp ON ea.department_id = dp.department_id
             INNER JOIN login_credentials lc ON ea.employee_id = lc.employee_id 
-            ORDER BY employee_attendance_id ASC");
+            ORDER BY ea.employee_attendance_id DESC");
 
             if(!$stmt->execute()){
                 return false;
@@ -32,13 +32,13 @@ class AttendanceModel extends Dbh{
         try {
             $data = [];
             if(isset($start_date) && isset($end_date)) {
-                $stmt = $this->connect()->prepare("SELECT ea.employee_attendance_id, ea.employee_id, ea.employee_name, ac.activity_type, ea.activity_description, ea.start_time, ea.end_time, ea.total_time, ea.submitted_by, ea.submitted_on, dp.department_name, ea.day,  ea.hour, ea.minute, ea.second, lc.credential_id 
+                $stmt = $this->connect()->prepare("SELECT ea.employee_attendance_id, ea.employee_id, ea.employee_name, ac.activity_type, ea.activity_description, ea.start_time, ea.end_time, ea.total_time, ea.submitted_by, ea.submitted_on, dp.department_name, ea.day,  ea.hour, ea.minute, ea.second, lc.credential_id, ea.day, ea.hour, ea.minute, ea.second 
                     FROM employee_attendance ea 
                     INNER JOIN activity ac ON ea.activity_type = ac.activity_id 
                     INNER JOIN department dp ON ea.department_id = dp.department_id
                     INNER JOIN login_credentials lc ON ea.employee_id = lc.employee_id
                     WHERE DATE(ea.start_time) >= ? AND DATE(ea.start_time) <= ?
-                    ORDER BY ea.employee_attendance_id ASC");
+                    ORDER BY ea.employee_attendance_id DESC");
     
                 if(!$stmt->execute([$start_date, $end_date])) {
                     return false;
@@ -61,7 +61,7 @@ class AttendanceModel extends Dbh{
             INNER JOIN activity ac ON ea.activity_type = ac.activity_id 
             INNER JOIN department dp ON ea.department_id = dp.department_id
             INNER JOIN login_credentials lc ON ea.employee_id = lc.employee_id 
-            ORDER BY employee_attendance_id ASC");
+            ORDER BY ea.employee_attendance_id DESC");
 
             if(!$stmt->execute()){
                 return false;
@@ -152,12 +152,12 @@ class AttendanceModel extends Dbh{
 
 
     // UPDATE
-    public function updateEndtimeAttendance($end_time, $day, $hour, $minute, $second, $employee_id, $activity_type,  $employee_attendance_id){
+    public function updateEndtimeAttendance($end_time, $toal_time, $day, $hour, $minute, $second, $employee_id, $activity_type,  $employee_attendance_id){
         try{
 
-            $stmt = $this->connect()->prepare('UPDATE employee_attendance SET end_time = ?, `day` = ?, `hour` = ?, `minute` = ?, `second` = ?, `submitted_on`=? WHERE employee_id = ? AND activity_type = ? AND employee_attendance_id = ?');
+            $stmt = $this->connect()->prepare('UPDATE employee_attendance SET end_time = ?,`total_time` = ?, `day` = ?, `hour` = ?, `minute` = ?, `second` = ?, `submitted_on`=? WHERE employee_id = ? AND activity_type = ? AND employee_attendance_id = ?');
 
-            if(!$stmt->execute([ $end_time, $day, $hour, $minute, $second , $end_time, $employee_id, $activity_type,  $employee_attendance_id])){
+            if(!$stmt->execute([ $end_time, $toal_time, $day, $hour, $minute, $second , $end_time, $employee_id, $activity_type,  $employee_attendance_id])){
                 return false;
             }
 

@@ -43,7 +43,7 @@ $attendance_model = new AttendanceModel();
             $current_time->setTimezone(new DateTimeZone('Asia/Manila'));
             $current_timestamp = $current_time->getTimestamp();
             $time_difference = $current_timestamp - $start_timestamp;
-
+            $total_time = $current_timestamp - $start_timestamp;
 
             $day = floor($time_difference / (60 * 60 * 24));
             $time_difference -= $day * (60 * 60 * 24);
@@ -53,7 +53,7 @@ $attendance_model = new AttendanceModel();
             $time_difference -= $minute * 60;
             $second = $time_difference;
 
-            $update_end_attendance = $attendance_model->updateEndtimeAttendance($end_time, $day, $hour, $minute, $second, $employee_id, $activity_type, $employee_attendance_id);
+            $update_end_attendance = $attendance_model->updateEndtimeAttendance($end_time, $total_time, $day, $hour, $minute, $second, $employee_id, $activity_type, $employee_attendance_id);
 
 
             if ($update_end_attendance != false) {
