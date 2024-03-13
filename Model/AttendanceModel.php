@@ -102,7 +102,7 @@ class AttendanceModel extends Dbh{
     public function getEmployeeData($employee_id){
         try{
 
-            $stmt = $this->connect()->prepare('SELECT ea.employee_name, ea.start_time, ea.end_time, ac.activity_type FROM employee_attendance ea
+            $stmt = $this->connect()->prepare('SELECT ea.employee_name, ea.start_time, ea.end_time, ac.activity_type, ea.total_time FROM employee_attendance ea
             INNER JOIN activity ac ON ea.activity_type = ac.activity_id
             WHERE employee_id = ? ORDER BY start_time DESC');
             if(!$stmt->execute([$employee_id])){
@@ -172,7 +172,7 @@ class AttendanceModel extends Dbh{
     }
 
 
- 
+    
 
 
     

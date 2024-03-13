@@ -46,13 +46,12 @@ $(document).ready(function () {
     // let activity__type;
     let activityy__description;
     let timer;
-    let seconds = 0;
-    let secondsAct = 0;
+
     let start_time;
     let hidden_employee_attendance_id;
 
     function startTimer() {
-        timer = setInterval(displayTime, 1000);
+
         activity__type = "1";
         activityy__description = "Attendance";
         $.ajax({
@@ -97,7 +96,7 @@ $(document).ready(function () {
     }
 
     function startTimerActivity() {
-        timer = setInterval(displayTimeActivity, 1000);
+      
         activity__type = $('#activity_type').val();
         activityy__description = $('#activity_description').val();
 
@@ -174,7 +173,7 @@ $(document).ready(function () {
                 } else {
                     alert('Failed to end Attendance');
                 }
-                console.log(result);
+               
             },
             error: function (error) {
                 console.log(error);
@@ -220,39 +219,7 @@ $(document).ready(function () {
 
     }
 
-    function displayTime() {
-
-        seconds++;
-
-        let hours = Math.floor(seconds / 3600);
-        let minutes = Math.floor(seconds % 3600 / 60);
-        let secs = seconds % 60;
-
-        document.getElementById("timer").innerHTML =
-            (hours < 10 ? "0" : "") + hours + ":" +
-            (minutes < 10 ? "0" : "") + minutes + ":" +
-            (secs < 10 ? "0" : "") + secs;
-    }
-
-    function displayTimeActivity() {
-
-        secondsAct++;
-
-        let hours = Math.floor(secondsAct / 3600);
-        let minutes = Math.floor(secondsAct % 3600 / 60);
-        let secs = secondsAct % 60;
-
-        document.getElementById("timer2").innerHTML =
-            (hours < 10 ? "0" : "") + hours + ":" +
-            (minutes < 10 ? "0" : "") + minutes + ":" +
-            (secs < 10 ? "0" : "") + secs;
-    }
-
-    // function getTime(time) {
-    //     console.log(time);
-    // }
-
-
+ 
     let isActionRunning = false;
 
     if (localStorage.getItem('isCardFlipped') === 'true') {
@@ -343,29 +310,46 @@ $(document).ready(function () {
                 container.empty();
              
                 let num = 1;
-                for (let i = 0; i < result.data.length; i++) {
-                    let row = $("<tr>");
-                    let s = moment(result.data[i].end_time).format('YYYY-MM-DD h:mm:ss A');
-                    if (result.data[i].end_time === null) {
-                        s = 'ongoing';
+                if(result && result.data && result.data.length > 0){
+
+                    for (let i = 0; i < result.data.length; i++) {
+                        let row = $("<tr>");
+                        let s = moment(result.data[i].end_time).format('YYYY-MM-DD h:mm:ss A');
+                        if (result.data[i].end_time === null) {
+                            s = 'ongoing';
+                        }
+                        var formattedDuration = 'ongoing';
+                        let totaltime = moment.duration(result.data[i].total_time, 'seconds');
+
+                        if (result.data[i].total_time !== '' && result.data[i].total_time !== null) {
+                            // Get days, hours, minutes, and seconds
+                            var days = totaltime.days();
+                            var hours = totaltime.hours();
+                            var minutes = totaltime.minutes();
+                            var seconds = totaltime.seconds();
+                            formattedDuration = days + " days, " + hours + " hours, " + minutes + " minutes, " + seconds + " seconds";
+                        }
+
+
+
+                        let startTime = moment(result.data[i].start_time).format('YYYY-MM-DD h:mm:ss A');
+                        // displayData(result);
+                        let d0 = $("<td>").text(num);
+                        let d1 = $("<td>").addClass("display_name").text(result.data[i].employee_name);
+                        let d2 = $("<td>").addClass('display_activity_type').text(result.data[i].activity_type);
+                        let d3 = $("<td>").addClass('display_start_time').text(startTime);
+                        let d4 = $("<td>").addClass('display_start_end_time').text(s);
+                        let d5 = $("<td>").addClass('display_start_end_time').text(formattedDuration);
+
+                        row.append(d0);
+                        row.append(d1);
+                        row.append(d2);
+                        row.append(d3);
+                        row.append(d4);
+                        row.append(d5);
+                        container.append(row);
+                        num++;
                     }
-
-                    let startTime = moment(result.data[i].start_time).format('YYYY-MM-DD h:mm:ss A');
-                    // displayData(result);
-                    let d0 = $("<td>").text(num);
-                    let d1 = $("<td>").addClass("display_name").text(result.data[i].employee_name);
-                    let d2 = $("<td>").addClass('display_activity_type').text(result.data[i].activity_type);
-                    let d3 = $("<td>").addClass('display_start_time').text(startTime);
-                    let d4 = $("<td>").addClass('display_start_end_time').text(s);
-
-                    row.append(d0);
-                    row.append(d1);
-                    row.append(d2);
-                    row.append(d3);
-                    row.append(d4);
-
-                    container.append(row);
-                    num++;
                 }
 
             },
@@ -375,27 +359,5 @@ $(document).ready(function () {
         });
     }
 
-    function displayData(result) {
-        let container = $("#table_body_container_dashboard");
-        container.empty();
-        for (let i = 0; i < result.length; i++) {
-            let row = $("<tr>");
-            let adminIdElement1 = $("<td>").addClass("admin_id").text(result[i].employee_name);
-            let adminIdElement2 = $("<td>").addClass("admin_name").text(result[i].activity_type);
-            let adminIdElement3 = $("<td>").addClass("admin_name").text(result[i].start_time);
-            let adminIdElement4 = $("<td>").addClass("admin_userlevel").text(result[i].end_time);
-            let adminIdElement5 = $("<td>").addClass("admin_status").text(result[i].end_time);
-
-            row.append(adminIdElement1);
-            row.append(adminIdElement1);
-            row.append(adminIdElement3);
-            row.append(adminIdElement4);
-            row.append(adminIdElement5);
-
-
-            container.append(row);
-
-        }
-    }
 
 });

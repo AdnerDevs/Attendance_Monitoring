@@ -213,6 +213,20 @@ $(document).on('click', '.prompt', function() {
     console.log("Employee ID: " + employeeId);
     // Add your logic here
     alert('click');
+    $.ajax({
+        type: 'POST',
+        url: '../Controller/AlertController.php',
+        data:{
+            notify_employee: employeeId
+        },
+        dataType: 'json',
+        success: function(result){
+            console.log(result);
+        },
+        error: function (error){
+            console.log(error);
+        }
+    });
 });
 
 </script>

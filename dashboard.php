@@ -129,7 +129,7 @@ if (isset($_SESSION["employee_id"]) && $_SESSION["employee_id"]) {
                                     <button type="button" id="switch2" class="btn btn-primary">Start time</button>
                                 </div>
 
-                                <label for="basic-url" class="form-label">Description</label>
+                                <label for="activity_description" class="form-label">Description</label>
 
                                 <textarea class="form-control" aria-label="With textarea"
                                     id="activity_description"></textarea>
@@ -197,6 +197,7 @@ if (isset($_SESSION["employee_id"]) && $_SESSION["employee_id"]) {
                                     <th scope="col">activity type</th>
                                     <th scope="col">start time</th>
                                     <th scope="col">end time</th>
+                                    <th scope="col">total_time</th>
                                 </tr>
                             </thead>
                             <tbody id="table_body_container_dashboard">
@@ -212,7 +213,8 @@ if (isset($_SESSION["employee_id"]) && $_SESSION["employee_id"]) {
 
     </div>
 
-    <script src="asset/js/dashboard.js"></script>
+    <script type="text/javascript" src="asset/js/main_board.js"></script>
+  
     <?php
 } else {
     header("location: error.php");
