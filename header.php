@@ -14,8 +14,7 @@ require_once("connection/dbh.php");
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Protest+Riot&family=Roboto+Slab:wght@100..900&display=swap"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Protest+Riot&family=Roboto+Slab:wght@100..900&display=swap" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
@@ -80,8 +79,7 @@ require_once("connection/dbh.php");
 <body>
 
     <header class="navbar navbar-expand-lg bd-navbar p-lg-3 sticky-top navbar-dark bg-dark shadow">
-        <div class="d-flex flex-column position-absolute text-center text-white"
-            style="top: 0; left: 0; width: 100%; z-index: 2; height: 30px;">
+        <div class="d-flex flex-column position-absolute text-center text-white" style="top: 0; left: 0; width: 100%; z-index: 2; height: 30px;">
             <div class="bg-danger"><span class="text-center">ONGOING DEVELOPMENT!!</span></div>
             <div class=" bg-warning"><span class="text-center">COMING SOON!</span></div>
         </div>
@@ -103,7 +101,6 @@ require_once("connection/dbh.php");
                 $employee_name = $_SESSION['employee_name'];
                 $department_id = $_SESSION['department_id'];
                 $credential_id = $_SESSION['credential_id'];
-
             }
 
             ?>
@@ -111,8 +108,7 @@ require_once("connection/dbh.php");
             <input type="hidden" name="" id="session_employee_name" value="<?= $employee_name ?>">
             <input type="hidden" name="" id="session_department_id" value="<?= $department_id ?>">
             <input type="hidden" name="" id="session_credential_id" value="<?= $credential_id ?>">
-            <a href="<?= $link ?>"
-                class="navbar-brand animate__animated animate__lightSpeedInRight p-3 fs-5"><!--  style="color: #00FF7F;" -->
+            <a href="<?= $link ?>" class="navbar-brand animate__animated animate__lightSpeedInRight p-3 fs-5"><!--  style="color: #00FF7F;" -->
                 <button class="button" data-text="Awesome">
                     <span class="actual-text">&nbsp;Herogram&nbsp;</span>
                     <span aria-hidden="true" class="hover-text">&nbsp;Herogram&nbsp;</span>
@@ -120,14 +116,12 @@ require_once("connection/dbh.php");
             </a>
 
             <div class="bd-navbar-toggle <?= $status_display ?>">
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse"
-                    aria-expanded="false" aria-label="Toggle navigation">
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
             </div>
 
-            <div class="collapse navbar-collapse  <?= $status_display ?>" tabindex="-1" id="navbarCollapse"
-                data-bs-scroll="true">
+            <div class="collapse navbar-collapse  <?= $status_display ?>" tabindex="-1" id="navbarCollapse" data-bs-scroll="true">
 
                 <?php
                 #if(isset($_SESSION["employee_id"]) && $_SESSION["employee_id"]){
@@ -148,8 +142,7 @@ require_once("connection/dbh.php");
 
                 <ul class="navbar-nav  mb-2 mb-lg-0  align-self-end <?= $status_display ?>">
                     <li class="nav-item">
-                        <button type="button" class="btn btn-outline-success" id="logoutBtn" data-bs-toggle="modal"
-                            data-bs-target="#logoutModal">Logout</button>
+                        <button type="button" class="btn btn-outline-success" id="logoutBtn" data-bs-toggle="modal" data-bs-target="#logoutModal">Logout</button>
                         <!-- <a href="Controller/logout.php" class="nav-link" aria-current="page"></a> -->
                     </li>
                 </ul>
@@ -178,8 +171,7 @@ require_once("connection/dbh.php");
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
-                    <button type="button" class="btn btn-primary" id="logoutModalBtn"
-                        data-bs-employee_id="<?= $_SESSION["employee_id"] ?>">Yes</button>
+                    <button type="button" class="btn btn-primary" id="logoutModalBtn" data-bs-employee_id="<?= $_SESSION["employee_id"] ?>">Yes</button>
                 </div>
             </div>
         </div>
@@ -194,11 +186,12 @@ require_once("connection/dbh.php");
         </div>
 
         <script>
-            $(document).ready(function () {
+            $(document).ready(function() {
                 let session_employee_id = $('#session_employee_id').val();
 
                 // alert(); // You may want to rename this function to avoid conflicts with the built-in alert function
                 setTimeout(alert, 5000);
+
                 function alert() {
                     $.ajax({
                         type: 'POST',
@@ -207,15 +200,15 @@ require_once("connection/dbh.php");
                             employee_id: session_employee_id
                         },
                         dataType: 'json',
-                        success: function (result) {
+                        success: function(result) {
                             if (result != false) {
                                 pollForAlert();
                             }
-                            // setTimeout(alert, 5000);
+                            setTimeout(alert, 15000);
                             // pollForAlert();
-                            // console.log(result);
+                            console.log(result);
                         },
-                        error: function (xhr, status, error) {
+                        error: function(xhr, status, error) {
                             console.log(xhr.responseText); // Log the error message
                         }
                     });
@@ -225,7 +218,7 @@ require_once("connection/dbh.php");
 
                     if ('Notification' in window) {
 
-                        Notification.requestPermission().then(function (permission) {
+                        Notification.requestPermission().then(function(permission) {
                             if (permission === 'granted') {
                                 // Create a new notification
                                 var notification = new Notification('Alert', {
@@ -243,14 +236,33 @@ require_once("connection/dbh.php");
                                             seen_employee_id: session_employee_id
                                         },
                                         dataType: 'json',
-                                        success: function (result) {
-                                           console.log(result);
+                                        success: function(result) {
+                                            console.log(result);
                                         },
-                                        error: function (xhr, status, error) {
+                                        error: function(xhr, status, error) {
                                             console.log(xhr.responseText); // Log the error message
                                         }
                                     });
-                                    console.log('click alert');
+                                  
+                                };
+                                // Add event listener for the close event
+                                notification.onclose = function() {
+                                    // Make AJAX request
+                                    $.ajax({
+                                        type: 'POST',
+                                        url: 'Controller/AlertController.php',
+                                        data: {
+                                            closed_employee_id: session_employee_id
+                                        },
+                                        dataType: 'json',
+                                        success: function(result) {
+                                            console.log(result);
+                                        },
+                                        error: function(xhr, status, error) {
+                                            console.log(xhr.responseText); // Log the error message
+                                        }
+                                    });
+                                   
                                 };
                             }
                         });
@@ -263,7 +275,7 @@ require_once("connection/dbh.php");
                     showNotification('This is an alert message!');
 
 
-                  
+
                 }
 
                 // pollForAlert();
