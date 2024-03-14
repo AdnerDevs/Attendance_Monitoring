@@ -190,39 +190,43 @@ require_once("connection/dbh.php");
                 let session_employee_id = $('#session_employee_id').val();
 
                 // alert(); // You may want to rename this function to avoid conflicts with the built-in alert function
-                setTimeout(alert, 5000);
+                let pollingInterval;
+
+                alert();
 
                 function alert() {
-                    $.ajax({
-                        type: 'POST',
-                        url: 'Controller/AlertController.php',
-                        data: {
-                            employee_id: session_employee_id
-                        },
-                        dataType: 'json',
-                        success: function(result) {
-                            if (result != false) {
-                                pollForAlert();
+                    pollingInterval = setInterval(function() {
+
+                        $.ajax({
+                            type: 'POST',
+                            url: 'Controller/AlertController.php',
+                            data: {
+                                employee_id: session_employee_id
+                            },
+                            dataType: 'json',
+                            success: function(result) {
+                                if (result != false) {
+                                    showNotification(result.employee_id);
+                                }
+                            
+                            },
+                            error: function(xhr, status, error) {
+                                console.log(xhr.responseText); // Log the error message
                             }
-                            setTimeout(alert, 15000);
-                            // pollForAlert();
-                            console.log(result);
-                        },
-                        error: function(xhr, status, error) {
-                            console.log(xhr.responseText); // Log the error message
-                        }
-                    });
+                        });
+                    }, 5000);
                 }
 
                 function showNotification(message) {
 
+                    // console.log('sdsd' + message);
                     if ('Notification' in window) {
 
                         Notification.requestPermission().then(function(permission) {
                             if (permission === 'granted') {
                                 // Create a new notification
                                 var notification = new Notification('Alert', {
-                                    body: message,
+                                    body: 'This is an alert message!',
                                     icon: 'asset/img/herogram.jpg',
                                     requireInteraction: true
                                 });
@@ -233,7 +237,7 @@ require_once("connection/dbh.php");
                                         type: 'POST',
                                         url: 'Controller/AlertController.php',
                                         data: {
-                                            seen_employee_id: session_employee_id
+                                            seen_employee_id: message
                                         },
                                         dataType: 'json',
                                         success: function(result) {
@@ -252,7 +256,7 @@ require_once("connection/dbh.php");
                                         type: 'POST',
                                         url: 'Controller/AlertController.php',
                                         data: {
-                                            closed_employee_id: session_employee_id
+                                            seen_employee_id: message
                                         },
                                         dataType: 'json',
                                         success: function(result) {
@@ -274,10 +278,10 @@ require_once("connection/dbh.php");
 
                     showNotification('This is an alert message!');
 
-
-
                 }
 
-                // pollForAlert();
+                function stopPolling() {
+                    clearInterval(pollingInterval); 
+                }
             });
         </script>

@@ -44,10 +44,11 @@ $attendance = new AttendanceModel();
     <div class="row mt-2">
         <div id="tables ">
             <div class="table-responsive scroll">
-    
-                <table id="table_employee_monitoring" class="table  display nowrap" style="width:100%"> 
+
+                <table id="table_employee_monitoring" class="table  display nowrap" style="width:100%">
                     <thead>
                         <tr>
+                            <th>No.</th>
                             <th>Employee id</th>
                             <th>Department</th>
                             <th>Employee</th>
@@ -61,7 +62,7 @@ $attendance = new AttendanceModel();
                             <th>Action</th>
                         </tr>
                     </thead>
-    
+
                 </table>
             </div>
         </div>
@@ -71,16 +72,17 @@ $attendance = new AttendanceModel();
 
 <script type="text/javascript">
     $(document).ready(function () {
-     
+
         $(function () {
-            $("#start_date").datepicker({"dateFormat" : "yy-mm-dd"});
-            $("#end_date").datepicker({"dateFormat" : "yy-mm-dd"});
+            $("#start_date").datepicker({ "dateFormat": "yy-mm-dd" });
+            $("#end_date").datepicker({ "dateFormat": "yy-mm-dd" });
         });
     });
 </script>
 
 <script>
-    function fetch(start_date, end_date){
+  
+    function fetch(start_date, end_date) {
         $.ajax({
             url: '../Controller/records.php',
             type: 'POST',
@@ -89,8 +91,8 @@ $attendance = new AttendanceModel();
                 end_date: end_date
             },
             dataType: 'json',
-            success: function(data) {
-                var i = 1;
+            success: function (data) {
+             
                 $("#table_employee_monitoring").DataTable({
                     "data": data,
                     "dom": 'Bfrtip',
@@ -107,31 +109,35 @@ $attendance = new AttendanceModel();
                         },
                         {
                             extend: 'print',
-                            orientation: 'landscape' 
+                            orientation: 'landscape'
                         }
                     ],
                     "responsive": true,
                     "columns": [
-                        { 
+                        {
+                            "data": 'employee_attendance_id',
+                            "orderable": false,
+                            "render": function (data, type, row, meta) {
+                                return meta.row + 1; // Start numbering from 1
+                            }
+                        },
+                        {
                             "data": 'employee_id',
-                            // "render": function (data, type, row, meta) {
-                            //     return '<a href="' + data + '">Download</a>';
-                            // }
-                        
+
                         },
                         { "data": 'department_name' },
                         { "data": 'employee_name' },
                         { "data": 'activity_type' },
                         { "data": 'activity_description' },
-                        { 
+                        {
                             "data": 'start_time',
                             "render": function (data, type, row, meta) {
                                 return moment(row.start_time).format('yy-MM-DD h:mm:ss A');
                             }
                         },
-                        { 
+                        {
                             "data": 'end_time',
-                            "render": function(data, type, row, meta) {
+                            "render": function (data, type, row, meta) {
                                 if (data && moment(data, moment.ISO_8601, true).isValid()) {
                                     return moment(data).format('yy-MM-DD h:mm:ss A');
                                 } else {
@@ -139,7 +145,7 @@ $attendance = new AttendanceModel();
                                 }
                             }
                         },
-                        { 
+                        {
                             "data": "total_time",
                             "render": function (data, type, row, meta) {
                                 // Convert total_time to days, hours, minutes, and seconds
@@ -155,79 +161,100 @@ $attendance = new AttendanceModel();
                             }
                         },
                         { "data": 'submitted_by' },
-                        { 
+                        {
                             "data": 'submitted_on',
                             "render": function (data, type, row, meta) {
                                 return moment(row.submitted_on).format('yy-MM-DD h:mm:ss A');
-                            } 
-                        },
-                        { 
-                            "data": 'employee_id',
-                            "render": function (data, type, row, meta) {
-                                return '<button type="button" class="btn btn-outline-warning prompt"  data-bs-id="'+ data +'">Prompt</button>';
                             }
-                        
+                        },
+                        {
+                            "data": 'employee_attendance_id',
+                            "render": function (data, type, row, meta) {
+                                // Generate HTML for both buttons
+                                return '<button type="button" class="btn btn-outline-warning prompt me-2" data-bs-id="' + data + '">Prompt</button>' +
+                                    '<button type="button" class="btn btn-outline-danger remove" data-bs-id="' + data + '">Remove</button>';
+                            }
+
                         }
 
                     ],
-              
+
                 });
             },
 
         });
     }
     fetch();
-//     filter
-// reset
-  
-  $("#filter").click(function(e){
-    e.preventDefault();
+    //     filter
+    // reset
 
-  
-    var start_date = $("#start_date").val();
-    var end_date = $("#end_date").val();
-
-    if(start_date == "" || end_date == ""){
-        alert("both date required");
-    }else{
-        $("#table_employee_monitoring").DataTable().destroy();
-        fetch(start_date, end_date);
-    }
+    $("#filter").click(function (e) {
+        e.preventDefault();
 
 
-  });
+        var start_date = $("#start_date").val();
+        var end_date = $("#end_date").val();
 
-$("#reset").click(function(e){
-    e.preventDefault();
-    $("#start_date").val('');
-    $("#end_date").val('');
-    $("#table_employee_monitoring").DataTable().destroy();
-    fetch();
-});
-
-$(document).on('click', '.prompt', function() {
-    // Retrieve the employee ID from the data-bs-id attribute
-    var employeeId = $(this).data('bs-id');
-    
-    // Perform actions with the employee ID
-    console.log("Employee ID: " + employeeId);
-    // Add your logic here
-    alert('click');
-    $.ajax({
-        type: 'POST',
-        url: '../Controller/AlertController.php',
-        data:{
-            notify_employee: employeeId
-        },
-        dataType: 'json',
-        success: function(result){
-            console.log(result);
-        },
-        error: function (error){
-            console.log(error);
+        if (start_date == "" || end_date == "") {
+            alert("both date required");
+        } else {
+            $("#table_employee_monitoring").DataTable().destroy();
+            fetch(start_date, end_date);
         }
+
+
     });
-});
+
+    $("#reset").click(function (e) {
+        e.preventDefault();
+        $("#start_date").val('');
+        $("#end_date").val('');
+        $("#table_employee_monitoring").DataTable().destroy();
+        fetch();
+    });
+
+    $(document).on('click', '.prompt', function () {
+        // Retrieve the employee ID from the data-bs-id attribute
+        var employeeId = $(this).data('bs-id');
+        alert('click');
+        $.ajax({
+            type: 'POST',
+            url: '../Controller/AlertController.php',
+            data: {
+                notify_employee: employeeId
+            },
+            dataType: 'json',
+            error: function (error) {
+                console.log(error);
+            }
+        });
+    });
+
+    $(document).on('click', '.remove',function(){
+        var id = $(this).data('bs-id');
+
+        // console.log("Employee ID: " + id);
+        $.ajax({
+            type: 'POST',
+            url: '../Controller/AttendanceController.php',
+            data: {
+                remove_attendance: id
+            },
+            dataType: 'json',
+            success: function(res){
+                if(res != false){
+                    $("#table_employee_monitoring").DataTable().destroy();
+                    fetch();
+                }else{
+                    alert("Ongoing activity cannot be remove");
+                }
+                console.log(res);
+            },
+            error: function (error) {
+                console.log(error);
+            }
+        });
+    });
 
 </script>
 <?php

@@ -38,7 +38,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
         $notify = $alert_model->notifyEmployee($employee_id);
         if( $notify != false){
             // Return the result as JSON
-            echo json_encode($result);
+            echo json_encode($notify);
         }else{
              // Return the result as JSON
             echo json_encode(false);

@@ -17,10 +17,17 @@ if (isset($_SESSION["employee_id"]) && $_SESSION["employee_id"]) {
     <link rel="stylesheet" href="asset/css/animatedText.css">
     <link rel="stylesheet" href="asset/css/btnStartAnimation.css">
     <link rel="stylesheet" href="asset/css/ballAnimation.css">
-
+    <link rel="stylesheet" href="asset/css/tu.css">
     <div class="container-fluid min-vh-100 mt-0 position-relative" style="background-image: url('asset/img/bg_msa.jpg');  background-size: cover;
     background-position: center; background-repeat: no-repeat; ">
-
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Angkor&family=Noto+Sans+Khojki&family=Rock+3D&display=swap');
+.angkor-regular {
+  font-family: "Angkor", serif;
+  font-weight: 400;
+  font-style: normal;
+}
+</style>
         <div class="row ">
             <p class="h4 text-center fs-1 tracking-in-expand text-white p-2 shadow "><i class="fa fa-bullhorn"
                     aria-hidden="true" style="transform: rotateY(180deg);"></i> Announcement <i class="fa fa-bullhorn"
@@ -172,6 +179,53 @@ if (isset($_SESSION["employee_id"]) && $_SESSION["employee_id"]) {
                 </div>
 
 
+            </div>
+        </div>
+        <div class="container-fluid">
+            <div class="row">
+            <div class="imgLoader"></div>
+
+<div class="container pg">
+
+  <h1 class="title  tracking-in-expand text-center" style="color: #f5617b;">
+    <span class="angkor-regular">MSA</span><br><span class="fs-4">Previously My Story Animated</span>
+  </h1>
+
+  <!-- <div class="credit">
+    * Images loaded randomly from Picsum.photos
+  </div> -->
+
+  <div class="book">
+    <div class="gap"></div>
+    <div class="pages">
+      <div class="page"></div>
+      <div class="page"></div>
+      <div class="page"></div>
+      <div class="page"></div>
+      <div class="page"></div>
+      <div class="page"></div>
+    </div>
+    <div class="flips">
+      <div class="flip flip1">
+        <div class="flip flip2">
+          <div class="flip flip3">
+            <div class="flip flip4">
+              <div class="flip flip5">
+                <div class="flip flip6">
+                  <div class="flip flip7"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<a href="https://twitter.com/amit_sheen" class="twitterLink" target="_top">
+   <img src="https://assets.codepen.io/1948355/twitterLogo2.png" />
+</a>
             </div>
         </div>
 

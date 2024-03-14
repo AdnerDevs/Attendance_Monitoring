@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 13, 2024 at 09:14 AM
+-- Generation Time: Mar 14, 2024 at 09:52 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -42,12 +42,13 @@ CREATE TABLE `activity` (
 
 INSERT INTO `activity` (`activity_id`, `activity_type`, `activity_created_time`, `activity_edited_time`, `isDeleted`, `isArchive`) VALUES
 (1, 'Attendance', '2024-02-14 16:00:00', '2024-03-07 07:12:55', 0, 0),
-(2, 'Lunch', '2024-02-14 16:00:00', '2024-02-28 04:00:11', 0, 0),
+(2, 'Lunches', '2024-02-14 16:00:00', '2024-03-14 07:25:36', 0, 0),
 (3, 'Meeting', '2024-02-15 01:27:14', '2024-02-15 18:52:02', 0, 0),
 (4, 'Quick Activity', '2024-02-15 01:28:04', '2024-02-15 18:52:02', 0, 0),
 (5, 'htttss', '2024-02-15 01:38:41', '2024-02-15 18:59:39', 0, 0),
 (6, 'sasss', '2024-02-15 18:17:44', '2024-02-17 23:12:28', 0, 0),
-(7, 'Overtime', '2024-03-07 07:12:48', '2024-03-07 07:12:48', 0, 0);
+(7, 'Overtime', '2024-03-07 07:12:48', '2024-03-07 07:12:48', 0, 0),
+(8, 'Hike', '2024-03-14 07:25:43', '2024-03-14 07:25:43', 0, 0);
 
 -- --------------------------------------------------------
 
@@ -141,19 +142,22 @@ CREATE TABLE `employee_attendance` (
   `minute` int(11) DEFAULT NULL,
   `second` int(11) DEFAULT NULL,
   `submitted_by` varchar(150) NOT NULL,
-  `submitted_on` datetime NOT NULL DEFAULT current_timestamp()
+  `submitted_on` datetime NOT NULL DEFAULT current_timestamp(),
+  `isRemove` tinyint(1) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `employee_attendance`
 --
 
-INSERT INTO `employee_attendance` (`employee_attendance_id`, `employee_id`, `employee_name`, `department_id`, `activity_type`, `activity_description`, `start_time`, `end_time`, `total_time`, `day`, `hour`, `minute`, `second`, `submitted_by`, `submitted_on`) VALUES
-(175, '01-2457321', 'EROR LOGIN', 2, 1, 'Attendance', '2024-03-13 08:53:51', '2024-03-13 09:09:46', '955', 0, 0, 15, 55, '01-2457321ERO', '2024-03-13 09:09:46'),
-(176, '01-2457321', 'EROR LOGIN', 2, 4, '', '2024-03-13 08:55:26', '2024-03-13 08:55:28', '2', 0, 0, 0, 2, '01-2457321ERO', '2024-03-13 08:55:28'),
-(177, '01-2457321', 'EROR LOGIN', 2, 1, 'Attendance', '2024-03-13 09:11:50', '2024-03-13 11:20:44', '7734', 0, 2, 8, 54, '01-2457321ERO', '2024-03-13 11:20:44'),
-(178, '12345678912131', 'ASDAD DF', 2, 1, 'Attendance', '2024-03-13 13:54:35', '2024-03-13 14:10:09', '934', 0, 0, 15, 34, '12345678912131SA', '2024-03-13 14:10:09'),
-(179, '12345678912131', 'ASDAD DF', 2, 1, 'Attendance', '2024-03-13 14:10:21', NULL, NULL, NULL, NULL, NULL, NULL, '12345678912131SA', '2024-03-13 14:10:21');
+INSERT INTO `employee_attendance` (`employee_attendance_id`, `employee_id`, `employee_name`, `department_id`, `activity_type`, `activity_description`, `start_time`, `end_time`, `total_time`, `day`, `hour`, `minute`, `second`, `submitted_by`, `submitted_on`, `isRemove`) VALUES
+(175, '01-2457321', 'EROR LOGIN', 2, 1, 'Attendance', '2024-03-13 08:53:51', '2024-03-13 09:09:46', '955', 0, 0, 15, 55, '01-2457321ERO', '2024-03-13 09:09:46', 0),
+(176, '01-2457321', 'EROR LOGIN', 2, 4, '', '2024-03-13 08:55:26', '2024-03-13 08:55:28', '2', 0, 0, 0, 2, '01-2457321ERO', '2024-03-13 08:55:28', 0),
+(177, '01-2457321', 'EROR LOGIN', 2, 1, 'Attendance', '2024-03-13 09:11:50', '2024-03-13 11:20:44', '7734', 0, 2, 8, 54, '01-2457321ERO', '2024-03-13 11:20:44', 0),
+(178, '12345678912131', 'ASDAD DF', 2, 1, 'Attendance', '2024-03-13 13:54:35', '2024-03-13 14:10:09', '934', 0, 0, 15, 34, '12345678912131SA', '2024-03-13 14:10:09', 0),
+(179, '12345678912131', 'ASDAD DF', 2, 1, 'Attendance', '2024-03-13 14:10:21', NULL, NULL, NULL, NULL, NULL, NULL, '12345678912131SA', '2024-03-13 14:10:21', 0),
+(180, '01-2457321', 'EROR LOGIN', 2, 1, 'Attendance', '2024-03-14 08:37:42', '2024-03-14 09:10:02', '1940', 0, 0, 32, 20, '01-2457321ERO', '2024-03-14 09:10:02', 0),
+(181, '01-2457321', 'EROR LOGIN', 2, 1, 'Attendance', '2024-03-14 14:01:31', NULL, NULL, NULL, NULL, NULL, NULL, '01-2457321ERO', '2024-03-14 14:01:31', 0);
 
 -- --------------------------------------------------------
 
@@ -176,7 +180,7 @@ CREATE TABLE `employee_user` (
 --
 
 INSERT INTO `employee_user` (`employee_id`, `employee_name`, `nickname`, `department_id`, `created_time`, `status`, `isRemove`) VALUES
-('01-2457321', 'EROR LOGIN', 'ERO', 2, '2024-02-22 13:05:51', 0, 0),
+('01-2457321', 'EROR LOGIN', 'ERO', 2, '2024-02-22 13:05:51', 1, 0),
 ('02-0454sen', 'adner devila', '', 2, '2024-02-21 15:07:10', 0, 0),
 ('02-070031-CENA', 'JOHN CENA', '', 2, '2024-02-21 15:07:10', 0, 0),
 ('02-2295931', 'LEGENDS LION', 'LEAGUE', 1, '2024-02-24 19:48:36', 0, 0),
@@ -243,11 +247,13 @@ CREATE TABLE `notification` (
 --
 
 INSERT INTO `notification` (`notification_id`, `employee_id`, `created_at`, `isSeen`) VALUES
-(1, '01-2457321', '2024-03-13 11:44:47', 1),
-(2, '12345678912131', '2024-03-13 13:57:56', 1),
-(3, '12345678912131', '2024-03-13 13:59:28', 1),
-(4, '12345678912131', '2024-03-13 14:15:52', 1),
-(5, '12345678912131', '2024-03-13 14:16:50', 1);
+(7, '180', '2024-03-14 10:21:04', 1),
+(8, '180', '2024-03-14 10:26:20', 1),
+(9, '180', '2024-03-14 10:36:21', 1),
+(10, '181', '2024-03-14 14:16:07', 1),
+(11, '181', '2024-03-14 14:17:35', 1),
+(12, '181', '2024-03-14 14:18:23', 1),
+(13, '181', '2024-03-14 14:25:04', 1);
 
 -- --------------------------------------------------------
 
@@ -357,7 +363,7 @@ ALTER TABLE `userlevel`
 -- AUTO_INCREMENT for table `activity`
 --
 ALTER TABLE `activity`
-  MODIFY `activity_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `activity_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `announcement`
@@ -375,7 +381,7 @@ ALTER TABLE `department`
 -- AUTO_INCREMENT for table `employee_attendance`
 --
 ALTER TABLE `employee_attendance`
-  MODIFY `employee_attendance_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=180;
+  MODIFY `employee_attendance_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=182;
 
 --
 -- AUTO_INCREMENT for table `login_credentials`
@@ -387,7 +393,7 @@ ALTER TABLE `login_credentials`
 -- AUTO_INCREMENT for table `notification`
 --
 ALTER TABLE `notification`
-  MODIFY `notification_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `notification_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT for table `userlevel`

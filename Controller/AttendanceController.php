@@ -90,6 +90,21 @@ $attendance_model = new AttendanceModel();
 
         }
 
+        if(isset($_POST['remove_attendance'])){
+            
+            $employee_attendance_id = htmlspecialchars($_POST['remove_attendance'], ENT_QUOTES, 'utf-8');
+            $remove = $attendance_model->removeAttendance($employee_attendance_id);
+
+            if( $remove != false){
+                // Return the result as JSON
+                echo json_encode($remove);
+            }else{
+                 // Return the result as JSON
+                echo json_encode(false);
+            }
+
+        }
+
     }
 
     if ($_SERVER['REQUEST_METHOD'] == 'GET') {

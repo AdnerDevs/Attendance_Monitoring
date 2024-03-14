@@ -11,7 +11,8 @@ class AttendanceModel extends Dbh{
             FROM employee_attendance ea 
             INNER JOIN activity ac ON ea.activity_type = ac.activity_id 
             INNER JOIN department dp ON ea.department_id = dp.department_id
-            INNER JOIN login_credentials lc ON ea.employee_id = lc.employee_id 
+            INNER JOIN login_credentials lc ON ea.employee_id = lc.employee_id
+            WHERE ea.isRemove != 1 
             ORDER BY ea.employee_attendance_id DESC");
 
             if(!$stmt->execute()){
@@ -37,7 +38,7 @@ class AttendanceModel extends Dbh{
                     INNER JOIN activity ac ON ea.activity_type = ac.activity_id 
                     INNER JOIN department dp ON ea.department_id = dp.department_id
                     INNER JOIN login_credentials lc ON ea.employee_id = lc.employee_id
-                    WHERE DATE(ea.start_time) >= ? AND DATE(ea.start_time) <= ?
+                    WHERE DATE(ea.start_time) >= ? AND DATE(ea.start_time) <= ? AND isRemove != 1
                     ORDER BY ea.employee_attendance_id DESC");
     
                 if(!$stmt->execute([$start_date, $end_date])) {
@@ -60,7 +61,8 @@ class AttendanceModel extends Dbh{
             FROM employee_attendance ea 
             INNER JOIN activity ac ON ea.activity_type = ac.activity_id 
             INNER JOIN department dp ON ea.department_id = dp.department_id
-            INNER JOIN login_credentials lc ON ea.employee_id = lc.employee_id 
+            INNER JOIN login_credentials lc ON ea.employee_id = lc.employee_id
+            WHERE ea.isRemove != 1 
             ORDER BY ea.employee_attendance_id DESC");
 
             if(!$stmt->execute()){
@@ -81,7 +83,7 @@ class AttendanceModel extends Dbh{
     public function getData($employee_id, $activity_type){
         try{
 
-            $stmt = $this->connect()->prepare('SELECT * FROM employee_attendance WHERE employee_id = ? AND activity_type = ? AND DATE(start_time) = CURDATE()');
+            $stmt = $this->connect()->prepare('SELECT * FROM employee_attendance WHERE employee_id = ? AND activity_type = ? AND DATE(start_time) = CURDATE() AND isRemove != 1');
 
             if(!$stmt->execute([$employee_id, $activity_type])){
                 return false;
@@ -152,6 +154,7 @@ class AttendanceModel extends Dbh{
 
 
     // UPDATE
+    // client
     public function updateEndtimeAttendance($end_time, $toal_time, $day, $hour, $minute, $second, $employee_id, $activity_type,  $employee_attendance_id){
         try{
 
@@ -172,8 +175,22 @@ class AttendanceModel extends Dbh{
     }
 
 
-    
+    // ADMIN
+    public function removeAttendance($employee_attendance_id){
+        try{
+            $stmt = $this->connect()->prepare('UPDATE employee_attendance SET isRemove = 1 AND employee_attendance_id = ? AND end_time IS NOT NULL');
 
-
+            if ($stmt->execute([$employee_attendance_id]) && $stmt->rowCount() > 0) {
+                return true;
+            } else {
+                return false;
+            }
+        }catch (PDOException $e) {
+            echo 'Error inserting attendance: ' . $e->getMessage();
+            return false;
+        } finally {
+            $stmt = null;
+        }
+    }
     
 }
