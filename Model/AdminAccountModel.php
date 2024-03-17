@@ -4,7 +4,7 @@ class AdminAccountModel extends Dbh{
 
     public function getAllAdmin(){
         try{
-            $stmt = $this->connect()->prepare("SELECT au.admin_id, au.admin_name, ul.userlevel_name, au.isRemove, au.isArchive, lc.credential_surname, au.status  
+            $stmt = $this->connect()->prepare("SELECT au.admin_id, au.admin_name, ul.userlevel_name, au.isRemove, au.isArchive, lc.credential_surname, au.status , au.userlevel_id
             FROM admin_user au
             INNER JOIN userlevel ul ON au.userlevel_id = ul.userlevel_id
             INNER JOIN login_credentials lc ON au.admin_id = lc.employee_id
@@ -46,6 +46,8 @@ class AdminAccountModel extends Dbh{
         }
     }
 
+
+    // insert
     public function registerAdmin($admin_id, $admin_username, $admin_completename, $userlevel, $usertpye){
         try{    
             $stmt = $this->connect()->prepare("INSERT INTO admin_user (admin_id,  admin_name, userlevel_id) VALUES (?,?,?)");
@@ -102,6 +104,8 @@ class AdminAccountModel extends Dbh{
             $stmt = null;
         }
     }
+
+    // update
 
     public function updateAdmin( $admin_completename, $admin_username, $userlevel, $admin_id){
         try{    
@@ -164,6 +168,26 @@ class AdminAccountModel extends Dbh{
         }finally{
             $stmt = null;
             $stmt2 = null;
+        }
+    }
+
+    public function restrictAdmin($admin_id, $value){
+        try{
+
+            $stmt = $this->connect()->prepare('UPDATE admin_user SET isArchive = ? WHERE admin_id = ?');
+ 
+            if(!$stmt->execute([$value, $admin_id ])){
+                return false;
+            }
+          
+
+            return true;
+
+        }catch(PDOException $e){
+            print('' .$e->getMessage());
+        }finally{
+            $stmt = null;
+          
         }
     }
 }

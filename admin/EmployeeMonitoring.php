@@ -98,18 +98,30 @@ $attendance = new AttendanceModel();
                     "dom": 'Bfrtip',
                     "buttons": [
                         {
-                            extend: 'copy'
+                            extend: 'copy',
+                            exportOptions: {
+                                "columns": ":not(:last-child)" 
+                            }
                         },
                         {
-                            extend: 'excel'
+                            extend: 'excel',
+                            exportOptions: {
+                                "columns": ":not(:last-child)" 
+                            }
                         },
                         {
                             extend: 'pdf',
-                            orientation: 'landscape' // Set orientation to landscape
+                            orientation: 'landscape',
+                            exportOptions: {
+                                "columns": ":not(:last-child)" 
+                            } 
                         },
                         {
                             extend: 'print',
-                            orientation: 'landscape'
+                            orientation: 'landscape',
+                            exportOptions: {
+                                "columns": ":not(:last-child)" 
+                            }
                         }
                     ],
                     "responsive": true,
@@ -169,15 +181,16 @@ $attendance = new AttendanceModel();
                         },
                         {
                             "data": 'employee_attendance_id',
+                            "orderable": false,
                             "render": function (data, type, row, meta) {
                                 // Generate HTML for both buttons
-                                return '<button type="button" class="btn btn-outline-warning prompt me-2" data-bs-id="' + data + '">Prompt</button>' +
-                                    '<button type="button" class="btn btn-outline-danger remove" data-bs-id="' + data + '">Remove</button>';
+                                return '<button type="button" class="btn btn-outline-warning prompt me-2 exclude-from-export" data-bs-id="' + data + '">Prompt</button>' +
+                                    '<button type="button" class="btn btn-outline-danger remove exclude-from-export" data-bs-id="' + data + '">Remove</button>';
                             }
 
                         }
 
-                    ],
+                    ]
 
                 });
             },

@@ -18,9 +18,9 @@ class SignupControllerAdmin extends AdminAccountModel{
 
         }
 
-        if($this->employeeIDCheck() == false){
-            $error['already_exist'] = 'This ID is already registered, please input a different ID';
-        }
+        // if($this->employeeIDCheck() == false){
+        //     $error['already_exist'] = 'This ID is already registered, please input a different ID';
+        // }
 
         if($this->formatID() == false){
             $error['format_id'] = 'ID should be alphanumeric and 8 characters long';
@@ -44,8 +44,8 @@ class SignupControllerAdmin extends AdminAccountModel{
         return true;
     }
 
-    public function employeeIDCheck(){
-        return  $this->checkID($this->admin_id);
-    }
+    // public function employeeIDCheck(){
+    //     return  $this->checkID($this->admin_id);
+    // }
 
 }

@@ -7,6 +7,8 @@ require_once("../Controller/SignupControllerAdmin.php");
 $admin_model = new AdminAccountModel();
 $userlevel = new UserlevelModel();
 header('Content-Type: application/json');
+
+
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if (isset($_POST['admin_id']) && isset($_POST['admin_username']) && isset($_POST['admin_completename']) && isset($_POST['userlevel'])) {
 
@@ -21,14 +23,20 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $error = $signup->ValidateAdmin();
 
         if (empty($error)) {
-            $register = $admin_model->registerAdmin($admin_id, $admin_username, $admin_completename, $userlevel, $usertpye);
+            $validate_id = $admin_model->checkID($admin_id);
+            if($validate_id == false){
+                echo json_encode(['status' => 'validate']);
+            }else{
+                $register = $admin_model->registerAdmin($admin_id, $admin_username, $admin_completename, $userlevel, $usertpye);
 
-            if ($register != false) {
-                echo json_encode(['status' => 'success']);
-            } else {
-                echo json_encode(['status' => 'failed']);
-
+                if ($register != false) {
+                    echo json_encode(['status' => 'success']);
+                } else {
+                    echo json_encode(['status' => 'failed']);
+    
+                }
             }
+           
 
         } else {
             echo json_encode(['status' => 'error', 'errors' => $error]);
@@ -64,13 +72,39 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
         $remove = $admin_model->removeAdmin($admin_id);
         if ($remove != false) {
-            echo ( 'success');
+            echo json_encode( 'success');
 
         } else {
-            echo ( 'failed');
+            echo json_encode( 'failed');
     
         }
 
+    }
+
+    if(isset($_POST['get_all'])){
+        // if(isset($_SESSION['admin_id'])){
+
+
+            $getall = $admin_model->getAllAdmin();
+            if(!empty($getall)){
+                echo json_encode($getall);
+            }
+         
+        // }
+    }
+
+    if(isset($_POST['restrict_admin']) && isset($_POST['data_value'])){
+
+        $remove_adminid = htmlspecialchars($_POST['restrict_admin'], ENT_QUOTES, 'UTF-8');
+        $value = htmlspecialchars($_POST['data_value'], ENT_QUOTES, 'UTF-8');
+        
+        $toggleArchive = $admin_model->restrictAdmin($remove_adminid, $value);
+        if($toggleArchive != false){
+            echo json_encode($toggleArchive);
+        }else{
+            echo json_encode('false');
+        }
+        
     }
 
 

@@ -98,6 +98,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
        
     }
 
+    if(isset($_POST['userlevel'])){
+        // $id = $_POST['get_userlevel'];
+        
+         $getall = $userlevel_model->getAllUserlevel();
+
+        header('Content-Type: application/json');
+        echo json_encode($getall);
+    }
+
    
 }
 
