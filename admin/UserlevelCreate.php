@@ -1,5 +1,5 @@
 <div class="modal fade" id="ActivityModal" tabindex="-1" aria-labelledby="ActivityModal" aria-hidden="true">
-<form  method="POST" action="../Controller/UserlevelController.php"  enctype="multipart/form-data">
+<form  method="POST" action="#" enctype="multipart/form-data">
   <div class="modal-dialog modal-lg  modal-dialog-scrollable">
     <div class="modal-content">
       <div class="modal-header">
@@ -90,3 +90,48 @@
   </div>
 </form>
 </div>
+
+<script>
+$(document).ready(function() {
+    // Define an object to store the checkbox values
+    var formData = {};
+
+    // Bind the change event to all checkboxes
+    $('input[type="checkbox"]').change(function() {
+        // Get the name and checked status of the checkbox
+        var name = $(this).attr('name');
+        var checked = $(this).prop('checked');
+
+        // Update the formData object with the checkbox value
+        formData[name] = checked ? 1 : 0;
+
+        // Log the updated formData object for debugging
+        console.log(formData);
+    });
+
+    // Handle form submission
+    // $('#saveActivity').click(function(event) {
+    //     event.preventDefault(); // Prevent the form from submitting normally
+
+    //     // Perform an AJAX request to submit the form data to the server
+    //     $.ajax({
+    //         type: 'POST', // Use POST method
+    //         url: '../Controller/UserlevelController.php', // Specify the URL of the server-side script
+    //         data: formData, // Pass the formData object as data
+    //         dataType: 'json', // Expect JSON response from the server
+    //         success: function(response) {
+    //             // Handle the success response from the server
+    //             console.log(response);
+    //             // Optionally, perform any further actions based on the response
+    //         },
+    //         error: function(xhr, status, error) {
+    //             // Handle the error response from the server
+    //             console.error(xhr, status, error);
+    //             // Optionally, display an error message to the user
+    //         }
+    //     });
+    // });
+});
+
+
+</script>

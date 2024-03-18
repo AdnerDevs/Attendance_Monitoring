@@ -52,59 +52,11 @@ if (isset($_SESSION['admin_management_view']) && $_SESSION['admin_management_vie
                     <th>Userlevel</th>
                     <th>Status</th>
                     <!-- <th>Condition</th> -->
-                    <?php
-                    // if(isset($_SESSION["admin_management_update"]) && $_SESSION["admin_management_update"]== 1 && isset($_SESSION["admin_management_delete"]) && $_SESSION["admin_management_delete"] == 1 && isset($_SESSION["admin_management_update"]) && $_SESSION["admin_management_update"] == 1 ){
-                    ?>
                     <th class="<?= $hide_action ?>">Action</th>
-                    <?php
-                    // }
-                    ?>
+                  
                 </tr>
             </thead>
             <tbody id="table_body_container">
-                <?php
-                //    $admin = $admin_model->getAllAdmin();
-                //    $number = 1;
-                //    $isFirstRow = true;
-                // foreach($admin as $ad):
-                //     $condition = 'Active';
-                //     $btnText = 'Archive';
-                //     $status = 'offline';
-                //     $statusClass = '';
-                //     if($ad['isArchive'] == 1){
-                //         $condition = 'Archive';
-                //         $btnText = 'Unarchive';
-                //     }
-                //     if($ad['status'] == 1){
-                //         $status = 'Online';
-                //         $statusClass = 'text-primary';
-                //     }
-                ?>
-                <!-- <tr >
-                <td class="no"></td>
-                <td class="admin_id"></td>
-                <td class="admin_name"></td>
-                <td class="userlevel_name"></td>
-                <td class="stats"></td>
-                <td class="condition"></td>
-                <td class="btn_container">
-
-                    <button type="button" class="btn btn-primary me-2 EditAccountBtn <?= $editState ?>" id=""
-                        data-bs-type="" data-bs-id="" data-bs-toggle="modal"
-                        data-bs-target="#EditAccountModal">Edit</button>
-                    <button type="button" class="btn btn-danger me-2 RemoveAccountBtn <?= $addState ?>" data-bs-id=""
-                        >Remove</button>
-                    <button type="button" class="btn btn-secondary <?= $addState ?>" data-bs-id=""
-                       ></button>
-
-                </td>
-
-            </tr> -->
-                <?php
-                //   $isFirstRow = false;
-                //   $number++;
-                //   endforeach;
-                ?>
 
             </tbody>
         </table>

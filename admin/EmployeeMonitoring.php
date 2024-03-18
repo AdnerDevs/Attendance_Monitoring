@@ -71,18 +71,21 @@ $attendance = new AttendanceModel();
 </div>
 
 <script type="text/javascript">
-    $(document).ready(function () {
+   
 
         $(function () {
             $("#start_date").datepicker({ "dateFormat": "yy-mm-dd" });
             $("#end_date").datepicker({ "dateFormat": "yy-mm-dd" });
         });
-    });
+ 
 </script>
 
 <script>
   
     function fetch(start_date, end_date) {
+        console.log({
+            start_date, end_date
+        });
         $.ajax({
             url: '../Controller/records.php',
             type: 'POST',
@@ -92,43 +95,41 @@ $attendance = new AttendanceModel();
             },
             dataType: 'json',
             success: function (data) {
-             
+                console.log(data);
                 $("#table_employee_monitoring").DataTable({
                     "data": data,
                     "dom": 'Bfrtip',
                     "buttons": [
                         {
-                            extend: 'copy',
-                            exportOptions: {
+                            "extend": 'copy',
+                            "exportOptions": {
                                 "columns": ":not(:last-child)" 
                             }
                         },
                         {
-                            extend: 'excel',
-                            exportOptions: {
+                            "extend": 'excel',
+                            "exportOptions": {
                                 "columns": ":not(:last-child)" 
                             }
                         },
                         {
-                            extend: 'pdf',
-                            orientation: 'landscape',
+                            "extend": 'pdf',
+                            "orientation": 'landscape',
                             exportOptions: {
                                 "columns": ":not(:last-child)" 
                             } 
                         },
                         {
-                            extend: 'print',
-                            orientation: 'landscape',
+                            "extend": 'print',
+                            "orientation": 'landscape',
                             exportOptions: {
                                 "columns": ":not(:last-child)" 
                             }
                         }
                     ],
-                    "responsive": true,
                     "columns": [
                         {
                             "data": 'employee_attendance_id',
-                            "orderable": false,
                             "render": function (data, type, row, meta) {
                                 return meta.row + 1; // Start numbering from 1
                             }
@@ -144,14 +145,14 @@ $attendance = new AttendanceModel();
                         {
                             "data": 'start_time',
                             "render": function (data, type, row, meta) {
-                                return moment(row.start_time).format('yy-MM-DD h:mm:ss A');
+                                return moment(row.start_time).format('YYYY-MM-DD h:mm:ss A');
                             }
                         },
                         {
                             "data": 'end_time',
                             "render": function (data, type, row, meta) {
                                 if (data && moment(data, moment.ISO_8601, true).isValid()) {
-                                    return moment(data).format('yy-MM-DD h:mm:ss A');
+                                    return moment(data).format('YYYY-MM-DD h:mm:ss A');
                                 } else {
                                     return 'ongoing';
                                 }
@@ -176,7 +177,7 @@ $attendance = new AttendanceModel();
                         {
                             "data": 'submitted_on',
                             "render": function (data, type, row, meta) {
-                                return moment(row.submitted_on).format('yy-MM-DD h:mm:ss A');
+                                return moment(row.submitted_on).format('YYYY-MM-DD h:mm:ss A');
                             }
                         },
                         {
@@ -190,7 +191,8 @@ $attendance = new AttendanceModel();
 
                         }
 
-                    ]
+                    ],
+                    "responsive": true,
 
                 });
             },
@@ -201,19 +203,23 @@ $attendance = new AttendanceModel();
     //     filter
     // reset
 
-    $("#filter").click(function (e) {
+    $(document).on('click', '#filter',function(e){
         e.preventDefault();
 
 
-        var start_date = $("#start_date").val();
-        var end_date = $("#end_date").val();
+           var start_date = $("#start_date").datepicker('getDate');
+    var end_date = $("#end_date").datepicker('getDate');
 
-        if (start_date == "" || end_date == "") {
-            alert("both date required");
-        } else {
-            $("#table_employee_monitoring").DataTable().destroy();
-            fetch(start_date, end_date);
-        }
+    if (start_date == null || end_date == null) {
+        alert("both dates are required");
+    } else {
+        // Format date values using moment.js
+        start_date = moment(start_date).format('YYYY-MM-DD');
+        end_date = moment(end_date).format('YYYY-MM-DD');
+
+        $("#table_employee_monitoring").DataTable().destroy();
+        fetch(start_date, end_date);
+    }
 
 
     });

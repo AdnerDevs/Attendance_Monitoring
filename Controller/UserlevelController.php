@@ -77,8 +77,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
             session_start();
             $_SESSION['empty_uname'] = 'empty username';
 
-            header('location:../admin/Userlevel.php');
-            exit;
+            // header('location:../admin/Userlevel.php');
+            // exit;
+            // header('Content-Type: application/json');
+            // echo json_encode($getall);
         }else{
             $insert_userlevel = $userlevel_model->insertUserlevel(
                 $userlevel_name, 
@@ -91,14 +93,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
             
                 
             if($insert_userlevel != false){
-                header('location:../admin/Userlevel.php');
-                exit;
+                // header('location:../admin/Userlevel.php');
+                // exit;
+                header('Content-Type: application/json');
+                echo json_encode($insert_userlevel);
             }
         }
        
     }
 
-    if(isset($_POST['userlevel'])){
+    if(isset($_POST['fetch_all'])){
         // $id = $_POST['get_userlevel'];
         
          $getall = $userlevel_model->getAllUserlevel();
@@ -106,6 +110,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
         header('Content-Type: application/json');
         echo json_encode($getall);
     }
+
+    
 
    
 }

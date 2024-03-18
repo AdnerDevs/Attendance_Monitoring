@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 14, 2024 at 09:52 AM
+-- Generation Time: Mar 18, 2024 at 10:06 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -72,7 +72,7 @@ CREATE TABLE `admin_user` (
 INSERT INTO `admin_user` (`admin_id`, `admin_name`, `userlevel_id`, `status`, `isArchive`, `isRemove`) VALUES
 ('1234Devs', 'Adners Devilaa', 5, 0, 0, 0),
 ('123ADMIN', 'Name Surname', 1, 1, 0, 0),
-('123Devs', 'Adner Devila', 5, 0, 0, 0),
+('123Devs', 'Adner Devila', 5, 1, 0, 0),
 ('123SAMPL', 'samp sampler', 6, 0, 0, 1),
 ('250minad', 'Marya Careys', 1, 1, 0, 0),
 ('321ADNER', 'Gon Kurapika', 1, 1, 0, 0);
@@ -97,7 +97,7 @@ CREATE TABLE `announcement` (
 --
 
 INSERT INTO `announcement` (`announcment_id`, `announcement_text`, `announcement_image`, `date_created`, `isDeleted`, `isArchive`) VALUES
-(1, 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Optio beatae aliquam veniam maiores et. Optio, in commodi. Perferendis similique, nam tempore accusamus voluptatibus doloribus tempora ipsum facere temporibus iusto ut?', 'marcus.jpg', '2024-02-24 20:39:50', 0, 0);
+(1, '<h1><strong>asdasda</strong></h1>', 'marcus.jpg', '2024-02-24 20:39:50', 0, 0);
 
 -- --------------------------------------------------------
 
@@ -157,7 +157,8 @@ INSERT INTO `employee_attendance` (`employee_attendance_id`, `employee_id`, `emp
 (178, '12345678912131', 'ASDAD DF', 2, 1, 'Attendance', '2024-03-13 13:54:35', '2024-03-13 14:10:09', '934', 0, 0, 15, 34, '12345678912131SA', '2024-03-13 14:10:09', 0),
 (179, '12345678912131', 'ASDAD DF', 2, 1, 'Attendance', '2024-03-13 14:10:21', NULL, NULL, NULL, NULL, NULL, NULL, '12345678912131SA', '2024-03-13 14:10:21', 0),
 (180, '01-2457321', 'EROR LOGIN', 2, 1, 'Attendance', '2024-03-14 08:37:42', '2024-03-14 09:10:02', '1940', 0, 0, 32, 20, '01-2457321ERO', '2024-03-14 09:10:02', 0),
-(181, '01-2457321', 'EROR LOGIN', 2, 1, 'Attendance', '2024-03-14 14:01:31', NULL, NULL, NULL, NULL, NULL, NULL, '01-2457321ERO', '2024-03-14 14:01:31', 0);
+(181, '01-2457321', 'EROR LOGIN', 2, 1, 'Attendance', '2024-03-14 14:01:31', '2024-03-18 09:27:11', '329140', 3, 19, 25, 40, '01-2457321ERO', '2024-03-18 09:27:11', 0),
+(182, '01-2457321', 'EROR LOGIN', 2, 1, 'Attendance', '2024-03-18 09:18:10', '2024-03-18 09:24:52', '402', 0, 0, 6, 42, '01-2457321ERO', '2024-03-18 09:24:52', 0);
 
 -- --------------------------------------------------------
 
@@ -220,7 +221,7 @@ INSERT INTO `login_credentials` (`login_id`, `employee_id`, `credential_id`, `cr
 (4, '9876543211', '9876543211JUS', 'KUL', 'admin', 0),
 (6, '01-2457321', '01-2457321ERO', 'LOGIN', 'employee', 0),
 (7, '02-2295931', '02-2295931LEAGUE', 'LION', 'employee', 0),
-(8, '123ADMIN', '123ADMIN', 's', 'admin', 0),
+(8, '123ADMIN', '123ADMIN', '123admin', 'admin', 0),
 (9, '123Devs', '123Devs', 'Devs', 'admin', 0),
 (10, '1234Devs', '1234Devs', 'Devss', 'admin', 0),
 (11, '321ADNER', '321ADNER', 'neru', 'admin', 0),
@@ -253,7 +254,9 @@ INSERT INTO `notification` (`notification_id`, `employee_id`, `created_at`, `isS
 (10, '181', '2024-03-14 14:16:07', 1),
 (11, '181', '2024-03-14 14:17:35', 1),
 (12, '181', '2024-03-14 14:18:23', 1),
-(13, '181', '2024-03-14 14:25:04', 1);
+(13, '181', '2024-03-14 14:25:04', 1),
+(14, '181', '2024-03-18 09:17:32', 1),
+(15, '182', '2024-03-18 09:18:25', 1);
 
 -- --------------------------------------------------------
 
@@ -285,17 +288,18 @@ CREATE TABLE `userlevel` (
   `announcement_archive` tinyint(1) NOT NULL DEFAULT 0,
   `cms_permission_view` tinyint(1) DEFAULT 0,
   `cms_permission_update` tinyint(1) DEFAULT 0,
-  `isDeleted` tinyint(1) NOT NULL DEFAULT 0
+  `isDeleted` tinyint(1) NOT NULL DEFAULT 0,
+  `isArchive` tinyint(1) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `userlevel`
 --
 
-INSERT INTO `userlevel` (`userlevel_id`, `userlevel_name`, `dashboard_permission_view`, `admin_management_view`, `admin_management_create`, `admin_management_update`, `admin_management_delete`, `admin_management_archive`, `employee_management_view`, `employee_management_create`, `employee_management_update`, `employee_management_delete`, `employee_monitoring_management_view`, `employee_monitoring_management_create`, `employee_monitoring_management_update`, `employee_monitoring_management_delete`, `announcement_view`, `announcement_create`, `announcement_update`, `announcement_delete`, `announcement_archive`, `cms_permission_view`, `cms_permission_update`, `isDeleted`) VALUES
-(1, 'Superadmin', 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0),
-(5, 'Sec', 1, 1, 0, 0, 0, 0, 1, 1, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
-(6, 'Sub', 1, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0);
+INSERT INTO `userlevel` (`userlevel_id`, `userlevel_name`, `dashboard_permission_view`, `admin_management_view`, `admin_management_create`, `admin_management_update`, `admin_management_delete`, `admin_management_archive`, `employee_management_view`, `employee_management_create`, `employee_management_update`, `employee_management_delete`, `employee_monitoring_management_view`, `employee_monitoring_management_create`, `employee_monitoring_management_update`, `employee_monitoring_management_delete`, `announcement_view`, `announcement_create`, `announcement_update`, `announcement_delete`, `announcement_archive`, `cms_permission_view`, `cms_permission_update`, `isDeleted`, `isArchive`) VALUES
+(1, 'Superadmin', 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0),
+(5, 'Sec', 1, 1, 0, 0, 0, 0, 1, 1, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
+(6, 'Sub', 1, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0);
 
 --
 -- Indexes for dumped tables
@@ -381,7 +385,7 @@ ALTER TABLE `department`
 -- AUTO_INCREMENT for table `employee_attendance`
 --
 ALTER TABLE `employee_attendance`
-  MODIFY `employee_attendance_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=182;
+  MODIFY `employee_attendance_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=183;
 
 --
 -- AUTO_INCREMENT for table `login_credentials`
@@ -393,7 +397,7 @@ ALTER TABLE `login_credentials`
 -- AUTO_INCREMENT for table `notification`
 --
 ALTER TABLE `notification`
-  MODIFY `notification_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `notification_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT for table `userlevel`
