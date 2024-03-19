@@ -23,4 +23,9 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
         $fetchAll = $announcement_model->getAllAnnouncement();
         echo json_encode($fetchAll);
     }
+
+    if(isset($_POST['text']) && isset($_POST['file'])){
+        
+        echo json_encode('connected');
+    }
 }

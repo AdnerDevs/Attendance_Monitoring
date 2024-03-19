@@ -104,20 +104,23 @@ require_once('AdminHeader.php');
       }
       $("#place").text(text);
 
-      // $.ajax({
-      //   type: 'POST',
-      //   url: 'your_php_script.php',
-      //   data: formData,
-      //   contentType: false,
-      //   processData: false,
-      //   success: function (response) {
-      //     // Handle the response from the server
-      //     console.log(response);
-      //   },
-      //   error: function (jqXHR, textStatus, errorThrown) {
-      //     console.error(jqXHR, textStatus, errorThrown);
-      //   }
-      // });
+      console.log(file);
+      $.ajax({
+        type: 'POST',
+        url: '../Controller/AnnouncementController.php',
+        data: {
+          text: text,
+          file: file,
+        },
+        dataType: 'json',
+        success: function (response) {
+          // Handle the response from the server
+          console.log(response);
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+          console.error(jqXHR, textStatus, errorThrown);
+        }
+      });
 
 
     });
@@ -133,7 +136,7 @@ require_once('AdminHeader.php');
       },
       dataType: 'json',
       success: function (data) {
-        console.log(data);
+        // console.log(data);
         $("#table_announcement").dataTable({
           "data": data,
           "responsive": true,
