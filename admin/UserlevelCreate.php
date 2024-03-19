@@ -10,7 +10,7 @@
             <div class="container-fluid">
                 <div class="mb-3">
                     <label for="formGroupExampleInput" class="form-label">Permission Name</label>
-                    <input type="text" class="form-control" name="username" id="ActivityTypeInput" placeholder="(e.g. Secretary)" required>
+                    <input type="text" class="form-control" name="username" id="uname" placeholder="(e.g. Secretary)" required>
                 </div>
                 <div class="table-responsive">
                     <table class="table table-md table-hover table-striped ">
@@ -93,44 +93,44 @@
 
 <script>
 $(document).ready(function() {
-    // Define an object to store the checkbox values
-    var formData = {};
 
-    // Bind the change event to all checkboxes
+    var formData = {};
+    let userlvlname;
+
     $('input[type="checkbox"]').change(function() {
-        // Get the name and checked status of the checkbox
+        
         var name = $(this).attr('name');
         var checked = $(this).prop('checked');
 
-        // Update the formData object with the checkbox value
         formData[name] = checked ? 1 : 0;
-
-        // Log the updated formData object for debugging
-        console.log(formData);
+      
     });
 
-    // Handle form submission
-    // $('#saveActivity').click(function(event) {
-    //     event.preventDefault(); // Prevent the form from submitting normally
 
-    //     // Perform an AJAX request to submit the form data to the server
-    //     $.ajax({
-    //         type: 'POST', // Use POST method
-    //         url: '../Controller/UserlevelController.php', // Specify the URL of the server-side script
-    //         data: formData, // Pass the formData object as data
-    //         dataType: 'json', // Expect JSON response from the server
-    //         success: function(response) {
-    //             // Handle the success response from the server
-    //             console.log(response);
-    //             // Optionally, perform any further actions based on the response
-    //         },
-    //         error: function(xhr, status, error) {
-    //             // Handle the error response from the server
-    //             console.error(xhr, status, error);
-    //             // Optionally, display an error message to the user
-    //         }
-    //     });
-    // });
+    $('#saveActivity').click(function(event) {
+        event.preventDefault();
+        userlvlname = $("#uname").val();
+        console.log(formData);
+        $.ajax({
+            type: 'POST', 
+            url: '../Controller/UserlevelController.php', 
+            data: {
+                formData: formData,
+                userlevel_name: userlvlname
+            }, 
+            dataType: 'json', 
+            success: function(response) {
+                
+                console.log(response);
+        
+            },
+            error: function(xhr, status, error) {
+   
+                console.error(xhr, status, error);
+            
+            }
+        });
+    });
 });
 
 
