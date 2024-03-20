@@ -29,7 +29,7 @@ if (isset($_SESSION["employee_id"]) && $_SESSION["employee_id"]) {
                 font-style: normal;
             }
         </style>
-        <div class="row ">
+        <div class="row sticky-md-top">
             <p class="h4 text-center fs-1 tracking-in-expand text-white p-2 shadow "><i class="fa fa-bullhorn"
                     aria-hidden="true" style="transform: rotateY(180deg);"></i> Announcement <i class="fa fa-bullhorn"
                     aria-hidden="true"></i></p>
@@ -37,18 +37,19 @@ if (isset($_SESSION["employee_id"]) && $_SESSION["employee_id"]) {
                 <ul class="tag-list scroller__inner p-0 d-flex gap-2 py-2 flex-wrap ">
                     <?php
                     $announcement = $announcement_model->getAllAnnouncement();
-
+                    
                     for ($i = 0; $i < count($announcement); $i++):
                         $announce = $announcement[$i];
+                        $announce['announcement_text'] = htmlspecialchars_decode($announce['announcement_text']);
                         ?>
                         <li class="scroll-li" style="max-width: 20%;">
                             <div class="card">
                                 <div class="card-header">
                                     <div class="row ">
-                                        <div class="col-2 text-center">
-                                            <img src="asset/img/<?= $announce['announcement_image'] ?>" alt="" height="100">
+                                        <div class="col-12 text-center">
+                                            <img src="asset/upload/<?= $announce['announcement_image'] ?>" alt="" height="100">
                                         </div>
-                                        <div class="col-10 lh-base">
+                                        <div class="col-12 lh-base">
                                             <?= $announce['announcement_text'] ?>
                                         </div>
                                     </div>

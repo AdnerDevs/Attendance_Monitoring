@@ -21,6 +21,7 @@ class AnnouncementModel extends Dbh{
         }
     }
 
+    // insert
     public function insertAnnouncement($announcement_text, $announcement_image, $current_date){
         try{
 
@@ -28,11 +29,11 @@ class AnnouncementModel extends Dbh{
                 VALUES (?,?,?)
             ');
 
-            if(!$stmt->execute([$announcement_text, $announcement_image, $current_date])){
-                return false;
+            if($stmt->execute([$announcement_text, $announcement_image, $current_date])){
+                return true;
             }
 
-            return true;
+            return false;
 
         }catch(PDOException $e){
             print_r('Error: ' . $e->getMessage());
@@ -40,4 +41,41 @@ class AnnouncementModel extends Dbh{
             $stmt=null;
         }
     }
+
+    // update
+
+    public function removeAnnouncement($announcement_id){
+        try{
+            $stmt = $this->connect()->prepare('UPDATE announcement SET isDeleted = 1 WHERE announcment_id = ?');
+
+        if($stmt->execute([$announcement_id])){
+            return true;
+        }
+
+        return false;
+
+        }catch(PDOException $e){
+            print_r('Error: ' . $e->getMessage());
+        }finally{
+            $stmt=null;
+        }
+    }
+
+    public function toggleArchive($announcement_id, $isArchive){
+        try{
+            $stmt = $this->connect()->prepare('UPDATE announcement SET isArchive = ? WHERE announcment_id = ?');
+
+        if($stmt->execute([$isArchive, $announcement_id])){
+            return true;
+        }
+
+        return false;
+
+        }catch(PDOException $e){
+            print_r('Error: ' . $e->getMessage());
+        }finally{
+            $stmt=null;
+        }
+    }
+    
 }
