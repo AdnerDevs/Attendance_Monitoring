@@ -21,7 +21,7 @@ $announcement_model = new AnnouncementModel();
 if($_SERVER['REQUEST_METHOD'] == 'POST'){
     if(isset($_POST['fetch_data'])){
 
-        $fetchAll = $announcement_model->getAllAnnouncement();
+        $fetchAll = $announcement_model->getAllAnnouncementServerSide();
         echo json_encode($fetchAll);
     }
 
@@ -85,10 +85,26 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
 
     if(isset($_POST['delete_announcement'])){
         $announcement_id = $_POST['delete_announcement'];
-        echo json_encode($announcement_id);
+
+        $remove = $announcement_model->removeAnnouncement($announcement_id);
+        if($remove){
+            echo json_encode("success");
+        }else{
+            echo json_encode("failed");
+        }
     }
     
-    if(isset($_POST['archive_announcement'])){
-        echo json_encode('connected');
+    if(isset($_POST['archive_announcement']) && isset($_POST['archive_value'])){
+        
+        $announcement_id = htmlspecialchars($_POST['archive_announcement'],ENT_QUOTES, 'UTF-8');
+        $triggerValue = htmlspecialchars($_POST['archive_value'],ENT_QUOTES, 'UTF-8');
+
+        $archive = $announcement_model->toggleArchive($announcement_id, $triggerValue);
+
+        if($archive != false){
+            echo json_encode(['success'=> $archive]);
+        }else{
+            echo json_encode(['failed' => 'unable to archive']);
+        }
     }
 }

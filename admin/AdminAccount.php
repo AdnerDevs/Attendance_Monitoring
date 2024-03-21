@@ -428,6 +428,7 @@ if (isset($_SESSION['admin_management_view']) && $_SESSION['admin_management_vie
                                 },
                                 {
                                     "data": "admin_id",
+                                    "orderable": false,
                                     "render": function(data, type, row, meta) {
                                         var buttons = '';
 

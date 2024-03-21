@@ -21,6 +21,25 @@ class AnnouncementModel extends Dbh{
         }
     }
 
+    public function getAllAnnouncementServerSide(){
+        try{
+
+            $stmt = $this->connect()->prepare("SELECT * FROM announcement WHERE isDeleted != 1");
+
+            if(!$stmt->execute()){
+                return false;
+            }
+
+            $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            return $result;
+
+        }catch(PDOException $e){
+            print_r('Error: ' . $e->getMessage());
+        }finally{
+            $stmt=null;
+        }
+    }
+
     // insert
     public function insertAnnouncement($announcement_text, $announcement_image, $current_date){
         try{

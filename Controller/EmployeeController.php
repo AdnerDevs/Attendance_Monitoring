@@ -41,5 +41,13 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
         
     }
 
+    if(isset($_POST['fetch_employee'])){
+
+        $fetch  = $employee_model->getAllEmployees();
+
+        echo json_encode($fetch);
+
+    }
+
   
 }
