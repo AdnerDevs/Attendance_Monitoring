@@ -170,7 +170,34 @@ if (isset($_SESSION['employee_management_view']) && $_SESSION['employee_manageme
 
       $(document).on('click', '.RemoveAccountBtn', function(e){
         employee_id = $(this).data("bs-id");
-        alert(employee_id);
+       
+        let confirmRevove = confirm('Are you sure you want to remove this employee? By removing employee they no longer have rights to login to the website');
+        if(confirmRevove){
+
+          $.ajax({
+            type: 'POST',
+            url: '../Controller/EmployeeController.php',
+            data:{
+              remove_employee: employee_id
+            },
+            dataType: 'json',
+            success: function (response){
+              console.log(response);
+              if(response.status === "success"){
+                $("#table_employee").DataTable().destroy();
+                alert("Employee has been removed");
+                fetchEmployee();
+              }else{
+                alert("error in removing");
+              }
+            },
+            error: function(error){
+              console.log(error);
+            }
+          });
+        }else{
+          return;
+        }
       });
     });
   </script>

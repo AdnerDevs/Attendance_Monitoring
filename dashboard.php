@@ -17,18 +17,9 @@ if (isset($_SESSION["employee_id"]) && $_SESSION["employee_id"]) {
     <link rel="stylesheet" href="asset/css/animatedText.css">
     <link rel="stylesheet" href="asset/css/btnStartAnimation.css">
     <link rel="stylesheet" href="asset/css/ballAnimation.css">
-    <link rel="stylesheet" href="asset/css/tu.css">
+    <link rel="stylesheet" href="asset/css/sliding.css">
     <div class="container-fluid min-vh-100 mt-0 position-relative" style="background-image: url('asset/img/bg_msa.jpg');  background-size: cover;
     background-position: center; background-repeat: no-repeat; ">
-        <style>
-            @import url('https://fonts.googleapis.com/css2?family=Angkor&family=Noto+Sans+Khojki&family=Rock+3D&display=swap');
-
-            .angkor-regular {
-                font-family: "Angkor", serif;
-                font-weight: 400;
-                font-style: normal;
-            }
-        </style>
         <div class="row sticky-md-top">
             <p class="h4 text-center fs-1 tracking-in-expand text-white p-2 shadow "><i class="fa fa-bullhorn"
                     aria-hidden="true" style="transform: rotateY(180deg);"></i> Announcement <i class="fa fa-bullhorn"
@@ -232,7 +223,7 @@ if (isset($_SESSION["employee_id"]) && $_SESSION["employee_id"]) {
         </div>
 
         <div class="container-fluid start-0 bottom-0 p-0 mt-4 fixed-bottom "
-            style="background:  transparent; width:100%; z-index: 5;">
+            style="background:  transparent; width:100%; z-index: 5999;">
             <div class="d-flex ">
 
                 <button type="button" class=" btn btn-warning " id="showHistory" data-bs-toggle="collapse"

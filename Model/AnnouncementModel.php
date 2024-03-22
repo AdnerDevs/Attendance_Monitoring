@@ -63,6 +63,23 @@ class AnnouncementModel extends Dbh{
 
     // update
 
+    public function updateAnnouncement($announcement_id, $announcement_text, $announcement_image, $current_date){
+        try{
+            $stmt = $this->connect()->prepare('UPDATE announcement SET announcement_text = ?, announcement_image = ?, date_created = ?  WHERE announcment_id = ?');
+
+        if($stmt->execute([$announcement_text, $announcement_image, $current_date, $announcement_id])){
+            return true;
+        }
+
+        return false;
+
+        }catch(PDOException $e){
+            print_r('Error: ' . $e->getMessage());
+        }finally{
+            $stmt=null;
+        }
+    }
+
     public function removeAnnouncement($announcement_id){
         try{
             $stmt = $this->connect()->prepare('UPDATE announcement SET isDeleted = 1 WHERE announcment_id = ?');

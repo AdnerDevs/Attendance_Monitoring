@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 20, 2024 at 04:59 AM
+-- Generation Time: Mar 22, 2024 at 09:16 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -97,16 +97,17 @@ CREATE TABLE `announcement` (
 --
 
 INSERT INTO `announcement` (`announcment_id`, `announcement_text`, `announcement_image`, `date_created`, `isDeleted`, `isArchive`) VALUES
-(1, '<h1><strong>asdasda</strong></h1>', 'marcus.jpg', '2024-02-24 20:39:50', 0, 0),
-(2, '&lt;p&gt;asdada&lt;/p&gt;', 'Screenshot 2024-03-15 094503.png', '2024-03-20 09:44:55', 0, 0),
-(3, '<h1><span style=\"color: rgb(255, 235, 204);\">asdadada</span></h1>', 'Blue White and Black Modern Technology Logo (1).jpg', '2024-03-20 09:46:00', 0, 0),
+(1, '<h1><strong style=\"color: rgb(230, 0, 0);\"><u>asdadadaasdaaaaaaaaaASDA</u></strong></h1>', 'g.jpg', '2024-03-22 13:26:01', 0, 0),
+(2, '&lt;p&gt;asdada&lt;/p&gt;', 'Screenshot 2024-03-15 094503.png', '2024-03-20 09:44:55', 1, 0),
+(3, '<h5><strong style=\"color: rgb(255, 255, 0); background-color: rgb(102, 61, 0);\">asdadadaasdaaaaaaaaaASDA</strong></h5>', 'marcus.jpg', '2024-03-22 13:26:11', 0, 0),
 (4, '<h1><strong style=\"color: rgb(204, 232, 204);\">asdada</strong></h1>', 'Screenshot 2024-03-15 095050.png', '2024-03-20 10:02:15', 0, 0),
-(5, '<h1><strong style=\"background-color: rgb(230, 0, 0);\">asdada</strong></h1>', '', '2024-03-20 10:03:19', 0, 0),
+(5, '<h1><strong style=\"background-color: rgb(230, 0, 0);\">asdada</strong></h1>', 'pogi.jpg', '2024-03-22 13:32:28', 0, 0),
 (6, '<h1><strong style=\"color: rgb(230, 0, 0);\">sadadad</strong></h1>', '2316258_call_cellphone_mobile phone_phone_resume_icon.png', '2024-03-20 10:05:51', 0, 0),
 (7, '<h1><s style=\"color: rgb(255, 153, 0);\">asdadada</s></h1>', 'Screenshot 2024-03-13 154223.png', '2024-03-20 10:07:34', 0, 0),
-(8, '<h1><strong>asdada</strong></h1>', '', '2024-03-20 10:09:01', 0, 0),
+(8, '<h1><s>asdada</s></h1>', '', '2024-03-22 13:27:29', 0, 0),
 (9, '<p><strong>asdada</strong></p>', '', '2024-03-20 10:11:06', 0, 0),
-(10, '<h3><strong style=\"color: rgb(255, 153, 0);\">asdsada</strong></h3>', '', '2024-03-20 10:11:44', 0, 0);
+(10, '<h3><strong style=\"color: rgb(255, 153, 0);\">asdsada</strong></h3>', '', '2024-03-20 10:11:44', 0, 0),
+(11, '<p><span class=\"ql-font-monospace\" style=\"background-color: rgb(255, 255, 0);\">Bagong Announcement</span></p>', 'bg_msa.jpg', '2024-03-22 14:25:44', 0, 0);
 
 -- --------------------------------------------------------
 
@@ -168,7 +169,8 @@ INSERT INTO `employee_attendance` (`employee_attendance_id`, `employee_id`, `emp
 (180, '01-2457321', 'EROR LOGIN', 2, 1, 'Attendance', '2024-03-14 08:37:42', '2024-03-14 09:10:02', '1940', 0, 0, 32, 20, '01-2457321ERO', '2024-03-14 09:10:02', 0),
 (181, '01-2457321', 'EROR LOGIN', 2, 1, 'Attendance', '2024-03-14 14:01:31', '2024-03-18 09:27:11', '329140', 3, 19, 25, 40, '01-2457321ERO', '2024-03-18 09:27:11', 0),
 (182, '01-2457321', 'EROR LOGIN', 2, 1, 'Attendance', '2024-03-18 09:18:10', '2024-03-18 09:24:52', '402', 0, 0, 6, 42, '01-2457321ERO', '2024-03-18 09:24:52', 0),
-(183, '01-2457321', 'EROR LOGIN', 2, 1, 'Attendance', '2024-03-18 17:07:45', '2024-03-18 17:11:11', '206', 0, 0, 3, 26, '01-2457321ERO', '2024-03-18 17:11:11', 0);
+(183, '01-2457321', 'EROR LOGIN', 2, 1, 'Attendance', '2024-03-18 17:07:45', '2024-03-18 17:11:11', '206', 0, 0, 3, 26, '01-2457321ERO', '2024-03-18 17:11:11', 0),
+(184, '01-2457321', 'EROR LOGIN', 2, 1, 'Attendance', '2024-03-22 13:47:37', '2024-03-22 14:23:44', '2167', 0, 0, 36, 7, '01-2457321ERO', '2024-03-22 14:23:44', 0);
 
 -- --------------------------------------------------------
 
@@ -191,19 +193,19 @@ CREATE TABLE `employee_user` (
 --
 
 INSERT INTO `employee_user` (`employee_id`, `employee_name`, `nickname`, `department_id`, `created_time`, `status`, `isRemove`) VALUES
-('01-2457321', 'EROR LOGIN', 'ERO', 2, '2024-02-22 13:05:51', 1, 0),
+('01-2457321', 'EROR LOGIN', 'ERO', 2, '2024-02-22 13:05:51', 0, 0),
 ('02-0454sen', 'adner devila', '', 2, '2024-02-21 15:07:10', 0, 0),
 ('02-070031-CENA', 'JOHN CENA', '', 2, '2024-02-21 15:07:10', 0, 0),
 ('02-2295931', 'LEGENDS LION', 'LEAGUE', 1, '2024-02-24 19:48:36', 0, 0),
 ('02-5003dEV', '02-5003dEV', '', 2, '2024-02-21 15:07:10', 0, 0),
-('09-1236781', 'ALCOR LOER', 'LOR', 2, '2024-02-22 13:03:06', 0, 0),
+('09-1236781', 'ALCOR LOER', 'LOR', 2, '2024-02-22 13:03:06', 0, 1),
 ('123', 'ASD DSA', 'ASD', 1, '2024-02-21 15:07:10', 0, 0),
 ('1234', 'ADNER DEVS', 'DEV', 1, '2024-02-21 15:07:10', 0, 0),
-('1234567891', 'AD NER', 'DEV', 1, '2024-02-21 15:07:10', 0, 0),
-('12345678912131', 'ASDAD DF', 'SA', 2, '2024-03-08 09:55:16', 1, 0),
-('1234567895', 'A GF', 'A', 1, '2024-03-08 10:10:30', 0, 0),
-('20-3455les', 'lesly summer', '', 1, '2024-02-21 15:07:10', 0, 0),
-('9874653127', 'SUN WUKONG', 'SEV', 1, '2024-03-19 10:54:11', 1, 0),
+('1234567891', 'AD NER', 'DEV', 1, '2024-02-21 15:07:10', 0, 1),
+('12345678912131', 'ASDAD DF', 'SA', 2, '2024-03-08 09:55:16', 1, 1),
+('1234567895', 'A GF', 'A', 1, '2024-03-08 10:10:30', 0, 1),
+('20-3455les', 'lesly summer', '', 1, '2024-02-21 15:07:10', 0, 1),
+('9874653127', 'SUN WUKONG', 'SEV', 1, '2024-03-19 10:54:11', 0, 0),
 ('9876543211', 'HANNA KUL', 'JUS', 2, '2024-02-21 15:07:10', 0, 0);
 
 -- --------------------------------------------------------
@@ -228,7 +230,7 @@ CREATE TABLE `login_credentials` (
 INSERT INTO `login_credentials` (`login_id`, `employee_id`, `credential_id`, `credential_surname`, `user_type`, `isRemove`) VALUES
 (1, '1234', '1234DEV', 'DEVS', 'employee', 0),
 (2, '123', '123ASD', 'DSA', 'employee', 0),
-(3, '1234567891', '1234567891DEV', 'NER', 'employee', 0),
+(3, '1234567891', '1234567891DEV', 'NER', 'employee', 1),
 (4, '9876543211', '9876543211JUS', 'KUL', 'admin', 0),
 (6, '01-2457321', '01-2457321ERO', 'LOGIN', 'employee', 0),
 (7, '02-2295931', '02-2295931LEAGUE', 'LION', 'employee', 0),
@@ -238,8 +240,8 @@ INSERT INTO `login_credentials` (`login_id`, `employee_id`, `credential_id`, `cr
 (11, '321ADNER', '321ADNER', 'neru', 'admin', 0),
 (12, '123SAMPL', '123SAMPL', 'samp', 'admin', 1),
 (13, '250minad', '250minad', 'MCss', 'admin', 0),
-(14, '12345678912131', '12345678912131SA', 'DF', 'employee', 0),
-(15, '1234567895', '1234567895A', 'GF', 'employee', 0),
+(14, '12345678912131', '12345678912131SA', 'DF', 'employee', 1),
+(15, '1234567895', '1234567895A', 'GF', 'employee', 1),
 (16, '9874653127', '9874653127SEV', 'WUKONG', 'employee', 0);
 
 -- --------------------------------------------------------
@@ -385,7 +387,7 @@ ALTER TABLE `activity`
 -- AUTO_INCREMENT for table `announcement`
 --
 ALTER TABLE `announcement`
-  MODIFY `announcment_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `announcment_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `department`
@@ -397,7 +399,7 @@ ALTER TABLE `department`
 -- AUTO_INCREMENT for table `employee_attendance`
 --
 ALTER TABLE `employee_attendance`
-  MODIFY `employee_attendance_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=184;
+  MODIFY `employee_attendance_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=185;
 
 --
 -- AUTO_INCREMENT for table `login_credentials`

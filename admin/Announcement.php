@@ -1,5 +1,5 @@
 <?php
-require_once('AdminHeader.php');
+require_once ('AdminHeader.php');
 ?>
 <!-- include libraries(jQuery, bootstrap) -->
 <!-- <link href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" rel="stylesheet">
@@ -66,11 +66,54 @@ require_once('AdminHeader.php');
   </div>
 </div>
 
+<div class="modal fade" id="AnnouncementModal" tabindex="-1" aria-labelledby="AnnouncementModal" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="AnnouncementModalTitle"></h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="row rounded p-2 ">
+          <div class="col-md-6 mb-4">
+            <label class="">Announcement</label>
+            <div id="editor2" style="height: 100px;">
+              
+            </div>
+          </div>
+
+          <div class="col-md-6">
+          
+           
+            <label class="">Upload New Image Picture (optional)</label>
+            <div class="input-group mb-3">
+              <input type="file" class="form-control" id="inputGroupFile03">
+              <label class="input-group-text" for="inputGroupFile03">Upload</label>
+
+            </div>
+            <div class="image_preview" >
+              <!-- <img src="" alt="Preview Image" style="max-height: 100px;"> -->
+            </div>
+            <!-- <button type="button" class="btn btn-primary " id="updateAnnouncement" style="width: 100%">New</button> -->
+          </div>
+
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary updateAnnouncement" id="updateAnnouncement" data-bs-dismiss="modal">Save changes</button>
+        <input type="hidden" id="old_image">
+      </div>
+    </div>
+  </div>
+</div>
+
 
 <script>
- 
+
 
   let announcement_id;
+  let quill2;
   let toolbaroptions = [
     ['bold', 'italic', 'underline', 'strike'],
     [{
@@ -93,10 +136,23 @@ require_once('AdminHeader.php');
   });
 
 
-  $(document).ready(function() {
+    quill2 = new Quill('#editor2', {
+        modules: {
+            toolbar: toolbaroptions,
+        },
+        theme: 'snow'
+    });
+
+
+  $(document).ready(function () {
+
+    
 
     fetchAnnouncement();
-    $("#newAnnouncement").click(function(e) {
+
+
+
+    $("#newAnnouncement").click(function (e) {
       e.preventDefault();
 
       // Get the text from the Quill editor
@@ -110,7 +166,6 @@ require_once('AdminHeader.php');
       let formData = new FormData();
       formData.append('text_sample', text);
 
-      // Append file to FormData if it exists
       if (file) {
         formData.append('file_sample', file);
       }
@@ -123,7 +178,7 @@ require_once('AdminHeader.php');
         processData: false, // Don't process the data
         contentType: false, // Don't set content type
         dataType: 'json',
-        success: function(response) {
+        success: function (response) {
 
           if (response.failed == "You can't upload files of this type") {
 
@@ -143,7 +198,7 @@ require_once('AdminHeader.php');
           }
 
         },
-        error: function(jqXHR, textStatus, errorThrown) {
+        error: function (jqXHR, textStatus, errorThrown) {
           console.error(jqXHR, textStatus, errorThrown);
         }
       });
@@ -157,134 +212,231 @@ require_once('AdminHeader.php');
           fetch_data: 'fetch_announcement'
         },
         dataType: 'json',
-        success: function(data) {
+        success: function (data) {
           // console.log(data);
           $("#table_announcement").dataTable({
             "data": data,
             "responsive": true,
             "columns": [{
-                "data": null,
-                "orderable": false,
-                "render": function(data, type, row, meta) {
-                  return meta.row + 1;
-                }
-  
-              },
-              {
-                "data": "announcement_text",
-                "render": function(data, type, row) {
-                  // Render HTML content
-                  return data;
-                }
-              },
-              {
-                "data": "announcement_image",
-                "orderable": false,
-                "render": function(data, type, row, meta) {
-                  if (data && data.trim() !== "") {
-                    return '<img src="../asset/upload/' + data + '" alt="Announcement Image" style="height: 100px;">';
-                  } else {
-                    return 'No Image Uploaded';
-                  }
-                }
-              },
-              {
-                "data": "date_created"
-              },
-              {
-                "data":"isArchive",
-                "render": function(data, type, row, meta){
-                  if(data == 1){
-                    return '<span class="text-warning">Archived</span>'
-                  }else{
-                    return '<span class="text-success">Active</span>'
-                  }
-                }
-              },
-              {
-                "data": "announcment_id",
-                "orderable": false,
-                "render": function(data, type, row, meta) {
-                  var buttons = '';
-  
-                  buttons += '<button type="button" class="btn btn-outline-primary EditAccountBtn me-2" data-bs-id="' + data + '" data-bs-toggle="modal" data-bs-target="#EditAccountModal">Edit</button>' +
-                    '<button type="button" class="btn btn-outline-danger RemoveAccountBtn me-2" data-bs-id="' + data + '">Remove</button>';
-                  if (row.isArchive == 1) {
-                    buttons += '<button type="button" class="btn btn-outline-warning ArchiveAccountBtn" data-bs-id="' + data + '" data-bs-value="0">Unarchive</button>';
-                  } else {
-                    buttons += '<button type="button" class="btn btn-outline-secondary ArchiveAccountBtn" data-bs-id="' + data + '" data-bs-value="1">Archive</button>';
-                  }
-  
-                  return buttons;
+              "data": null,
+              "render": function (data, type, row, meta) {
+                return meta.row + 1;
+              }
+
+            },
+            {
+              "data": "announcement_text",
+              "render": function (data, type, row) {
+                // Render HTML content
+                return data;
+              }
+            },
+            {
+              "data": "announcement_image",
+              "orderable": false,
+              "render": function (data, type, row, meta) {
+                if (data && data.trim() !== "") {
+                  return '<img src="../asset/upload/' + data + '" alt="Announcement Image" style="height: 100px;">';
+                } else {
+                  return 'No Image Uploaded';
                 }
               }
-  
+            },
+            {
+              "data": "date_created"
+            },
+            {
+              "data": "isArchive",
+              "render": function (data, type, row, meta) {
+                if (data == 1) {
+                  return '<span class="text-warning">Archived</span>'
+                } else {
+                  return '<span class="text-success">Active</span>'
+                }
+              }
+            },
+            {
+              "data": "announcment_id",
+              "orderable": false,
+              "render": function (data, type, row, meta) {
+                var buttons = '';
+
+                buttons += '<button type="button" class="btn btn-outline-primary EditAccountBtn me-2" data-bs-id="' + data + '" data-bs-toggle="modal" data-bs-target="#AnnouncementModal">Edit</button>' +
+                  '<button type="button" class="btn btn-outline-danger RemoveAccountBtn me-2" data-bs-id="' + data + '">Remove</button>';
+                if (row.isArchive == 1) {
+                  buttons += '<button type="button" class="btn btn-outline-warning ArchiveAccountBtn" data-bs-id="' + data + '" data-bs-value="0">Unarchive</button>';
+                } else {
+                  buttons += '<button type="button" class="btn btn-outline-secondary ArchiveAccountBtn" data-bs-id="' + data + '" data-bs-value="1">Archive</button>';
+                }
+
+                return buttons;
+              }
+            }
+
             ],
           });
-  
+
+
+          $("#table_announcement").on("click", ".EditAccountBtn", function (e) {
+            e.preventDefault();
+            announcement_id = $(this).data("bs-id");
+            getAnnouncementById(announcement_id, data);
+
+          });
+
+
         },
-        error: function(jqXHR, textStatus, errorThrown) {
+        error: function (jqXHR, textStatus, errorThrown) {
           console.error(jqXHR, textStatus, errorThrown);
         }
       });
     }
-  
+
+
+    function getAnnouncementById(announcement_id, data) {
+        const announcement = data.find(item => item.announcment_id === announcement_id);
+
+        if (announcement) {
+          var imageURL
+          quill2.root.innerHTML = announcement.announcement_text;
+          if (announcement.announcement_image && announcement.announcement_image.trim() !== "") {
+              imageURL = "../asset/upload/" + announcement.announcement_image;
+              var imgElement = $("<img>").attr("src", imageURL).addClass("announcement-image").css("max-height", "100px");
+              $(".image_preview").html(imgElement);
+          } else {
+              $(".image_preview").text("No Image uploaded");
+          }
+          $("#AnnouncementModalTitle").text("Update Announcement");
+          $(".updateAnnouncement").val(announcement_id);
+      
+          $("#old_image").val(announcement.announcement_image);
+          
+        }
+
+
+       
+    }
+
+    $(document).on("click", "#updateAnnouncement", function(e){
+            e.preventDefault();
+            announcement_id = $(this).val();
+            old_image = $("#old_image").val();
+          
+            updateAnnouncement(announcement_id, old_image);
+
+    });
+
+    function updateAnnouncement(announcement_id, old_image){
+      console.log(announcement_id);
+
+      let text = quill2.root.innerHTML;
+
+        // Get the selected file
+        let fileInput = $('#inputGroupFile03');
+        let file = fileInput.prop('files')[0];
+
+        // Create FormData object
+        let formData = new FormData();
+        formData.append('announcement_text', text);
+        formData.append('update_announcement_id', announcement_id);
+        formData.append('previous_image', old_image);
+        // Append file to FormData if it exists
+        if (file) {
+          formData.append('update_file', file);
+        }
+        // Send AJAX request
+      $.ajax({
+        type: 'POST',
+        url: '../Controller/AnnouncementController.php',
+        data: formData,
+        processData: false, // Don't process the data
+        contentType: false, // Don't set content type
+        dataType: 'json',
+        success: function (response) {
     
-    $(document).on('click', '.RemoveAccountBtn', function(e) {
-        e.preventDefault();
-        announcement_id = $(this).data('bs-id');
-        var confirmRemove = confirm('Are you sure you want to remove this announcement?');
-  
-        if(confirmRemove){
-  
-          $.ajax({
-            type: 'POST',
-            url: '../Controller/AnnouncementController.php',
-            data: {
-              delete_announcement: announcement_id
-            },
-            dataType: 'json',
-            success: function(response) {
-              if(response === 'success'){
-                $("#table_announcement").DataTable().destroy();
-                  fetchAnnouncement();
-              }
-            },
-            error: function(error) {
-              console.log(error);
-            }
-          });
-        }else{
-          return;
+          if (response.failed == "You can't upload files of this type") {
+
+            $('#inputGroupFile03').val('');
+            alert(response.failed);
+          }
+          if (response.failed == "Sorry, your file is too large.") {
+
+            $('#inputGroupFile03').val('');
+            alert(response.failed);
+          }
+          if (response.success == true) {
+            $("#table_announcement").DataTable().destroy();
+            alert("Announcement has been updated");
+            quill2.root.innerHTML = "";
+            $("")
+            $('#inputGroupFile03').val('');
+            fetchAnnouncement();
+          }
+
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+          console.error(jqXHR, textStatus, errorThrown);
         }
       });
-  
-      $(document).on('click', '.ArchiveAccountBtn', function(e){
+
+
+    }
+
+    $(document).on('click', '.RemoveAccountBtn', function (e) {
+      e.preventDefault();
       announcement_id = $(this).data('bs-id');
-      let value = $(this).data('bs-value');
-  
-      $.ajax({
-          type:'POST',
+      var confirmRemove = confirm('Are you sure you want to remove this announcement?');
+
+      if (confirmRemove) {
+
+        $.ajax({
+          type: 'POST',
           url: '../Controller/AnnouncementController.php',
-          data:{
-              archive_announcement:announcement_id,
-              archive_value:value
+          data: {
+            delete_announcement: announcement_id
           },
           dataType: 'json',
-          success: function(response){
-              if(response.success !== false){
-                  $("#table_announcement").DataTable().destroy();
-                  fetchAnnouncement();
-              }else{
-                  alert(response.failed);
-              }
-              console.log(response);
+          success: function (response) {
+            if (response === 'success') {
+              $("#table_announcement").DataTable().destroy();
+              fetchAnnouncement();
+            }
           },
-          error: function(error){
-              console.log(error);
+          error: function (error) {
+            console.log(error);
           }
+        });
+      } else {
+        return;
+      }
+    });
+
+    $(document).on('click', '.ArchiveAccountBtn', function (e) {
+      announcement_id = $(this).data('bs-id');
+      let value = $(this).data('bs-value');
+
+      $.ajax({
+        type: 'POST',
+        url: '../Controller/AnnouncementController.php',
+        data: {
+          archive_announcement: announcement_id,
+          archive_value: value
+        },
+        dataType: 'json',
+        success: function (response) {
+          if (response.success !== false) {
+            $("#table_announcement").DataTable().destroy();
+            fetchAnnouncement();
+          } else {
+            alert(response.failed);
+          }
+          console.log(response);
+        },
+        error: function (error) {
+          console.log(error);
+        }
       });
-  });
+    });
 
 
   });
@@ -295,5 +447,5 @@ require_once('AdminHeader.php');
 </script>
 
 <?php
-require_once('AdminFooter.php');
+require_once ('AdminFooter.php');
 ?>

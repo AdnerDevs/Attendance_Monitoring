@@ -8,7 +8,7 @@ class EmployeeModel extends Dbh
     public function getAllEmployees()
     {
         try {
-            $stmt = $this->connect()->prepare("SELECT eu.employee_id, eu.employee_name, eu.nickname, eu.status, dp.department_name, eu.created_time FROM employee_user eu INNER JOIN department dp ON eu.department_id = dp.department_id ORDER BY employee_id ASC");
+            $stmt = $this->connect()->prepare("SELECT eu.employee_id, eu.employee_name, eu.nickname, eu.status, dp.department_name, eu.created_time FROM employee_user eu INNER JOIN department dp ON eu.department_id = dp.department_id WHERE eu.isRemove != 1 ORDER BY employee_id ASC");
 
             if (!$stmt->execute()) {
                 return false;

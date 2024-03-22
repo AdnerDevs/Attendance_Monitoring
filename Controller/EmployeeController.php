@@ -49,5 +49,22 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
 
     }
 
+
+    // update
+
+    if(isset($_POST['remove_employee'])){
+
+        $employee_id = htmlspecialchars($_POST['remove_employee'], ENT_QUOTES, "UTF-8");
+
+        $remove_employees = $employee_model->removeEmployee($employee_id);
+        if ($remove_employees != false) {
+            echo json_encode(["status"=> "success"]);
+        }else{
+            echo json_encode(["status"=> "failed"]);
+        }
+        
+
+    }
+
   
 }
