@@ -65,14 +65,14 @@
                                 <td> <input class="form-check-input" type="checkbox" name="permission[announcement][delete]" id="announcement_delete" disabled></td>
                                 <td> <input class="form-check-input" type="checkbox" name="permission[announcement][archive]" id="announcement_archive" disabled></td>
                             </tr>
-                            <tr>
+                            <!-- <tr>
                                 <td>CMS</td>
                                 <td scope="row"> <input class="form-check-input" type="checkbox" name="permission[cms][view]" id="cms_view" ></td>
                                 <td> <input class="form-check-input" type="checkbox" name="permission[cms][view]" id="cms_create" disabled></td>
                                 <td> <input class="form-check-input" type="checkbox" name="permission[cms][update]" id="cms_update" disabled></td>
                                 <td> <input class="form-check-input" type="checkbox" name="permission[cms][delete]" id="cms_delete" disabled></td>
                                 <td> <input class="form-check-input" type="checkbox" name="permission[cms][archive]" id="cms_archive" disabled></td>
-                            </tr>
+                            </tr> -->
                            
                         </tbody>
                     </table>
@@ -93,45 +93,49 @@
 
 <script>
 $(document).ready(function() {
-
-    var formData = {};
-    let userlvlname;
-
-    $('input[type="checkbox"]').change(function() {
-        
-        var name = $(this).attr('name');
-        var checked = $(this).prop('checked');
-
-        formData[name] = checked ? 1 : 0;
-      
-    });
-
-
     $('#saveActivity').click(function(event) {
         event.preventDefault();
-        userlvlname = $("#uname").val();
-        console.log(formData);
-        $.ajax({
-            type: 'POST', 
-            url: '../Controller/UserlevelController.php', 
-            data: {
-                formData: formData,
-                userlevel_name: userlvlname
-            }, 
-            dataType: 'json', 
-            success: function(response) {
-                
-                console.log(response);
+        var formData = { 'permission': {} };
+        var userlvl_name = $('#uname').val();
+        // Loop through checked checkboxes and populate formData
+        $('input[type="checkbox"]:checked').each(function() {
+            var name = $(this).attr('name');
+            var value = $(this).prop('checked') ? 1 : 0;
+            var permission = name.split('[')[1].split(']')[0];
+            var action = name.split('[')[2].split(']')[0];
+            formData['permission'][permission] = formData['permission'][permission] || {};
+            formData['permission'][permission][action] = value;
+        });
         
+        console.log("Form data to be sent:", formData);
+        
+      // Call your AJAX post method here
+      $.ajax({
+            type: 'POST',
+            url: '../Controller/UserlevelController.php',
+            data:{
+                formData: formData,
+                userlevelname: userlvl_name
             },
-            error: function(xhr, status, error) {
-   
-                console.error(xhr, status, error);
-            
+            dataType:'json',
+            success: function(e){
+               
+                if(e.success === true){
+                    alert(e.message);
+                }else{
+                    alert(e.message);
+                }
+            },
+            error: function(er){
+                console.log(er);
             }
         });
+  
     });
 });
 
 
+
 </script>
+
+

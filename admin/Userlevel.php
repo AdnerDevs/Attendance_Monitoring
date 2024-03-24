@@ -14,9 +14,6 @@ $userlevel_model = new UserlevelModel();
     </div>
 
     <table class="table table-sm" id="table_userlevel">
-        <caption>
-            Description of the table.
-        </caption>
         <thead>
             <tr>
                 <th>No</th>
@@ -71,7 +68,7 @@ $userlevel_model = new UserlevelModel();
         const banCheckbox = document.getElementById(banId);
 
         viewCheckbox.addEventListener("change", function () {
-            console.log(section, "Checkbox is checked:", this.checked);
+            // console.log(section, "Checkbox is checked:", this.checked);
             // createCheckbox.disabled = !this.checked;
             if (!this.checked) {
                 createCheckbox.checked = false;
@@ -189,7 +186,7 @@ $userlevel_model = new UserlevelModel();
             },
             dataType: 'json',
             success: function (data) {
-                console.log(data);
+                // console.log(data);
                 $('#table_userlevel').dataTable({
                     "data": data,
                     "responsive": true,
