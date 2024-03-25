@@ -86,67 +86,28 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
     }
 
 
-    // if (isset($_POST["formData"]) && isset($_POST['userlevel_name'])){
 
-    //     $formData = $_POST["formData"];
-    //     $userlevelName = $_POST['userlevel_name'];
-    
-    //     // Example of processing form data
-    //     $checkboxData = [];
-    //     foreach ($formData as $name => $value) {
-    //         // Check if the name starts with 'permission[' and ends with ']'
-    //         if (strpos($name, 'permission[') === 0 && substr($name, -1) === ']') {
-    //             // Extract the checkbox name from the key
-    //             $checkboxName = substr($name, 11, -1);
-    
-    //             // Assign the checkbox value to the checkbox name in the $checkboxData array
-    //             $checkboxData[$checkboxName] = $value;
-    //         }
-    //     }
-    //         echo json_encode( $formData);
-        
-    //         // Now $checkboxData contains the checkbox names and their corresponding values (1 or 0)
-        
-    //         // Example of inserting checkbox data into the database using your insertUserlevel method
-    //         // $userlevel_name = $_POST['userlevel_name']; // Assuming you have a form field named 'userlevel_name'
-        
-    //         // // Call the insertUserlevel method with the checkbox data and other parameters
-    //         // $success = $userlevel_model->insertUserlevel(
-    //         //     $userlevel_name,
-    //         //     $checkboxData['dashboard']['view'],
-    //         //     $checkboxData['admin_management']['view'],
-    //         //     $checkboxData['admin_management']['create'],
-    //         //     $checkboxData['admin_management']['update'],
-    //         //     $checkboxData['admin_management']['delete'],
-    //         //     $checkboxData['admin_management']['archive'],
-    //         //     $checkboxData['employee_management']['view'],
-    //         //     $checkboxData['employee_management']['create'],
-    //         //     $checkboxData['employee_management']['update'],
-    //         //     $checkboxData['employee_management']['delete'],
-    //         //     $checkboxData['employee_monitoring_management']['view'],
-    //         //     $checkboxData['employee_monitoring_management']['create'],
-    //         //     $checkboxData['employee_monitoring_management']['update'],
-    //         //     $checkboxData['employee_monitoring_management']['delete'],
-    //         //     $checkboxData['announcement']['view'],
-    //         //     $checkboxData['announcement']['create'],
-    //         //     $checkboxData['announcement']['update'],
-    //         //     $checkboxData['announcement']['delete'],
-    //         //     $checkboxData['announcement']['archive'],
-    //         //     $checkboxData['cms_permission']['view'],
-    //         //     $checkboxData['cms_permission']['update']
-    //         // );
-        
-    //         // if ($success) {
-    //         //     // Insertion successful
-    //         //     echo json_encode(array('success' => true));
-    //         // } else {
-    //         //     // Insertion failed
-    //         //     echo json_encode(array('success' => false));
-    //         // }
-    //     } else {
-    //         // Handle cases where the request method is not POST
-    //         // You might want to return an error response or perform other actions here
-    //     }
+        if(isset($_POST['fetch_all'])){
+            // $id = $_POST['get_userlevel'];
+            
+            $getall = $userlevel_model->getAllUserlevel();
+
+            header('Content-Type: application/json');
+            echo json_encode($getall);
+        }
+
+        if(isset($_POST['remove'])){
+            $userlevel_id = htmlspecialchars($_POST['remove'], ENT_QUOTES, 'UTF-8');
+
+            $remove = $userlevel_model->delete($userlevel_id);
+
+            if ($remove) {
+                echo json_encode(['success'=> true, 'message'=> 'Userlevel has been removed']);
+            }else{
+                echo json_encode(['success'=> false, 'message'=> 'Unable to remove userlevel']);
+            }
+           
+        }
     }
 //     if(isset($_POST["save_userlevel"]))
 //     {
@@ -219,27 +180,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
        
 //     }
 
-    if(isset($_POST['fetch_all'])){
-        // $id = $_POST['get_userlevel'];
-        
-         $getall = $userlevel_model->getAllUserlevel();
-
-        header('Content-Type: application/json');
-        echo json_encode($getall);
-    }
+ 
 
     
 
    
 // }
 
-// if($_SERVER['REQUEST_METHOD'] == 'GET'){
-//     if(isset($_GET['get_userlevel'])){
-//         $id = $_GET['get_userlevel'];
+if($_SERVER['REQUEST_METHOD'] == 'GET'){
+    if(isset($_GET['get_userlevel'])){
+        $id = $_GET['get_userlevel'];
         
-//          $wew= $userlevel_model->getUserlevelList($id);
+         $wew= $userlevel_model->getUserlevelList($id);
 
-//         header('Content-Type: application/json');
-//         echo json_encode($wew);
-//     }
-// }
+        header('Content-Type: application/json');
+        echo json_encode($wew);
+    }
+}

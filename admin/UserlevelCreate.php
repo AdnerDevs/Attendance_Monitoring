@@ -3,7 +3,7 @@
   <div class="modal-dialog modal-lg  modal-dialog-scrollable">
     <div class="modal-content">
       <div class="modal-header">
-        <h1 class="modal-title fs-5" id="ActivityTitle">Add Userlevel</h1>
+        <h1 class="modal-title fs-5" id="ActivityTitle"></h1>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
@@ -84,58 +84,20 @@
       
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="submit" class="btn btn-primary" id="saveActivity" name="save_userlevel">Save changes</button>
+        <button type="submit" class="btn btn-primary save_btn"  name="save_userlevel" >Save changes</button>
       </div>
     </div>
   </div>
 </form>
 </div>
 
-<script>
+<!-- <script>
 $(document).ready(function() {
-    $('#saveActivity').click(function(event) {
-        event.preventDefault();
-        var formData = { 'permission': {} };
-        var userlvl_name = $('#uname').val();
-        // Loop through checked checkboxes and populate formData
-        $('input[type="checkbox"]:checked').each(function() {
-            var name = $(this).attr('name');
-            var value = $(this).prop('checked') ? 1 : 0;
-            var permission = name.split('[')[1].split(']')[0];
-            var action = name.split('[')[2].split(']')[0];
-            formData['permission'][permission] = formData['permission'][permission] || {};
-            formData['permission'][permission][action] = value;
-        });
-        
-        console.log("Form data to be sent:", formData);
-        
-      // Call your AJAX post method here
-      $.ajax({
-            type: 'POST',
-            url: '../Controller/UserlevelController.php',
-            data:{
-                formData: formData,
-                userlevelname: userlvl_name
-            },
-            dataType:'json',
-            success: function(e){
-               
-                if(e.success === true){
-                    alert(e.message);
-                }else{
-                    alert(e.message);
-                }
-            },
-            error: function(er){
-                console.log(er);
-            }
-        });
   
-    });
 });
 
 
 
-</script>
+</script> -->
 
 

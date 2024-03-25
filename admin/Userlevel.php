@@ -1,7 +1,7 @@
 <?php
 
-require_once('AdminHeader.php');
-require_once('../Model/UserlevelModel.php');
+require_once ('AdminHeader.php');
+require_once ('../Model/UserlevelModel.php');
 
 $userlevel_model = new UserlevelModel();
 
@@ -9,8 +9,9 @@ $userlevel_model = new UserlevelModel();
 <div class="table-responsive">
     <div class="d-flex flex-row p-2 align-items-center">
         <p class="h4 mb-0 me-2">Userlevel Permission</p>
-        <button class="btn btn-outline-secondary rounded-circle" type="button" data-bs-toggle="modal"
-            data-bs-target="#ActivityModal"><i class="fa fa-plus" aria-hidden="true"></i></button>
+        <button class="btn btn-outline-secondary rounded-circle" type="button" id="create_userlevel"
+            data-bs-toggle="modal" data-bs-target="#ActivityModal"><i class="fa fa-plus"
+                aria-hidden="true"></i></button>
     </div>
 
     <table class="table table-sm" id="table_userlevel">
@@ -53,8 +54,8 @@ $userlevel_model = new UserlevelModel();
 
 
 <!-- Modal -->
-<?php include('UserlevelCreate.php'); ?>
-<?php include('UserlevelUpdate.php'); ?>
+<?php include ('UserlevelCreate.php'); ?>
+<?php include ('UserlevelUpdate.php'); ?>
 
 
 <script>
@@ -175,6 +176,71 @@ $userlevel_model = new UserlevelModel();
 <script>
     $(document).ready(function () {
         fetchUserlevel();
+
+        $('#create_userlevel').click(function (event) {
+            event.preventDefault();
+            $('#ActivityTitle').text("Create new userlevel");
+
+            $('.save_btn').attr('id', 'saveActivity');
+
+        });
+
+        $(document).on('click', '#saveActivity', function (event) {
+            event.preventDefault();
+
+            var formData = { 'permission': {} };
+            var userlvl_name = $('#uname').val();
+
+            // Loop through checked checkboxes and populate formData
+            $('input[type="checkbox"]:checked').each(function () {
+                var name = $(this).attr('name');
+                var value = $(this).prop('checked') ? 1 : 0;
+                var permission = name.split('[')[1].split(']')[0];
+                var action = name.split('[')[2].split(']')[0];
+                formData['permission'][permission] = formData['permission'][permission] || {};
+                formData['permission'][permission][action] = value;
+            });
+
+            console.log("Form data to be sent:", formData);
+            if (userlvl_name !== '') {
+
+                // Call your AJAX post method here
+                $.ajax({
+                    type: 'POST',
+                    url: '../Controller/UserlevelController.php',
+                    data: {
+                        formData: formData,
+                        userlevelname: userlvl_name
+                    },
+                    dataType: 'json',
+                    success: function (e) {
+
+                        if (e.success === true) {
+                            alert(e.message);
+                            $('#table_userlevel').DataTable().destroy();
+                            fetchUserlevel();
+                            $('#ActivityModal').modal('hide');
+                        } else {
+                            alert(e.message);
+                        }
+                    },
+                    error: function (er) {
+                        console.log(er);
+                    }
+                });
+            } else {
+                return;
+            }
+
+        });
+
+        $(document).on('click', '.RemoveAccountBtn', function (event) {
+            let userlevel_id = $(this).data('bs-id');
+            
+            removeUserlvel(userlevel_id);
+        });
+
+    
     });
 
     function fetchUserlevel() {
@@ -218,29 +284,80 @@ $userlevel_model = new UserlevelModel();
                                 // Generate HTML for both buttons
                                 var buttons = '';
                                 if (meta.row === 0) {
-                                            // If it's the first row, disable or hide the buttons
-                                            buttons += 'No action allowed';
+                                    // If it's the first row, disable or hide the buttons
+                                    buttons += 'No action allowed';
                                 } else {
-                                    buttons += '<button type="button" class="btn btn-outline-primary EditAccountBtn me-2" data-bs-id="' + data + '" data-bs-toggle="modal" data-bs-target="#EditAccountModal">Edit</button>' +
+                                    buttons += '<button type="button" class="btn btn-outline-primary EditAccountBtn me-2" data-bs-id="' + data + '" data-bs-toggle="modal" data-bs-target="#ActivityModal">Edit</button>' +
                                         '<button type="button" class="btn btn-outline-danger RemoveAccountBtn me-2" data-bs-id="' + data + '">Remove</button>';
-                                    if (row.isArchive == 1) {
-                                        buttons += '<button type="button" class="btn btn-outline-warning ArchiveAccountBtn" data-bs-id="' + data + '" data-bs-value="0">Unarchive</button>';
-                                    } else {
-                                        buttons += '<button type="button" class="btn btn-outline-secondary ArchiveAccountBtn" data-bs-id="' + data + '" data-bs-value="1">Archive</button>';
-                                    }
-
+                                    // if (row.isArchive == 1) {
+                                    //     buttons += '<button type="button" class="btn btn-outline-warning ArchiveAccountBtn" data-bs-id="' + data + '" data-bs-value="0">Unarchive</button>';
+                                    // } else {
+                                    //     buttons += '<button type="button" class="btn btn-outline-secondary ArchiveAccountBtn" data-bs-id="' + data + '" data-bs-value="1">Archive</button>';
+                                    // }
                                 }
                                 return buttons;
                             }
                         }
                     ],
                 });
+
+                $(document).on('click', '.EditAccountBtn', function (event) {
+                    event.preventDefault();
+
+                    $('#ActivityTitle').text("Update userlevel");
+                    $('.save_btn').attr('id', 'updateActivity');
+                    let userlevel_id = $(this).data('bs-id');
+                    updateUserlevel(userlevel_id, data);
+                    
+                });
             }
         });
     }
 
+    function removeUserlvel(userlevel_id) {
+        $.ajax({
+            type: 'POST',
+            url: '../Controller/UserlevelController.php',
+            data: {
+                remove: userlevel_id,
+            },
+            dataType: 'json',
+            success: function (response) {
+                if (response.success === true) {
+                    alert(response.message);
+                    $('#table_userlevel').DataTable().destroy();
+                    fetchUserlevel();
+                } else {
+                    alert(response.message);
+                }
+
+            },
+            error: function (error) {
+                console.log(error);
+            }
+        });
+    }
+
+    function updateUserlevel(userlevel_id, data){
+        const userlvl = data.find(item => item.userlevel_id === userlevel_id);
+        if (userlvl){
+            console.log(userlvl);
+            $('#dashboard_view').prop('checked', userlvl.dashboard_permission_view === 1);
+
+            $('#admin_management_view').prop('checked', userlvl.admin_management_view === 1);
+            $('#admin_management_create').prop('checked', userlvl.announcement_create === 1);
+            $('#admin_management_update').prop('checked', userlvl.announcement_update === 1);
+            $('#admin_management_delete').prop('checked', userlvl.announcement_delete === 1);
+            $('#admin_management_archive').prop('checked', userlvl.announcement_archive === 1);
+            
+
+
+
+
+        }
+    }
 
 </script>
 <?php
-require_once('AdminFooter.php');
+require_once ('AdminFooter.php');
 ?>

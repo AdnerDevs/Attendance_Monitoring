@@ -254,7 +254,7 @@ if (isset($_SESSION['admin_management_view']) && $_SESSION['admin_management_vie
                     type: 'POST',
                     url: "../Controller/UserlevelController.php",
                     data: {
-                        userlevel: 'userlvl',
+                        fetch_all: 'userlvl',
                     },
                     dataType: 'json',
                     success: function(data) {

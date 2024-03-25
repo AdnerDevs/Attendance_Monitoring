@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 24, 2024 at 11:59 PM
--- Server version: 10.4.28-MariaDB
--- PHP Version: 8.2.4
+-- Generation Time: Mar 25, 2024 at 10:03 AM
+-- Server version: 10.4.32-MariaDB
+-- PHP Version: 8.2.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -97,7 +97,7 @@ CREATE TABLE `announcement` (
 --
 
 INSERT INTO `announcement` (`announcment_id`, `announcement_text`, `announcement_image`, `date_created`, `isDeleted`, `isArchive`) VALUES
-(1, '<h1><strong style=\"color: rgb(230, 0, 0);\"><u>asdadaddfsdfs</u></strong></h1>', 'g.jpg', '2024-03-24 12:40:49', 0, 0),
+(1, '<h1><strong style=\"color: rgb(230, 0, 0);\"><u>asdadadaasdaaaaaaaaaASDA</u></strong></h1>', 'g.jpg', '2024-03-22 13:26:01', 0, 0),
 (2, '&lt;p&gt;asdada&lt;/p&gt;', 'Screenshot 2024-03-15 094503.png', '2024-03-20 09:44:55', 1, 0),
 (3, '<h5><strong style=\"color: rgb(255, 255, 0); background-color: rgb(102, 61, 0);\">asdadadaasdaaaaaaaaaASDA</strong></h5>', 'marcus.jpg', '2024-03-22 13:26:11', 0, 0),
 (4, '<h1><strong style=\"color: rgb(204, 232, 204);\">asdada</strong></h1>', 'Screenshot 2024-03-15 095050.png', '2024-03-20 10:02:15', 0, 0),
@@ -107,7 +107,7 @@ INSERT INTO `announcement` (`announcment_id`, `announcement_text`, `announcement
 (8, '<h1><s>asdada</s></h1>', '', '2024-03-22 13:27:29', 0, 0),
 (9, '<p><strong>asdada</strong></p>', '', '2024-03-20 10:11:06', 0, 0),
 (10, '<h3><strong style=\"color: rgb(255, 153, 0);\">asdsada</strong></h3>', '', '2024-03-20 10:11:44', 0, 0),
-(11, '<p><span class=\"ql-font-monospace\" style=\"background-color: rgb(255, 255, 0);\">Bagong Announcement</span></p>', 'bg_msa.jpg', '2024-03-22 14:25:44', 0, 0);
+(11, '<p><span class=\"ql-font-monospace\" style=\"background-color: rgb(255, 255, 0);\">Bagong Announcementdasdadadsadada</span></p>', 'herogram.jpg', '2024-03-25 09:39:29', 0, 0);
 
 -- --------------------------------------------------------
 
@@ -171,7 +171,10 @@ INSERT INTO `employee_attendance` (`employee_attendance_id`, `employee_id`, `emp
 (182, '01-2457321', 'EROR LOGIN', 2, 1, 'Attendance', '2024-03-18 09:18:10', '2024-03-18 09:24:52', '402', 0, 0, 6, 42, '01-2457321ERO', '2024-03-18 09:24:52', 0),
 (183, '01-2457321', 'EROR LOGIN', 2, 1, 'Attendance', '2024-03-18 17:07:45', '2024-03-18 17:11:11', '206', 0, 0, 3, 26, '01-2457321ERO', '2024-03-18 17:11:11', 0),
 (184, '01-2457321', 'EROR LOGIN', 2, 1, 'Attendance', '2024-03-22 13:47:37', '2024-03-22 14:23:44', '2167', 0, 0, 36, 7, '01-2457321ERO', '2024-03-22 14:23:44', 0),
-(185, '01-2457321', 'EROR LOGIN', 2, 1, 'Attendance', '2024-03-24 12:42:31', '2024-03-25 04:12:18', '55787', 0, 15, 29, 47, '01-2457321ERO', '2024-03-25 04:12:18', 0);
+(185, '01-2457321', 'EROR LOGIN', 2, 1, 'Attendance', '2024-03-25 09:36:21', '2024-03-25 09:42:35', '374', 0, 0, 6, 14, '01-2457321ERO', '2024-03-25 09:42:35', 0),
+(186, '01-2457321', 'EROR LOGIN', 2, 1, 'Attendance', '2024-03-25 09:42:53', '2024-03-25 09:46:28', '215', 0, 0, 3, 35, '01-2457321ERO', '2024-03-25 09:46:28', 0),
+(187, '01-2457321', 'EROR LOGIN', 2, 2, 'asdada', '2024-03-25 09:43:03', '2024-03-25 09:46:26', '203', 0, 0, 3, 23, '01-2457321ERO', '2024-03-25 09:46:26', 0),
+(188, '01-2457321', 'EROR LOGIN', 2, 1, 'Attendance', '2024-03-25 09:46:37', '2024-03-25 09:48:19', '102', 0, 0, 1, 42, '01-2457321ERO', '2024-03-25 09:48:19', 0);
 
 -- --------------------------------------------------------
 
@@ -194,7 +197,7 @@ CREATE TABLE `employee_user` (
 --
 
 INSERT INTO `employee_user` (`employee_id`, `employee_name`, `nickname`, `department_id`, `created_time`, `status`, `isRemove`) VALUES
-('01-2457321', 'EROR LOGIN', 'ERO', 2, '2024-02-22 13:05:51', 0, 0),
+('01-2457321', 'EROR LOGIN', 'ERO', 2, '2024-02-22 13:05:51', 1, 0),
 ('02-0454sen', 'adner devila', '', 2, '2024-02-21 15:07:10', 0, 0),
 ('02-070031-CENA', 'JOHN CENA', '', 2, '2024-02-21 15:07:10', 0, 0),
 ('02-2295931', 'LEGENDS LION', 'LEAGUE', 1, '2024-02-24 19:48:36', 0, 0),
@@ -271,7 +274,10 @@ INSERT INTO `notification` (`notification_id`, `employee_id`, `created_at`, `isS
 (12, '181', '2024-03-14 14:18:23', 1),
 (13, '181', '2024-03-14 14:25:04', 1),
 (14, '181', '2024-03-18 09:17:32', 1),
-(15, '182', '2024-03-18 09:18:25', 1);
+(15, '182', '2024-03-18 09:18:25', 1),
+(16, '187', '2024-03-25 09:43:46', 1),
+(17, '188', '2024-03-25 09:46:48', 1),
+(18, '188', '2024-03-25 09:47:14', 1);
 
 -- --------------------------------------------------------
 
@@ -303,8 +309,8 @@ CREATE TABLE `userlevel` (
   `announcement_archive` tinyint(1) NOT NULL DEFAULT 0,
   `cms_permission_view` tinyint(1) DEFAULT 0,
   `cms_permission_update` tinyint(1) DEFAULT 0,
-  `isDeleted` tinyint(1) DEFAULT 0,
-  `isArchive` tinyint(1) DEFAULT 0
+  `isDeleted` tinyint(1) NOT NULL DEFAULT 0,
+  `isArchive` tinyint(1) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -315,8 +321,12 @@ INSERT INTO `userlevel` (`userlevel_id`, `userlevel_name`, `dashboard_permission
 (1, 'Superadmin', 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0),
 (5, 'Sec', 1, 1, 0, 0, 0, 0, 1, 1, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
 (6, 'Sub', 1, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0),
-(21, 'hg', 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
-(22, 'sample', 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+(7, 'ssm', 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
+(8, 'sample', 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0),
+(9, 'sample', 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0),
+(10, 'asdad', 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0),
+(11, 'sampole2', 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0),
+(12, 's12', 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0);
 
 --
 -- Indexes for dumped tables
@@ -402,7 +412,7 @@ ALTER TABLE `department`
 -- AUTO_INCREMENT for table `employee_attendance`
 --
 ALTER TABLE `employee_attendance`
-  MODIFY `employee_attendance_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=186;
+  MODIFY `employee_attendance_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=189;
 
 --
 -- AUTO_INCREMENT for table `login_credentials`
@@ -414,13 +424,13 @@ ALTER TABLE `login_credentials`
 -- AUTO_INCREMENT for table `notification`
 --
 ALTER TABLE `notification`
-  MODIFY `notification_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `notification_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT for table `userlevel`
 --
 ALTER TABLE `userlevel`
-  MODIFY `userlevel_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+  MODIFY `userlevel_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

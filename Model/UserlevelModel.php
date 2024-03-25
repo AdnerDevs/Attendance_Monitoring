@@ -145,5 +145,22 @@ class UserlevelModel extends Dbh{
         }
     }
     
-    
+    // Update
+
+    public function delete($userlevel_id){
+        try{
+            
+            $stmt = $this->connect()->prepare('UPDATE userlevel set isDeleted = 1 WHERE userlevel_id = ?');
+
+            if($stmt->execute([$userlevel_id])){
+                return true;
+            }
+            
+            return false;
+        }catch(PDOException $e) {
+            print_r('error: '. $e->getMessage());
+        } finally {
+            $stmt = null;
+        }
+    }
 }

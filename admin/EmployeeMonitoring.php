@@ -95,10 +95,11 @@ $attendance = new AttendanceModel();
             },
             dataType: 'json',
             success: function (data) {
-                console.log(data);
+                // console.log(data);
                 $("#table_employee_monitoring").DataTable({
                     "data": data,
                     "dom": 'Bfrtip',
+                    "lengthMenu": [ [10, 25, 50, -1], [10, 25, 50, "All"] ],
                     "buttons": [
                         {
                             "extend": 'copy',
@@ -207,8 +208,8 @@ $attendance = new AttendanceModel();
         e.preventDefault();
 
 
-           var start_date = $("#start_date").datepicker('getDate');
-    var end_date = $("#end_date").datepicker('getDate');
+        var start_date = $("#start_date").datepicker('getDate');
+        var end_date = $("#end_date").datepicker('getDate');
 
     if (start_date == null || end_date == null) {
         alert("both dates are required");
@@ -235,7 +236,7 @@ $attendance = new AttendanceModel();
     $(document).on('click', '.prompt', function () {
         // Retrieve the employee ID from the data-bs-id attribute
         var employeeId = $(this).data('bs-id');
-        alert('click');
+        alert('Employee has been prompt');
         $.ajax({
             type: 'POST',
             url: '../Controller/AlertController.php',
