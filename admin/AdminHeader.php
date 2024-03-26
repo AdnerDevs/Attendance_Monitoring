@@ -47,7 +47,7 @@ if (isset($_SESSION['admin_id']) && $_SESSION["admin_id"]) {
 
         <script>
             $(document).ready(function () {
-                $('#myTable').DataTable();
+                // $('#myTable').DataTable();
 
                 // new DataTable("#myTable",{
                 //     scrollX:true;

@@ -24,7 +24,7 @@ if (isset($_SESSION["employee_id"]) && $_SESSION["employee_id"]) {
             <p class="h4 text-center fs-1 tracking-in-expand text-white p-2 shadow "><i class="fa fa-bullhorn"
                     aria-hidden="true" style="transform: rotateY(180deg);"></i> Announcement <i class="fa fa-bullhorn"
                     aria-hidden="true"></i></p>
-            <div class="scroller" data-speed="slow" data-direction="left">
+            <div class="scroller" data-speed="slow" data-direction="right">
                 <ul class="tag-list scroller__inner p-0 d-flex gap-2 py-2 flex-wrap ">
                     <?php
                     $announcement = $announcement_model->getAllAnnouncement();
@@ -33,7 +33,7 @@ if (isset($_SESSION["employee_id"]) && $_SESSION["employee_id"]) {
                         $announce = $announcement[$i];
                         $announce['announcement_text'] = htmlspecialchars_decode($announce['announcement_text']);
                         ?>
-                        <li class="scroll-li" style="max-width: 20%;">
+                        <li class="scroll-li" style="">
                             <div class="card">
                                 <div class="card-header">
                                     <div class="row ">

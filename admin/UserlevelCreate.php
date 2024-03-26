@@ -44,10 +44,10 @@
                             <tr>
                                 <td>Employee Management</td>
                                 <td scope="row"> <input class="form-check-input" type="checkbox" name="permission[employee_management][view]" id="employee_management_view"></td>
-                                <td> <input class="form-check-input" type="checkbox" name="permission[employee_management][create]" id="employee_management_create" disabled></td>
-                                <td> <input class="form-check-input" type="checkbox" name="permission[employee_management][update]" id="employee_management_update" disabled></td>
-                                <td> <input class="form-check-input" type="checkbox" name="permission[employee_management][delete]" id="employee_management_delete" disabled></td>
-                                <td> <input class="form-check-input" type="checkbox" name="permission[employee_management][archive]" id="employee_management_archive" disabled></td>
+                                <td> <input class="form-check-input" type="hidden" name="permission[employee_management][create]" id="employee_management_create" disabled></td>
+                                <td> <input class="form-check-input" type="hidden" name="permission[employee_management][update]" id="employee_management_update" disabled></td>
+                                <td> <input class="form-check-input" type="checkbox" name="permission[employee_management][delete]" id="employee_management_delete" ></td>
+                                <td> <input class="form-check-input" type="hidden" name="permission[employee_management][archive]" id="employee_management_archive" disabled></td>
                             </tr>
                             <tr>
                                 <td>Employee Monitoring</td>
@@ -55,7 +55,7 @@
                                 <td> <input class="form-check-input" type="checkbox" name="permission[employee_monitoring][create]" id="employee_monitoring_create" disabled></td>
                                 <td> <input class="form-check-input" type="checkbox" name="permission[employee_monitoring][update]" id="employee_monitoring_update" disabled></td>
                                 <td> <input class="form-check-input" type="checkbox" name="permission[employee_monitoring][delete]" id="employee_monitoring_delete" disabled></td>
-                                <td> <input class="form-check-input" type="checkbox" name="permission[employee_monitoring][archive]" id="employee_monitoring_archive"disabled></td>
+                                <td> <input class="form-check-input" type="hidden" name="permission[employee_monitoring][archive]" id="employee_monitoring_archive"disabled></td>
                             </tr>
                             <tr>
                                 <td>Announcement</td>

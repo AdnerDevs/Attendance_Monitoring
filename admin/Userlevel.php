@@ -6,50 +6,34 @@ require_once ('../Model/UserlevelModel.php');
 $userlevel_model = new UserlevelModel();
 
 ?>
-<div class="table-responsive">
-    <div class="d-flex flex-row p-2 align-items-center">
-        <p class="h4 mb-0 me-2">Userlevel Permission</p>
-        <button class="btn btn-outline-secondary rounded-circle" type="button" id="create_userlevel"
-            data-bs-toggle="modal" data-bs-target="#ActivityModal"><i class="fa fa-plus"
-                aria-hidden="true"></i></button>
+<div class="container-fluid">
+    <div class="row">
+
+        <div class="d-flex flex-row p-2 align-items-center">
+            <p class="h4 mb-0 me-2">Userlevel Permission</p>
+            <button class="btn btn-outline-secondary rounded-circle" type="button" id="create_userlevel"
+                data-bs-toggle="modal" data-bs-target="#ActivityModal"><i class="fa fa-plus"
+                    aria-hidden="true"></i></button>
+        </div>
+        
+        <div class="table-responsive">
+    
+            <table class="table" id="table_userlevel">
+                <thead>
+                    <tr>
+                        <th>No.</th>
+                        <th>Userlevel Name</th>
+                        <th>Status</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+    
+                </tbody>
+            </table>
+        </div>
+
     </div>
-
-    <table class="table table-sm" id="table_userlevel">
-        <thead>
-            <tr>
-                <th>No</th>
-                <th>Userlevel Name</th>
-                <th>Status</th>
-                <th>Action</th>
-            </tr>
-        </thead>
-        <tbody>
-            <?php
-            //    $userlevel = $userlevel_model->getAllUserlevel();
-            //    $number = 1; $firstRow = true;
-            
-            //    for ($i = 0; $i < count($userlevel); $i++):
-            //     $user_lvl = $userlevel[$i];
-            ?>
-
-            <!-- <tr>
-                            <td><?= $number ?></td>
-                            <td><?= $user_lvl['userlevel_name'] ?></td>
-                            <td>Active</td>
-                            <td>
-                                <button type="button" class="btn btn-primary me-2 EditActivityBtn" id="" data-bs-type="" data-bs-id="" data-bs-toggle="modal" data-bs-target="#EditActivityModal" value="<?= $user_lvl['userlevel_id'] ?>" <?= $firstRow ? 'disabled' : '' ?>>Edit</button>
-                                <button type="button" class="btn btn-danger me-2 DeleteActivityBtn" data-bs-id="" <?= $firstRow ? 'disabled' : '' ?>>delete</button>
-                                <button type="button" class="btn btn-secondary" data-bs-id="" <?= $firstRow ? 'disabled' : '' ?>>Archive</button>
-                                
-                            </td>
-                        </tr> -->
-            <?php
-            //   $number++; $firstRow = false;
-            //   endfor;
-            ?>
-
-        </tbody>
-    </table>
 </div>
 
 
@@ -68,58 +52,60 @@ $userlevel_model = new UserlevelModel();
         const archiveCheckbox = document.getElementById(archiveId);
         const banCheckbox = document.getElementById(banId);
 
-        viewCheckbox.addEventListener("change", function () {
-            // console.log(section, "Checkbox is checked:", this.checked);
-            // createCheckbox.disabled = !this.checked;
-            if (!this.checked) {
-                createCheckbox.checked = false;
-                editCheckbox.checked = false;
-                deleteCheckbox.checked = false;
-                archiveCheckbox.checked = false;
-
-                createCheckbox.disabled = true;
-                editCheckbox.disabled = true;
-                deleteCheckbox.disabled = true;
-                archiveCheckbox.disabled = true;
-            } else {
-                createCheckbox.disabled = false;
-            }
-            createCheckbox.addEventListener("change", function () {
-                console.log(section, "Checkbox is checked:", this.checked);
-                // editCheckbox.disabled = !this.checked;
+        if (viewCheckbox) {
+            viewCheckbox.addEventListener("change", function (e) {
+                e.preventDefault();
+                // console.log(section, "Checkbox is checked:", this.checked);
+                // createCheckbox.disabled = !this.checked;
                 if (!this.checked) {
+                    createCheckbox.checked = false;
                     editCheckbox.checked = false;
-                    deleteCheckbox.disabled = true;
-                } else {
-                    editCheckbox.disabled = false;
-                }
-            });
-
-            editCheckbox.addEventListener("change", function () {
-                console.log(section, "Checkbox is checked:", this.checked);
-                // deleteCheckbox.disabled = !this.checked;
-                if (!this.checked) {
                     deleteCheckbox.checked = false;
-                    deleteCheckbox.disabled = true;
-                } else {
-                    deleteCheckbox.disabled = false;
-                }
-            });
-
-            deleteCheckbox.addEventListener("change", function () {
-                console.log(section, "Checkbox is checked:", this.checked);
-                // archiveCheckbox.disabled = !this.checked;
-                if (!this.checked) {
                     archiveCheckbox.checked = false;
+
+                    createCheckbox.disabled = true;
+                    editCheckbox.disabled = true;
+                    deleteCheckbox.disabled = true;
                     archiveCheckbox.disabled = true;
                 } else {
-                    archiveCheckbox.disabled = false;
+                    createCheckbox.disabled = false;
                 }
+                createCheckbox.addEventListener("change", function () {
+                    // console.log(section, "Checkbox is checked:", this.checked);
+                    // editCheckbox.disabled = !this.checked;
+                    if (!this.checked) {
+                        editCheckbox.checked = false;
+                        deleteCheckbox.disabled = true;
+                    } else {
+                        editCheckbox.disabled = false;
+                    }
+                });
+
+                editCheckbox.addEventListener("change", function () {
+                    // console.log(section, "Checkbox is checked:", this.checked);
+                    // deleteCheckbox.disabled = !this.checked;
+                    if (!this.checked) {
+                        deleteCheckbox.checked = false;
+                        deleteCheckbox.disabled = true;
+                    } else {
+                        deleteCheckbox.disabled = false;
+                    }
+                });
+
+                deleteCheckbox.addEventListener("change", function () {
+                    // console.log(section, "Checkbox is checked:", this.checked);
+                    // archiveCheckbox.disabled = !this.checked;
+                    if (!this.checked) {
+                        archiveCheckbox.checked = false;
+                        archiveCheckbox.disabled = true;
+                    } else {
+                        archiveCheckbox.disabled = false;
+                    }
+                });
             });
-        });
 
+        }
 
-        // 
     }
 
 
@@ -201,7 +187,7 @@ $userlevel_model = new UserlevelModel();
                 formData['permission'][permission][action] = value;
             });
 
-            console.log("Form data to be sent:", formData);
+            // console.log("Form data to be sent:", formData);
             if (userlvl_name !== '') {
 
                 // Call your AJAX post method here
@@ -234,13 +220,59 @@ $userlevel_model = new UserlevelModel();
 
         });
 
+        $(document).on('click', '#updateActivity', function (event) {
+            event.preventDefault();
+            let id = $(this).val();
+            var formData = { 'permission': {} };
+            var userlvl_name = $('#uname').val();
+
+            // Loop through checked checkboxes and populate formData
+            $('input[type="checkbox"]:checked').each(function () {
+                var name = $(this).attr('name');
+                var value = $(this).prop('checked') ? 1 : 0;
+                var permission = name.split('[')[1].split(']')[0];
+                var action = name.split('[')[2].split(']')[0];
+                formData['permission'][permission] = formData['permission'][permission] || {};
+                formData['permission'][permission][action] = value;
+            });
+
+            console.log("Form data to be sent:", formData);
+            // alert('click');
+            $.ajax({
+                type: 'POST',
+                url: '../Controller/UserlevelController.php',
+                data: {
+                    update_userlevel: id,
+                    editFormData: formData,
+                    editUserlevelname: userlvl_name
+                },
+                dataType: 'json',
+                success: function (e) {
+
+                    if (e.success === true) {
+                        alert(e.message);
+                        $('#table_userlevel').DataTable().destroy();
+                        fetchUserlevel();
+                        $('#ActivityModal').modal('hide');
+                    } else {
+                        alert(e.message);
+                    }
+                },
+                error: function (er) {
+                    console.log(er);
+                }
+            });
+
+
+        });
+
         $(document).on('click', '.RemoveAccountBtn', function (event) {
             let userlevel_id = $(this).data('bs-id');
-            
+
             removeUserlvel(userlevel_id);
         });
 
-    
+
     });
 
     function fetchUserlevel() {
@@ -289,11 +321,11 @@ $userlevel_model = new UserlevelModel();
                                 } else {
                                     buttons += '<button type="button" class="btn btn-outline-primary EditAccountBtn me-2" data-bs-id="' + data + '" data-bs-toggle="modal" data-bs-target="#ActivityModal">Edit</button>' +
                                         '<button type="button" class="btn btn-outline-danger RemoveAccountBtn me-2" data-bs-id="' + data + '">Remove</button>';
-                                    // if (row.isArchive == 1) {
-                                    //     buttons += '<button type="button" class="btn btn-outline-warning ArchiveAccountBtn" data-bs-id="' + data + '" data-bs-value="0">Unarchive</button>';
-                                    // } else {
-                                    //     buttons += '<button type="button" class="btn btn-outline-secondary ArchiveAccountBtn" data-bs-id="' + data + '" data-bs-value="1">Archive</button>';
-                                    // }
+                                    if (row.isArchive == 1) {
+                                        buttons += '<button type="button" class="btn btn-outline-warning ArchiveAccountBtn" data-bs-id="' + data + '" data-bs-value="0">Unarchive</button>';
+                                    } else {
+                                        buttons += '<button type="button" class="btn btn-outline-secondary ArchiveAccountBtn" data-bs-id="' + data + '" data-bs-value="1">Archive</button>';
+                                    }
                                 }
                                 return buttons;
                             }
@@ -306,9 +338,11 @@ $userlevel_model = new UserlevelModel();
 
                     $('#ActivityTitle').text("Update userlevel");
                     $('.save_btn').attr('id', 'updateActivity');
+
                     let userlevel_id = $(this).data('bs-id');
+                    $('#updateActivity').val(userlevel_id);
                     updateUserlevel(userlevel_id, data);
-                    
+
                 });
             }
         });
@@ -338,19 +372,36 @@ $userlevel_model = new UserlevelModel();
         });
     }
 
-    function updateUserlevel(userlevel_id, data){
+    function updateUserlevel(userlevel_id, data) {
         const userlvl = data.find(item => item.userlevel_id === userlevel_id);
-        if (userlvl){
-            console.log(userlvl);
+        if (userlvl) {
+            // console.log(userlvl);
+            $('#uname').val(userlvl.userlevel_name);
             $('#dashboard_view').prop('checked', userlvl.dashboard_permission_view === 1);
 
             $('#admin_management_view').prop('checked', userlvl.admin_management_view === 1);
-            $('#admin_management_create').prop('checked', userlvl.announcement_create === 1);
-            $('#admin_management_update').prop('checked', userlvl.announcement_update === 1);
-            $('#admin_management_delete').prop('checked', userlvl.announcement_delete === 1);
-            $('#admin_management_archive').prop('checked', userlvl.announcement_archive === 1);
-            
+            $('#admin_management_create').prop('checked', userlvl.admin_management_create === 1);
+            $('#admin_management_update').prop('checked', userlvl.admin_management_update === 1);
+            $('#admin_management_delete').prop('checked', userlvl.admin_management_delete === 1);
+            $('#admin_management_archive').prop('checked', userlvl.admin_management_archive === 1);
 
+            // Employee
+            $('#employee_management_view').prop('checked', userlvl.employee_management_view === 1);
+            $('#employee_management_delete').prop('checked', userlvl.employee_management_delete === 1);
+
+
+            // Monitoring
+            $('#employee_monitoring_view').prop('checked', userlvl.employee_monitoring_management_view === 1);
+            $('#employee_monitoring_create').prop('checked', userlvl.employee_monitoring_management_create === 1);
+            $('#employee_monitoring_update').prop('checked', userlvl.employee_monitoring_management_update === 1);
+            $('#employee_monitoring_delete').prop('checked', userlvl.employee_monitoring_management_delete === 1);
+
+            // Announcement
+            $('#announcement_view').prop('checked', userlvl.announcement_view === 1);
+            $('#announcement_create').prop('checked', userlvl.announcement_create === 1);
+            $('#announcement_update').prop('checked', userlvl.announcement_update === 1);
+            $('#announcement_delete').prop('checked', userlvl.announcement_delete === 1);
+            $('#announcement_archive').prop('checked', userlvl.announcement_archive === 1);
 
 
 

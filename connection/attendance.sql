@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 25, 2024 at 10:03 AM
+-- Generation Time: Mar 26, 2024 at 09:19 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -105,9 +105,9 @@ INSERT INTO `announcement` (`announcment_id`, `announcement_text`, `announcement
 (6, '<h1><strong style=\"color: rgb(230, 0, 0);\">sadadad</strong></h1>', '2316258_call_cellphone_mobile phone_phone_resume_icon.png', '2024-03-20 10:05:51', 0, 0),
 (7, '<h1><s style=\"color: rgb(255, 153, 0);\">asdadada</s></h1>', 'Screenshot 2024-03-13 154223.png', '2024-03-20 10:07:34', 0, 0),
 (8, '<h1><s>asdada</s></h1>', '', '2024-03-22 13:27:29', 0, 0),
-(9, '<p><strong>asdada</strong></p>', '', '2024-03-20 10:11:06', 0, 0),
-(10, '<h3><strong style=\"color: rgb(255, 153, 0);\">asdsada</strong></h3>', '', '2024-03-20 10:11:44', 0, 0),
-(11, '<p><span class=\"ql-font-monospace\" style=\"background-color: rgb(255, 255, 0);\">Bagong Announcementdasdadadsadada</span></p>', 'herogram.jpg', '2024-03-25 09:39:29', 0, 0);
+(9, '<p><strong>asdada</strong></p>', '', '2024-03-20 10:11:06', 0, 1),
+(10, '<h3><strong style=\"color: rgb(255, 153, 0);\">asdsada</strong></h3>', '', '2024-03-20 10:11:44', 0, 1),
+(11, '<p><span class=\"ql-font-monospace\" style=\"background-color: rgb(255, 255, 0);\">Bagong Announcementdasdadadsadada</span></p>', 'herogram.jpg', '2024-03-25 09:39:29', 0, 1);
 
 -- --------------------------------------------------------
 
@@ -319,14 +319,15 @@ CREATE TABLE `userlevel` (
 
 INSERT INTO `userlevel` (`userlevel_id`, `userlevel_name`, `dashboard_permission_view`, `admin_management_view`, `admin_management_create`, `admin_management_update`, `admin_management_delete`, `admin_management_archive`, `employee_management_view`, `employee_management_create`, `employee_management_update`, `employee_management_delete`, `employee_monitoring_management_view`, `employee_monitoring_management_create`, `employee_monitoring_management_update`, `employee_monitoring_management_delete`, `announcement_view`, `announcement_create`, `announcement_update`, `announcement_delete`, `announcement_archive`, `cms_permission_view`, `cms_permission_update`, `isDeleted`, `isArchive`) VALUES
 (1, 'Superadmin', 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0),
-(5, 'Sec', 1, 1, 0, 0, 0, 0, 1, 1, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
-(6, 'Sub', 1, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0),
-(7, 'ssm', 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
+(5, 'Sec', 1, 1, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 1, 1, 0, 0, 0, 0, 0),
+(6, 'Sub', 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0),
+(7, 'ssm', 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0),
 (8, 'sample', 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0),
 (9, 'sample', 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0),
 (10, 'asdad', 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0),
 (11, 'sampole2', 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0),
-(12, 's12', 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0);
+(12, 's12', 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0),
+(13, '', 1, 1, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0);
 
 --
 -- Indexes for dumped tables
@@ -430,7 +431,7 @@ ALTER TABLE `notification`
 -- AUTO_INCREMENT for table `userlevel`
 --
 ALTER TABLE `userlevel`
-  MODIFY `userlevel_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `userlevel_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
