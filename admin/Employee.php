@@ -2,10 +2,10 @@
 
 require_once('AdminHeader.php');
 require_once('../Model/EmployeeModel.php');
-
+if (isset($_SESSION['employee_management_view']) && $_SESSION['employee_management_view'] == 1) {
 $users = new EmployeeModel();
 $employee = $users->getAllEmployees();
-if (isset($_SESSION['employee_management_view']) && $_SESSION['employee_management_view'] == 1) {
+
 ?>
   <?php
   isset($_SESSION['employee_management_create']) && $_SESSION["employee_management_create"] == 1 ? $addState = " " : $addState = "d-none";
@@ -36,7 +36,7 @@ if (isset($_SESSION['employee_management_view']) && $_SESSION['employee_manageme
           <th>Name</th>
           <th>Account Created</th>
           <th>Status</th>
-          <th class="<?= $hide_action ?>">Action</th>
+          <th class="<?= $session_employee_management_delete ?>">Action</th>
         </tr>
       </thead>
       <tbody>
@@ -99,7 +99,9 @@ if (isset($_SESSION['employee_management_view']) && $_SESSION['employee_manageme
       </div>
     </div>
   </div>
-
+<script>
+  var session_employee_management_delete = "<?php echo $session_employee_management_delete; ?>";
+</script>
 
   <script>
     $(document).ready(function() {
@@ -154,8 +156,9 @@ if (isset($_SESSION['employee_management_view']) && $_SESSION['employee_manageme
                   "orderable":false,
                   "render": function(data, type, row, meta) {
                     var buttons = '';
-                    buttons +='<button type="button" class="btn btn-outline-danger RemoveAccountBtn me-2" data-bs-id="' + data + '">Remove</button>';
-
+                    if(session_employee_management_delete.trim() ===  ''){
+                    buttons +='<button type="button" class="btn btn-outline-danger RemoveAccountBtn me-2 '+ session_employee_management_delete +'" data-bs-id="' + data + '"><i class="fa fa-trash" aria-hidden="true"></i></button>';
+                    }
                     return buttons;
                   }
                 }

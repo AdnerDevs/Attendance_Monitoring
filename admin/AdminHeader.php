@@ -7,13 +7,41 @@ if (isset($_SESSION['admin_id']) && $_SESSION["admin_id"]) {
 
     ?>
     <?php
+
+    if (isset($_SESSION['admin_name']) && $_SESSION["admin_name"]) {    
+        $admin_name = $_SESSION['admin_name'];
+    }
+
+  
+    isset($_SESSION['dashboard_permission_view']) && $_SESSION["dashboard_permission_view"] == 1 ? $session_dashboard_view = " " : $session_dashboard_view = "d-none";
+    // admin management
     isset($_SESSION['admin_management_view']) && $_SESSION["admin_management_view"] == 1 ? $adminState = " " : $adminState = "d-none";
+    isset($_SESSION['admin_management_create']) && $_SESSION["admin_management_create"] == 1 ? $session_admin_management_create = " " : $session_admin_management_create = "d-none";
+    isset($_SESSION['admin_management_update']) && $_SESSION["admin_management_update"] == 1 ? $session_admin_management_update = " " : $session_admin_management_update = "d-none";
+    isset($_SESSION['admin_management_delete']) && $_SESSION["admin_management_delete"] == 1 ? $session_admin_management_delete = " " : $session_admin_management_delete = "d-none";
+    isset($_SESSION['admin_management_archive']) && $_SESSION["admin_management_archive"] == 1 ? $session_admin_management_archive = " " : $session_admin_management_archive = "d-none";
+
+    // Employee Management
     isset($_SESSION['employee_management_view']) && $_SESSION["employee_management_view"] == 1 ? $empManageState = " " : $empManageState = "d-none";
+    isset($_SESSION['employee_management_delete']) && $_SESSION["employee_management_delete"] == 1 ? $session_employee_management_delete = " " : $session_employee_management_delete = "d-none";
+
+    
+    // Monitoring management
     isset($_SESSION['employee_monitoring_management_view']) && $_SESSION["employee_monitoring_management_view"] == 1 ? $empMonitorState = " " : $empMonitorState = "d-none";
+    isset($_SESSION['employee_monitoring_management_create']) && $_SESSION["employee_monitoring_management_create"] == 1 ? $session_employee_monitoring_management_create = " " : $session_employee_monitoring_management_create = "d-none";
+    isset($_SESSION['employee_monitoring_management_update']) && $_SESSION["employee_monitoring_management_update"] == 1 ? $session_employee_monitoring_management_update = " " : $session_employee_monitoring_management_update = "d-none";
+    isset($_SESSION['employee_monitoring_management_delete']) && $_SESSION["employee_monitoring_management_delete"] == 1 ? $session_employee_monitoring_management_delete = " " : $session_employee_monitoring_management_delete = "d-none";
+
+
+    // Announcement
     isset($_SESSION['announcement_view']) && $_SESSION["announcement_view"] == 1 ? $announcementState = " " : $announcementState = "d-none";
+    isset($_SESSION['announcement_create']) && $_SESSION["announcement_create"] == 1 ? $session_announcement_create= " " : $session_announcement_create = "d-none";
+    isset($_SESSION['announcement_update']) && $_SESSION["announcement_update"] == 1 ? $session_announcement_update= " " : $session_announcement_update = "d-none";
+    isset($_SESSION['announcement_delete']) && $_SESSION["announcement_delete"] == 1 ? $session_announcement_delete= " " : $session_announcement_delete = "d-none";
+    isset($_SESSION['announcement_archive']) && $_SESSION["announcement_archive"] == 1 ? $session_announcement_archive= " " : $session_announcement_archive = "d-none";
+
+    // cms
     isset($_SESSION['cms_permission_view']) && $_SESSION["cms_permission_view"] == 1 ? $cmsState = " " : $cmsState = "d-none";
-
-
     ?>
     <!DOCTYPE html>
     <html lang="en">
@@ -46,13 +74,15 @@ if (isset($_SESSION['admin_id']) && $_SESSION["admin_id"]) {
         <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
 
         <script>
+            let = 
             $(document).ready(function () {
                 // $('#myTable').DataTable();
 
                 // new DataTable("#myTable",{
                 //     scrollX:true;
                 // });
-
+                var session_announcement_update = "<?php echo $session_announcement_update; ?>";
+                console.log(session_announcement_update);
             });
         </script>
     </head>
@@ -69,9 +99,9 @@ if (isset($_SESSION['admin_id']) && $_SESSION["admin_id"]) {
                 <ul class="navbar nav">
                     <li class="navbar-item">
                         <!-- <a href="#" class="navbar-link">
-                        <i class="fa fa-bell-o" aria-hidden="true"></i>
-                        <span>Notification</span>
-                    </a> -->
+                        <i class="fa fa-bell-o" aria-hidden="true"></i> -->
+                        <span class="text-white"><?= $admin_name ?></span>
+                    </a>
                     </li>
                 </ul>
 
@@ -138,14 +168,14 @@ if (isset($_SESSION['admin_id']) && $_SESSION["admin_id"]) {
                             </li>
 
 
-                            <li class="sidebar-item">
+                            <li class="sidebar-item ">
                                 <a href="Department.php" class="sidebar-link">
                                     <i class="fa fa-bullseye" aria-hidden="true"></i>
                                     <span class="text-white">Department</span>
                                 </a>
                             </li>
 
-                            <li class="sidebar-item">
+                            <li class="sidebar-item <?= $adminState ?>">
                                 <a href="Userlevel.php" class="sidebar-link">
                                     <i class="fa fa-user-plus" aria-hidden="true"></i>
                                     <span class="text-white">Userlevel</span>

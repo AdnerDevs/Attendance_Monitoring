@@ -25,6 +25,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         echo json_encode($fetchAll);
     }
 
+    if (isset ($_POST['fetch_data_front'])) {
+
+        $fetchAll = $announcement_model->getAllAnnouncement();
+        echo json_encode($fetchAll);
+    }
 
 
 

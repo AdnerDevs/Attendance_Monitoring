@@ -3,8 +3,9 @@
 require_once('AdminHeader.php');
 require_once('../Model/UserlevelModel.php');
 require_once('../Model/AdminAccountModel.php');
-$admin_model = new AdminAccountModel();
 if (isset($_SESSION['admin_management_view']) && $_SESSION['admin_management_view'] == 1) {
+
+$admin_model = new AdminAccountModel();
 
 
 ?>
@@ -35,7 +36,7 @@ if (isset($_SESSION['admin_management_view']) && $_SESSION['admin_management_vie
         <div class="d-flex flex-row p-2 align-items-center">
             <p class="h4 mb-0 me-2">Admin</p>
 
-            <button class="btn btn-primary <?= $addState ?>" type="button" data-bs-toggle="modal" data-bs-target="#ActivityModal">Add New</button>
+            <button class="btn btn-primary <?= $session_admin_management_create ?>" type="button" data-bs-toggle="modal" data-bs-target="#ActivityModal">Add New</button>
         </div>
 
 
@@ -52,7 +53,7 @@ if (isset($_SESSION['admin_management_view']) && $_SESSION['admin_management_vie
                     <th>Userlevel</th>
                     <th>Status</th>
                     <!-- <th>Condition</th> -->
-                    <th class="<?= $hide_action ?>">Action</th>
+                    <th class="<?= $session_admin_management_update ?>">Action</th>
                   
                 </tr>
             </thead>
@@ -143,7 +144,7 @@ if (isset($_SESSION['admin_management_view']) && $_SESSION['admin_management_vie
                                 </div>
                             </div>
 
-                            <button type="button" class="btn btn-outline-primary btn-lg w-100" id="registerBtn">
+                            <button type="button" class="btn btn-outline-primary btn-lg w-100" id="registerBtn" >
                                 Register
                             </button>
                         </div>
@@ -228,6 +229,12 @@ if (isset($_SESSION['admin_management_view']) && $_SESSION['admin_management_vie
         </div>
     </div>
 
+<script>
+  var session_admin_management_create = "<?php echo $session_admin_management_create; ?>";
+  var session_admin_management_update = "<?php echo $session_admin_management_update; ?>";
+  var session_admin_management_delete = "<?php echo $session_admin_management_delete; ?>";
+  var session_admin_management_archive = "<?php echo $session_admin_management_archive; ?>";
+</script>
 
     <script>
         $(document).ready(function() {
@@ -312,6 +319,12 @@ if (isset($_SESSION['admin_management_view']) && $_SESSION['admin_management_vie
 
                         } else if (response.status === 'success') {
                             alert("Employee registered successfully");
+                            $("#admin_id").val('');
+                            $("#admin_username").val('');
+                            $("#admin_name").val('');
+                            $("#admin_surname").val('');
+                            $(".admin_select_userlevel").val('');
+                            $("#ActivityModal").modal('hide');
                             $("#table_admin").DataTable().destroy();
                             getAdmin();
                         } else if (response.status === 'validate') {
@@ -432,22 +445,25 @@ if (isset($_SESSION['admin_management_view']) && $_SESSION['admin_management_vie
                                     "render": function(data, type, row, meta) {
                                         var buttons = '';
 
-                                        // Check if it's the first row (index 0)
+                                       if(session_admin_management_update.trim() ===  ''){
+
+                                      
                                         if (meta.row === 0) {
                                             // If it's the first row, disable or hide the buttons
                                             buttons += 'No action allowed';
                                         } else {
                                             // If it's not the first row, render the buttons normally
-                                            buttons += '<button type="button" class="btn btn-outline-primary EditAccountBtn me-2" data-bs-id="' + data + '" data-bs-toggle="modal" data-bs-target="#EditAccountModal">Edit</button>' +
-                                                '<button type="button" class="btn btn-outline-danger RemoveAccountBtn me-2" data-bs-id="' + data + '">Remove</button>';
+                                            buttons += '<button type="button" class="btn btn-outline-primary EditAccountBtn me-2 '+ session_admin_management_update +'" data-bs-id="' + data + '" data-bs-toggle="modal" data-bs-target="#EditAccountModal"><i class="fa fa-pencil" aria-hidden="true"></i></button>' +
+                                                '<button type="button" class="btn btn-outline-danger RemoveAccountBtn me-2 '+ session_admin_management_delete +'" data-bs-id="' + data + '"><i class="fa fa-trash" aria-hidden="true"></i></button>';
                                             if (row.isArchive == 1) {
-                                                buttons += '<button type="button" class="btn btn-outline-warning ArchiveAccountBtn" data-bs-id="' + data + '" data-bs-value="0">Unrestrict</button>';
+                                                buttons += '<button type="button" class="btn btn-outline-warning ArchiveAccountBtn '+ session_admin_management_archive +'" data-bs-id="' + data + '" data-bs-value="0"><i class="fa fa-ban" aria-hidden="true"></i></button>';
                                             } else {
-                                                buttons += '<button type="button" class="btn btn-outline-secondary ArchiveAccountBtn" data-bs-id="' + data + '" data-bs-value="1">Restrict</button>';
+                                                buttons += '<button type="button" class="btn btn-outline-success ArchiveAccountBtn '+ session_admin_management_archive +'" data-bs-id="' + data + '" data-bs-value="1"><i class="fa fa-check-circle" aria-hidden="true"></i></button>';
                                             }
                                         }
-
+                                    }
                                         return buttons;
+                                        
                                     }
                                 }
                             ],
@@ -578,9 +594,8 @@ if (isset($_SESSION['admin_management_view']) && $_SESSION['admin_management_vie
         });
     </script>
 <?php
-}
+
 require_once('AdminFooter.php');
-
+}
 ?>
 
-?>

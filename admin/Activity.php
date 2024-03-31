@@ -34,7 +34,7 @@ $activity = new ActivityModel();
             foreach ($acty as $act) :
 
                 $status = "Active";
-                $class = "text-primary";
+                $class = "text-success";
                 $btn = "ArchiveActivityBtn";
                 $btnType = "btn-secondary";
 
@@ -43,14 +43,16 @@ $activity = new ActivityModel();
                 $formattedTime = $activityEditedTime->format('Y-m-d h:i:s A');
                 $formattedTimeCreated = $activity_created_time->format('Y-m-d h:i:s A');
 
-                $btnState = "Archive";
+                $btnState = '<i class="fa fa-eye" aria-hidden="true"></i>';
+
 
                 if ($act['isArchive'] == 1) {
                     $status = "Archived";
                     $class = "text-danger";
                     $btn = "UnarchiveActivityBtn";
                     $btnType = "btn-warning";
-                    $btnState = "Unarchive";
+                   
+                    $btnState = '<i class="fa fa-eye-slash" aria-hidden="true"></i>';
                 }
             ?>
                 <tr>
@@ -60,9 +62,9 @@ $activity = new ActivityModel();
                     <td><?= $formattedTime ?></td>
                     <td class="<?= $class ?>"><?= $status ?></td>
                     <td>
-                        <button type="button" class="btn btn-primary me-2 EditActivityBtn" id="" data-bs-type="<?= $act['activity_type'] ?>" data-bs-id="<?= $act['activity_id'] ?>" data-bs-toggle="modal" data-bs-target="#EditActivityModal" <?= $firstRow ? 'disabled' : '' ?>>Edit</button>
-                        <button type="button" class="btn btn-danger me-2 DeleteActivityBtn" data-bs-id="<?= $act['activity_id'] ?>" <?= $firstRow ? 'disabled' : '' ?>>delete</button>
-                        <button type="button" class="btn btn-secondary <?= $btnType ?> <?= $btn ?>" data-bs-id="<?= $act['activity_id'] ?>" <?= $firstRow ? 'disabled' : '' ?>><?= $btnState ?></button>
+                        <button type="button" class="btn btn-primary me-2 EditActivityBtn" id="" data-bs-type="<?= $act['activity_type'] ?>" data-bs-id="<?= $act['activity_id'] ?>" data-bs-toggle="modal" data-bs-target="#EditActivityModal" <?= $firstRow ? 'disabled' : '' ?>><i class="fa fa-pencil" aria-hidden="true"></i></button>
+                        <button type="button" class="btn btn-danger me-2 DeleteActivityBtn" data-bs-id="<?= $act['activity_id'] ?>" <?= $firstRow ? 'disabled' : '' ?>><i class="fa fa-trash" aria-hidden="true"></i></button>
+                        <button type="button" class="btn btn-success <?= $btnType ?> <?= $btn ?>" data-bs-id="<?= $act['activity_id'] ?>" <?= $firstRow ? 'disabled' : '' ?>><?= $btnState ?></button>
 
                     </td>
                 </tr>

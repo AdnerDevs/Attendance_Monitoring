@@ -1,5 +1,9 @@
 <?php
+
 require_once ('AdminHeader.php');
+if( isset($_SESSION['announcement_view']) && $_SESSION["announcement_view"] == 1){
+
+
 ?>
 <!-- include libraries(jQuery, bootstrap) -->
 <!-- <link href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" rel="stylesheet">
@@ -17,6 +21,9 @@ require_once ('AdminHeader.php');
 
 <!-- <textarea id="summernote" name="editordata"></textarea>
 </form> -->
+<?php
+
+?>
 <div class="container-fluid">
   <div class="row ">
     <div class="container-fluid col-12 mb-4">
@@ -35,7 +42,7 @@ require_once ('AdminHeader.php');
             <label class="input-group-text" for="inputGroupFile02">Upload</label>
 
           </div>
-          <button type="button" class="btn btn-primary " id="newAnnouncement" style="width: 100%">New</button>
+          <button type="button" class="btn btn-primary <?= $session_announcement_create?>" id="newAnnouncement" style="width: 100%">New</button>
         </div>
 
       </div>
@@ -55,7 +62,7 @@ require_once ('AdminHeader.php');
             <th>Image</th>
             <th>Created at</th>
             <th>Status</th>
-            <th>Action</th>
+            <th class="<?= $session_announcement_update ?>">Action</th>
           </tr>
         </thead>
         <tbody>
@@ -107,7 +114,15 @@ require_once ('AdminHeader.php');
     </div>
   </div>
 </div>
+<?php
 
+?>
+<script>
+  var session_announcement_create = "<?php echo $session_announcement_create; ?>";
+  var session_announcement_update = "<?php echo $session_announcement_update; ?>";
+  var session_announcement_delete = "<?php echo $session_announcement_delete; ?>";
+  var session_announcement_archive = "<?php echo $session_announcement_archive; ?>";
+</script>
 
 <script>
 
@@ -260,15 +275,16 @@ require_once ('AdminHeader.php');
               "orderable": false,
               "render": function (data, type, row, meta) {
                 var buttons = '';
+                if(session_announcement_update.trim() ===  ''){
 
-                buttons += '<button type="button" class="btn btn-outline-primary EditAccountBtn me-2" data-bs-id="' + data + '" data-bs-toggle="modal" data-bs-target="#AnnouncementModal">Edit</button>' +
-                  '<button type="button" class="btn btn-outline-danger RemoveAccountBtn me-2" data-bs-id="' + data + '">Remove</button>';
+                buttons += '<button type="button" class="btn btn-outline-primary EditAccountBtn me-2 '+ session_announcement_update +'" data-bs-id="' + data + '" data-bs-toggle="modal" data-bs-target="#AnnouncementModal"><i class="fa fa-pencil" aria-hidden="true"></i></button>' +
+                  '<button type="button" class="btn btn-outline-danger RemoveAccountBtn me-2 '+ session_announcement_delete +'" data-bs-id="' + data + '"><i class="fa fa-trash" aria-hidden="true"></i></button>';
                 if (row.isArchive == 1) {
-                  buttons += '<button type="button" class="btn btn-outline-warning ArchiveAccountBtn" data-bs-id="' + data + '" data-bs-value="0">Unarchive</button>';
+                  buttons += '<button type="button" class="btn btn-outline-warning ArchiveAccountBtn '+ session_announcement_archive +'" data-bs-id="' + data + '" data-bs-value="0"><i class="fa fa-eye-slash" aria-hidden="true"></i></button>';
                 } else {
-                  buttons += '<button type="button" class="btn btn-outline-secondary ArchiveAccountBtn" data-bs-id="' + data + '" data-bs-value="1">Archive</button>';
+                  buttons += '<button type="button" class="btn btn-outline-success ArchiveAccountBtn '+ session_announcement_archive +'" data-bs-id="' + data + '" data-bs-value="1"><i class="fa fa-eye" aria-hidden="true"></i></button>';
                 }
-
+              }
                 return buttons;
               }
             }
@@ -448,4 +464,5 @@ require_once ('AdminHeader.php');
 
 <?php
 require_once ('AdminFooter.php');
+}
 ?>

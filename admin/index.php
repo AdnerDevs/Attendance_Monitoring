@@ -1,7 +1,5 @@
 <?php
 
-
-
 require_once ('AdminHeader.php');
 
 ?>
@@ -13,7 +11,7 @@ require_once ('AdminHeader.php');
 <div class="container-fluid min-vh-100">
     <div class="row mb-2">
         <div class="col-lg-4 mb-4" style="max-height:500px;">
-            <div class="card shadow" style="">
+            <div class="card shadow" >
                 <div class="card-header  py-3 text-center ">
                     <h5 class="card-header ">TOTAL EMPLOYEE</h5>
                     <span>
@@ -21,7 +19,7 @@ require_once ('AdminHeader.php');
                     </span>
                     <div class="card-body">
                         <p class="card-title " id="totalEmp">1</p>
-                        <div class="more-info">
+                        <div class="more-info <?= $empManageState ?>">
                             <a href="Employee.php" id="#">More Info</a>
                         </div>
                     </div>
@@ -30,7 +28,7 @@ require_once ('AdminHeader.php');
         </div>
 
         <div class="col-lg-4 mb-4" style="max-height:500px;">
-            <div class="card shadow" style="">
+            <div class="card shadow" >
                 <div class="card-header  py-3 text-center ">
                     <h5 class="card-header ">TOTAL ADMIN</h5>
                     <span>
@@ -38,7 +36,7 @@ require_once ('AdminHeader.php');
                     </span>
                     <div class="card-body">
                         <p class="card-title " id="totalAdmin">1</p>
-                        <div class="more-info">
+                        <div class="more-info <?= $adminState ?>">
                             <a href="AdminAccount.php" id="#">More Info</a>
                         </div>
                     </div>
@@ -47,7 +45,7 @@ require_once ('AdminHeader.php');
         </div>
 
         <div class="col-lg-4 mb-4 " style="min-height:70%;">
-            <div class="card shadow" style="">
+            <div class="card shadow" >
                 <div class="card-header  py-3 text-center ">
                     <h5 class="card-header ">ACTIVE EMPLOYEES</h5>
                     <span>
@@ -55,7 +53,7 @@ require_once ('AdminHeader.php');
                     </span>
                     <div class="card-body">
                         <p class="card-title " id="totalLogon"></p>
-                        <div class="more-info">
+                        <div class="more-info <?= $empManageState ?>">
                             <a href="Employee.php" id="#">More Info</a>
                         </div>
                     </div>
@@ -89,7 +87,7 @@ require_once ('AdminHeader.php');
                 </tbody>
                 <tfoot class="sticky-bottom">
                     <tr>
-                        <td class="text-center" colspan="12">
+                        <td class="text-center <?= $empManageState ?>" colspan="12">
                             <a href="EmployeeMonitoring.php">View more details</a>
                         </td>
                     </tr>
@@ -197,7 +195,7 @@ require_once ('AdminHeader.php');
                 $('#totalEmp').text(data.data.tl);
                 $('#totalAdmin').text(data.data.ta);
                 $('#totalLogon').text(data.data.lg + " Online");
-                console.log(data.data.tl);
+                // console.log(data.data.tl);
             },
             error: function (er){
                 console.log(er);
@@ -207,5 +205,4 @@ require_once ('AdminHeader.php');
 </script>
 <?php
 require_once ('AdminFooter.php');
-
 ?>

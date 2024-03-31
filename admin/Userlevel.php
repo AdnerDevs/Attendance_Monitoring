@@ -2,6 +2,7 @@
 
 require_once ('AdminHeader.php');
 require_once ('../Model/UserlevelModel.php');
+if( isset($_SESSION['admin_management_view']) && $_SESSION["admin_management_view"]){
 
 $userlevel_model = new UserlevelModel();
 
@@ -11,7 +12,7 @@ $userlevel_model = new UserlevelModel();
 
         <div class="d-flex flex-row p-2 align-items-center">
             <p class="h4 mb-0 me-2">Userlevel Permission</p>
-            <button class="btn btn-outline-secondary rounded-circle" type="button" id="create_userlevel"
+            <button class="btn btn-outline-secondary rounded-circle <?= $session_admin_management_create ?>" type="button" id="create_userlevel"
                 data-bs-toggle="modal" data-bs-target="#ActivityModal"><i class="fa fa-plus"
                     aria-hidden="true"></i></button>
         </div>
@@ -24,7 +25,7 @@ $userlevel_model = new UserlevelModel();
                         <th>No.</th>
                         <th>Userlevel Name</th>
                         <th>Status</th>
-                        <th>Action</th>
+                        <th class="<?= $session_admin_management_update ?>">Action</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -41,6 +42,12 @@ $userlevel_model = new UserlevelModel();
 <?php include ('UserlevelCreate.php'); ?>
 <?php include ('UserlevelUpdate.php'); ?>
 
+<script>
+  var session_admin_management_create = "<?php echo $session_admin_management_create; ?>";
+  var session_admin_management_update = "<?php echo $session_admin_management_update; ?>";
+  var session_admin_management_delete = "<?php echo $session_admin_management_delete; ?>";
+  var session_admin_management_archive = "<?php echo $session_admin_management_archive; ?>";
+</script>
 
 <script>
 
@@ -123,14 +130,14 @@ $userlevel_model = new UserlevelModel();
     );
 
     // File Management Permissions
-    togglePermissions(
-        "employee_management",
-        "employee_management_view",
-        "employee_management_create",
-        "employee_management_update",
-        "employee_management_delete",
-        "employee_management_archive"
-    );
+    // togglePermissions(
+    //     "employee_management",
+    //     "employee_management_view",
+    //     "employee_management_create",
+    //     "employee_management_update",
+    //     "employee_management_delete",
+    //     "employee_management_archive"
+    // );
     togglePermissions(
         "employee_monitoring",
         "employee_monitoring_view",
@@ -315,16 +322,18 @@ $userlevel_model = new UserlevelModel();
                             "render": function (data, type, row, meta) {
                                 // Generate HTML for both buttons
                                 var buttons = '';
-                                if (meta.row === 0) {
-                                    // If it's the first row, disable or hide the buttons
-                                    buttons += 'No action allowed';
-                                } else {
-                                    buttons += '<button type="button" class="btn btn-outline-primary EditAccountBtn me-2" data-bs-id="' + data + '" data-bs-toggle="modal" data-bs-target="#ActivityModal">Edit</button>' +
-                                        '<button type="button" class="btn btn-outline-danger RemoveAccountBtn me-2" data-bs-id="' + data + '">Remove</button>';
-                                    if (row.isArchive == 1) {
-                                        buttons += '<button type="button" class="btn btn-outline-warning ArchiveAccountBtn" data-bs-id="' + data + '" data-bs-value="0">Unarchive</button>';
+                                if(session_admin_management_update.trim() ===  ''){
+                                    if (meta.row === 0) {
+                                        // If it's the first row, disable or hide the buttons
+                                        buttons += 'No action allowed';
                                     } else {
-                                        buttons += '<button type="button" class="btn btn-outline-secondary ArchiveAccountBtn" data-bs-id="' + data + '" data-bs-value="1">Archive</button>';
+                                        buttons += '<button type="button" class="btn btn-outline-primary EditAccountBtn me-2" data-bs-id="' + data + '" data-bs-toggle="modal" data-bs-target="#ActivityModal"><i class="fa fa-pencil" aria-hidden="true"></i></button>' +
+                                            '<button type="button" class="btn btn-outline-danger RemoveAccountBtn me-2" data-bs-id="' + data + '"><i class="fa fa-trash" aria-hidden="true"></i></button>';
+                                        if (row.isArchive == 1) {
+                                            buttons += '<button type="button" class="btn btn-outline-warning ArchiveAccountBtn" data-bs-id="' + data + '" data-bs-value="0"><i class="fa fa-eye-slash" aria-hidden="true"></i></button>';
+                                        } else {
+                                            buttons += '<button type="button" class="btn btn-outline-success ArchiveAccountBtn" data-bs-id="' + data + '" data-bs-value="1"><i class="fa fa-eye" aria-hidden="true"></i></button>';
+                                        }
                                     }
                                 }
                                 return buttons;
@@ -411,4 +420,5 @@ $userlevel_model = new UserlevelModel();
 </script>
 <?php
 require_once ('AdminFooter.php');
+}
 ?>

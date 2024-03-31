@@ -18,7 +18,7 @@
                             <tr>
                             <th scope="col">Permission</th>
                             <th scope="col">View</th>
-                            <th scope="col">Add</th>
+                            <th scope="col">Create</th>
                             <th scope="col">Update</th>
                             <th scope="col">Delete</th>
                             <th scope="col">Archive</th>
@@ -27,7 +27,7 @@
                         <tbody >
                             <tr>
                                 <td>Dashboard</td>
-                                <td scope="row"> <input class="form-check-input" type="checkbox" name="permission[dashboard][view]" id="dashboard_view" ></td>
+                                <td scope="row"> <input class="form-check-input" type="checkbox" name="permission[dashboard][view]" id="dashboard_view" checked disabled></td>
                                 <td></td>
                                 <td></td>
                                 <td></td>
@@ -90,14 +90,4 @@
   </div>
 </form>
 </div>
-
-<!-- <script>
-$(document).ready(function() {
-  
-});
-
-
-
-</script> -->
-
 
