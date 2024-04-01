@@ -209,8 +209,8 @@ if (isset($_SESSION['employee_monitoring_management_view']) && $_SESSION['employ
                                     var buttons = '';
                                     // Generate HTML for both buttons
                                     if (session_employee_monitoring_management_update.trim() === '') {
-                                        buttons += '<button type="button" class="btn btn-outline-warning prompt me-2 exclude-from-export '+ session_employee_monitoring_management_update +'" data-bs-id="' + data + '">Prompt <i class="fa fa-exclamation-circle" aria-hidden="true"></i></button>' +
-                                            '<button type="button" class="btn btn-outline-danger remove exclude-from-export '+ session_employee_monitoring_management_delete +'" data-bs-id="' + data + '"><i class="fa fa-trash" aria-hidden="true"></i></button>';
+                                        buttons += '<button type="button" class="btn btn-outline-warning prompt me-2 exclude-from-export '+ session_employee_monitoring_management_update +'" data-bs-id="' + data + '" data-tooltip="tooltip" title="Prompt">Prompt <i class="fa fa-exclamation-circle" aria-hidden="true"></i></button>' +
+                                            '<button type="button" class="btn btn-outline-danger remove exclude-from-export '+ session_employee_monitoring_management_delete +'" data-bs-id="' + data + '" data-tooltip="tooltip" title="Remove"><i class="fa fa-trash" aria-hidden="true"></i></button>';
                                     }
 
                                     return buttons;

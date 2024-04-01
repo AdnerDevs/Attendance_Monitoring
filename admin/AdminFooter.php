@@ -12,6 +12,11 @@ if(isset($_SESSION['admin_id']) && $_SESSION["admin_id"]){
             a.click(function(){
             $("#sidebar").toggleClass("expand");
         });
+
+
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip()
+        });
     </script>
     <!-- <script src="asset/js/main.js"></script> -->
 </body>

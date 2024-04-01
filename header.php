@@ -241,7 +241,7 @@ require_once("connection/dbh.php");
                                         },
                                         dataType: 'json',
                                         success: function(result) {
-                                            console.log(result);
+                                            // console.log(result);
                                         },
                                         error: function(xhr, status, error) {
                                             console.log(xhr.responseText); // Log the error message
@@ -260,7 +260,7 @@ require_once("connection/dbh.php");
                                         },
                                         dataType: 'json',
                                         success: function(result) {
-                                            console.log(result);
+                                            // console.log(result);
                                         },
                                         error: function(xhr, status, error) {
                                             console.log(xhr.responseText); // Log the error message

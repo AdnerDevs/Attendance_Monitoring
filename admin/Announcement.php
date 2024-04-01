@@ -277,12 +277,12 @@ if( isset($_SESSION['announcement_view']) && $_SESSION["announcement_view"] == 1
                 var buttons = '';
                 if(session_announcement_update.trim() ===  ''){
 
-                buttons += '<button type="button" class="btn btn-outline-primary EditAccountBtn me-2 '+ session_announcement_update +'" data-bs-id="' + data + '" data-bs-toggle="modal" data-bs-target="#AnnouncementModal"><i class="fa fa-pencil" aria-hidden="true"></i></button>' +
-                  '<button type="button" class="btn btn-outline-danger RemoveAccountBtn me-2 '+ session_announcement_delete +'" data-bs-id="' + data + '"><i class="fa fa-trash" aria-hidden="true"></i></button>';
+                buttons += '<button type="button" class="btn btn-outline-primary EditAccountBtn me-2 '+ session_announcement_update +'" data-bs-id="' + data + '" data-bs-toggle="modal" data-bs-target="#AnnouncementModal" data-tooltip="tooltip" title="Edit"><i class="fa fa-pencil" aria-hidden="true"></i></button>' +
+                  '<button type="button" class="btn btn-outline-danger RemoveAccountBtn me-2 '+ session_announcement_delete +'" data-bs-id="' + data + '" data-tooltip="tooltip" title="Remove"><i class="fa fa-trash" aria-hidden="true"></i></button>';
                 if (row.isArchive == 1) {
-                  buttons += '<button type="button" class="btn btn-outline-warning ArchiveAccountBtn '+ session_announcement_archive +'" data-bs-id="' + data + '" data-bs-value="0"><i class="fa fa-eye-slash" aria-hidden="true"></i></button>';
+                  buttons += '<button type="button" class="btn btn-outline-warning ArchiveAccountBtn '+ session_announcement_archive +'" data-bs-id="' + data + '" data-bs-value="0" data-tooltip="tooltip" title="Click to activate"><i class="fa fa-eye-slash" aria-hidden="true"></i></button>';
                 } else {
-                  buttons += '<button type="button" class="btn btn-outline-success ArchiveAccountBtn '+ session_announcement_archive +'" data-bs-id="' + data + '" data-bs-value="1"><i class="fa fa-eye" aria-hidden="true"></i></button>';
+                  buttons += '<button type="button" class="btn btn-outline-success ArchiveAccountBtn '+ session_announcement_archive +'" data-bs-id="' + data + '" data-bs-value="1" data-tooltip="tooltip" title="Click to archive"><i class="fa fa-eye" aria-hidden="true"></i></button>';
                 }
               }
                 return buttons;

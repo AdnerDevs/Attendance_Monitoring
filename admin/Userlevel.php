@@ -275,8 +275,14 @@ $userlevel_model = new UserlevelModel();
 
         $(document).on('click', '.RemoveAccountBtn', function (event) {
             let userlevel_id = $(this).data('bs-id');
+            var confirmRemove = confirm('Are you sure you want to remove this announcement?');
 
-            removeUserlvel(userlevel_id);
+            if (confirmRemove) {
+                removeUserlvel(userlevel_id);
+            }else{
+                return;
+            }
+           
         });
 
 
@@ -327,12 +333,12 @@ $userlevel_model = new UserlevelModel();
                                         // If it's the first row, disable or hide the buttons
                                         buttons += 'No action allowed';
                                     } else {
-                                        buttons += '<button type="button" class="btn btn-outline-primary EditAccountBtn me-2" data-bs-id="' + data + '" data-bs-toggle="modal" data-bs-target="#ActivityModal"><i class="fa fa-pencil" aria-hidden="true"></i></button>' +
-                                            '<button type="button" class="btn btn-outline-danger RemoveAccountBtn me-2" data-bs-id="' + data + '"><i class="fa fa-trash" aria-hidden="true"></i></button>';
+                                        buttons += '<button type="button" class="btn btn-outline-primary EditAccountBtn me-2" data-bs-id="' + data + '" data-bs-toggle="modal" data-bs-target="#ActivityModal" data-tooltip="tooltip" title="Edit"><i class="fa fa-pencil" aria-hidden="true"></i></button>' +
+                                            '<button type="button" class="btn btn-outline-danger RemoveAccountBtn me-2" data-bs-id="' + data + '" data-tooltip="tooltip" title="Remove"><i class="fa fa-trash" aria-hidden="true"></i></button>';
                                         if (row.isArchive == 1) {
-                                            buttons += '<button type="button" class="btn btn-outline-warning ArchiveAccountBtn" data-bs-id="' + data + '" data-bs-value="0"><i class="fa fa-eye-slash" aria-hidden="true"></i></button>';
+                                            buttons += '<button type="button" class="btn btn-outline-warning ArchiveAccountBtn" data-bs-id="' + data + '" data-bs-value="0" data-tooltip="tooltip" title="Click to activate"><i class="fa fa-eye-slash" aria-hidden="true"></i></button>';
                                         } else {
-                                            buttons += '<button type="button" class="btn btn-outline-success ArchiveAccountBtn" data-bs-id="' + data + '" data-bs-value="1"><i class="fa fa-eye" aria-hidden="true"></i></button>';
+                                            buttons += '<button type="button" class="btn btn-outline-success ArchiveAccountBtn" data-bs-id="' + data + '" data-bs-value="1" data-tooltip="tooltip" title="Click to archive"><i class="fa fa-eye" aria-hidden="true"></i></button>';
                                         }
                                     }
                                 }

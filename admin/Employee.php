@@ -157,7 +157,7 @@ $employee = $users->getAllEmployees();
                   "render": function(data, type, row, meta) {
                     var buttons = '';
                     if(session_employee_management_delete.trim() ===  ''){
-                    buttons +='<button type="button" class="btn btn-outline-danger RemoveAccountBtn me-2 '+ session_employee_management_delete +'" data-bs-id="' + data + '"><i class="fa fa-trash" aria-hidden="true"></i></button>';
+                    buttons +='<button type="button" class="btn btn-outline-danger RemoveAccountBtn me-2 '+ session_employee_management_delete +'" data-bs-id="' + data + '" data-tooltip="tooltip" title="Remove"><i class="fa fa-trash" aria-hidden="true"></i></button>';
                     }
                     return buttons;
                   }
