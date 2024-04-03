@@ -206,7 +206,8 @@ require_once("connection/dbh.php");
                             dataType: 'json',
                             success: function(result) {
                                 if (result != false) {
-                                    showNotification(result.employee_id);
+                                    showNotification(result.employee_id, result.message);
+                                    console.log(result.message);
                                 }
                             
                             },
@@ -217,7 +218,7 @@ require_once("connection/dbh.php");
                     }, 5000);
                 }
 
-                function showNotification(message) {
+                function showNotification(id, message) {
 
                     // console.log('sdsd' + message);
                     if ('Notification' in window) {
@@ -226,7 +227,7 @@ require_once("connection/dbh.php");
                             if (permission === 'granted') {
                                 // Create a new notification
                                 var notification = new Notification('Alert', {
-                                    body: 'This is an alert message!',
+                                    body: message,
                                     icon: 'asset/img/herogram.jpg',
                                     requireInteraction: true
                                 });
@@ -237,7 +238,7 @@ require_once("connection/dbh.php");
                                         type: 'POST',
                                         url: 'Controller/AlertController.php',
                                         data: {
-                                            seen_employee_id: message
+                                            seen_employee_id: id
                                         },
                                         dataType: 'json',
                                         success: function(result) {
@@ -256,7 +257,7 @@ require_once("connection/dbh.php");
                                         type: 'POST',
                                         url: 'Controller/AlertController.php',
                                         data: {
-                                            seen_employee_id: message
+                                            seen_employee_id: id
                                         },
                                         dataType: 'json',
                                         success: function(result) {

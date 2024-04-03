@@ -34,8 +34,8 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
     }
     if(isset($_POST['notify_employee'])){
         $employee_id = htmlspecialchars($_POST['notify_employee'], ENT_QUOTES, 'UTF-8');
-
-        $notify = $alert_model->notifyEmployee($employee_id);
+        $message = "You have ongoing activity, please end it if you forgot to end your activity, thank you!";
+        $notify = $alert_model->notifyEmployee($employee_id, $message);
         if( $notify != false){
             // Return the result as JSON
             echo json_encode($notify);

@@ -3,7 +3,7 @@
 class AlertModel extends Dbh{
     public function fetch($employee_id){
         try {
-            $stmt = $this->connect()->prepare("SELECT n.employee_id FROM `notification` n
+            $stmt = $this->connect()->prepare("SELECT n.employee_id, n.message FROM `notification` n
             INNER JOIN employee_attendance ea ON n.employee_id = ea.employee_attendance_id WHERE ea.employee_id = ? AND n.isSeen = 0");
             // $stmt->bindParam(1, $employee_id, PDO::PARAM_INT);
             $s = true;
@@ -28,10 +28,10 @@ class AlertModel extends Dbh{
     
 
     // insert
-    public function notifyEmployee($employee_id){
+    public function notifyEmployee($employee_id, $message){
         try{
-            $stmt = $this->connect()->prepare('INSERT INTO `notification` (employee_id) VALUES (?) ');
-            if(!$stmt->execute([$employee_id])){
+            $stmt = $this->connect()->prepare('INSERT INTO `notification` (employee_id, `message`) VALUES (?, ?) ');
+            if(!$stmt->execute([$employee_id, $message])){
                 return false;
             }
 
