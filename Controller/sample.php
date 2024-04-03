@@ -18,14 +18,13 @@ if (is_array($get_all_employee_id)) {
             $employee_id = $employee_info['employee_id'];
             $status = 1;
             // var_dump($employee_id);
-            $alert_employee_announcement = $alert_model->notifyEmployee($employee_id, $message, );
+            $alert_employee_announcement = $alert_model->notifyUpdateAnnouncement($employee_id, $message, );
             if($alert_employee_announcement != false){
                 var_dump($alert_employee_announcement);
             }else{
                 var_dump($alert_employee_announcement);
             }
         }else {
-     
             echo "Error: Employee ID not found in the element.";
         }
     }

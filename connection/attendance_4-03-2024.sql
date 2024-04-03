@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 03, 2024 at 08:30 AM
+-- Generation Time: Apr 03, 2024 at 10:34 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -91,24 +91,6 @@ CREATE TABLE `announcement` (
   `isDeleted` tinyint(1) DEFAULT 0,
   `isArchive` tinyint(1) DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `announcement`
---
-
-INSERT INTO `announcement` (`announcment_id`, `announcement_text`, `announcement_image`, `date_created`, `isDeleted`, `isArchive`) VALUES
-(1, '<h1><strong style=\"color: rgb(230, 0, 0);\"><u>asdadadaasdaaaaaaaaaASDA</u></strong></h1>', 'g.jpg', '2024-03-22 13:26:01', 0, 1),
-(2, '&lt;p&gt;asdada&lt;/p&gt;', 'Screenshot 2024-03-15 094503.png', '2024-03-20 09:44:55', 1, 0),
-(3, '<h5><strong style=\"color: rgb(255, 255, 0); background-color: rgb(102, 61, 0);\">asdadadaasdaaaaaaaaaASDA</strong></h5>', 'marcus.jpg', '2024-03-22 13:26:11', 0, 1),
-(4, '<h1><strong style=\"color: rgb(204, 232, 204);\">asdada</strong></h1>', 'Screenshot 2024-03-15 095050.png', '2024-03-20 10:02:15', 0, 1),
-(5, '<h1><strong style=\"background-color: rgb(230, 0, 0);\">asdada</strong></h1>', 'pogi.jpg', '2024-03-22 13:32:28', 0, 1),
-(6, '<h1><strong style=\"color: rgb(230, 0, 0);\">sadadad</strong></h1>', '2316258_call_cellphone_mobile phone_phone_resume_icon.png', '2024-03-20 10:05:51', 0, 1),
-(7, '<h1><s style=\"color: rgb(255, 153, 0);\">asdadada</s></h1>', 'Screenshot 2024-03-13 154223.png', '2024-03-20 10:07:34', 0, 1),
-(8, '<h1><s>asdada</s></h1>', '', '2024-03-22 13:27:29', 0, 1),
-(9, '<p><strong>asdada</strong></p>', '', '2024-03-20 10:11:06', 0, 1),
-(10, '<h3><strong style=\"color: rgb(255, 153, 0);\">asdsada</strong></h3>', '', '2024-03-20 10:11:44', 0, 1),
-(11, '<p><span class=\"ql-font-monospace\" style=\"background-color: rgb(255, 255, 0);\">Bagong Announcementdasdadadsadada</span></p>', 'herogram.jpg', '2024-03-25 09:39:29', 0, 1),
-(12, '<h2><strong class=\"ql-font-monospace\">BAGO</strong></h2>', 'Screenshot 2024-03-13 163027.png', '2024-04-01 13:17:18', 0, 1);
 
 -- --------------------------------------------------------
 
@@ -203,10 +185,10 @@ CREATE TABLE `employee_user` (
 --
 
 INSERT INTO `employee_user` (`employee_id`, `employee_name`, `nickname`, `department_id`, `created_time`, `status`, `isRemove`) VALUES
-('01-2457321', 'EROR LOGIN', 'ERO', 2, '2024-02-22 13:05:51', 1, 0),
+('01-2457321', 'EROR LOGIN', 'ERO', 2, '2024-02-22 13:05:51', 0, 0),
 ('02-0454sen', 'adner devila', '', 2, '2024-02-21 15:07:10', 0, 0),
 ('02-070031-CENA', 'JOHN CENA', '', 2, '2024-02-21 15:07:10', 0, 0),
-('02-2295931', 'LEGENDS LION', 'LEAGUE', 1, '2024-02-24 19:48:36', 0, 0),
+('02-2295931', 'LEGENDS LION', 'LEAGUE', 1, '2024-02-24 19:48:36', 1, 0),
 ('02-5003dEV', '02-5003dEV', '', 2, '2024-02-21 15:07:10', 0, 0),
 ('09-1236781', 'ALCOR LOER', 'LOR', 2, '2024-02-22 13:03:06', 0, 1),
 ('123', 'ASD DSA', 'ASD', 1, '2024-02-21 15:07:10', 0, 0),
@@ -294,7 +276,50 @@ INSERT INTO `notification` (`notification_id`, `employee_id`, `message`, `create
 (21, '193', NULL, '2024-04-03 09:13:17', 1),
 (22, '193', 'You have ongoing activity, please end it if you forgot to end your activity, thank you!', '2024-04-03 09:19:33', 1),
 (23, '193', 'You have ongoing activity, please end it if you forgot to end your activity, thank you!', '2024-04-03 10:26:43', 1),
-(35, '193', 'You have ongoing activity, please end it if you forgot to end your activity, thank you!', '2024-04-03 11:26:00', 1);
+(35, '193', 'You have ongoing activity, please end it if you forgot to end your activity, thank you!', '2024-04-03 11:26:00', 1),
+(36, '193', 'You have ongoing activity, please end it if you forgot to end your activity, thank you!', '2024-04-03 16:09:59', 1),
+(37, '193', 'You have ongoing activity, please end it if you forgot to end your activity, thank you!', '2024-04-03 16:10:18', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `notify_update_announcement`
+--
+
+CREATE TABLE `notify_update_announcement` (
+  `id` int(10) NOT NULL,
+  `employee_id` varchar(20) NOT NULL,
+  `message` text NOT NULL DEFAULT 'New announcement has been uploaded, click to refresh the page.',
+  `isSeen` tinyint(1) NOT NULL DEFAULT 0
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `notify_update_announcement`
+--
+
+INSERT INTO `notify_update_announcement` (`id`, `employee_id`, `message`, `isSeen`) VALUES
+(67, '01-2457321', 'New Announcement has been uploaded, click this to refresh the page.', 1),
+(68, '02-0454sen', 'New Announcement has been uploaded, click this to refresh the page.', 0),
+(69, '02-070031-CENA', 'New Announcement has been uploaded, click this to refresh the page.', 0),
+(70, '02-2295931', 'New Announcement has been uploaded, click this to refresh the page.', 1),
+(71, '02-5003dEV', 'New Announcement has been uploaded, click this to refresh the page.', 0),
+(72, '123', 'New Announcement has been uploaded, click this to refresh the page.', 0),
+(73, '1234', 'New Announcement has been uploaded, click this to refresh the page.', 0),
+(74, '1234567890', 'New Announcement has been uploaded, click this to refresh the page.', 0),
+(75, '9874653127', 'New Announcement has been uploaded, click this to refresh the page.', 0),
+(76, '9876543211', 'New Announcement has been uploaded, click this to refresh the page.', 0),
+(77, 'LOLPH-1234', 'New Announcement has been uploaded, click this to refresh the page.', 0),
+(78, '01-2457321', 'New Announcement has been uploaded, click this to refresh the page.', 1),
+(79, '02-0454sen', 'New Announcement has been uploaded, click this to refresh the page.', 0),
+(80, '02-070031-CENA', 'New Announcement has been uploaded, click this to refresh the page.', 0),
+(81, '02-2295931', 'New Announcement has been uploaded, click this to refresh the page.', 1),
+(82, '02-5003dEV', 'New Announcement has been uploaded, click this to refresh the page.', 0),
+(83, '123', 'New Announcement has been uploaded, click this to refresh the page.', 0),
+(84, '1234', 'New Announcement has been uploaded, click this to refresh the page.', 0),
+(85, '1234567890', 'New Announcement has been uploaded, click this to refresh the page.', 0),
+(86, '9874653127', 'New Announcement has been uploaded, click this to refresh the page.', 0),
+(87, '9876543211', 'New Announcement has been uploaded, click this to refresh the page.', 0),
+(88, 'LOLPH-1234', 'New Announcement has been uploaded, click this to refresh the page.', 0);
 
 -- --------------------------------------------------------
 
@@ -399,6 +424,12 @@ ALTER TABLE `notification`
   ADD PRIMARY KEY (`notification_id`);
 
 --
+-- Indexes for table `notify_update_announcement`
+--
+ALTER TABLE `notify_update_announcement`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `userlevel`
 --
 ALTER TABLE `userlevel`
@@ -418,7 +449,7 @@ ALTER TABLE `activity`
 -- AUTO_INCREMENT for table `announcement`
 --
 ALTER TABLE `announcement`
-  MODIFY `announcment_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `announcment_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `department`
@@ -442,7 +473,13 @@ ALTER TABLE `login_credentials`
 -- AUTO_INCREMENT for table `notification`
 --
 ALTER TABLE `notification`
-  MODIFY `notification_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
+  MODIFY `notification_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
+
+--
+-- AUTO_INCREMENT for table `notify_update_announcement`
+--
+ALTER TABLE `notify_update_announcement`
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=89;
 
 --
 -- AUTO_INCREMENT for table `userlevel`
