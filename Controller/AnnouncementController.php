@@ -4,9 +4,16 @@ $currentDateTime = new DateTime('now');
 $current_date = $currentDateTime->format('Y-m-d H:i:s');
 require_once ("../connection/dbh.php");
 require_once ("../Model/AnnouncementModel.php");
+require_once ("../Model/EmployeeModel.php");
+require_once ("../Model/AlertModel.php");
+
+
 header('Content-Type: application/json');
 header('Content-type: mu');
 $announcement_model = new AnnouncementModel();
+$employee_model = new EmployeeModel();
+$alert_model = new AlertModel();
+
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if (isset ($_POST['fetch_data'])) {
@@ -64,10 +71,39 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $upload_announcement = $announcement_model->insertAnnouncement($text, $file_name, $current_date);
 
         if ($upload_announcement !== false) {
-            echo json_encode(['success' => $upload_announcement]);
+            $successResponses = array(); // Array to collect success responses
+            
+            $get_all_employee_id = $employee_model->getAllEmployees();
+            if (is_array($get_all_employee_id)) {
+                // Loop through each element
+                foreach ($get_all_employee_id as $employee_info) {
+                    // Check if the element is an array or an object
+                    if (is_array($employee_info) && isset($employee_info['employee_id'])) {
+                        $message = "New Announcement has been uploaded, click this to refresh the page.";
+                        $employee_id = $employee_info['employee_id'];
+                        // Notify each employee
+                        $alert_employee_announcement = $alert_model->notifyUpdateAnnouncement($employee_id, $message);
+                        // Check if notification is successful
+                        if ($alert_employee_announcement !== false) {
+                            // Collect success responses
+                            $successResponses[] = $employee_id;
+                        }
+                    }
+                }
+            }
+        
+            if (!empty($successResponses)) {
+                // If there are any successful notifications, send a success response
+                echo json_encode(['success' => $upload_announcement, 'employee_ids' => $successResponses]);
+            } else {
+                // If no successful notifications, send a general success response
+                echo json_encode(['success' => $upload_announcement]);
+            }
         } else {
+            // If announcement upload fails, send error response
             echo json_encode(['failed' => 'error']);
         }
+        
 
     }
 

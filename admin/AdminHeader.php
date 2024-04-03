@@ -67,6 +67,9 @@ if (isset($_SESSION['admin_id']) && $_SESSION["admin_id"]) {
         <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/vfs_fonts.js"></script>
         <script src="https://cdn.datatables.net/v/bs5/jszip-3.10.1/dt-2.0.2/b-3.0.1/b-html5-3.0.1/b-print-3.0.1/r-3.0.0/datatables.min.js"></script>
  
+        <!-- web icon -->
+        <link rel="icon" type="image/x-icon" href="../asset/img/herogram.jpg">
+
 
 <!-- MOment -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>

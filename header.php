@@ -20,6 +20,9 @@ require_once ("connection/dbh.php");
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
 
+    <!-- WEB ICON -->
+    <link rel="icon" type="image/x-icon" href="./asset/img/herogram.jpg">
+
     <title>Document</title>
     <style>
         .navbar-brand {
