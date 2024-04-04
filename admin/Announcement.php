@@ -198,6 +198,7 @@ if( isset($_SESSION['announcement_view']) && $_SESSION["announcement_view"] == 1
           if (response.failed == "You can't upload files of this type") {
 
             $('#inputGroupFile02').val('');
+  
             alert(response.failed);
           }
           if (response.failed == "Sorry, your file is too large.") {
@@ -207,6 +208,8 @@ if( isset($_SESSION['announcement_view']) && $_SESSION["announcement_view"] == 1
           }
           if (response.success == true) {
             $("#table_announcement").DataTable().destroy();
+            $('#inputGroupFile02').val('');
+            quill.setText(''); 
             alert("New announcement uploaded");
 
             fetchAnnouncement();

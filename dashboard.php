@@ -14,17 +14,96 @@ if (isset($_SESSION["employee_id"]) && $_SESSION["employee_id"]) {
 
     <link rel="stylesheet" href="asset/css/infiniteLoop.css">
     <link rel="stylesheet" href="asset/css/dashboard.css">
-    <link rel="stylesheet" href="asset/css/animatedText.css">
     <link rel="stylesheet" href="asset/css/btnStartAnimation.css">
     <link rel="stylesheet" href="asset/css/ballAnimation.css">
     <link rel="stylesheet" href="asset/css/sliding.css">
-    <link rel="stylesheet" href="./asset/css/quote.css">
+    <link rel="stylesheet" href="./asset/css/quo.css">
     <link rel="stylesheet" href="./asset/css/FontStyleDashboard.css">
-  
-    <div class="container-fluid min-vh-100 mt-0 position-relative" style="background-image: url('asset/img/bg_msa.jpg');  background-size: cover;
-    background-position: center; background-repeat: no-repeat; ">
-        <div class="row sticky-md-top" style="min-width:100%;">
-            <p class="h4 text-center fs-1 tracking-in-expand text-white p-2 shadow "><i class="fa fa-bullhorn" aria-hidden="true" style="transform: rotateY(180deg);"></i> Announcement <i class="fa fa-bullhorn" aria-hidden="true"></i></p>
+    <link rel="stylesheet" href="./asset/css/AnnouncementText.css">
+  <style>
+
+#txt{
+   display:flex;
+   align-items:center;
+   justify-content:center;
+   flex:1;
+   font-family:sans-serif;
+   letter-spacing:3.5px;
+   font-size:3.5rem;
+   font-weight:700;
+   position:relative;
+   transform-style:preserve-3d;
+   perspective:100px;
+   -webkit-transform-style:preserve-3d;
+   -webkit-perspective:100px;
+}
+#txt>b{
+   height:3.5rem;
+   box-shadow:0 .4rem .3rem -.3rem #aaa;
+   color:#979c9f;
+   background:linear-gradient(#aaf,#acf,#afc);
+   background-clip:text;
+   text-fill-color:transparent;
+   -webkit-background-clip:text;
+   -webkit-text-fill-color:transparent;
+   transform-origin:bottom;
+   transform:rotateX(-85deg);
+   -webkit-transform-origin:bottom;
+   -webkit-transform:rotateX(-85deg);
+   animation:getUp 7s infinite;
+}
+#txt>b:nth-child(2){
+   animation-delay:.25s;
+}
+#txt>b:nth-child(3){
+   animation-delay:.5s;
+}
+#txt>b:nth-child(4){
+   animation-delay:.75s;
+}
+#txt>b:nth-child(5){
+   animation-delay:1s;
+}
+#txt>b:nth-child(6){
+   animation-delay:1.25s;
+}
+#txt>b:nth-child(7){
+   animation-delay:1.5s;
+}
+#txt>b:nth-child(8){
+   animation-delay:1.75s;
+}
+#txt>b:nth-child(9){
+   animation-delay:2s;
+}
+#txt>b:nth-child(10){
+   animation-delay:2.25s;
+}
+#txt>b:nth-child(11){
+   animation-delay:2.50s;
+}
+#txt>b:nth-child(12){
+   animation-delay:2.75s;
+}
+@keyframes getUp{
+   10%,50%{
+      transform:rotateX(0);
+   }
+   0%,60%,100%{
+      transform:rotateX(-85deg);
+   }
+}
+  </style>
+    <!-- style="background-image: url('asset/img/bg_msa.jpg');  background-size: cover;
+    background-position: center; background-repeat: no-repeat; " -->
+     <!-- style="background: #fffbf2;" -->
+     
+    <div class="container-fluid min-vh-100 mt-0 position-relative"  style="background:#f4f1ec;">
+        <div class="row " style="min-width:100%;">
+            <!-- <p id="anim_announcement" class="h4 text-center fs-1 tracking-in-expand p-2 animate__animated animate__zoomInUp" style="color: #e4dfff; font-family: cursive; background: transparent !important;"> Announcement <i class="fa fa-bullhorn" aria-hidden="true"></i></p> -->
+            <div class="txt" id="txt">
+                    <b>A</b><b>N</b><b>N</b><b>O</b><b>U</b><b>N</b><b>C</b><b>E</b><b>M</b><b>E</b><b>N</b><b>T</b>
+            </div>
             <div class="scroller" data-speed="slow" data-direction="right">
                 <ul class="tag-list scroller__inner p-0 d-flex gap-2 py-2 flex-wrap ">
 
@@ -91,13 +170,12 @@ if (isset($_SESSION["employee_id"]) && $_SESSION["employee_id"]) {
             </div>
 
         </div>
-
-
         <div class="container p-0 overflow-hidden">
             <div class="row">
                 <div class="box-item1 mb-4">
                     <div class="flip-box">
-                        <div class="flip-box-front p-2 text-center" style="background-image: url('asset/img/a.jpg'); border-image: fill 0 linear-gradient(#0001, #000);">
+                        <!--  style="background-image: url('asset/img/a.jpg'); border-image: fill 0 linear-gradient(#0001, #000);" -->
+                        <div class="flip-box-front p-2 text-center bg-dark">
                             <p class="h3 flip-box-header text-white  border-bottom p-4">Attendance</p>
                             <div class="inner text-white">
                                 <button class="shadow__btn" id="switch">
@@ -106,7 +184,8 @@ if (isset($_SESSION["employee_id"]) && $_SESSION["employee_id"]) {
 
                             </div>
                         </div>
-                        <div class="flip-box-back text-center" style="background-image: url('asset/img/marcus.jpg'); ">
+                        <!-- style="background-image: url('asset/img/marcus.jpg'); " -->
+                        <div class="flip-box-back text-center" >
                             <div class="inner text-white">
 
                                 <div class="row">
@@ -139,7 +218,8 @@ if (isset($_SESSION["employee_id"]) && $_SESSION["employee_id"]) {
                 <div class="box-item mb-4">
                     <div class="flip-box2">
 
-                        <div class="flip-box-front text-center p-2" style="background-image: url('asset/img/a.jpg'); border-image: fill 0 linear-gradient(#0001, #000);">
+                    <!-- style="background-image: url('asset/img/a.jpg'); border-image: fill 0 linear-gradient(#0001, #000);" -->
+                        <div class="flip-box-front text-center p-2 rounded bg-dark" >
                             <p class="h3 flip-box-header text-white  border-bottom p-4">Activity </p>
                             <div class="inner text-white p-4">
 
@@ -171,7 +251,8 @@ if (isset($_SESSION["employee_id"]) && $_SESSION["employee_id"]) {
 
                             </div>
                         </div>
-                        <div class="flip-box-back text-center" style="background-image: url('asset/img/marcus.jpg'); object-fit: fill;">
+                        <!-- style="background-image: url('asset/img/marcus.jpg'); object-fit: fill;" -->
+                        <div class="flip-box-back text-center " >
                             <div class="inner text-white">
 
                                 <div class="row">
@@ -207,7 +288,7 @@ if (isset($_SESSION["employee_id"]) && $_SESSION["employee_id"]) {
 
             </div>
         </div>
-        <div class="container-fluid">
+        <!-- <div class="container-fluid">
             <div class="row">
                 <div class="imgLoader"></div>
 
@@ -245,11 +326,9 @@ if (isset($_SESSION["employee_id"]) && $_SESSION["employee_id"]) {
                     </div>
                 </div>
 
-                <!-- <a href="https://twitter.com/amit_sheen" class="twitterLink" target="_top">
-                    <img src="https://assets.codepen.io/1948355/twitterLogo2.png" />
-                </a> -->
+
             </div>
-        </div>
+        </div> -->
 
         <div class="container-fluid start-0 bottom-0 p-0 mt-4 fixed-bottom " style="background:  transparent; width:100%; z-index: 5999;">
             <div class="d-flex ">

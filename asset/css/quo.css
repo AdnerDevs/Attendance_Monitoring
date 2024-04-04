@@ -10,7 +10,7 @@
     text-decoration: none;
     font-weight: 600;
     overflow: hidden;
-    box-shadow: 0 10px 50px #111b29;
+    box-shadow: 0 0 25px rgb(0, 140, 255);
     border-radius: 10px;
     padding: 10px 20px;
 }
@@ -41,7 +41,9 @@
     align-items: center;
     justify-content: center;
     letter-spacing: 1px;
-    background-image: url('../img/pogi.jpg');
+    /* background-image: url('../img/pogi.jpg'); */
+    background: rgb(0, 140, 255);
+    /* box-shadow: 0 0 25px rgb(0, 140, 255); */
     position: absolute;
     font-weight: bold;
     font-size: 1.5rem;
@@ -58,14 +60,18 @@
 }
 
 .slidein:nth-child(even) {
-    background-image: url('../img/pogi2.jpg') !important;
-    background-position: center;
+    /* background-image: url('../img/pogi2.jpg') !important; */
+    /* background-position: center; */
+    background: rgb(0, 140, 255);
+    box-shadow: 0 0 25px rgb(0, 140, 255);
 
 }
 
 .slidein:nth-child(odd) {
-    background-image: url('../img/pogi3.jpg') !important;
+    /* background-image: url('../img/pogi3.jpg') !important; */
     /* background-repeat: no-repeat;
     background-attachment: fixed; */
-    background-position: center;
+    /* background-position: center; */
+    background: rgb(0, 140, 255);
+    box-shadow: 0 0 25px rgb(0, 140, 255);
 }

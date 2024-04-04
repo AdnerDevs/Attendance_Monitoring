@@ -83,11 +83,11 @@ require_once ("connection/dbh.php");
 <body>
 
     <header class="navbar navbar-expand-lg bd-navbar p-lg-3 sticky-top navbar-dark bg-dark shadow">
-        <div class="d-flex flex-column position-absolute text-center text-white"
+        <!-- <div class="d-flex flex-column position-absolute text-center text-white"
             style="top: 0; left: 0; width: 100%; z-index: 2; height: 30px;">
             <div class="bg-danger"><span class="text-center">ONGOING DEVELOPMENT!!</span></div>
             <div class=" bg-warning"><span class="text-center">COMING SOON!</span></div>
-        </div>
+        </div> -->
         <nav class="container-fluid bd-gutter flex-wrap flex-lg-nowrap" aria-label="Main Navigation">
 
             <?php

@@ -1,0 +1,10 @@
+.tracking-in-expand {
+
+
+    /* background: rgb(209 154 169 / 34%); */
+    text-shadow: 3px 3px 2px rgba(91, 91, 125, 1);
+    backdrop-filter: blur(1.5px);
+    -webkit-backdrop-filter: blur(1.5px);
+    border: 1px solid rgba(177, 178, 241, 0.46);
+}
+

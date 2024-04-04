@@ -1,5 +1,5 @@
 <?php
-require_once('header.php');
+require_once ('header.php');
 
 ?>
 <style>
@@ -89,11 +89,21 @@ require_once('header.php');
         let emp_id;
         let emp_sname;
 
-        $("#login_btn").click(function () {
-            emp_id = $("#emp_id_credentials").val();
-            emp_sname = $("#emp_name_credentials").val();
-
+        function handleLogin() {
+            var emp_id = $("#emp_id_credentials").val();
+            var emp_sname = $("#emp_name_credentials").val();
             loginUser(emp_id, emp_sname);
+        }
+        
+        $("#login_btn").click(function () {
+            handleLogin();
+        });
+
+
+        $("#emp_id_credentials, #emp_name_credentials").keypress(function (e) {
+            if (e.which == 13) { 
+                handleLogin();
+            }
         });
     });
 
@@ -131,5 +141,5 @@ require_once('header.php');
     }
 </script>
 <?php
-require_once('footer.php');
+require_once ('footer.php');
 ?>

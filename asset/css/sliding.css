@@ -1036,16 +1036,3 @@
     transform: rotateY(180deg);
   }
 }
-.twitterLink {
-  position: fixed;
-  bottom: 0.5em;
-  right: 0.5em;
-}
-.twitterLink img {
-  width: 2em;
-  filter: grayscale(100%);
-  transition: filter 0.25s;
-}
-.twitterLink img:hover {
-  filter: grayscale(0%);
-}
