@@ -17,83 +17,12 @@ if (isset($_SESSION["employee_id"]) && $_SESSION["employee_id"]) {
     <link rel="stylesheet" href="asset/css/btnStartAnimation.css">
     <link rel="stylesheet" href="asset/css/ballAnimation.css">
     <link rel="stylesheet" href="asset/css/sliding.css">
-    <link rel="stylesheet" href="./asset/css/quo.css">
+    <link rel="stylesheet" href="./asset/css/quote.css">
     <link rel="stylesheet" href="./asset/css/FontStyleDashboard.css">
     <link rel="stylesheet" href="./asset/css/AnnouncementText.css">
-  <style>
+    <link rel="stylesheet" href="./asset/css/fancyAnnouncementText.css">
+  
 
-#txt{
-   display:flex;
-   align-items:center;
-   justify-content:center;
-   flex:1;
-   font-family:sans-serif;
-   letter-spacing:3.5px;
-   font-size:3.5rem;
-   font-weight:700;
-   position:relative;
-   transform-style:preserve-3d;
-   perspective:100px;
-   -webkit-transform-style:preserve-3d;
-   -webkit-perspective:100px;
-}
-#txt>b{
-   height:3.5rem;
-   box-shadow:0 .4rem .3rem -.3rem #aaa;
-   color:#979c9f;
-   background:linear-gradient(#aaf,#acf,#afc);
-   background-clip:text;
-   text-fill-color:transparent;
-   -webkit-background-clip:text;
-   -webkit-text-fill-color:transparent;
-   transform-origin:bottom;
-   transform:rotateX(-85deg);
-   -webkit-transform-origin:bottom;
-   -webkit-transform:rotateX(-85deg);
-   animation:getUp 7s infinite;
-}
-#txt>b:nth-child(2){
-   animation-delay:.25s;
-}
-#txt>b:nth-child(3){
-   animation-delay:.5s;
-}
-#txt>b:nth-child(4){
-   animation-delay:.75s;
-}
-#txt>b:nth-child(5){
-   animation-delay:1s;
-}
-#txt>b:nth-child(6){
-   animation-delay:1.25s;
-}
-#txt>b:nth-child(7){
-   animation-delay:1.5s;
-}
-#txt>b:nth-child(8){
-   animation-delay:1.75s;
-}
-#txt>b:nth-child(9){
-   animation-delay:2s;
-}
-#txt>b:nth-child(10){
-   animation-delay:2.25s;
-}
-#txt>b:nth-child(11){
-   animation-delay:2.50s;
-}
-#txt>b:nth-child(12){
-   animation-delay:2.75s;
-}
-@keyframes getUp{
-   10%,50%{
-      transform:rotateX(0);
-   }
-   0%,60%,100%{
-      transform:rotateX(-85deg);
-   }
-}
-  </style>
     <!-- style="background-image: url('asset/img/bg_msa.jpg');  background-size: cover;
     background-position: center; background-repeat: no-repeat; " -->
      <!-- style="background: #fffbf2;" -->
@@ -111,9 +40,11 @@ if (isset($_SESSION["employee_id"]) && $_SESSION["employee_id"]) {
 
                         <div class="col-12 lh-base">
                             <div class="quote">
-                                <a class="first">Everyone Has the right to</a>
-                                <a class="slidein"> Freedom of thought, conscience</a>
-                                <a class="slidein two"> and religion. </a>
+                                <a class="first">Always do your best.</a>
+                                <a class="slidein"> What you plant now,</a>
+                                <a class="slidein two"> you will harvest later.</a>
+                                <a class="slidein three"> ~Og Mandino</a>
+
                             </div>
                         </div>
 
