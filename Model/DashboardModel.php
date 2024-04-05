@@ -47,14 +47,14 @@ class DashboardModel extends Dbh{
 
     public function totalAdmin(){
         try {
-            $stmt = $this->connect()->prepare("SELECT COUNT(*) as total_admin FROM admin_user WHERE isRemove != 1");
+            $stmt = $this->connect()->prepare("SELECT COUNT(*) as total_admin FROM admin_user WHERE isRemove != 1 AND isArchive != 1");
 
-            if (!$stmt->execute()) {
-                return false;
+            if ($stmt->execute()) {
+                $result = $stmt->fetch(PDO::FETCH_ASSOC);
+                return $result['total_admin']; 
             }
-    
-            $result = $stmt->fetch(PDO::FETCH_ASSOC);
-            return $result['total_admin']; 
+            return false;
+          
         } catch (PDOException $e) {
             print('Error: ' . $e->getMessage());
         } finally {
