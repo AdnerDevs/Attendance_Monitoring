@@ -54,11 +54,11 @@ require_once ('header.php');
                             <span class="input-group-text">
                                 <i class="fa fa-id-badge" aria-hidden="true"></i>
                             </span>
-                            <input type="text" name="" id="emp_id_credentials" class="form-control form-control-lg fs-6"
+                            <input type="text" name="" id="emp_id_credentials" class="form-control form-control-lg fs-1"
                                 placeholder="Employee ID">
                         </div>
 
-                        <div class="input-group mb-3">
+                        <div class="input-group mb-3 d-none">
                             <span class="input-group-text">
                                 <i class="fa fa-user" aria-hidden="true"></i>
                             </span>
@@ -71,13 +71,13 @@ require_once ('header.php');
                         Login
                     </button>
 
-                    <div class="position-relative">
+                    <!-- <div class="position-relative">
                         <hr class="text-secondary divider">
                         <div class="divider-content-center">or</div>
                     </div>
                     <button type="button" class="btn btn-outline-secondary btn-lg w-100">
                         <a href="register.php" style="text-decoration: none !important; color: inherit;">Register</a>
-                    </button>
+                    </button> -->
                 </div>
             </div>
         </div>

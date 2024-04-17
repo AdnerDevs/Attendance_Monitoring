@@ -577,9 +577,10 @@ if (isset($_SESSION['admin_management_view']) && $_SESSION['admin_management_vie
             function editAdmin(
                 admin_id) {
                 // console.log(admin_id);
-                admin_username = $('#EditAccountModal').find("#edit_admin_name").val();
-                admin_name = $('#EditAccountModal').find("#edit_admin_username").val();
-                admin_surname = $('#EditAccountModal').find("#edit_admin_name").val();
+                admin_username = $('#EditAccountModal').find("#edit_admin_username").val();
+                
+                admin_name = $('#EditAccountModal').find("#edit_admin_name").val();
+                admin_surname = $('#EditAccountModal').find("#edit_admin_surname").val();
                 admin_completename = `${admin_name} ${admin_surname}`;
                 userlevel_ed = $(".edit_admin_select_userlevel").val();
                 $(".edit_admin_select_userlevel").change(function () {
@@ -597,7 +598,7 @@ if (isset($_SESSION['admin_management_view']) && $_SESSION['admin_management_vie
                         edit_userlevel: userlevel_ed
                     },
                     success: function (response) {
-                        console.log(response);
+                   
                         if (response.status === 'success') {
                             alert("Updated successfully");
                             $("#table_admin").DataTable().destroy();

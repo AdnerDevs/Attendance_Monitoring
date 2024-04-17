@@ -17,9 +17,9 @@ class SignupController extends EmployeeModel{
             $error['empty_input'] = 'Please fill in all fields';
 
         }
-          if($this->formatID() == false){
-            $error['format_id'] = 'Employee ID should be 10 characters long';
-        }
+        //   if($this->formatID() == false){
+        //     $error['format_id'] = 'Employee ID should be 10 characters long';
+        // }
 
         // if($this->employeeIDCheck() == false){
         //     $error['already_exist'] = 'This ID is already registered, please input a different ID';
@@ -37,13 +37,13 @@ class SignupController extends EmployeeModel{
         return true;
     }
 
-    public function formatID(){
-        if(strlen($this->employee_id) > 10 || strlen($this->employee_id) < 10){
-            return false;
-        }
+    // public function formatID(){
+    //     if(strlen($this->employee_id) > 10 || strlen($this->employee_id) < 10){
+    //         return false;
+    //     }
 
-        return true;
-    }
+    //     return true;
+    // }
 
     // public function employeeIDCheck(){
     //     return  $this->checkID($this->employee_id);

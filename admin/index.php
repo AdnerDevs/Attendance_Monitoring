@@ -11,7 +11,7 @@ require_once ('AdminHeader.php');
 <div class="container-fluid min-vh-100">
     <div class="row mb-2">
         <div class="col-lg-4 mb-4" style="max-height:500px;">
-            <div class="card shadow" >
+            <div class="card shadow " >
                 <div class="card-header  py-3 text-center ">
                     <h5 class="card-header ">TOTAL EMPLOYEE</h5>
                     <span>

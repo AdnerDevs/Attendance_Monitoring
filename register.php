@@ -1,9 +1,18 @@
 <?php
-    require_once('header.php');
+    // require_once('header.php');
+    require_once('connection/dbh.php');
     require_once('Model/DepartmentModel.php');
 
     $department_model = new DepartmentModel();
 ?>
+<!-- WEB ICON -->
+<link rel="icon" type="image/x-icon" href="./asset/img/herogram.jpg">
+<title>Herogram</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
 <style>
     .divider-content-center{
         position: absolute;
@@ -26,14 +35,30 @@
     }
 
 
+    .rotate-up {
+        transform: rotate(-90deg);
+    }
 </style>
+
 <div class="container-fluid min-vh-100 p-0 d-flex justify-content-sm-center">
+    <div class="position-absolute top-0 start-0 p-2">
+
+        <button type="button" class=" btn btn-link fs-3" id="back_to_admin" data-bs-toggle="collapse" data-bs-target="#history_table"><i class="fa fa-arrow-up rotate-up" aria-hidden="true"></i></button>
+
+    </div>
+
+    <script>
+    $(document).ready(function(){
+
+        $('#back_to_admin').click(function(){
+            window.location.href = './admin/Employee.php'
+        });
+    });
+</script>
             <div class="d row align-items-center justify-content-center bg-dark g-0 px-4 px-sm-0 p-4  shadow  w-sm-100" style="min-height: 600px; width: 100%;">
-            <!-- <div class="alert alert-primary" role="alert">
-              
-            </div> -->
+    
                 <div class="col col-sm-6 col-lg-7 col-xl-6">
-                    <a href="/attendance_monitoring" class="d-flex justify-content-center mb-4">
+                    <a href="#" class="d-flex justify-content-center mb-4">
                         <img src="asset/img/herogram.jpg" alt="" width="60" class="rounded-circle">
                         
                     </a>
@@ -43,7 +68,7 @@
                         <p class="text-secondary">Create your account</p>
                     </div>
                 <div class="row mb-4">
-                    <div class="col-md-6">
+                    <div class="col-md-12">
                         <div class="input-group mb-3">
                             <span class="input-group-text">
                                 <i class="fa fa-id-badge" aria-hidden="true"></i>
@@ -52,7 +77,7 @@
                         </div>
                     </div>
 
-                    <div class="col-md-6">
+                    <div class="col-md-6 d-none">
                         <div class="input-group mb-3">
                             <span class="input-group-text">
                                 <i class="fa fa-id-badge" aria-hidden="true"></i>
@@ -99,11 +124,31 @@
                         </div>
                     </div>
 
-                    <div class="col-md-12">
+                    <div class="col-md-12 ">
+                        <div class="input-group mb-3">
+                            <span class="input-group-text">
+                                <i class="fa fa-street-view" aria-hidden="true"></i>
+                            </span>
+                            <select class="form-select" aria-label="Default select department">
+                                <option value="0" selected disabled>Position</option>
+                                <?php
+                                    $department = $department_model->getAllDepartment();
+
+                                    foreach ($department as $dept):
+                                ?>
+                                <option value="<?=$dept['department_id']?>"><?=$dept['department_name']?></option>
+                                <?php
+                                    endforeach;
+                                ?>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="col-md-12 d-none">
                         <p class=" text-secondary text-center mt-2 mb-4">Your Login Credentials:</p>
                     </div>
 
-                    <div class="credential col-md-6">
+                    <div class="credential col-md-6 d-none">
                         <label for="emp_generate_id" class="form-label text-white">Employee ID credential:</label>
                         <div class="input-group mb-3">
                             
@@ -114,7 +159,7 @@
                         </div>
                     </div>
 
-                    <div class="credential col-md-6">
+                    <div class="credential col-md-6 d-none">
                         <label for="emp_generate_name" class="form-label text-white">Employee username credential:</label>
                         <div class="input-group mb-3">
                             <span class="input-group-text">
@@ -131,17 +176,18 @@
                         Register
                     </button>
 
-                    <div class="position-relative">
+                    <!-- <div class="position-relative">
                         <hr class="text-secondary divider">
                         <div class="divider-content-center">or</div>
                     </div>
                     <button type="button" class="btn btn-outline-secondary btn-lg w-100" >
                         <a href="/Attendance_Monitoring/"  style="text-decoration: none !important; color: inherit;">Login</a>
-                    </button>
+                    </button> -->
                 </div>
             </div>
 </div>
 
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 
 
 <script>
@@ -222,7 +268,7 @@
                    
                 } else if (response.status === 'success'){
                     alert("Employee registered successfully");
-                    window.location.href='/Attendance_monitoring';
+                    // window.location.href='/Attendance_monitoring';
                 }else if (response.status === 'validate'){
                     alert("ID Already exist");
            
@@ -241,5 +287,5 @@
     }
 </script>
 <?php
-    require_once('footer.php');
+    // require_once('footer.php');
 ?>

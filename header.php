@@ -23,7 +23,7 @@ require_once ("connection/dbh.php");
     <!-- WEB ICON -->
     <link rel="icon" type="image/x-icon" href="./asset/img/herogram.jpg">
 
-    <title>Document</title>
+    <title>Herogram</title>
     <style>
         .navbar-brand {
             font-family: "Roboto Slab", serif;
@@ -209,7 +209,7 @@ require_once ("connection/dbh.php");
 
                         $.ajax({
                             type: 'POST',
-                            url: 'Controller/AlertController.php',
+                            url: './Controller/AlertController.php',
                             data: {
                                 employee_id: session_employee_id
                             },
@@ -233,7 +233,7 @@ require_once ("connection/dbh.php");
                     var pollingInterval = setInterval(function () {
                         $.ajax({
                             type: 'POST',
-                            url: 'Controller/AlertController.php',
+                            url: './Controller/AlertController.php',
                             data: {
                                 new_announcement_employee_id: session_employee_id
                             },
@@ -265,7 +265,7 @@ require_once ("connection/dbh.php");
                                 // Create a new notification
                                 var notification = new Notification('Alert', {
                                     body: message,
-                                    icon: 'asset/img/herogram.jpg',
+                                    icon: './asset/img/herogram.jpg',
                                     requireInteraction: true
                                 });
                                 // Add event listener for the close button
@@ -273,7 +273,7 @@ require_once ("connection/dbh.php");
                                     // // Make AJAX request
                                     $.ajax({
                                         type: 'POST',
-                                        url: 'Controller/AlertController.php',
+                                        url: './Controller/AlertController.php',
                                         data: {
                                             seen_employee_id: id
                                         },
@@ -292,7 +292,7 @@ require_once ("connection/dbh.php");
                                     // Make AJAX request
                                     $.ajax({
                                         type: 'POST',
-                                        url: 'Controller/AlertController.php',
+                                        url: './Controller/AlertController.php',
                                         data: {
                                             seen_employee_id: id
                                         },
@@ -321,7 +321,7 @@ require_once ("connection/dbh.php");
                                 // Create a new notification
                                 var notification = new Notification('Alert', {
                                     body: message,
-                                    icon: 'asset/img/herogram.jpg',
+                                    icon: './asset/img/herogram.jpg',
                                     requireInteraction: true
                                 });
                                 // Add event listener for the close button
@@ -329,7 +329,7 @@ require_once ("connection/dbh.php");
                                     // Make AJAX request
                                     $.ajax({
                                         type: 'POST',
-                                        url: 'Controller/AlertController.php',
+                                        url: './Controller/AlertController.php',
                                         data: {
                                             seen_updated_announcement: id
                                         },
@@ -350,7 +350,7 @@ require_once ("connection/dbh.php");
                                     // Make AJAX request
                                     $.ajax({
                                         type: 'POST',
-                                        url: 'Controller/AlertController.php',
+                                        url: './Controller/AlertController.php',
                                         data: {
                                             seen_updated_announcement: id
                                         },
@@ -365,6 +365,10 @@ require_once ("connection/dbh.php");
                                     });
                                    
                                 };
+                            }else if (permission === 'denied') {
+                                // Permission denied, handle accordingly
+                                console.log('Notification permission denied.');
+                                // You can display a message or provide guidance to the user
                             }
                         });
                     }

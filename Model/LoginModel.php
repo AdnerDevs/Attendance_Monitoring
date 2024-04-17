@@ -4,9 +4,9 @@ class LoginModel extends Dbh{
     
     public function loginUser($employee_id, $employee_name ){
         try{
-            $stmt = $this->connect()->prepare("SELECT * FROM login_credentials WHERE credential_id = ? AND credential_surname = ? AND isRemove != 1");
+            $stmt = $this->connect()->prepare("SELECT * FROM login_credentials WHERE credential_id = ? AND isRemove != 1");
 
-            if(!$stmt->execute(array($employee_id, $employee_name))){
+            if(!$stmt->execute(array($employee_id))){
                 return false;
               
             }

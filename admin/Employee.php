@@ -1,12 +1,12 @@
 <?php
 
-require_once('AdminHeader.php');
-require_once('../Model/EmployeeModel.php');
+require_once ('AdminHeader.php');
+require_once ('../Model/EmployeeModel.php');
 if (isset($_SESSION['employee_management_view']) && $_SESSION['employee_management_view'] == 1) {
-$users = new EmployeeModel();
-$employee = $users->getAllEmployees();
+  $users = new EmployeeModel();
+  $employee = $users->getAllEmployees();
 
-?>
+  ?>
   <?php
   isset($_SESSION['employee_management_create']) && $_SESSION["employee_management_create"] == 1 ? $addState = " " : $addState = "d-none";
   isset($_SESSION['employee_management_update']) && $_SESSION["employee_management_update"] == 1 ? $editState = " " : $editState = "d-none";
@@ -23,10 +23,19 @@ $employee = $users->getAllEmployees();
   <div class="table-responsive">
     <div class="d-flex flex-row p-2 align-items-center">
       <p class="h4 mb-0 me-2">Employees</p>
+
+      <button class="btn btn-primary <?= $session_admin_management_create ?>" type="button" id="reg_employee">Register New
+        Employee</button>
     </div>
 
 
-
+    <script>
+      $(document).ready(function () {
+        $('#reg_employee').click(function () {
+          window.location.href = '../register.php';
+        });
+      });
+    </script>
     <table class="table" id="table_employee" class="">
       <thead>
         <tr>
@@ -40,7 +49,7 @@ $employee = $users->getAllEmployees();
         </tr>
       </thead>
       <tbody>
-        
+
 
       </tbody>
     </table>
@@ -99,15 +108,15 @@ $employee = $users->getAllEmployees();
       </div>
     </div>
   </div>
-<script>
-  var session_employee_management_delete = "<?php echo $session_employee_management_delete; ?>";
-</script>
+  <script>
+    var session_employee_management_delete = "<?php echo $session_employee_management_delete; ?>";
+  </script>
 
   <script>
-    $(document).ready(function() {
+    $(document).ready(function () {
       let employee_id;
       fetchEmployee();
-      
+
 
       function fetchEmployee() {
         $.ajax({
@@ -117,94 +126,94 @@ $employee = $users->getAllEmployees();
             fetch_employee: 'fetch'
           },
           dataType: 'json',
-          success: function(data) {
+          success: function (data) {
             console.log(data);
             $("#table_employee").DataTable({
               "data": data,
               "responsive": true,
               "columns": [{
-                  "data": null,
-                  "orderable": false,
-                  "render": function(data, type, row, meta) {
-                    return meta.row + 1;
-                  }
-                },
-                {
-                  "data": "employee_id"
-                },
-                {
-                  "data": "department_name"
-                },
-                {
-                  "data": "employee_name"
-                },
-                {
-                  "data": "created_time"
-                },
-                {
-                  "data": "status",
-                  "render": function(data, type, row, meta) {
-                    if (data == 0) {
-                      return '<span class="text-secondary">Offline</span>';
-                    } else {
-                      return '<span class="text-primary">Online</span>';
-                    }
-                  }
-                },
-                {
-                  "data": "employee_id",
-                  "orderable":false,
-                  "render": function(data, type, row, meta) {
-                    var buttons = '';
-                    if(session_employee_management_delete.trim() ===  ''){
-                    buttons +='<button type="button" class="btn btn-outline-danger RemoveAccountBtn me-2 '+ session_employee_management_delete +'" data-bs-id="' + data + '" data-tooltip="tooltip" title="Remove"><i class="fa fa-trash" aria-hidden="true"></i></button>';
-                    }
-                    return buttons;
+                "data": null,
+                "orderable": false,
+                "render": function (data, type, row, meta) {
+                  return meta.row + 1;
+                }
+              },
+              {
+                "data": "employee_id"
+              },
+              {
+                "data": "department_name"
+              },
+              {
+                "data": "employee_name"
+              },
+              {
+                "data": "created_time"
+              },
+              {
+                "data": "status",
+                "render": function (data, type, row, meta) {
+                  if (data == 0) {
+                    return '<span class="text-secondary">Offline</span>';
+                  } else {
+                    return '<span class="text-primary">Online</span>';
                   }
                 }
+              },
+              {
+                "data": "employee_id",
+                "orderable": false,
+                "render": function (data, type, row, meta) {
+                  var buttons = '';
+                  if (session_employee_management_delete.trim() === '') {
+                    buttons += '<button type="button" class="btn btn-outline-danger RemoveAccountBtn me-2 ' + session_employee_management_delete + '" data-bs-id="' + data + '" data-tooltip="tooltip" title="Remove"><i class="fa fa-trash" aria-hidden="true"></i></button>';
+                  }
+                  return buttons;
+                }
+              }
               ],
             });
           },
-          erorr: function(error) {
+          erorr: function (error) {
             console.log(error);
           }
         });
       }
 
-      $(document).on('click', '.RemoveAccountBtn', function(e){
+      $(document).on('click', '.RemoveAccountBtn', function (e) {
         employee_id = $(this).data("bs-id");
-       
+
         let confirmRevove = confirm('Are you sure you want to remove this employee? By removing employee they no longer have rights to login to the website');
-        if(confirmRevove){
+        if (confirmRevove) {
 
           $.ajax({
             type: 'POST',
             url: '../Controller/EmployeeController.php',
-            data:{
+            data: {
               remove_employee: employee_id
             },
             dataType: 'json',
-            success: function (response){
+            success: function (response) {
               console.log(response);
-              if(response.status === "success"){
+              if (response.status === "success") {
                 $("#table_employee").DataTable().destroy();
                 alert("Employee has been removed");
                 fetchEmployee();
-              }else{
+              } else {
                 alert("error in removing");
               }
             },
-            error: function(error){
+            error: function (error) {
               console.log(error);
             }
           });
-        }else{
+        } else {
           return;
         }
       });
     });
   </script>
-<?php
-  require_once('AdminFooter.php');
+  <?php
+  require_once ('AdminFooter.php');
 }
 ?>

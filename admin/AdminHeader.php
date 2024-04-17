@@ -178,6 +178,13 @@ if (isset($_SESSION['admin_id']) && $_SESSION["admin_id"]) {
                                 </a>
                             </li>
 
+                            <li class="sidebar-item ">
+                                <a href="EmployeePosition.php" class="sidebar-link">
+                                    <i class="fa fa-street-view" aria-hidden="true"></i>
+                                    <span class="text-white">Position</span>
+                                </a>
+                            </li>
+
                             <li class="sidebar-item <?= $adminState ?>">
                                 <a href="Userlevel.php" class="sidebar-link">
                                     <i class="fa fa-user-plus" aria-hidden="true"></i>
