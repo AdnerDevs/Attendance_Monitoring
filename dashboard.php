@@ -111,9 +111,9 @@ if (isset($_SESSION["employee_id"]) && $_SESSION["employee_id"]) {
 
                         <div class="col-12 lh-base">
                             <div class="quote">
-                                <a class="first">Everyone Has the right to</a>
-                                <a class="slidein"> Freedom of thought, conscience</a>
-                                <a class="slidein two"> and religion. </a>
+                                <a class="first"> It's not about ideas</a>
+                                <a class="slidein"> It's about making ideas happen</a>
+                                <a class="slidein two"> ~Scott Belsky</a>
                             </div>
                         </div>
 

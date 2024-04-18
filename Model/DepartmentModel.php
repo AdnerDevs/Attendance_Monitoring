@@ -24,6 +24,27 @@ class DepartmentModel extends Dbh{
         }
     }
 
+    public function getAllDepartmentDisplay(){
+        try{
+
+            $stmt = $this->connect()->prepare("SELECT * FROM department WHERE isDeleted != 1");
+
+            if(!$stmt->execute()){
+                return false;
+            }
+
+            $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+            return $result;
+
+        }catch(PDOException $e){
+            print("ERROR: ". $e->getMessage());
+            exit();
+        }finally{
+            $stmt = null;
+        }
+    }
+
     
     public function insertDepartment($dept_name){
         try{

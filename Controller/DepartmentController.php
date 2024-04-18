@@ -6,6 +6,13 @@ require_once ('../Model/DepartmentModel.php');
 $department_model = new DepartmentModel();
 
 if($_SERVER['REQUEST_METHOD'] == 'POST'){
+
+    if(isset($_POST['fetch_department'])){
+
+        $fetch = $department_model->getAllDepartmentDisplay();
+        header('Content-Type: application/json');
+        echo json_encode($fetch);
+    }
     if(isset($_POST['department_name'])){
         $dept_name = htmlspecialchars($_POST['department_name'], ENT_QUOTES, 'UTF-8');
 

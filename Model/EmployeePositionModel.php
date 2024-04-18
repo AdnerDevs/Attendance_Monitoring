@@ -23,6 +23,27 @@ class EmployeePositionModel extends Dbh{
             $stmt = null;
         }
     }
+    public function getAllPositionsDisplay(){
+        try{
+
+            $stmt = $this->connect()->prepare("SELECT * FROM employee_position WHERE isRemove != 1 AND isArchive != 1");
+
+            if(!$stmt->execute()){
+                return false;
+            }
+
+            $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+            return $result;
+
+        }catch(PDOException $e){
+            print("ERROR: ". $e->getMessage());
+            exit();
+        }finally{
+            $stmt = null;
+        }
+    }
+    
 
     
     public function insertPosition($job_pos){

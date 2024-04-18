@@ -97,7 +97,7 @@ if (isset($_SESSION['admin_management_view']) && $_SESSION['admin_management_vie
                                     </div>
                                 </div>
 
-                                <div class="col-12">
+                                <div class="col-12 d-none">
                                     <div class="input-group mb-3">
                                         <span class="input-group-text">
                                             <i class="fa fa-user" aria-hidden="true"></i>
@@ -186,21 +186,21 @@ if (isset($_SESSION['admin_management_view']) && $_SESSION['admin_management_vie
                             <div class="row mb-4">
                                 <div class="col-12">
                                     <div class="input-group mb-3">
-                                        <input type="hidden" name="" id="edit_admin_id"
+                                        <input type="text" name="" id="edit_admin_id"
                                             class="regInputField form-control form-control-lg fs-6 " placeholder="Admin ID"
                                             value="">
                                     </div>
                                 </div>
-                                <div class="col-12">
+                                <!-- <div class="col-12">
                                     <div class="input-group mb-3">
                                         <span class="input-group-text">
                                             <i class="fa fa-user" aria-hidden="true"></i>
                                         </span>
-                                        <input type="text" name="" id="edit_admin_username"
+                                        <input type="text" name="" id="edit_admin_id"
                                             class="regInputField form-control form-control-lg fs-6 " value=""
                                             placeholder="Username">
                                     </div>
-                                </div>
+                                </div> -->
                                 <div class="col-12">
                                     <div class="input-group mb-3">
                                         <span class="input-group-text">
@@ -295,12 +295,12 @@ if (isset($_SESSION['admin_management_view']) && $_SESSION['admin_management_vie
 
             $("#registerBtn").click(function () {
                 admin_id = $("#admin_id").val();
-                admin_username = $("#admin_username").val();
+                // admin_username = $("#admin_username").val();
                 admin_name = $("#admin_name").val();
                 admin_surname = $("#admin_surname").val();
                 admin_completename = `${admin_name} ${admin_surname}`;
 
-                if (!admin_id || !admin_completename.trim() || !admin_username) {
+                if (!admin_id || !admin_completename.trim()) {
                     alert("Please fill in all required fields");
                     return;
                 }
@@ -309,33 +309,26 @@ if (isset($_SESSION['admin_management_view']) && $_SESSION['admin_management_vie
                     return;
                 }
 
-                registerEmployee(admin_id, admin_username, admin_completename, userlevel)
+                registerEmployee(admin_id, admin_completename, userlevel)
 
             });
 
 
 
-            function registerEmployee(admin_id, admin_username, admin_completename, userlevel) {
+            function registerEmployee(admin_id,  admin_completename, userlevel) {
+                console.log({
+                    admin_id,  admin_completename, userlevel
+                });
                 $.ajax({
                     type: 'POST',
                     url: '../Controller/AdminAccountController.php',
                     data: {
                         admin_id: admin_id,
-                        admin_username: admin_username,
                         admin_completename: admin_completename,
-                        userlevel: userlevel
+                        userlevel: userlevel,
                     },
                     success: function (response) {
-                        console.log(response);
-                        if (response.status === 'error') {
-                            if (response.errors.already_exist) {
-                                alert(response.errors.already_exist);
-                            }
-                            if (response.errors.format_id) {
-                                alert(response.errors.format_id);
-                            }
-
-                        } else if (response.status === 'success') {
+                        if (response.status === 'success') {
                             alert("Employee registered successfully");
                             $("#admin_id").val('');
                             $("#admin_username").val('');
@@ -347,11 +340,9 @@ if (isset($_SESSION['admin_management_view']) && $_SESSION['admin_management_vie
                             getAdmin();
                         } else if (response.status === 'validate') {
                             alert("ID Already exist");
-
-                        } else {
-                            alert("Failed to register");
-                        }
-
+                            
+                        } 
+              
                     },
                     error: function (error) {
                         console.error(jqXHR, textStatus, errorThrown);
@@ -535,7 +526,7 @@ if (isset($_SESSION['admin_management_view']) && $_SESSION['admin_management_vie
                     let surname = nameArray.slice(1).join(' ');
 
                     // Set values for username, name, and surname fields in the modal
-                    $('#EditAccountModal').find("#edit_admin_username").val(admin.credential_surname);
+                    $('#EditAccountModal').find("#edit_admin_id").val(admin.admin_id);
                     $('#EditAccountModal').find("#edit_admin_name").val(name);
                     $('#EditAccountModal').find("#edit_admin_surname").val(surname);
                     $('#EditAccountModal').find("#editAccountSaveBtn").val(admin_id);
@@ -577,7 +568,7 @@ if (isset($_SESSION['admin_management_view']) && $_SESSION['admin_management_vie
             function editAdmin(
                 admin_id) {
                 // console.log(admin_id);
-                admin_username = $('#EditAccountModal').find("#edit_admin_username").val();
+                admin_id_new = $('#EditAccountModal').find("#edit_admin_id").val();
                 
                 admin_name = $('#EditAccountModal').find("#edit_admin_name").val();
                 admin_surname = $('#EditAccountModal').find("#edit_admin_surname").val();
@@ -587,13 +578,12 @@ if (isset($_SESSION['admin_management_view']) && $_SESSION['admin_management_vie
                     userlevel_ed = $(this).val()
                 });
 
-
                 $.ajax({
                     type: 'POST',
                     url: '../Controller/AdminAccountController.php',
                     data: {
-                        edit_admin_id: admin_id,
-                        edit_admin_username: admin_username,
+                        edit_admin_id_old: admin_id,
+                        edit_admin_id_new: admin_id_new,
                         edit_admin_completename: admin_completename,
                         edit_userlevel: userlevel_ed
                     },
@@ -606,6 +596,7 @@ if (isset($_SESSION['admin_management_view']) && $_SESSION['admin_management_vie
                         } else if (response.status === 'failed') {
                             alert("Failed to update");
                         }
+                        // console.log(response);
 
                     },
                     error: function (error) {

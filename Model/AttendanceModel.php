@@ -7,11 +7,11 @@ class AttendanceModel extends Dbh{
     public function fetch(){
         try{
             $data = [];
-            $stmt = $this->connect()->prepare("SELECT ea.employee_attendance_id, ea.employee_id, ea.employee_name, ac.activity_type, ea.activity_description, ea.start_time, ea.end_time, ea.total_time, ea.submitted_by, ea.submitted_on, dp.department_name, ea.day,  ea.hour, ea.minute, ea.second, lc.credential_id, ea.day, ea.hour, ea.minute, ea.second 
+            $stmt = $this->connect()->prepare("SELECT ea.employee_attendance_id, ea.employee_id, ea.employee_name, ac.activity_type, ea.activity_description, ea.start_time, ea.end_time, ea.total_time, ea.submitted_by, ea.submitted_on, dp.department_name, ea.day,  ea.hour, ea.minute, ea.second,  ea.day, ea.hour, ea.minute, ea.second 
             FROM employee_attendance ea 
             INNER JOIN activity ac ON ea.activity_type = ac.activity_id 
             INNER JOIN department dp ON ea.department_id = dp.department_id
-            INNER JOIN login_credentials lc ON ea.employee_id = lc.employee_id
+
             WHERE ea.isRemove != 1 
             ORDER BY ea.employee_attendance_id DESC");
 
@@ -33,11 +33,11 @@ class AttendanceModel extends Dbh{
         try {
             $data = [];
             if(isset($start_date) && isset($end_date)) {
-                $stmt = $this->connect()->prepare("SELECT ea.employee_attendance_id, ea.employee_id, ea.employee_name, ac.activity_type, ea.activity_description, ea.start_time, ea.end_time, ea.total_time, ea.submitted_by, ea.submitted_on, dp.department_name, ea.day,  ea.hour, ea.minute, ea.second, lc.credential_id, ea.day, ea.hour, ea.minute, ea.second 
+                $stmt = $this->connect()->prepare("SELECT ea.employee_attendance_id, ea.employee_id, ea.employee_name, ac.activity_type, ea.activity_description, ea.start_time, ea.end_time, ea.total_time, ea.submitted_by, ea.submitted_on, dp.department_name, ea.day,  ea.hour, ea.minute, ea.second, ea.day, ea.hour, ea.minute, ea.second 
                 FROM employee_attendance ea 
                 INNER JOIN activity ac ON ea.activity_type = ac.activity_id 
                 INNER JOIN department dp ON ea.department_id = dp.department_id
-                INNER JOIN login_credentials lc ON ea.employee_id = lc.employee_id
+                -- INNER JOIN login_credentials lc ON ea.employee_id = lc.employee_id
                 WHERE DATE(ea.start_time) >= '$start_date' AND DATE(ea.start_time) <= '$end_date' AND ea.isRemove != 1
                 ORDER BY ea.employee_attendance_id DESC");
     

@@ -2,6 +2,7 @@
 
 require_once ('AdminHeader.php');
 require_once ('../Model/EmployeeModel.php');
+
 if (isset($_SESSION['employee_management_view']) && $_SESSION['employee_management_view'] == 1) {
   $users = new EmployeeModel();
   $employee = $users->getAllEmployees();
@@ -42,6 +43,7 @@ if (isset($_SESSION['employee_management_view']) && $_SESSION['employee_manageme
           <th>No</th>
           <th>Employee id</th>
           <th>Department</th>
+          <th>Job Position</th>
           <th>Name</th>
           <th>Account Created</th>
           <th>Status</th>
@@ -57,57 +59,87 @@ if (isset($_SESSION['employee_management_view']) && $_SESSION['employee_manageme
 
 
   <!-- Modal -->
-  <div class="modal fade" id="ActivityModal" tabindex="-1" aria-labelledby="ActivityModal" aria-hidden="true">
-    <div class="modal-dialog">
+  <div class="modal fade" id="EditAccountModal" tabindex="-1" aria-labelledby="EditAccountModal" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
       <div class="modal-content">
         <div class="modal-header">
-          <h1 class="modal-title fs-5" id="ActivityTitle">Add Activity Type</h1>
+          <h1 class="modal-title fs-5" id="EditAccountModalTitle">Edit Employee Account</h1>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
-        <div class="modal-body">
+        <div class="modal-body container-fluid" id="bodyEdit">
+          <div class="d row align-items-center justify-content-center g-0 px-4 px-sm-0 p-4   w-sm-100"
+            style=" width: 100%;">
+            <div class="col col-sm-6 col-lg-7 col-xl-6">
+              <div class="text-center mb-5">
+                <p class="h3 fw-bold text-primary">Update</p>
+                <p class="text-secondary">Update Employee Account</p>
+              </div>
+              <div class="row mb-4">
+                <div class="col-12">
+                  <div class="input-group mb-3">
+                    <span class="input-group-text">
+                      <i class="fa fa-id-badge" aria-hidden="true"></i>
+                    </span>
+                    <input type="text" name="" id="edit_admin_id" class="regInputField form-control form-control-lg fs-6 "
+                      placeholder="Employee ID" value="">
+                  </div>
+                </div>
 
+                <div class="col-12">
+                  <div class="input-group mb-3">
+                    <span class="input-group-text">
+                      <i class="fa fa-user" aria-hidden="true"></i>
+                    </span>
+                    <input type="text" name="" id="edit_admin_name"
+                      class="regInputField form-control form-control-lg fs-6 " value="" placeholder=" Name">
+                  </div>
+                </div>
+                <div class="col-12">
+                  <div class="input-group mb-3">
+                    <span class="input-group-text">
+                      <i class="fa fa-user" aria-hidden="true"></i>
+                    </span>
+                    <input type="text" name="" id="edit_admin_surname"
+                      class="regInputField form-control form-control-lg fs-6 " value="" placeholder="Surname">
+                  </div>
+                </div>
+                <div class="col-md-12 ">
+                  <div class="input-group mb-3">
+                    <span class="input-group-text">
+                      <i class="fa fa-bullseye" aria-hidden="true"></i>
+                    </span>
+                    <select class="form-select dept" aria-label="Default select department">
+                      <option value="0" selected disabled>Designated Department</option>
 
-          <div class="mb-3">
-            <label for="formGroupExampleInput" class="form-label">Activity Type</label>
-            <input type="text" class="form-control" id="ActivityTypeInput" placeholder="Activity type">
+                    </select>
+                  </div>
+                </div>
+
+                <div class="col-md-12 ">
+                  <div class="input-group mb-3">
+                    <span class="input-group-text">
+                      <i class="fa fa-street-view" aria-hidden="true"></i>
+                    </span>
+                    <select class="form-select pos" aria-label="Default select position">
+                      <option value="0" selected disabled>Job Position</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
-
         </div>
 
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary" id="saveActivity" data-bs-dismiss="modal">Save changes</button>
+          <button type="button" class="btn btn-primary" id="editAccountSaveBtn" data-bs-dismiss="modal">Save
+            changes</button>
         </div>
       </div>
     </div>
   </div>
 
 
-  <div class="modal fade" id="EditActivityModal" tabindex="-1" aria-labelledby="EditActivityModal" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h1 class="modal-title fs-5" id="EditActivityModal">Edit Activity Type</h1>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-
-
-          <div class="mb-3">
-            <label for="formGroupExampleInput" class="form-label editActvity"></label>
-            <input type="text" class="form-control" id="EditActivityTypeInput" placeholder="Activity type">
-            <input type="hidden" id="EditActivityID">
-          </div>
-
-        </div>
-
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary" id="editActivity" data-bs-dismiss="modal">Save changes</button>
-        </div>
-      </div>
-    </div>
-  </div>
   <script>
     var session_employee_management_delete = "<?php echo $session_employee_management_delete; ?>";
   </script>
@@ -115,8 +147,13 @@ if (isset($_SESSION['employee_management_view']) && $_SESSION['employee_manageme
   <script>
     $(document).ready(function () {
       let employee_id;
-      fetchEmployee();
+      let dept;
+      if (!dept) {
+        getAllDept();
+      }
 
+      fetchEmployee();
+      getAllDept();
 
       function fetchEmployee() {
         $.ajax({
@@ -127,7 +164,7 @@ if (isset($_SESSION['employee_management_view']) && $_SESSION['employee_manageme
           },
           dataType: 'json',
           success: function (data) {
-            console.log(data);
+
             $("#table_employee").DataTable({
               "data": data,
               "responsive": true,
@@ -143,6 +180,9 @@ if (isset($_SESSION['employee_management_view']) && $_SESSION['employee_manageme
               },
               {
                 "data": "department_name"
+              },
+              {
+                "data": "position_name"
               },
               {
                 "data": "employee_name"
@@ -166,13 +206,23 @@ if (isset($_SESSION['employee_management_view']) && $_SESSION['employee_manageme
                 "render": function (data, type, row, meta) {
                   var buttons = '';
                   if (session_employee_management_delete.trim() === '') {
-                    buttons += '<button type="button" class="btn btn-outline-danger RemoveAccountBtn me-2 ' + session_employee_management_delete + '" data-bs-id="' + data + '" data-tooltip="tooltip" title="Remove"><i class="fa fa-trash" aria-hidden="true"></i></button>';
+                    buttons += '<button type="button" class="btn btn-outline-primary EditAccountBtn me-2 ' + session_employee_management_delete + '" data-bs-id="' + data + '" data-bs-toggle="modal" data-bs-target="#EditAccountModal" data-tooltip="tooltip" title="Edit"><i class="fa fa-pencil" aria-hidden="true"></i></button>' +
+                      '<button type="button" class="btn btn-outline-danger RemoveAccountBtn me-2 ' + session_employee_management_delete + '" data-bs-id="' + data + '" data-tooltip="tooltip" title="Remove"><i class="fa fa-trash" aria-hidden="true"></i></button>';
                   }
                   return buttons;
                 }
               }
               ],
             });
+
+            $("#table_employee").on("click", ".EditAccountBtn", function () {
+              employee_id = $(this).data("bs-id");
+              console.log()
+              getEmployee(employee_id, data);
+
+            });
+
+
           },
           erorr: function (error) {
             console.log(error);
@@ -212,6 +262,88 @@ if (isset($_SESSION['employee_management_view']) && $_SESSION['employee_manageme
         }
       });
     });
+
+
+    function getEmployee(employee_id, result) {
+
+      const admin = result.find(item => item.employee_id === employee_id);
+
+      if (admin) {
+        // console.log('Admin found:', admin);
+        // Split admin name into first name and surname
+        let nameArray = admin.employee_name.split(' ');
+        let name = nameArray[0];
+        let surname = nameArray.slice(1).join(' ');
+
+        // Set values for username, name, and surname fields in the modal
+        $('#EditAccountModal').find("#edit_admin_id").val(admin.employee_id);
+        $('#EditAccountModal').find("#edit_admin_name").val(name);
+        $('#EditAccountModal').find("#edit_admin_surname").val(surname);
+        $('#EditAccountModal').find("#editAccountSaveBtn").val(employee_id);
+        // Populate user level select dropdown
+        let dept_select = $(".dept");
+        let pos_select = $(".pos");
+        dept_select.empty(); // Clear existing options before populating again
+
+        // Add options using the existing userLevels data
+        $.each(dept, function (index, depts) {
+          // Append option to the select element
+          let option = $('<option>', {
+            value: depts.department_id,
+            text: depts.department_name 
+          });
+
+          // Set selected attribute if the userlevel_id matches admin's userlevel_id
+          if (depts.department_id === admin.department_id) {
+            option.attr('selected', 'selected');
+          }
+
+          dept_select.append(option);
+        });
+
+        $.each(dept, function (index, depts) {
+          // Append option to the select element
+          let option = $('<option>', {
+            value: depts.department_id,
+            text: depts.department_name 
+          });
+
+          // Set selected attribute if the userlevel_id matches admin's userlevel_id
+          if (depts.department_id === admin.department_id) {
+            option.attr('selected', 'selected');
+          }
+
+          pos_select.append(option);
+        });
+
+
+
+
+
+      } else {
+        console.log('Admin not found.');
+      }
+    }
+
+    function getAllDept() {
+      $.ajax({
+        type: 'POST',
+        url: "../Controller/DepartmentController.php",
+        data: {
+          fetch_department: 'fetch',
+        },
+        dataType: 'json',
+        success: function (data) {
+          dept = data;
+
+
+        },
+        error: function (error) {
+          console.log(error);
+        }
+      });
+    }
+
   </script>
   <?php
   require_once ('AdminFooter.php');

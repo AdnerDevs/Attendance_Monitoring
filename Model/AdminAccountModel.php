@@ -48,15 +48,15 @@ class AdminAccountModel extends Dbh{
 
 
     // insert
-    public function registerAdmin($admin_id, $admin_username, $admin_completename, $userlevel, $usertpye){
+    public function registerAdmin($admin_id,  $admin_completename, $userlevel, $usertpye){
         try{    
-            $stmt = $this->connect()->prepare("INSERT INTO admin_user (admin_id,  admin_name, userlevel_id) VALUES (?,?,?)");
+            $stmt = $this->connect()->prepare("INSERT INTO admin_user (admin_id, admin_name, userlevel_id) VALUES (?,?,?)");
 
-            if(!$stmt->execute([$admin_id,$admin_completename,$userlevel])){
+            if(!$stmt->execute([$admin_id,$admin_completename, $userlevel])){
                 return false;
             }
 
-            $perform = $this->createLoginCredentials($admin_id, $admin_id, $admin_username, $usertpye ) ;
+            $perform = $this->createLoginCredentials($admin_id,  $usertpye ) ;
 
             if( $perform  != false){
                 return true;
@@ -71,12 +71,12 @@ class AdminAccountModel extends Dbh{
         }
     }
 
-    public function createLoginCredentials($admin_id, $id_credentials, $admin_username, $usertpye ){
+    public function createLoginCredentials($admin_id, $usertpye ){
         try{
 
-            $stm = $this->connect()->prepare('INSERT INTO login_credentials (employee_id, credential_id, credential_surname, user_type) VALUES (?,?,?,?)');
+            $stm = $this->connect()->prepare('INSERT INTO login_credentials (employee_id, credential_id, user_type) VALUES (?,?, ?)');
 
-            if(!$stm->execute([$admin_id, $id_credentials, $admin_username, $usertpye])){
+            if(!$stm->execute([$admin_id, $admin_id, $usertpye])){
                 return false;
             }
 
@@ -107,15 +107,39 @@ class AdminAccountModel extends Dbh{
 
     // update
 
-    public function updateAdmin( $admin_completename, $admin_username, $userlevel, $admin_id){
+    public function updateAdmin( $admin_completename, $userlevel, $admin_id){
         try{    
             $stmt = $this->connect()->prepare("UPDATE admin_user SET admin_name = ?, userlevel_id = ? WHERE admin_id = ?");
 
             if(!$stmt->execute([ $admin_completename, $userlevel, $admin_id])){
                 return false;
             }
+            return true;
 
-            $perform = $this->updateLoginCredentials($admin_id, $admin_username) ;
+            // $perform = $this->updateLoginCredentials($admin_id) ;
+
+            // if( $perform  != false){
+            //     return true;
+            // }else{
+            //     return false;
+            // }
+
+        }catch(PDOException $e){
+            print_r($e->errorInfo);
+        }finally{
+            $stmt = null;
+        }
+    }
+
+    public function updateAdminID( $admin_completename, $userlevel, $admin_id, $admin_id_new){
+        try{    
+            $stmt = $this->connect()->prepare("UPDATE admin_user SET admin_name = ?, userlevel_id = ?, admin_id = ? WHERE admin_id = ?");
+
+            if(!$stmt->execute([ $admin_completename, $userlevel, $admin_id_new, $admin_id])){
+                return false;
+            }
+        
+            $perform = $this->updateLoginCredentials($admin_id, $admin_id_new);
 
             if( $perform  != false){
                 return true;
@@ -130,12 +154,12 @@ class AdminAccountModel extends Dbh{
         }
     }
 
-    public function updateLoginCredentials($admin_id, $admin_username){
+    public function updateLoginCredentials($admin_id, $admin_id_new){
         try{
 
-            $stmt = $this->connect()->prepare('UPDATE login_credentials SET credential_surname = ? WHERE employee_id = ?');
+            $stmt = $this->connect()->prepare('UPDATE login_credentials SET employee_id = ?, credential_id = ? WHERE employee_id = ?');
 
-            if(!$stmt->execute([$admin_username, $admin_id])){
+            if(!$stmt->execute([$admin_id_new, $admin_id_new, $admin_id])){
                 return false;
             }
 

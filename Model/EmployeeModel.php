@@ -8,7 +8,8 @@ class EmployeeModel extends Dbh
     public function getAllEmployees()
     {
         try {
-            $stmt = $this->connect()->prepare("SELECT eu.employee_id, eu.employee_name, eu.nickname, eu.status, dp.department_name, eu.created_time FROM employee_user eu INNER JOIN department dp ON eu.department_id = dp.department_id WHERE eu.isRemove != 1 ORDER BY employee_id ASC");
+            $stmt = $this->connect()->prepare("SELECT eu.employee_id, eu.employee_name, eu.status, dp.department_name, eu.created_time, ep.position_name FROM employee_user eu INNER JOIN department dp ON eu.department_id = dp.department_id
+            INNER JOIN employee_position ep ON eu.position_id = ep.id WHERE eu.isRemove != 1 ORDER BY employee_id ASC");
 
             if (!$stmt->execute()) {
                 return false;
@@ -17,44 +18,44 @@ class EmployeeModel extends Dbh
             $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
             return $result;
         } catch (PDOException $e) {
-            print('Error: ' . $e->getMessage());
+            print ('Error: ' . $e->getMessage());
         } finally {
             $stmt = null;
         }
     }
 
-    public function registerEmployee($employee_id, $employee_name, $nickname, $department_id, $id_credentials, $surname_credentials, $usertpye)
+    public function registerEmployee($employee_id, $employee_name, $department_id, $position_id, $usertpye)
     {
         try {
-            $stmt = $this->connect()->prepare("INSERT INTO employee_user (employee_id, employee_name, nickname, department_id) VALUES(?,?,?,?)");
+            $stmt = $this->connect()->prepare("INSERT INTO employee_user (employee_id, employee_name, department_id, position_id) VALUES(?,?,?,?)");
 
-            if (!$stmt->execute([$employee_id, $employee_name, $nickname, $department_id])) {
+            if (!$stmt->execute([$employee_id, $employee_name, $department_id, $position_id])) {
                 return false;
             }
 
-            $this->createLoginCredentials($employee_id, $id_credentials, $surname_credentials, $usertpye);
+            $this->createLoginCredentials($employee_id, $employee_id, $usertpye);
 
             return true;
         } catch (PDOException $e) {
-            print('Error: ' . $e->getMessage());
+            print ('Error: ' . $e->getMessage());
         } finally {
             $stmt = null;
         }
     }
 
-    public function createLoginCredentials($employee_id, $id_credentials, $surname_credentials, $usertpye)
+    public function createLoginCredentials($employee_id, $id_credentials, $usertpye)
     {
         try {
 
-            $stmt = $this->connect()->prepare('INSERT INTO login_credentials (employee_id, credential_id, credential_surname, user_type) VALUES (?,?,?,?)');
+            $stmt = $this->connect()->prepare('INSERT INTO login_credentials (employee_id, credential_id, user_type) VALUES (?,?,?)');
 
-            if (!$stmt->execute([$employee_id, $id_credentials, $surname_credentials, $usertpye])) {
+            if (!$stmt->execute([$employee_id, $id_credentials, $usertpye])) {
                 return false;
             }
 
             return true;
         } catch (PDOException $e) {
-            print('' . $e->getMessage());
+            print ('' . $e->getMessage());
         } finally {
             $stmt = null;
         }
@@ -69,7 +70,7 @@ class EmployeeModel extends Dbh
             $result = ($stmt->rowCount() > 0) ? false : true;
             return $result;
         } catch (PDOException $e) {
-            print('Error: ' . $e->getMessage());
+            print ('Error: ' . $e->getMessage());
             return false;
         } finally {
             $stmt = null;
@@ -83,41 +84,42 @@ class EmployeeModel extends Dbh
         try {
 
             $stmt = $this->connect()->prepare('UPDATE employee_user set isRemove = 1 WHERE employee_id = ?');
-       
+
 
             if ($stmt->execute([$employee_id])) {
-               $update = $this->updateLogincredentials($employee_id);
-                if($update){
+                $update = $this->updateLogincredentials($employee_id);
+                if ($update) {
                     return $update;
-                }else{
+                } else {
                     return false;
                 }
             }
 
             return false;
         } catch (PDOException $e) {
-            print('erorr:' . $e->getMessage());
+            print ('erorr:' . $e->getMessage());
         } finally {
             $stmt = null;
         }
     }
 
-    public function updateLogincredentials($employee_id){
+    public function updateLogincredentials($employee_id)
+    {
         try {
 
             $stmt = $this->connect()->prepare('UPDATE login_credentials set isRemove = 1 WHERE employee_id = ?');
 
             if ($stmt->execute([$employee_id])) {
-            
+
                 return true;
-            
+
             }
             return false;
         } catch (PDOException $e) {
-            print('erorr:' . $e->getMessage());
+            print ('erorr:' . $e->getMessage());
         } finally {
             $stmt = null;
-          
+
         }
     }
 
@@ -133,7 +135,7 @@ class EmployeeModel extends Dbh
 
             return true;
         } catch (PDOException $e) {
-            print('erorr:' . $e->getMessage());
+            print ('erorr:' . $e->getMessage());
         } finally {
             $stmt = null;
         }
