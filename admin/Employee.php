@@ -146,14 +146,23 @@ if (isset($_SESSION['employee_management_view']) && $_SESSION['employee_manageme
 
   <script>
     $(document).ready(function () {
-      let employee_id;
-      let dept;
+      let employee_id, dept, post, employee_name, employee_surname, employee_completename, department_id, position_id;
+
       if (!dept) {
         getAllDept();
       }
-
+      if (!post) {
+        getAllPosition();
+      }
       fetchEmployee();
+      getAllPosition();
       getAllDept();
+
+      $(document).on('click', '#editAccountSaveBtn', function () {
+        employee_id = $(this).val();
+        updateEmployee(employee_id);
+      });
+
 
       function fetchEmployee() {
         $.ajax({
@@ -217,7 +226,6 @@ if (isset($_SESSION['employee_management_view']) && $_SESSION['employee_manageme
 
             $("#table_employee").on("click", ".EditAccountBtn", function () {
               employee_id = $(this).data("bs-id");
-              console.log()
               getEmployee(employee_id, data);
 
             });
@@ -244,7 +252,7 @@ if (isset($_SESSION['employee_management_view']) && $_SESSION['employee_manageme
             },
             dataType: 'json',
             success: function (response) {
-              console.log(response);
+              // console.log(response);
               if (response.status === "success") {
                 $("#table_employee").DataTable().destroy();
                 alert("Employee has been removed");
@@ -261,55 +269,103 @@ if (isset($_SESSION['employee_management_view']) && $_SESSION['employee_manageme
           return;
         }
       });
+
+
+      function updateEmployee(employee_id) {
+
+        let employee_id_new = $('#EditAccountModal').find("#edit_admin_id").val();
+
+        employee_name = $('#EditAccountModal').find("#edit_admin_name").val();
+        employee_surname = $('#EditAccountModal').find("#edit_admin_surname").val();
+        employee_completename = `${employee_name} ${employee_surname}`;
+        let deptd = $(".dept").val();
+        $(".dept").change(function () {
+          deptd = $(this).val()
+        });
+
+        let pos_id = $(".pos").val();
+        $(".pos").change(function () {
+          pos_id = $(this).val()
+        });
+
+        $.ajax({
+          type: 'POST',
+          url: '../Controller/EmployeeController.php',
+          data: {
+            edit_emp_id_old: employee_id,
+            edit_emp_id_new: employee_id_new,
+            edit_name: employee_completename,
+            edit_dept_id: deptd,
+            edit_pos_id: pos_id,
+          },
+          dataType: 'json',
+          success: function (result) {
+            if (result.status === 'success') {
+
+              $("#table_employee").DataTable().destroy();
+              alert("Updated successfully");
+              fetchEmployee();
+            } else if (response.status === 'failed') {
+              alert("Failed to update");
+            }
+          },
+          error: function (error) {
+            console.log(error);
+          }
+
+
+        });
+
+      }
     });
 
 
     function getEmployee(employee_id, result) {
 
-      const admin = result.find(item => item.employee_id === employee_id);
+      const employee_data = result.find(item => item.employee_id === employee_id);
 
-      if (admin) {
-        // console.log('Admin found:', admin);
+      if (employee_data) {
+
         // Split admin name into first name and surname
-        let nameArray = admin.employee_name.split(' ');
+        let nameArray = employee_data.employee_name.split(' ');
         let name = nameArray[0];
         let surname = nameArray.slice(1).join(' ');
 
         // Set values for username, name, and surname fields in the modal
-        $('#EditAccountModal').find("#edit_admin_id").val(admin.employee_id);
+        $('#EditAccountModal').find("#edit_admin_id").val(employee_data.employee_id);
         $('#EditAccountModal').find("#edit_admin_name").val(name);
         $('#EditAccountModal').find("#edit_admin_surname").val(surname);
         $('#EditAccountModal').find("#editAccountSaveBtn").val(employee_id);
-        // Populate user level select dropdown
+
         let dept_select = $(".dept");
         let pos_select = $(".pos");
         dept_select.empty(); // Clear existing options before populating again
-
+        pos_select.empty();
         // Add options using the existing userLevels data
         $.each(dept, function (index, depts) {
           // Append option to the select element
           let option = $('<option>', {
             value: depts.department_id,
-            text: depts.department_name 
+            text: depts.department_name
           });
 
           // Set selected attribute if the userlevel_id matches admin's userlevel_id
-          if (depts.department_id === admin.department_id) {
+          if (depts.department_id === employee_data.department_id) {
             option.attr('selected', 'selected');
           }
 
           dept_select.append(option);
         });
 
-        $.each(dept, function (index, depts) {
+        $.each(post, function (index, posts) {
           // Append option to the select element
           let option = $('<option>', {
-            value: depts.department_id,
-            text: depts.department_name 
+            value: posts.id,
+            text: posts.position_name
           });
 
           // Set selected attribute if the userlevel_id matches admin's userlevel_id
-          if (depts.department_id === admin.department_id) {
+          if (posts.id === employee_data.position_id) {
             option.attr('selected', 'selected');
           }
 
@@ -317,13 +373,13 @@ if (isset($_SESSION['employee_management_view']) && $_SESSION['employee_manageme
         });
 
 
-
-
-
       } else {
-        console.log('Admin not found.');
+        console.log('Employee not found.');
       }
     }
+
+
+
 
     function getAllDept() {
       $.ajax({
@@ -337,6 +393,23 @@ if (isset($_SESSION['employee_management_view']) && $_SESSION['employee_manageme
           dept = data;
 
 
+        },
+        error: function (error) {
+          console.log(error);
+        }
+      });
+    }
+
+    function getAllPosition() {
+      $.ajax({
+        type: 'POST',
+        url: "../Controller/EmployeePositionController.php",
+        data: {
+          get_all_display: 'fetch',
+        },
+        dataType: 'json',
+        success: function (data) {
+          post = data;
         },
         error: function (error) {
           console.log(error);

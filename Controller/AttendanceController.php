@@ -11,26 +11,7 @@ require_once('../Model/AttendanceModel.php');
 $attendance_model = new AttendanceModel();
 
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-        // if(isset($_POST['employee_id']) && isset($_POST['employee_name']) && isset($_POST['credential_id']) && isset($_POST['department_id']) && isset($_POST['activity_description']) && isset($_POST['activity_type'])){
-        //     $employee_id = htmlspecialchars($_POST['employee_id'], ENT_QUOTES, 'UTF-8');
-        //     $submitted_by = htmlspecialchars($_POST['credential_id'], ENT_QUOTES, 'UTF-8');
-        //     $employee_name = htmlspecialchars($_POST['employee_name'], ENT_QUOTES, 'UTF-8');
-        //     $department_id = htmlspecialchars($_POST['department_id'], ENT_QUOTES, 'UTF-8');
-        //     $activity_type = 1;
-        //     $activity_description = 'Attendance';
-        //     $start_time  = $current_date;
-
-
-        //     $insert_attendance = $attendance_model->insertAttendance($employee_id, $employee_name, $department_id, $activity_type, $activity_description, $start_time, $submitted_by, $start_time);
-
-        //     if($insert_attendance != false){
-        //             echo json_encode(['status' => 'success']);
-        //     }else{
-        //             echo json_encode(['status' => 'failed']);
-        //     }
-
-
-        // }
+    
 
         if (isset($_POST['employee_id']) && isset($_POST['total_seconds']) && isset($_POST['activity_type']) && isset($_POST['employee_attendance_id'])) {
             $employee_id = htmlspecialchars($_POST['employee_id'], ENT_QUOTES, 'UTF-8');
@@ -53,7 +34,7 @@ $attendance_model = new AttendanceModel();
             $time_difference -= $minute * 60;
             $second = $time_difference;
 
-            $update_end_attendance = $attendance_model->updateEndtimeAttendance($end_time, $total_time, $day, $hour, $minute, $second, $employee_id, $activity_type, $employee_attendance_id);
+            $update_end_attendance = $attendance_model->updateEndtimeAttendance($end_time, $total_time, $day, $hour, $minute, $second, $employee_id, $employee_attendance_id);
 
 
             if ($update_end_attendance != false) {

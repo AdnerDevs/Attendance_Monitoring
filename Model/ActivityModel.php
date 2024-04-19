@@ -21,6 +21,25 @@ class ActivityModel extends Dbh {
         }
     }
 
+    public function getAllActivityDisplay(){
+        try{
+            $stmt = $this->connect()->prepare("SELECT * FROM activity WHERE isDeleted != 1 AND isArchive != 1 ORDER BY activity_id ASC");
+
+            if(!$stmt->execute()){
+                return false;
+                die();              
+            }
+            
+            $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            return $result;
+
+        }catch(PDOException $e){
+            print ("error: " . $e->getMessage() ."");
+        }finally{
+            $stmt = null;
+        }
+    }
+
     public function insertActivityType($activity_type, $current_date){
         try{
             $stmt = $this->connect()->prepare("INSERT INTO activity (activity_type, activity_created_time) VALUES (?,?)");

@@ -8,8 +8,8 @@ class EmployeeModel extends Dbh
     public function getAllEmployees()
     {
         try {
-            $stmt = $this->connect()->prepare("SELECT eu.employee_id, eu.employee_name, eu.status, dp.department_name, eu.created_time, ep.position_name FROM employee_user eu INNER JOIN department dp ON eu.department_id = dp.department_id
-            INNER JOIN employee_position ep ON eu.position_id = ep.id WHERE eu.isRemove != 1 ORDER BY employee_id ASC");
+            $stmt = $this->connect()->prepare("SELECT eu.employee_id, eu.employee_name, eu.department_id, eu.position_id, eu.status, dp.department_name, eu.created_time, ep.position_name FROM employee_user eu INNER JOIN department dp ON eu.department_id = dp.department_id
+            INNER JOIN employee_position ep ON eu.position_id = ep.id WHERE eu.isRemove != 1 ORDER BY eu.employee_id ASC");
 
             if (!$stmt->execute()) {
                 return false;
@@ -78,6 +78,63 @@ class EmployeeModel extends Dbh
     }
 
     // update
+
+    public function updateEmployee( $employee_name, $department_id, $position_id, $employee_id_old){
+        try {
+
+            $stmt = $this->connect()->prepare('UPDATE employee_user SET employee_name = ?, department_id = ?, position_id = ?  WHERE employee_id = ?');
+
+            if(!$stmt->execute([ $employee_name, $department_id, $position_id, $employee_id_old])){
+                return false;
+            }
+            return true;
+        } catch (PDOException $e) {
+            print ('erorr:' . $e->getMessage());
+        } finally {
+            $stmt = null;
+        }
+    }
+
+    public function updateEmployeeID( $employee_name, $department_id, $position_id, $employee_id_old,  $employee_id_new){
+        try {
+
+            $stmt = $this->connect()->prepare('UPDATE employee_user SET employee_name = ?, department_id = ?, position_id = ?, employee_id = ?  WHERE employee_id = ?');
+
+            if(!$stmt->execute([ $employee_name, $department_id, $position_id, $employee_id_new, $employee_id_old])){
+                return false;
+            }
+
+            $perform = $this->updateLoginCredentialsID($employee_id_old, $employee_id_new);
+
+            if( $perform  != false){
+                return true;
+            }else{
+                return false;
+            }
+        } catch (PDOException $e) {
+            print ('erorr:' . $e->getMessage());
+        } finally {
+            $stmt = null;
+        }
+    }
+
+    public function updateLoginCredentialsID($employee_id_old, $employee_id_new){
+        try{
+
+            $stmt = $this->connect()->prepare('UPDATE login_credentials SET employee_id = ?, credential_id = ? WHERE employee_id = ?');
+
+            if(!$stmt->execute([$employee_id_new, $employee_id_new, $employee_id_old])){
+                return false;
+            }
+
+            return true;
+
+        }catch(PDOException $e){
+            print('' .$e->getMessage());
+        }finally{
+            $stmt = null;
+        }
+    }
 
     public function removeEmployee($employee_id)
     {

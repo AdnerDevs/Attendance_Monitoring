@@ -116,14 +116,6 @@ class AdminAccountModel extends Dbh{
             }
             return true;
 
-            // $perform = $this->updateLoginCredentials($admin_id) ;
-
-            // if( $perform  != false){
-            //     return true;
-            // }else{
-            //     return false;
-            // }
-
         }catch(PDOException $e){
             print_r($e->errorInfo);
         }finally{

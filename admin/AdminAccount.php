@@ -316,9 +316,9 @@ if (isset($_SESSION['admin_management_view']) && $_SESSION['admin_management_vie
 
 
             function registerEmployee(admin_id,  admin_completename, userlevel) {
-                console.log({
-                    admin_id,  admin_completename, userlevel
-                });
+                // console.log({
+                //     admin_id,  admin_completename, userlevel
+                // });
                 $.ajax({
                     type: 'POST',
                     url: '../Controller/AdminAccountController.php',
@@ -350,11 +350,6 @@ if (isset($_SESSION['admin_management_view']) && $_SESSION['admin_management_vie
 
                 });
             }
-
-
-
-
-
 
 
             function removeAdmin(admin_id) {

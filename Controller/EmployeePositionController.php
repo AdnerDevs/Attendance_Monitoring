@@ -15,6 +15,14 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
  
     }
 
+    if(isset($_POST['get_all_display'])){
+        $getall = $position_model->getAllPositionDisplay();
+        if(!empty($getall)){
+            echo json_encode($getall);
+        }
+ 
+    }
+
     if(isset($_POST['name'])){
 
         $job_pos = htmlspecialchars($_POST['name'], ENT_QUOTES, 'UTF-8');

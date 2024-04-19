@@ -82,7 +82,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                         $message = "New Announcement has been uploaded, click this to refresh the page.";
                         $employee_id = $employee_info['employee_id'];
                         // Notify each employee
-                        $alert_employee_announcement = $alert_model->notifyUpdateAnnouncement($employee_id, $message);
+                        $alert_employee_announcement = $alert_model->notifyUpdateAnnouncement($employee_id, $text);
                         // Check if notification is successful
                         if ($alert_employee_announcement !== false) {
                             // Collect success responses

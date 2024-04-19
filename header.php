@@ -241,9 +241,11 @@ require_once ("connection/dbh.php");
                             success: function (result) {
 
                                 if (result) {
-
+                                    var tempElement = $('<div>').html(result.message);
+                                    
+                                    var decodedMessage = tempElement.text();
                                     console.log(result);
-                                    NotifyNewAnnouncement(result.employee_id, result.message);
+                                    NotifyNewAnnouncement(result.employee_id, decodedMessage);
                                     clearInterval(pollingInterval);
                                 } 
                             },
@@ -336,7 +338,7 @@ require_once ("connection/dbh.php");
                                         dataType: 'json',
                                         success: function (result) {
                                             // console.log(result);
-                                            location.reload();
+                                            // location.reload();
                                         },
                                         error: function (xhr, status, error) {
                                             console.log(xhr.responseText); // Log the error message

@@ -56,6 +56,42 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
 
     // update
 
+    if(isset($_POST['edit_emp_id_old']) && isset($_POST['edit_emp_id_new']) && isset($_POST['edit_name'])  && isset($_POST['edit_dept_id']) && isset($_POST['edit_pos_id'])){
+
+        $employee_id_old = htmlspecialchars($_POST['edit_emp_id_old'], ENT_QUOTES, 'UTF-8');
+        $employee_id_new = htmlspecialchars($_POST['edit_emp_id_new'], ENT_QUOTES, 'UTF-8');
+
+        $employee_name = htmlspecialchars($_POST['edit_name'], ENT_QUOTES, 'UTF-8');
+
+        $department_id = htmlspecialchars($_POST['edit_dept_id'], ENT_QUOTES, 'UTF-8');
+        $position_id = htmlspecialchars($_POST['edit_pos_id'], ENT_QUOTES, 'UTF-8');
+
+        if (strcasecmp($employee_id_old, $employee_id_new) != 0) {
+            $update = $employee_model->updateEmployeeID( $employee_name, $department_id, $position_id, $employee_id_old, $employee_id_new);
+            if ($update != false) {
+                echo json_encode(['status' => 'success']);
+
+            } else {
+                echo json_encode(['status' => 'failed']);
+
+            }
+      
+        } else {
+
+
+            $update = $employee_model->updateEmployee( $employee_name, $department_id, $position_id, $employee_id_old);
+            if ($update != false) {
+                echo json_encode(['status' => 'success']);
+
+            } else {
+                echo json_encode(['status' => 'failed']);
+
+            }
+        }
+
+        
+    }
+
     if(isset($_POST['remove_employee'])){
 
         $employee_id = htmlspecialchars($_POST['remove_employee'], ENT_QUOTES, "UTF-8");
