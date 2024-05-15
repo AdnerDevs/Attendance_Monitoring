@@ -1,5 +1,5 @@
 <?php
-require_once ('header.php');
+include ('header.php');
 
 ?>
 <style>
@@ -141,5 +141,5 @@ require_once ('header.php');
     }
 </script>
 <?php
-require_once ('footer.php');
+include ('footer.php');
 ?>

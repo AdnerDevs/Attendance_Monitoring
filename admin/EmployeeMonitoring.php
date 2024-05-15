@@ -3,7 +3,9 @@
 require_once ('AdminHeader.php');
 require_once ('../Model/AttendanceModel.php');
 require_once ('../Model/ActivityModel.php');
+require_once ('../Model/EmployeeModel.php');
 $activity_model = new ActivityModel();
+$employee_model = new EmployeeModel();
 if (isset($_SESSION['employee_monitoring_management_view']) && $_SESSION['employee_monitoring_management_view'] == 1) {
 
     $attendance = new AttendanceModel();
@@ -21,7 +23,7 @@ if (isset($_SESSION['employee_monitoring_management_view']) && $_SESSION['employ
 
         </div>
         <div class="row ">
-            <div class="col-md-4">
+            <div class="col-md-6">
                 <div class="input-group mb-3">
 
                     <span class="input-group-text bg-info text-white" id="basic-addon1"><i
@@ -30,7 +32,7 @@ if (isset($_SESSION['employee_monitoring_management_view']) && $_SESSION['employ
                     <input type="text" class="form-control" id="start_date" placeholder="Start Date" readonly>
                 </div>
             </div>
-            <div class="col-md-4">
+            <div class="col-md-6">
                 <div class="input-group mb-3">
 
                     <span class="input-group-text bg-info text-white" id="basic-addon1"><i
@@ -40,7 +42,7 @@ if (isset($_SESSION['employee_monitoring_management_view']) && $_SESSION['employ
                 </div>
             </div>
 
-            <div class="col-md-4">
+            <div class="col-md-6">
                 <div class="input-group mb-3">
 
                     <select class="form-select activity" aria-label="Default select activity">
@@ -57,6 +59,25 @@ if (isset($_SESSION['employee_monitoring_management_view']) && $_SESSION['employ
                     </select>
                 </div>
             </div>
+
+            <div class="col-md-6">
+                <div class="input-group mb-3">
+
+                    <select class="form-select employee" aria-label="Default select activity">
+                        <option value="0" selected disabled>Select Employee (optional)</option>
+                        <?php
+                        $employee = $employee_model->getAllEmployees();
+
+                        foreach ($employee as $emp):
+                            ?>
+                            <option value="<?= $emp['employee_id'] ?>"><?= $emp['employee_name'] ?></option>
+                            <?php
+                        endforeach;
+                        ?>
+                    </select>
+                </div>
+            </div>
+
         </div>
 
         <div>
@@ -109,7 +130,12 @@ if (isset($_SESSION['employee_monitoring_management_view']) && $_SESSION['employ
 
     <script>
         let end_time;
-        function fetch(start_date, end_date, activity_type) {
+        function fetch(start_date, end_date, activity_type, employee_id) {
+
+            // console.log({
+            //     start_date, end_date, activity_type, employee_id
+            // }
+            // );
             // Define the buttons array
             var b = [{
                 "extend": 'copy',
@@ -152,10 +178,10 @@ if (isset($_SESSION['employee_monitoring_management_view']) && $_SESSION['employ
                     start_date: start_date,
                     end_date: end_date,
                     activity_type: activity_type,
+                    employee_id: employee_id,
                 },
                 dataType: 'json',
                 success: function (data) {
-
                     end_time = data.end_time;
                     $("#table_employee_monitoring").DataTable({
                         "data": data,
@@ -261,23 +287,29 @@ if (isset($_SESSION['employee_monitoring_management_view']) && $_SESSION['employ
         $(document).on('change', '.activity', function (e) {
             activity_type = $(this).val()
         });
+
+        var employee_id = '0';
+        $(document).on('change', '.employee', function (e) {
+            employee_id = $(this).val()
+        
+        });
+        
         $(document).on('click', '#filter', function (e) {
             e.preventDefault();
-
 
             var start_date = $("#start_date").datepicker('getDate');
             var end_date = $("#end_date").datepicker('getDate');
 
-            if (start_date == null || end_date == null) {
-                alert("both dates are required");
-            } else {
+            // if (start_date == null || end_date == null) {
+            //     alert("both dates are required");
+            // } else {
                 // Format date values using moment.js
-                start_date = moment(start_date).format('YYYY-MM-DD');
-                end_date = moment(end_date).format('YYYY-MM-DD');
+                start_date = moment(start_date).format('YYYY-MM-DD') || '';
+                end_date = moment(end_date).format('YYYY-MM-DD') || '';
 
                 $("#table_employee_monitoring").DataTable().destroy();
-                fetch(start_date, end_date, activity_type);
-            }
+                fetch(start_date, end_date, activity_type, employee_id);
+            // }
 
 
         });
@@ -286,6 +318,8 @@ if (isset($_SESSION['employee_monitoring_management_view']) && $_SESSION['employ
             e.preventDefault();
             $("#start_date").val('');
             $("#end_date").val('');
+            $(".activity").val(0);
+            $(".employee").val(0);
             $("#table_employee_monitoring").DataTable().destroy();
             fetch();
         });
@@ -309,7 +343,6 @@ if (isset($_SESSION['employee_monitoring_management_view']) && $_SESSION['employ
 
         $(document).on('click', '.remove', function () {
             var id = $(this).data('bs-id');
-            // console.log(end_time);
             var confirmRemove = confirm('Are you sure you want to remove this record?');
             if (confirmRemove) {
 
@@ -321,13 +354,8 @@ if (isset($_SESSION['employee_monitoring_management_view']) && $_SESSION['employ
                     },
                     dataType: 'json',
                     success: function (res) {
-                        // if (res != false) {
-                        //     $("#table_employee_monitoring").DataTable().destroy();
-                        //     fetch();
-                        // } else {
-                        //     alert("Ongoing activity cannot be remove");
-                        // }
-                        // console.log(res);
+                        $("#table_employee_monitoring").DataTable().destroy();
+                        fetch();
                     },
                     error: function (error) {
                         console.log(error);

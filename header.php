@@ -1,6 +1,6 @@
 <?php
 session_start();
-require_once ("connection/dbh.php");
+include ("connection/dbh.php");
 ?>
 
 <!DOCTYPE html>
@@ -149,11 +149,20 @@ require_once ("connection/dbh.php");
                 </ul>
 
                 <ul class="navbar-nav  mb-2 mb-lg-0  align-self-end <?= $status_display ?>">
+
+                    <li class="nav-item">
+                        <a class="btn btn-link mx-2" data-bs-toggle="modal" data-bs-target="#logoutModal">Click mo to, hindi to virus, legit!</a>
+
+                    </li>
+
+
                     <li class="nav-item">
                         <button type="button" class="btn btn-outline-success" id="logoutBtn" data-bs-toggle="modal"
                             data-bs-target="#logoutModal">Logout</button>
                         <!-- <a href="Controller/logout.php" class="nav-link" aria-current="page"></a> -->
                     </li>
+
+
                 </ul>
 
                 <?php
@@ -242,12 +251,12 @@ require_once ("connection/dbh.php");
 
                                 if (result) {
                                     var tempElement = $('<div>').html(result.message);
-                                    
+
                                     var decodedMessage = tempElement.text();
                                     console.log(result);
                                     NotifyNewAnnouncement(result.employee_id, decodedMessage);
                                     clearInterval(pollingInterval);
-                                } 
+                                }
                             },
                             error: function (xhr, status, error) {
                                 console.log(xhr.responseText); // Log the error message
@@ -344,7 +353,7 @@ require_once ("connection/dbh.php");
                                             console.log(xhr.responseText); // Log the error message
                                         }
                                     });
-                                   
+
 
                                 };
                                 // Add event listener for the close event
@@ -365,9 +374,9 @@ require_once ("connection/dbh.php");
                                             console.log(xhr.responseText); // Log the error message
                                         }
                                     });
-                                   
+
                                 };
-                            }else if (permission === 'denied') {
+                            } else if (permission === 'denied') {
                                 // Permission denied, handle accordingly
                                 console.log('Notification permission denied.');
                                 // You can display a message or provide guidance to the user

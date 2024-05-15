@@ -452,10 +452,10 @@ if (isset($_SESSION['admin_management_view']) && $_SESSION['admin_management_vie
                                     if (session_admin_management_update.trim() === '') {
 
 
-                                        if (meta.row === 0) {
-                                            // If it's the first row, disable or hide the buttons
-                                            buttons += 'No action allowed';
-                                        } else {
+                                        // if (meta.row === 0) {
+                                        //     // If it's the first row, disable or hide the buttons
+                                        //     buttons += 'No action allowed';
+                                        // } else {
                                             // If it's not the first row, render the buttons normally
                                             buttons += '<button type="button" class="btn btn-outline-primary EditAccountBtn me-2 ' + session_admin_management_update + '" data-bs-id="' + data + '" data-bs-toggle="modal" data-bs-target="#EditAccountModal" data-tooltip="tooltip" title="Edit"><i class="fa fa-pencil" aria-hidden="true"></i></button>' +
                                                 '<button type="button" class="btn btn-outline-danger RemoveAccountBtn me-2 ' + session_admin_management_delete + '" data-bs-id="' + data + '" data-tooltip="tooltip" title="Remove"><i class="fa fa-trash" aria-hidden="true"></i></button>';
@@ -464,7 +464,7 @@ if (isset($_SESSION['admin_management_view']) && $_SESSION['admin_management_vie
                                             } else {
                                                 buttons += '<button type="button" class="btn btn-outline-success ArchiveAccountBtn ' + session_admin_management_archive + '" data-bs-id="' + data + '" data-bs-value="1" data-tooltip="tooltip" title="Allowed"><i class="fa fa-check-circle" aria-hidden="true"></i></button>';
                                             }
-                                        }
+                                        // }
                                     }
                                     return buttons;
 

@@ -29,6 +29,84 @@ class AttendanceModel extends Dbh{
             $stmt = null;
         }
     }
+    public function fetchActivity($activity_type, $employee_id){
+        try{
+            $data = [];
+            $stmt = $this->connect()->prepare("SELECT ea.employee_attendance_id, ea.employee_id, ea.employee_name, ac.activity_type, ea.activity_description, ea.start_time, ea.end_time, ea.total_time, ea.submitted_by, ea.submitted_on, dp.department_name, ea.day,  ea.hour, ea.minute, ea.second,  ea.day, ea.hour, ea.minute, ea.second 
+            FROM employee_attendance ea 
+            INNER JOIN activity ac ON ea.activity_type = ac.activity_id 
+            INNER JOIN department dp ON ea.department_id = dp.department_id
+
+            WHERE ea.isRemove != 1 and ea.activity_type = ? AND ea.employee_id = ?
+            ORDER BY ea.employee_attendance_id DESC");
+
+            if(!$stmt->execute([$activity_type, $employee_id])){
+                return false;
+           
+            }
+
+            $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            return $data;
+
+        }catch(PDOException $e){
+            print('Error: ' .$e->getMessage());
+        }finally{
+            $stmt = null;
+        }
+    }
+
+    
+    public function fetchActivityOnly($activity_type){
+        try{
+            $data = [];
+            $stmt = $this->connect()->prepare("SELECT ea.employee_attendance_id, ea.employee_id, ea.employee_name, ac.activity_type, ea.activity_description, ea.start_time, ea.end_time, ea.total_time, ea.submitted_by, ea.submitted_on, dp.department_name, ea.day,  ea.hour, ea.minute, ea.second,  ea.day, ea.hour, ea.minute, ea.second 
+            FROM employee_attendance ea 
+            INNER JOIN activity ac ON ea.activity_type = ac.activity_id 
+            INNER JOIN department dp ON ea.department_id = dp.department_id
+
+            WHERE ea.isRemove != 1 and ea.activity_type = ?
+            ORDER BY ea.employee_attendance_id DESC");
+
+            if(!$stmt->execute([$activity_type])){
+                return false;
+           
+            }
+
+            $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            return $data;
+
+        }catch(PDOException $e){
+            print('Error: ' .$e->getMessage());
+        }finally{
+            $stmt = null;
+        }
+    }
+    public function fetchEmployees($employee_id){
+        try{
+            $data = [];
+            $stmt = $this->connect()->prepare("SELECT ea.employee_attendance_id, ea.employee_id, ea.employee_name, ac.activity_type, ea.activity_description, ea.start_time, ea.end_time, ea.total_time, ea.submitted_by, ea.submitted_on, dp.department_name, ea.day,  ea.hour, ea.minute, ea.second,  ea.day, ea.hour, ea.minute, ea.second 
+            FROM employee_attendance ea 
+            INNER JOIN activity ac ON ea.activity_type = ac.activity_id 
+            INNER JOIN department dp ON ea.department_id = dp.department_id
+
+            WHERE ea.isRemove != 1 and ea.employee_id = ?
+
+            ORDER BY ea.employee_attendance_id DESC");
+
+            if(!$stmt->execute([$employee_id])){
+                return false;
+           
+            }
+
+            $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            return $data;
+
+        }catch(PDOException $e){
+            print('Error: ' .$e->getMessage());
+        }finally{
+            $stmt = null;
+        }
+    }
     public function date_range($start_date, $end_date) {
         try {
             $data = [];
@@ -71,6 +149,35 @@ class AttendanceModel extends Dbh{
                 ORDER BY ea.employee_attendance_id DESC");
     
                 if($stmt->execute()) {
+                    $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
+                    return $data;
+                }else{
+                    return false;
+                }
+    
+                
+            }
+            return $data;
+        } catch(PDOException $e) {
+            // Print error message or log it
+            print('Error: ' . $e->getMessage());
+            return false;
+        }
+    }
+
+    
+    public function date_range_with_acitvity_and_employee($start_date, $end_date, $activity_type, $employee_id) {
+        try {
+            $data = [];
+            if(isset($start_date) && isset($end_date)) {
+                $stmt = $this->connect()->prepare("SELECT ea.employee_attendance_id, ea.employee_id, ea.employee_name, ac.activity_type, ea.activity_description, ea.start_time, ea.end_time, ea.total_time, ea.submitted_by, ea.submitted_on, dp.department_name, ea.day,  ea.hour, ea.minute, ea.second, ea.day, ea.hour, ea.minute, ea.second 
+                FROM employee_attendance ea 
+                INNER JOIN activity ac ON ea.activity_type = ac.activity_id 
+                INNER JOIN department dp ON ea.department_id = dp.department_id
+                WHERE DATE(ea.start_time) >= '$start_date' AND DATE(ea.start_time) <= '$end_date' AND ea.isRemove != 1 AND ea.activity_type = ? AND ea.employee_id = ?
+                ORDER BY ea.employee_attendance_id DESC");
+    
+                if($stmt->execute([$activity_type, $employee_id])) {
                     $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
                     return $data;
                 }else{
@@ -181,6 +288,7 @@ class AttendanceModel extends Dbh{
             return false;
         } finally {
             $stmt = null;
+            $stmt2 = null;
         }
     }
     
@@ -188,12 +296,12 @@ class AttendanceModel extends Dbh{
 
     // UPDATE
     // client
-    public function updateEndtimeAttendance($end_time, $total_time, $day, $hour, $minute, $second, $employee_id, $employee_attendance_id){
+    public function updateEndtimeAttendance($end_time, $total_time,  $employee_attendance_id){
         try{
 
-            $stmt = $this->connect()->prepare('UPDATE employee_attendance SET end_time = ?,`total_time` = ?, `day` = ?, `hour` = ?, `minute` = ?, `second` = ?, `submitted_on`=? WHERE employee_attendance_id = ?');
+            $stmt = $this->connect()->prepare('UPDATE employee_attendance SET end_time = ?,`total_time` = ?, `submitted_on`=? WHERE employee_attendance_id = ?');
 
-            if(!$stmt->execute([ $end_time, $total_time, $day, $hour, $minute, $second , $end_time, $employee_attendance_id])){
+            if(!$stmt->execute([ $end_time, $total_time, $end_time, $employee_attendance_id])){
                 return false;
             }
 
@@ -213,7 +321,7 @@ class AttendanceModel extends Dbh{
         try{
             $stmt = $this->connect()->prepare('UPDATE employee_attendance SET isRemove = 1 WHERE employee_attendance_id = ?');
 
-            if ($stmt->execute([$employee_attendance_id]) && $stmt->rowCount() > 0) {
+            if ($stmt->execute([$employee_attendance_id])) {
                 return true;
             } else {
                 return false;

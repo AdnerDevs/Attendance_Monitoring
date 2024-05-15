@@ -120,7 +120,7 @@ require_once ('AdminHeader.php');
              
                 $("#table_employee_monitoring").DataTable({
                     "data": data,
-                    "dom": 'rti',
+                    "dom": 'rtip',
                     "columns": [
                         {
                             "data": 'employee_attendance_id',

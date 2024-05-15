@@ -26,22 +26,16 @@ $attendance_model = new AttendanceModel();
             $time_difference = $current_timestamp - $start_timestamp;
             $total_time = $current_timestamp - $start_timestamp;
 
-            $day = floor($time_difference / (60 * 60 * 24));
-            $time_difference -= $day * (60 * 60 * 24);
-            $hour = floor($time_difference / (60 * 60));
-            $time_difference -= $hour * (60 * 60);
-            $minute = floor($time_difference / 60);
-            $time_difference -= $minute * 60;
-            $second = $time_difference;
-
-            $update_end_attendance = $attendance_model->updateEndtimeAttendance($end_time, $total_time, $day, $hour, $minute, $second, $employee_id, $employee_attendance_id);
-
+            $update_end_attendance = $attendance_model->updateEndtimeAttendance($end_time, $total_time,  $employee_attendance_id);
 
             if ($update_end_attendance != false) {
                 echo json_encode(['status' => 'success']);
             } else {
                 echo json_encode(['status' => 'failed']);
+
             }
+
+         
         }
 
         if (isset($_POST['employee_id']) && isset($_POST['employee_name']) && isset($_POST['credential_id']) && isset($_POST['department_id']) && isset($_POST['activity_description']) && isset($_POST['activity_type'])) {
@@ -53,13 +47,6 @@ $attendance_model = new AttendanceModel();
             $activity_description = htmlspecialchars($_POST['activity_description'], ENT_QUOTES, 'UTF-8');
             $start_time = $current_date;
 
-            // $employee_id = "asdsa";
-            // $submitted_by = "asdsa";
-            // $employee_name ="asdsa" ;
-            // $department_id = 2;
-            // $activity_type =2;
-            // $activity_description = "sdsf";
-
             $insert_activity = $attendance_model->insertAttendance($employee_id, $employee_name, $department_id, $activity_type, $activity_description, $start_time, $submitted_by, $start_time);
 
             if ($insert_activity != false) {
@@ -68,7 +55,7 @@ $attendance_model = new AttendanceModel();
                 echo json_encode(['status' => 'failed', 'data' => $insert_activity]);
             }
 
-
+         
         }
 
         if(isset($_POST['remove_attendance'])){
@@ -83,6 +70,7 @@ $attendance_model = new AttendanceModel();
                  // Return the result as JSON
                 echo json_encode(false);
             }
+       
 
         }
 
